@@ -5,12 +5,6 @@ import { render, screen } from '@testing-library/react';
 import App from '../client/App';
 
 
-describe('Unit testing React components', () => { 
-  describe('Testing code output', () => {
-    
-  })
-})
-
 // For the textbox containing the generated code, we test that when state is updated that text box renders the text from state
 describe('Unit testing React components', () => {
 
