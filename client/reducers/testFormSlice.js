@@ -5,6 +5,7 @@ import { Middle } from "../components/Middle"; //SA Import middle component to b
 const initialState = {
   requestType: 'Get',
   assertionList: [],
+  i:0,
 }
 
 export const testFormSlice = createSlice({
@@ -17,7 +18,8 @@ export const testFormSlice = createSlice({
       console.log('state value: ', state.requestType);
     },
     addAssertion: (state) => {
-      state.assertionList.push(<Middle key={state.assertionList.length}/>) //SA need to create better key
+      state.assertionList.push(<Middle id={state.i} key={state.assertionList.length}/>); // drill id down to button 
+      state.i += 1;
     }
   }
 })
