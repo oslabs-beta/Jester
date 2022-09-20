@@ -1,7 +1,6 @@
 import React from 'react';
 import TextField from '@mui/material/TextField';
 import { useSelector, useDispatch } from 'react-redux'
-// import { useAppSelector, useAppDispatch } from '../redux/redux-hooks'
 
 import { userEditText } from '../reducers/reducer';
 
@@ -10,8 +9,6 @@ import { userEditText } from '../reducers/reducer';
 const CodeText = (props) => {
   const codeOutput = useSelector(state => state.slice.codeOutput)
   const codeOutputEdited = useSelector(state => state.slice.codeOutputEdited)
-  // const codeOutput = useAppSelector(state => state.slice.codeOutput)
-  // const codeOutputEdited = useAppSelector(state => state.slice.codeOutputEdited)  
   const dispatch = useDispatch();
   const editCode = (e) => dispatch(userEditText(e.target.value))
 

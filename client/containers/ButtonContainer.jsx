@@ -4,7 +4,6 @@ import Button from '@mui/material/Button';
 import ContentCopyIcon from '@mui/icons-material/ContentCopy';
 import DoneAllIcon from '@mui/icons-material/DoneAll';
 import { useSelector, useDispatch } from 'react-redux'
-// import { useAppSelector, useAppDispatch } from '../redux/redux-hooks'
 
 import { copyText, changeIcon } from '../reducers/reducer';
 
@@ -14,13 +13,11 @@ import { copyText, changeIcon } from '../reducers/reducer';
 
 const ButtonContainer = (props) => {
   const dispatch = useDispatch();
-  // const dispatch = useAppDispatch();
   const copyClipboard = () => {
     dispatch(copyText())
     dispatch(changeIcon())
   }
-  // const doneIcon = useSelector(state => state.slice.doneIcon)
-  const doneIcon = useAppSelector(state => state.slice.doneIcon)
+  const doneIcon = useSelector(state => state.slice.doneIcon)
 
   return (
     <Box sx={{ 
@@ -31,6 +28,7 @@ const ButtonContainer = (props) => {
       alignItems: 'flex-end',
       }}>
       <Button 
+        id="bttn-copy"
         variant="outlined"
         onClick={ copyClipboard }
       >

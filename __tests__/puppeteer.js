@@ -1,4 +1,3 @@
-const { TextSnippet } = require('@mui/icons-material');
 const puppeteer = require('puppeteer');
 
 const APP = `http://localhost:${process.env.PORT || 3000}/`;
