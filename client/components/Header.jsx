@@ -19,13 +19,14 @@ export const Header = () => {
     console.log('Submit Post Request');
   };
   return (
-    <form onSubmit={handleSubmit}>
+    <form id="test-generator-form" onSubmit={handleSubmit}>
+      <span>
       <FormControl>
         <Select
           name="request-selector"
           label="Request Type"
           value={requestType}
-          onChange={(e) => dispatch(setRequestType(e.target))}
+          onChange={(e) => dispatch(setRequestType(e.target.value))}
         >
           <MenuItem key="Get" value="Get">
             Get
@@ -42,14 +43,16 @@ export const Header = () => {
         </Select>
       </FormControl>
       <TextField label="Endpoint" id={requestType} name={requestType} />
+      </span>
       <Box id="assertion-list">Assertion List: {assertionList}</Box>
       <Button
         id="add-assertion"
+        variant="contained"
         onClick={() => {
           dispatch(addAssertion());
         }}
       >
-      +
+        +
       </Button>
     </form>
   );

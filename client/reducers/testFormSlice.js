@@ -12,7 +12,9 @@ export const testFormSlice = createSlice({
   initialState,
   reducers: {
     setRequestType: (state, action) => {
-      state.requestType = action.payload.value;
+      console.log('action', action)
+      state.requestType = action.payload;
+      console.log('state value: ', state.requestType);
     },
     addAssertion: (state) => {
       state.assertionList.push(<Middle key={state.assertionList.length}/>) //SA need to create better key
