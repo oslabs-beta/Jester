@@ -2,9 +2,10 @@ import React from 'react';
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
 import ContentCopyIcon from '@mui/icons-material/ContentCopy';
+import DoneAllIcon from '@mui/icons-material/DoneAll';
 import { useSelector, useDispatch } from 'react-redux'
 
-import { copyText } from '../reducers/reducer';
+import { copyText, changeIcon } from '../reducers/reducer';
 
 // This container wraps:
 // 2) the button that copies the code to the clipboard
@@ -12,7 +13,11 @@ import { copyText } from '../reducers/reducer';
 
 const ButtonContainer = (props) => {
   const dispatch = useDispatch();
-  const copyClipboard = () => dispatch(copyText())
+  const copyClipboard = () => {
+    dispatch(copyText())
+    dispatch(changeIcon())
+  }
+  const doneIcon = useSelector(state => state.slice.doneIcon)
 
   return (
     <Box sx={{ 
@@ -26,7 +31,7 @@ const ButtonContainer = (props) => {
         variant="outlined"
         onClick={ copyClipboard }
       >
-        <ContentCopyIcon/>
+        { (doneIcon) ? <DoneAllIcon/> : <ContentCopyIcon/> }
       </Button>
     </Box>
   )
