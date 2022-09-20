@@ -26,7 +26,7 @@ describe('Unit testing React components', () => {
     // const dropdown = document.querySelector('#request-selector')
 
     userEvent.click(screen.getByRole('button', {name: 'Get'}));
-  await (() => UserEvent.click(screen.getByText(/Post/i)));
+    await (() => UserEvent.click(screen.getByText(/Post/i)));
     expect(await screen.getByText('Post')).toBeInTheDocument();
 
   //   console.log(screen.getByLabel('Request Type'))
