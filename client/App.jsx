@@ -1,8 +1,10 @@
 import React from 'react';
 
-const App = (props) => {
+const App = () => {
   return (
-    <div>Well hello there!</div>
+    <div>
+      hi
+    </div>
   );        
 };
 
