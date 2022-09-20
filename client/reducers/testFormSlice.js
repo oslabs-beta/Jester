@@ -1,6 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit";
 import React from "react";
-import { Middle } from "../components/Middle"; //SA Import middle component to be rendered onClick of add button
+// import { Middle } from "../components/Middle"; //SA Import middle component to be rendered onClick of add button
 
 const initialState = {
   requestType: 'Get',

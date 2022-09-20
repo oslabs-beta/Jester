@@ -19,7 +19,7 @@ describe('Unit testing React components', () => {
     store = mockStore(initialState);
     render(<Provider store={store}><Header/></Provider>)
   })
-  test('Dropdown menu for request type renders successfully', () => {
+  xtest('Dropdown menu for request type renders successfully', () => {
     // const dropdown = screen.getByDisplayValue('Get');
     // console.log(dropdown)
     // expect(dropdown.type).toEqual('text');
@@ -38,7 +38,7 @@ describe('Unit testing React components', () => {
 
     
   })
-  test('Add assertion button renders successfully', () => {
+  xtest('Add assertion button renders successfully', () => {
     expect(screen.getByText('+')).toBeInTheDocument();
     const addAssertionButton = screen.getByText('+');
     expect(addAssertionButton.type).toEqual('button');
