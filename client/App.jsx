@@ -2,7 +2,7 @@ import React from 'react';
 import { Provider } from 'react-redux'
 import { ThemeProvider, createTheme } from '@mui/material/styles';
 
-import { store } from './store'
+import { store } from './redux/store'
 import CodeContainer from './containers/CodeContainer'
 import ButtonContainer from './containers/ButtonContainer'
 
