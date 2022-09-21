@@ -21,56 +21,49 @@ describe('Unit testing React components', () => {
   });
   // test('Dropdown menu for request type renders successfully', async () => {
   test('Dropdown menu for request type renders successfully', () => {
-    // const dropdown = screen.getByDisplayValue('Get');
-    // console.log(dropdown)
-    // expect(dropdown.type).toEqual('text');
-    // const dropdown = document.querySelector('#request-selector')
-
-    // getByTestId and screen.getByTestId('request-selector')
 
     // [x] Tried to set the innerHTML property of bttn
-    // const select = screen.getByRole('select', {name: 'Get'});
-    // bttn.innerHTML = 'Post'
-    // bttn = screen.getByRole('button', {name: 'Post'});
-    // const bttn2 = screen.getByRole('button', { expanded: true });
-    // const drop = screen.getByTestId('request-selector');
-    // let input0 = screen.getByDisplayValue('Get');
-    // userEvent.selectOptions(screen.getByTestId('request-selector'), 'Post');
-    // userEvent.selectOptions(bttn, 'Post');
-    
+    // [x] Tried to select the elements using getByTestId, getDisplayValue
+
     // https://stackoverflow.com/questions/55184037/react-testing-library-on-change-for-material-ui-select-component
+    // Based on the above stackoverflow, the general idea for testing is to:
+    //  1. select the button
+    //  2. fire the mouseDown event, which brings up the listbox
+    //  3. then select the Post li element from the listbox
     
     // Select the dropdown button from the screen
-    let bttn = screen.getByRole('button', {name: 'Get'});
-    fireEvent.mouseDown(bttn);
+    let button = screen.getByRole('button', {name: 'Get'});
+    // Fire the mouseDown event on the button
+    fireEvent.mouseDown(button);
     // The listbox is only accessible after the mouseDown event is fired on button
     const listbox = screen.getByRole('listbox', {name: ""});
+    let li = screen.getByText(/Post/i);
+    // ! This user event seems not to be working. either the click method is wrong or the element passed in is wrong
+    fireEvent.click(screen.getByText(/Post/i)); // Does not work!!!!!!!!
+    // userEvent.click(screen.getByText(/Post/i)); // X
+    // fireEvent.mouseDown(screen.getByText(/Post/i)); // X
 
-    // const listbox = getByRole('listbox');
-    // const listbox = within(getByRole('listbox', {name: ""}));
-    const a = 'a'
-    // screen.getByText(/Post/i)
-    // listbox.getByText('Post')
-    // listbox.getByDisplayValue(/Post/i)
-    // listbox.getByDisplayValue('Post')
-    // listbox.getByLabelText(/Post/i)
-    // const z = screen.getByText(/Post/i)
-    // fireEvent.click(screen.getByText(/Delete/i));
-    // userEvent.click(screen.getByText(/Post/i));
-    fireEvent.click(listbox.getByText(/Post/i));
+    // The code errors out if we call getByText on listbox
+    // fireEvent.click(listbox.getByText(/Post/i));
     
-    bttn = screen.getByRole('button', {name: 'Get'})
-    bttn = screen.getByRole('button', {name: 'Post'})
-    bttn = screen.getByText(/Post/i)
-    bttn = screen.getByText(/Get/i)
+    // the queries for Get should fail
+    // button = screen.getByRole('button', {name: 'Get'})
+    
+    // This fails because the button element is no longer on the screen???
+    // button = screen.getByRole('button', {name: 'Post'})
 
-    // input0 = screen.getByDisplayValue('Get');
+    li = screen.getByText(/Post/i)
+    // li = screen.getByText(/Get/i)
+
+    // Placeholder to stop debugger here
+    const b = 'a'
+
     // userEvent.click(screen.getByRole('button', {name: 'Get'}));
     // await (() => UserEvent.click(screen.getByText(/Post/i)));
     // expect(await screen.getByText('Post')).toBeInTheDocument();
 
   //   console.log(screen.getByLabel('Request Type'))
-    const b = 'a'
+    
   // fireEvent.change(screen.getByLabelText('Request Type'), { target: { value: 'Post' } })
   // let options = screen.getAllByTestId('request-selector')
   // expect(options[1].selected).toBeTruthy();
