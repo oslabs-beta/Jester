@@ -7,6 +7,8 @@ import CodeContainer from '../client/containers/CodeContainer';
 import ButtonContainer from '../client/containers/ButtonContainer';
 
 import configureStore from 'redux-mock-store'
+// import store from '../client/store'
+
 import '@testing-library/jest-dom'
 
 const initialState = {slice: {
@@ -51,11 +53,12 @@ describe('Unit testing Output Container components', () => {
 
   test('Renders ContentCopyIcon inside button', () => {
     button();
+    const bttn = screen.getByRole('button', { name: '' });
     const copyIcon = bttn.innerHTML.includes('data-testid=\"ContentCopyIcon\"');
     expect(copyIcon).toBeTruthy();
   }),
 
-  test('Renders DoneAllIcon on button click', () => {
+  xtest('Renders DoneAllIcon on button click', () => {
     button();
     let bttn = screen.getByRole('button', { name: '' });
     fireEvent.click(bttn)
