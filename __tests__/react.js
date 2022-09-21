@@ -15,6 +15,11 @@ import '@testing-library/jest-dom'
 const initialState = {slice: {
   codeOutput: `describe('Sample description')`,
 }};
+
+const clickedState = {slice: {
+  doneIcon: true,
+}};
+
 const mockStore = configureStore()
 
 const code = () => {
@@ -33,6 +38,13 @@ const button = () => {
   );
 }
 
+const buttonDone = () => {
+  render(
+    <Provider store={mockStore(clickedState)}>
+      <ButtonContainer/>
+    </Provider>,
+  );
+}
 
 describe('Unit testing Output Container components', () => {
 
@@ -56,29 +68,12 @@ describe('Unit testing Output Container components', () => {
     expect(copyIcon).toBeTruthy();
   }),
 
-  xtest('Renders DoneAllIcon on button click', () => {
-    button();
+  test('Renders DoneAllIcon on state change', () => {
+    buttonDone();
     let bttn = screen.getByRole('button', { name: '' });
-    fireEvent.click(bttn)
-    bttn = screen.getByRole('button', { name: '' });
     const checkIcon = bttn.innerHTML.includes('data-testid=\"DoneAllIcon\"');
     expect(checkIcon).toBeTruthy();
-  }),
-
-
-  xtest('Button onclick changes icon and copies base text to clipboard', () => {
-  }),
-
-  xtest('State is updated when user types in text box', () => {
-    // const TYPED_TEXT = 'new user typed text';
-    // let state = store.setState();
-    // let codeOutput = screen.getByLabelText('Testing Code');
-    // expect(codeOutput).toHaveTextContent(TYPED_TEXT);
-  }),
-
-  xtest('Button onclick copies edited text to clipboard', () => {
-  });
-
+  })
 })
 
 describe('Unit testing "Header" components', () => {
