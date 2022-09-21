@@ -1,0 +1,25 @@
+#code-output {
+  font-family: 'Inconsolata', monospace;
+  font-size: small;
+}
+
+#logo {
+  height: 60px;
+  margin-bottom: 10px;
+}
+
+// #footer {
+//   position: absolute;
+//   left: auto;
+//   bottom: 0;
+// }
+#test-generator-form {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+#add-assertion {
+  align-self: flex-start;
+}
