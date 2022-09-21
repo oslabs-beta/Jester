@@ -1,8 +1,10 @@
 import { configureStore } from '@reduxjs/toolkit';
-import middleReducer from './middleSlice'
+import testFormReducer from './reducers/testFormSlice';
+import middleReducer from './reducers/middleSlice';
 
 export const store = configureStore({
-    reducer: {
-        middle: middleReducer,
-    },
+  reducer: {
+    testForm: testFormReducer,
+    middle: middleReducer,
+  }
 })
