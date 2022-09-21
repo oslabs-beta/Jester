@@ -6,8 +6,10 @@ describe('TestForm Reducer', () => {
   beforeEach(() => {
     defaultState = {
       requestType: 'Get',
-      assertionList: [],
+      assertionList: {},
       i: 0,
+      userInput: '',
+      inputType: 'Status Code',
     };
   });
   describe('default state', () => {
@@ -27,7 +29,8 @@ describe('TestForm Reducer', () => {
     it('should update assertionList in state', () => {
       store.dispatch(addAssertion());
       const newState = store.getState();
-      expect(newState.testForm.assertionList.length).toEqual(1);
+      // console.log(newState.testForm.assertionList);
+      expect(newState.testForm.assertionList['0']).toEqual('Status Code');
     });
   });
 });
