@@ -9,7 +9,7 @@ import {
 } from '@mui/material';
 import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { setRequestType, addAssertion } from '../reducers/testFormSlice';
+import { setRequestType, addAssertion } from '../redux/reducers/testFormSlice';
 
 export const Header = () => {
   const requestType = useSelector((state) => state.testForm.requestType);
