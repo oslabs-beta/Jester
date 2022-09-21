@@ -10,6 +10,7 @@ const CodeContainer = (props) => {
   return (
     <Box sx={{ 
       width: 800,
+      marginTop: 5,
       marginLeft: 5,
       marginBotton: 1,
       }}>

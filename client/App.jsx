@@ -5,6 +5,8 @@ import { ThemeProvider, createTheme } from '@mui/material/styles';
 import { Header } from './components/Header';
 import CodeContainer from './containers/CodeContainer'
 import ButtonContainer from './containers/ButtonContainer'
+import NavBar from './components/NavBar'
+import Footer from './components/Footer'
 
 const theme = createTheme({
   palette: {
@@ -25,9 +27,11 @@ const theme = createTheme({
 const App = () => {
   return (
     <ThemeProvider theme={theme}>
-        <Header />
-        <CodeContainer />
-        <ButtonContainer />
+      <NavBar />
+      <Header />
+      <CodeContainer />
+      <ButtonContainer />
+      <Footer />
     </ThemeProvider>
   );        
 };
