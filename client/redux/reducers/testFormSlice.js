@@ -18,8 +18,8 @@ export const testFormSlice = createSlice({
       state.requestType = action.payload;
     },
     addAssertion: (state) => {
-      state.i += 1;
       state.assertionList[state.i] = 'Status Code';
+      state.i += 1;
     },
     setInputType: (state, action) => {
       state.assertionList[action.payload.id] = action.payload.type;
