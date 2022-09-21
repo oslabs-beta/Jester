@@ -7,6 +7,7 @@ describe('TestForm Reducer', () => {
     defaultState = {
       requestType: 'Get',
       assertionList: [],
+      i: 0,
     };
   });
   describe('default state', () => {
