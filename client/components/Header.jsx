@@ -10,10 +10,34 @@ import {
 import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { setRequestType, addAssertion } from '../redux/reducers/testFormSlice';
+import { Middle } from './Middle';
 
 export const Header = () => {
   const requestType = useSelector((state) => state.testForm.requestType);
-  const assertionList = useSelector((state) => state.testForm.assertionList);
+  const assertionObject = useSelector((state) => state.testForm.assertionList);
+  const index = useSelector((state) => state.testForm.i);
+  // const numOfAssertions = useSelector((state) => state.testForm.numOfAssertions);
+  // console.log('assertion Object: ', assertionObject[0])
+  // const assertionList = [];
+  // const values = []
+  // if (index !== 0) {
+  //   let i = 0;
+  //   while (i < index) {
+  //     if (assertionObject[i]) {
+  //       let el = assertionObject[i]
+  //       assertionList.push(el[0])
+  //     }
+  //     i += 1;
+  //   }
+  // }
+  const assertionList = [];
+  const assertionIds = Object.keys(assertionObject);
+  for (let id of assertionIds) {
+    assertionList.push(<Middle id={id} key={id} />)
+
+  }
+
+  // console.log(assertionList)
   const dispatch = useDispatch();
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -29,7 +53,7 @@ export const Header = () => {
           id="request-selector"
           data-testid="request-selector"
           label="Request Type"
-          value={requestType}
+          // value={values[index]}
           onChange={(e) => dispatch(setRequestType(e.target.value))}
         >
           <MenuItem key="Get" value="Get">
