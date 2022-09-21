@@ -13,9 +13,7 @@ export const testFormSlice = createSlice({
   initialState,
   reducers: {
     setRequestType: (state, action) => {
-      console.log('action', action)
       state.requestType = action.payload;
-      console.log('state value: ', state.requestType);
     },
     addAssertion: (state) => {
       state.assertionList.push(<Middle id={state.i} key={state.assertionList.length}/>); // drill id down to button 

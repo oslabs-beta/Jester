@@ -46,7 +46,7 @@ export const Header = () => {
           </MenuItem>
         </Select>
       </FormControl>
-      <TextField label="Endpoint" id={requestType} name={requestType} />
+      <TextField label="Endpoint" data-testid={requestType} id={requestType} name={requestType} />
       </span>
       <Box id="assertion-list">Assertion List: {assertionList}</Box>
       <Button

@@ -19,37 +19,15 @@ describe('Unit testing React components', () => {
     store = mockStore(initialState);
     render(<Provider store={store}><Header/></Provider>)
   })
-  test('Dropdown menu for request type renders successfully', async () => {
+  xtest('Dropdown menu for request type renders successfully', async () => {
     // const dropdown = screen.getByDisplayValue('Get');
     // console.log(dropdown)
     // expect(dropdown.type).toEqual('text');
     // const dropdown = document.querySelector('#request-selector')
 
     userEvent.click(screen.getByRole('button', {name: 'Get'}));
-  await (() => UserEvent.click(screen.getByText(/Post/i)));
+    await (() => UserEvent.click(screen.getByText(/Post/i)));
     expect(await screen.getByText('Post')).toBeInTheDocument();
-
-  //   console.log(screen.getByLabel('Request Type'))
-
-  // fireEvent.change(screen.getByLabelText('Request Type'), { target: { value: 'Post' } })
-  // let options = screen.getAllByTestId('request-selector')
-  // expect(options[1].selected).toBeTruthy();
-
-    // expect(screen.getByText('Get')).toBeInTheDocument();
-    // userEvent.click(screen.getByTestId('request-selector'));
-    // userEvent.click(await screen.getByTestId('Post'));
-
-
-    //userEvent
-
-
-
-    // expect(getByTestId('Post').selected).toBe(true);
-
-
-    // console.log(screen.getByText('Get').nextSibling)
-
-    // console.log(document.querySelector('#request-selector'))
 
     
   })
@@ -58,8 +36,24 @@ describe('Unit testing React components', () => {
     const addAssertionButton = screen.getByText('+');
     expect(addAssertionButton.type).toEqual('button');
   })
+  test('Endpoint textbox renders successfully', () => {
+    const textbox = screen.getByLabelText('Endpoint');
+    expect(textbox).toBeInTheDocument();
+    expect(textbox.type).toEqual('text');
+    expect(textbox.id).toEqual('Get');
+  })
+  xtest('Add button renders middle component', () => {
+    fireEvent.click(screen.getByText('+'));
+    const dropdown = screen.getByLabelText('Test Option')
+    expect(dropdown).toBeInTheDocument();
+    const textbox = screen.getByLabelText('User Input')
+    expect(textbox).toBeInTheDocument();
+    expect(textbox.type).toEqual('text');
+    const button = screen.getByText('-')
+    expect(button).toBeInTheDocument();
+    expect(button.type).toEqual('Button');
+  })
 
-  // dropdown menu renders
-  // add button renders
+ // add button renders middle component
 
 });
