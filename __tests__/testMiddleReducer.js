@@ -1,5 +1,5 @@
-import { store } from '../client/store';
-import { setInputType, addUserInput, deleteAssertion } from '../client/middleSlice';
+import { store } from '../client/redux/store';
+import { setInputType, addUserInput, deleteAssertion } from '../client/redux/reducers/middleSlice';
 
 //WORK IN PROGRESS
 

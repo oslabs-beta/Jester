@@ -7,9 +7,9 @@ import {
     Button
 } from '@mui/material';
 import { useSelector, useDispatch } from 'react-redux' 
-import { setInputType, addUserInput, deleteAssertion } from '../reducers/middleSlice';
+import { setInputType, addUserInput, deleteAssertion } from '../redux/reducers/middleSlice';
 
- export const Middle = (props) => {
+export const Middle = (props) => {
 
     const dispatch = useDispatch();
     const userInput = useSelector((state) => state.middle.userInput);

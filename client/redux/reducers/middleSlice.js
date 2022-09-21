@@ -1,5 +1,5 @@
 import React from 'react';
-import { Middle } from '../components/Middle';
+import { Middle } from '../../components/Middle';
 import { createSlice } from '@reduxjs/toolkit'
 
 const initialState = {
