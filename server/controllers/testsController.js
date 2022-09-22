@@ -1,6 +1,6 @@
 const helperFunctions = require('../helpers/functions.js');
-
 const testsController = {};
+
 /*
   EXPECTED INPUT:
     {
@@ -21,7 +21,6 @@ const testsController = {};
 
 /* Middleware to verify that we have the properties we are looking for in our input object. If it fails, return 400 error code.
   verify the reqest body has all the relevant properties and save them to res.locals.header and res.locals.assertions */
-
 testsController.verifyInput = (req, res, next) => {
   try {
     const { header, assertions } = req.body;
@@ -36,12 +35,12 @@ testsController.verifyInput = (req, res, next) => {
       throw new Error('Missing properties or wrong data types in request.');
     }
 
-    // Check for correct request methods
+    // Check for supported request methods
     header.method = header.method.toUpperCase();
     if (!methods.has(header.method)) {
       throw new Error('Invalid request method provided.');
     }
-    console.log(header);
+
     // POST and PATCH methods must have request body provided
     if (
       (header.method === 'POST' || header.method === 'PATCH') &&
@@ -62,7 +61,6 @@ testsController.verifyInput = (req, res, next) => {
 };
 
 /* Converts header part of input object into header of test code
-
   EXPECTED INPUT: res.locals.header, res.locals.assertions
   EXPECTED OUTPUT: res.locals.headerOutput = Array of Strings
     [
@@ -72,7 +70,6 @@ testsController.verifyInput = (req, res, next) => {
             `.get('/')`
       ]
 */
-
 testsController.createHeaderText = (req, res, next) => {
   const header = res.locals.header;
   const assertions = res.locals.assertions;

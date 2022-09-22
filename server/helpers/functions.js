@@ -4,15 +4,14 @@ helperFunctions.headerGenerator = (header, assertions) => {
   const headerOutput = [];
   let description = '';
 
+  const assertText = { status: 'status', content: 'content-type' };
+
   for (let assertion of assertions) {
     const keys = Object.keys(assertion);
-    if (keys[0] === 'status') {
+    const assert = keys[0];
+    if (assertText[assert]) {
       description += description ? ' and ' : '';
-      description += `status ${assertion.status}`;
-    }
-    if (keys[0] === 'content') {
-      description += description ? ' and ' : '';
-      description += `content-type ${assertion.content}`;
+      description += `${assertText[assert]} ${assertion[assert]}`;
     }
   }
 
