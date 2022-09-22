@@ -8,11 +8,13 @@ const testsController = {};
     {
       header: {
                 endpoint : '/',
-                method: 'GET'
+                method: 'POST'
+                req_body: {a:1} // Needed for POST and PATCH, optional for DELETE
       },
       assertions: [
                     { content: '/text\/html/' },
                     { status: 200 },
+                    { res_body: { a: 'b' } }
                     ...
       ]
     }
@@ -21,20 +23,42 @@ const testsController = {};
 testsController.verifyInput = (req, res, next) => {
   try {
     const { header, assertions } = req.body;
+
+    // Check for improper input
     if (
       typeof header.endpoint !== 'string' ||
       typeof header.method !== 'string' ||
       !Array.isArray(assertions)
     ) {
-      throw new Error('missing properties or wrong data types in req.body');
+      throw new Error('Missing properties or wrong data types in request.');
     }
+
+    // Check for correct request methods
+    header.method = header.method.toUpperCase();
+    if (
+      header.method !== 'GET' &&
+      header.method !== 'POST' &&
+      header.method !== 'PATCH' &&
+      header.method !== 'DELETE'
+    ) {
+      throw new Error('Invalid request method provided.');
+    }
+    console.log(header);
+    // POST and PATCH methods must have request body provided
+    if (
+      (header.method === 'POST' || header.method === 'PATCH') &&
+      !header.req_body
+    ) {
+      throw new Error('Body not provided with POST or PATCH request.');
+    }
+
     res.locals.header = header;
     res.locals.assertions = assertions;
     return next();
   } catch (err) {
     return next({
       log: 'verifyInput middleware error: ' + err,
-      message: { err },
+      message: { err }
     });
   }
 };
@@ -71,9 +95,18 @@ testsController.headerGenerator = (header, assertions) => {
     description = `makes a ${header.method} request to "${header.endpoint}"`;
 
   headerOutput.push(`describe('${header.endpoint}', () => {`);
-  headerOutput.push(`describe('${header.method}', () => {`);
-  headerOutput.push(`it('${description}', () => request(server)`);
-  headerOutput.push(`.get('${header.endpoint}')`);
+  headerOutput.push(` describe('${header.method}', () => {`);
+  headerOutput.push(` it('${description}', () => request(server)`);
+  headerOutput.push(`  .${header.method.toLowerCase()}('${header.endpoint}')`);
+
+  if (
+    (header.method === 'POST' ||
+      header.method === 'PATCH' ||
+      header.method === 'DELETE') &&
+    header.req_body
+  ) {
+    headerOutput.push(`   .send(${header.req_body})`);
+  }
 
   return headerOutput;
 };
@@ -91,7 +124,8 @@ testsController.createHeaderText = (req, res, next) => {
 /* 
   INPUT: assertions: [
                     { status: 200 },
-                    { content: 'text/html' }
+                    { content: 'text/html' },
+                    { res_body: { a: 'b' } }
       ]
 */
 //Write a MiddleWare to examine the res object from the front-end and produce lines of code depending on what is coming in from the middleware.
@@ -106,10 +140,13 @@ testsController.middleGenerator = (assertions) => {
     // console.log(assertion);
     if (Object.keys(assertion)[0] === 'status') {
       //add our status description to the it(string) we want to return
-      middleOutput.push(`.expect(${assertion.status})`);
+      middleOutput.push(`   .expect(${assertion.status})`);
     }
     if (Object.keys(assertion)[0] === 'content') {
-      middleOutput.push(`.expect('Content-Type', ${assertion.content})`);
+      middleOutput.push(`   .expect('Content-Type', ${assertion.content})`);
+    }
+    if (Object.keys(assertion)[0] === 'res_body') {
+      middleOutput.push(`   .expect(${assertion.res_body})`);
     }
   }
   return middleOutput;
@@ -138,7 +175,7 @@ testsController.createMiddleText = (req, res, next) => {
 testsController.compiledCodeGenerator = (headerOutput, middleOutput) => {
   const compiledCode = headerOutput.concat(middleOutput);
   compiledCode[compiledCode.length - 1] += ';';
-  compiledCode.push(`});`, `});`);
+  compiledCode.push(` });`, `});`);
   return compiledCode;
 };
 

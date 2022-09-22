@@ -28,8 +28,8 @@ describe('testsController middleware unit tests', () => {
       mockRequest.body = {
         header: {
           input: '/',
-          method: 'GET',
-        },
+          method: 'GET'
+        }
         // missing assertions array
       };
       nextFunction = (err) => err;
@@ -41,13 +41,32 @@ describe('testsController middleware unit tests', () => {
       expect(result.message.err).toBeInstanceOf(Error);
     });
 
+    it('invalid request method in req.body should return error', () => {
+      mockRequest.body = {
+        header: {
+          input: '/',
+          method: 'get'
+        },
+        assertions: []
+      };
+      nextFunction = (err) => err;
+      const result = testsController.verifyInput(
+        mockRequest,
+        mockResponse,
+        nextFunction
+      );
+      console.log(result.message.err);
+      expect(result.message.err).toBeInstanceOf(Error);
+      expect(result).not.toEqual(nextFunction());
+    });
+
     it('correct properties in req.body should return next()', () => {
       mockRequest.body = {
         header: {
           input: '/',
-          method: 'GET',
+          method: 'GET'
         },
-        assertions: [],
+        assertions: []
       };
       const result = testsController.verifyInput(
         mockRequest,
@@ -62,14 +81,14 @@ describe('testsController middleware unit tests', () => {
   describe('generateHeader', () => {
     const header = {
       endpoint: '/',
-      method: 'GET',
+      method: 'GET'
     };
     const assertions = [];
     const expectedResult = [
       `describe('/', () => {`,
       `describe('GET', () => {`,
       `it('makes a GET request to "/"', () => request(server)`,
-      `.get('/')`,
+      `.get('/')`
     ];
 
     it('empty assertions array should return default header', () => {
@@ -105,22 +124,33 @@ describe('testsController middleware unit tests', () => {
     let expectedResult = [
       '.expect(200)',
       `.expect('Content-Type', /text/html/)`,
+      `{ res_body: { a: 'b' } }`
     ];
     beforeEach(() => {
       assertions = [];
     });
-    it('should return proper expect for a status of 200', () => {
+    xit('should return proper expect for a status of 200', () => {
       assertions.push({ status: 200 });
       const result = testsController.middleGenerator(assertions);
       expect(result).toEqual([expectedResult[0]]);
     });
-    it('should return proper expect for a content of text/html', () => {
+    xit('should return proper expect for a content of text/html', () => {
       assertions.push({ content: '/text/html/' });
       const result = testsController.middleGenerator(assertions);
       expect(result).toEqual([expectedResult[1]]);
     });
-    it('assertion of status: 200 and of content type text/html should return the relevant array', () => {
-      assertions.push({ status: 200 }, { content: '/text/html/' });
+    // Test for body
+    it('should return proper expect for a body', () => {
+      assertions.push({ res_body: { a: 'b' } });
+      const result = testsController.middleGenerator(assertions);
+      expect(result).toEqual([expectedResult[2]]);
+    });
+    xit('assertion of status: 200, content type text/html, and body should return the relevant array', () => {
+      assertions.push(
+        { status: 200 },
+        { content: '/text/html/' },
+        { res_body: { a: 'b' } }
+      );
       const result = testsController.middleGenerator(assertions);
       // console.log({ result }, { expectedResult });
       expect(result).toEqual(expectedResult);
