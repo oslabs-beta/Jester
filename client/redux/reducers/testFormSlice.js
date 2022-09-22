@@ -7,7 +7,6 @@ const initialState = {
   assertionList: {},
   i: 0,
   userInput: '',
-  inputType: 'Status Code',
 };
 
 export const testFormSlice = createSlice({
