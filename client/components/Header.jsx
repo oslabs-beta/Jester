@@ -57,7 +57,7 @@ export const Header = () => {
           id={requestType}
           name={requestType}
         />
-        <RequestBody requestType={requestType} />
+        <RequestBody showField={requestType === 'Get' ? false : true} />
       </span>
       <Box id="assertion-list">Assertion List: {assertionList}</Box>
       <Button

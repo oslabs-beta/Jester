@@ -11,7 +11,6 @@ describe('Test Middle Reducer', () => {
         assertionList: {},
         i: 0,
         userInput: '',
-        inputType: 'Status Code',
       };
     });
     describe('default state', () => {

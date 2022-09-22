@@ -143,9 +143,10 @@ describe('Unit testing "RequestBody" component', () => {
   let store;
   beforeEach(() => {
     store = mockStore(initialState);
+    const state = store.getState();
     render(
       <Provider store={store}>
-        <RequestBody />
+        <RequestBody showField = {state.testForm.requestType === 'Get' ? false : true} />
       </Provider>
     );
   });
