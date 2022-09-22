@@ -11,12 +11,16 @@ import configureStore from 'redux-mock-store';
 
 import '@testing-library/jest-dom';
 
-const initialState = {
-  slice: {
-    codeOutput: `describe('Sample description')`,
-  },
-};
-const mockStore = configureStore();
+
+const initialState = {slice: {
+  codeOutput: `describe('Sample description')`,
+}};
+
+const clickedState = {slice: {
+  doneIcon: true,
+}};
+
+const mockStore = configureStore()
 
 const code = () => {
   render(
@@ -32,7 +36,15 @@ const button = () => {
       <ButtonContainer />
     </Provider>
   );
-};
+}
+
+const buttonDone = () => {
+  render(
+    <Provider store={mockStore(clickedState)}>
+      <ButtonContainer/>
+    </Provider>,
+  );
+}
 
 describe('Unit testing Output Container components', () => {
   test('Renders placeholder code output in Code Container', () => {
@@ -40,34 +52,28 @@ describe('Unit testing Output Container components', () => {
     const codeOutput = screen.getByLabelText('Testing Code');
     expect(codeOutput.innerHTML).toEqual(`describe('Sample description')`);
   }),
-    test('Renders copy to clipboard button', () => {
-      button();
-      const bttn = screen.getByRole('button', { name: '' });
-      expect(bttn).toBeInTheDocument();
-    }),
-    test('Renders ContentCopyIcon inside button', () => {
-      button();
-      const bttn = screen.getByRole('button', { name: '' });
-      const copyIcon = bttn.innerHTML.includes('data-testid="ContentCopyIcon"');
-      expect(copyIcon).toBeTruthy();
-    }),
-    xtest('Renders DoneAllIcon on button click', () => {
-      button();
-      let bttn = screen.getByRole('button', { name: '' });
-      fireEvent.click(bttn);
-      bttn = screen.getByRole('button', { name: '' });
-      const checkIcon = bttn.innerHTML.includes('data-testid="DoneAllIcon"');
-      expect(checkIcon).toBeTruthy();
-    }),
-    xtest('Button onclick changes icon and copies base text to clipboard', () => {}),
-    xtest('State is updated when user types in text box', () => {
-      // const TYPED_TEXT = 'new user typed text';
-      // let state = store.setState();
-      // let codeOutput = screen.getByLabelText('Testing Code');
-      // expect(codeOutput).toHaveTextContent(TYPED_TEXT);
-    }),
-    xtest('Button onclick copies edited text to clipboard', () => {});
-});
+  
+
+  test('Renders copy to clipboard button', () => {
+    button();
+    const bttn = screen.getByRole('button', { name: '' });
+    expect(bttn).toBeInTheDocument();
+  }),
+
+  test('Renders ContentCopyIcon inside button', () => {
+    button();
+    const bttn = screen.getByRole('button', { name: '' });
+    const copyIcon = bttn.innerHTML.includes('data-testid=\"ContentCopyIcon\"');
+    expect(copyIcon).toBeTruthy();
+  }),
+
+  test('Renders DoneAllIcon on state change', () => {
+    buttonDone();
+    let bttn = screen.getByRole('button', { name: '' });
+    const checkIcon = bttn.innerHTML.includes('data-testid=\"DoneAllIcon\"');
+    expect(checkIcon).toBeTruthy();
+  })
+})
 
 describe('Unit testing "Header" components', () => {
   const initialState = { testForm: { requestType: 'Get', assertionList: [] } };
