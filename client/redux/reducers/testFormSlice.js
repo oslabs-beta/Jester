@@ -1,12 +1,13 @@
-import { createSlice } from "@reduxjs/toolkit";
-import React from "react";
-import { Middle } from "../../components/Middle"; //SA Import middle component to be rendered onClick of add button
+import { createSlice } from '@reduxjs/toolkit';
+import React from 'react';
+import { Middle } from '../../components/Middle'; //SA Import middle component to be rendered onClick of add button
 
 const initialState = {
   requestType: 'Get',
-  assertionList: [],
-  i:0,
-}
+  assertionList: {},
+  i: 0,
+  userInput: '',
+};
 
 export const testFormSlice = createSlice({
   name: 'testForm',
@@ -16,12 +17,23 @@ export const testFormSlice = createSlice({
       state.requestType = action.payload;
     },
     addAssertion: (state) => {
-      state.assertionList.push(<Middle id={state.i} key={state.assertionList.length}/>); // drill id down to button 
+      state.assertionList[state.i] = 'Status Code';
       state.i += 1;
-    }
-  }
-})
+    },
+    setInputType: (state, action) => {
+      state.assertionList[action.payload.id] = action.payload.type;
+    },
+    deleteAssertion: (state, action) => {
+      delete state.assertionList[action.payload]
+    },
+  },
+});
 
-export const { setRequestType, addAssertion } = testFormSlice.actions;
+export const {
+  setRequestType,
+  addAssertion,
+  setInputType,
+  deleteAssertion,
+} = testFormSlice.actions;
 
 export default testFormSlice.reducer;

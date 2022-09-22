@@ -10,52 +10,61 @@ import {
 import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { setRequestType, addAssertion } from '../redux/reducers/testFormSlice';
+import { Middle } from './Middle';
+import { RequestBody } from './RequestBody';
 
 export const Header = () => {
   const requestType = useSelector((state) => state.testForm.requestType);
-  const assertionList = useSelector((state) => state.testForm.assertionList);
+  const assertionObject = useSelector((state) => state.testForm.assertionList);
+  const assertionList = [];
+  const assertionIds = Object.keys(assertionObject);
+  for (let id of assertionIds) {
+    assertionList.push(<Middle id={id} key={id} />);
+  }
   const dispatch = useDispatch();
   const handleSubmit = (e) => {
     e.preventDefault();
     console.log('Submit Post Request');
   };
+  const handleChange = (e) => dispatch(setRequestType(e.target.value));
+  const handleAdd = () => dispatch(addAssertion());
+
+  const menuItems = [];
+  const menuOptions = ['Get', 'Post', 'Patch', 'Delete'];
+  for (let option of menuOptions) {
+    menuItems.push(<MenuItem key={option} value={option}>{option}</MenuItem>)
+  }
+
   return (
     <form id="test-generator-form" onSubmit={handleSubmit}>
       <span>
-      <FormControl>
-      <InputLabel id="requestSelector">Request Type</InputLabel>
-        <Select
-          name="request-selector"
-          id="request-selector"
-          data-testid="request-selector"
-          label="Request Type"
-          value={requestType}
-          onChange={(e) => dispatch(setRequestType(e.target.value))}
-        >
-          <MenuItem key="Get" value="Get">
-            Get
-          </MenuItem>
-          <MenuItem key="Post" data-testid="Post" value="Post">
-            Post
-          </MenuItem>
-          <MenuItem key="Patch" value="Patch">
-            Patch
-          </MenuItem>
-          <MenuItem key="Delete" value="Delete">
-            Delete
-          </MenuItem>
-        </Select>
-      </FormControl>
-      <TextField label="Endpoint" data-testid={requestType} id={requestType} name={requestType} />
+        <FormControl>
+          <InputLabel id="requestSelector">Request Type</InputLabel>
+          <Select
+            name="request-selector"
+            id="request-selector"
+            data-testid="request-selector"
+            label="Request Type"
+            value={requestType}
+            onChange={ handleChange }
+          >
+            {menuItems}
+          </Select>
+        </FormControl>
+        <TextField
+          label="Endpoint"
+          data-testid={requestType}
+          id={requestType}
+          name={requestType}
+        />
+        <RequestBody requestType={requestType} />
       </span>
       <Box id="assertion-list">Assertion List: {assertionList}</Box>
       <Button
         id="add-assertion"
         name="add-assertion"
         variant="contained"
-        onClick={() => {
-          dispatch(addAssertion());
-        }}
+        onClick={ handleAdd }
       >
         +
       </Button>
