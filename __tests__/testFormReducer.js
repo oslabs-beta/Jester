@@ -9,7 +9,6 @@ describe('TestForm Reducer', () => {
       assertionList: {},
       i: 0,
       userInput: '',
-      inputType: 'Status Code',
     };
   });
   describe('default state', () => {

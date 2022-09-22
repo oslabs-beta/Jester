@@ -6,10 +6,12 @@ import userEvent from '@testing-library/user-event';
 import CodeContainer from '../client/containers/CodeContainer';
 import ButtonContainer from '../client/containers/ButtonContainer';
 import { Header } from '../client/components/Header';
+import { setRequestType } from '../client/redux/reducers/testFormSlice';
 
 import configureStore from 'redux-mock-store';
 
 import '@testing-library/jest-dom';
+import { RequestBody } from '../client/components/RequestBody';
 
 
 const initialState = {slice: {
@@ -75,8 +77,13 @@ describe('Unit testing Output Container components', () => {
   })
 })
 
-describe('Unit testing "Header" components', () => {
-  const initialState = { testForm: { requestType: 'Get', assertionList: [] } };
+describe('Unit testing "Header" component', () => {
+  const initialState = { testForm: {
+    requestType: 'Get',
+    assertionList: {},
+    i: 0,
+    userInput: '',
+  } };
   const mockStore = configureStore();
   let store;
   beforeEach(() => {
@@ -130,3 +137,25 @@ describe('Unit testing "Header" components', () => {
 
   // add button renders middle component
 });
+
+describe('Unit testing "RequestBody" component', () => {
+  const initialState = { testForm: {
+    requestType: 'Post',
+    assertionList: {},
+    i: 0,
+    userInput: '',
+  } };
+  const mockStore = configureStore();
+  let store;
+  beforeEach(() => {
+    store = mockStore(initialState);
+    render(
+      <Provider store={store}>
+        <RequestBody />
+      </Provider>
+    );
+  });
+  test('Request body textbox renders successfully when requestType is Post, Patch, or Delete', () => {
+    expect(screen.getByTestId('Request-Body')).toBeInTheDocument()
+  })
+})

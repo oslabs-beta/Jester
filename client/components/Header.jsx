@@ -11,6 +11,7 @@ import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { setRequestType, addAssertion } from '../redux/reducers/testFormSlice';
 import { Middle } from './Middle';
+import { RequestBody } from './RequestBody';
 
 export const Header = () => {
   const requestType = useSelector((state) => state.testForm.requestType);
@@ -56,6 +57,7 @@ export const Header = () => {
           id={requestType}
           name={requestType}
         />
+        <RequestBody requestType={requestType} />
       </span>
       <Box id="assertion-list">Assertion List: {assertionList}</Box>
       <Button
