@@ -61,7 +61,7 @@ helperFunctions.compiledCodeGenerator = (headerOutput, middleOutput) => {
   const compiledCode = headerOutput.concat(middleOutput);
   compiledCode[compiledCode.length - 1] += ';';
   compiledCode.push(` });`, `});`);
-  return compiledCode;
+  return compiledCode.join('\n');
 };
 
 module.exports = helperFunctions;
