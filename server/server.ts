@@ -1,10 +1,12 @@
-const path = require('path');
-const express = require('express');
-const cookieSession = require('cookie-session')
-const passport = require('passport');
+import cookieSession from 'cookieSession'
+import passport from 'passport'
+import path from 'path';
 
-const authRoutes = require('./routes/auth');
-const testsRoutes = require('./routes/tests');
+import express, { Express, Request, Response, NextFunction } from 'express';
+
+import authRoutes from './routes/auth';
+import testsRoutes from './routes/tests';
+import { GlobalError } from './serverTypes';
 
 const app = express();
 const PORT = 3000;
@@ -24,14 +26,15 @@ app.use(passport.session());
 app.use('/auth', authRoutes);
 app.use('/api/tests', testsRoutes);
 app.use('/dist', express.static(path.join(__dirname, '../dist')));
+app.use('/assets', express.static(path.join(__dirname, '../client/assets')));
 
 // Serve base HTML file
-app.get('/', (req, res) =>
-  res.status(200).sendFile(path.join(__dirname, '../client/index.html'))
-);
+app.get('/', (req: Request, res: Response) => {
+  return res.status(200).sendFile(path.join(__dirname, '../client/index.html'));
+});
 
 // Global error handling middleware
-app.use((err, req, res, next) => {
+app.use((err: GlobalError, req: Request, res: Response, next: NextFunction) => {
   const defaultErr = {
     log: 'Express error handler caught unknown middleware error',
     status: 400,
@@ -47,4 +50,4 @@ app.listen(PORT, () => {
   console.log(`Server listening on port: http://localhost:${PORT}`);
 });
 
-module.exports = app;
+export default app;
