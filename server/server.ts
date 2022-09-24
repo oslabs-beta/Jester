@@ -1,5 +1,5 @@
-import cookieSession from 'cookieSession'
-import passport from 'passport'
+import cookieSession from 'cookie-session';
+import passport from 'passport';
 import path from 'path';
 
 import express, { Express, Request, Response, NextFunction } from 'express';
