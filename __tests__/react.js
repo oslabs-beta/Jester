@@ -53,28 +53,28 @@ describe('Unit testing Output Container components', () => {
     code();
     const codeOutput = screen.getByLabelText('Testing Code');
     expect(codeOutput.innerHTML).toEqual(`describe('Sample description')`);
-  }),
+  });
   
 
   test('Renders copy to clipboard button', () => {
     button();
     const bttn = screen.getByRole('button', { name: '' });
     expect(bttn).toBeInTheDocument();
-  }),
+  });
 
   test('Renders ContentCopyIcon inside button', () => {
     button();
     const bttn = screen.getByRole('button', { name: '' });
     const copyIcon = bttn.innerHTML.includes('data-testid=\"ContentCopyIcon\"');
     expect(copyIcon).toBeTruthy();
-  }),
+  });
 
   test('Renders DoneAllIcon on state change', () => {
     buttonDone();
     let bttn = screen.getByRole('button', { name: '' });
     const checkIcon = bttn.innerHTML.includes('data-testid=\"DoneAllIcon\"');
     expect(checkIcon).toBeTruthy();
-  })
+  });
 })
 
 describe('Unit testing "Header" component', () => {

@@ -3,7 +3,7 @@
   font-size: small;
 }
 
-#logo {
+img[alt~="logo"]{
   height: 60px;
   margin-bottom: 10px;
 }
@@ -13,6 +13,7 @@
 //   left: auto;
 //   bottom: 0;
 // }
+
 #test-generator-form {
   display: flex;
   flex-direction: column;
