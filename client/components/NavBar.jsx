@@ -10,18 +10,20 @@ import MenuIcon from '@mui/icons-material/Menu';
 const NavBar = () => {
   return (
     <Box sx={{ flexGrow: 1 }}>
-      <AppBar position="static">
+      <AppBar position='static'>
         <Toolbar>
-          <img alt="logo" src='./logo-jester.png'/>
-          <Typography variant="h6" component="div" sx={{ flexGrow: 1, marginLeft: '15px' }}>
-          
-          </Typography>
-          <Button color="inherit">Tutorial</Button>
-          <Button color="inherit">Logout</Button>
+          <img alt='logo' src='../assets/logo-jester.png' />
+          <Typography
+            variant='h6'
+            component='div'
+            sx={{ flexGrow: 1, marginLeft: '15px' }}
+          ></Typography>
+          <Button color='inherit'>Tutorial</Button>
+          <Button color='inherit'>Logout</Button>
         </Toolbar>
       </AppBar>
     </Box>
   );
-}
+};
 
 export default NavBar;
