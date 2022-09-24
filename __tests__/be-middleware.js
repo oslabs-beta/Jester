@@ -163,7 +163,7 @@ describe('testsController middleware unit tests', () => {
   describe('compiledCodeGenerator', () => {
     const headerOutput = ['line1', 'line2'];
     const middleOutput = ['line3', 'line4'];
-    const expectedResult = ['line1', 'line2', 'line3', 'line4;', ' });', '});'];
+    const expectedResult = 'line1\nline2\nline3\nline4;\n });\n});';
     it('should compile both headerOutput and middleOutput into a final array', () => {
       const result = helperFunctions.compiledCodeGenerator(
         headerOutput,

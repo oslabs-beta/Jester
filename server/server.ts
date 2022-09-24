@@ -10,6 +10,7 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use('/api/tests', testsRoutes);
 app.use('/dist', express.static(path.join(__dirname, '../dist')));
+app.use('/assets', express.static(path.join(__dirname, '../client/assets')));
 
 app.get('/', (req: Request, res: Response) => {
   return res.status(200).sendFile(path.join(__dirname, '../client/index.html'));
