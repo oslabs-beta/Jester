@@ -37,6 +37,6 @@ module.exports = {
     hot: true,
     proxy: {},
   },
-  resolve: { extensions: ['*', '.js', '.jsx'] },
+  resolve: { extensions: ['*', '.ts', 'tsx', '.js', '.jsx'] },
   plugins: [new HTMLWebpackPlugin({ template: './client/index.html' })],
 };
