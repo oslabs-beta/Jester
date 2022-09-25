@@ -4,7 +4,7 @@ import configureStore from 'redux-mock-store';
 import { fireEvent, render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 
-import Navbar from '../client/components/Navbar';
+import Navbar from '../../client/components/Navbar';
 
 import '@testing-library/jest-dom';
 

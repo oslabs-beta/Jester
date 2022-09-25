@@ -3,15 +3,15 @@ import { Provider } from 'react-redux';
 import { fireEvent, render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 
-import CodeContainer from '../client/containers/CodeContainer';
-import ButtonContainer from '../client/containers/ButtonContainer';
-import { Header } from '../client/components/Header';
-import { setRequestType } from '../client/redux/reducers/testFormSlice';
+import CodeContainer from '../../client/containers/CodeContainer';
+import ButtonContainer from '../../client/containers/ButtonContainer';
+import { Header } from '../../client/components/Header';
+import { setRequestType } from '../../client/redux/reducers/testFormSlice';
 
 import configureStore from 'redux-mock-store';
 
 import '@testing-library/jest-dom';
-import { RequestBody } from '../client/components/RequestBody';
+import { RequestBody } from '../../client/components/RequestBody';
 
 
 const initialState = {slice: {

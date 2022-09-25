@@ -1,5 +1,5 @@
-import { store } from '../client/redux/store';
-import { setRequestType, addAssertion } from '../client/redux/reducers/testFormSlice';
+import { store } from '../../client/redux/store';
+import { setRequestType, addAssertion } from '../../client/redux/reducers/testFormSlice';
 
 describe('TestForm Reducer', () => {
   let defaultState;
