@@ -8,13 +8,26 @@ import Navbar from '../../client/components/Navbar';
 
 import '@testing-library/jest-dom';
 
-const initialState = {slice: {
+type sliceType = {
+  codeOutput: string
+};
+
+type userInfoType = {
+  showLogin: false,
+}
+
+type initialStateType = {
+  slice: sliceType,
+  userInfo: userInfoType,
+}
+
+const initialState: initialStateType = {slice: {
   codeOutput: `describe('Sample description')`,
 }, userInfo: {
   showLogin: false,
 }};
 
-const mockStore = configureStore()
+const mockStore: any = configureStore()
 
 const navbar = () => {
   render(

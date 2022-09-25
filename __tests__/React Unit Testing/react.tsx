@@ -85,7 +85,7 @@ describe('Unit testing "Header" component', () => {
     userInput: '',
   } };
   const mockStore = configureStore();
-  let store;
+  let store: any;
   beforeEach(() => {
     store = mockStore(initialState);
     render(

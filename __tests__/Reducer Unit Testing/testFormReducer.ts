@@ -1,8 +1,19 @@
 import { store } from '../../client/redux/store';
 import { setRequestType, addAssertion } from '../../client/redux/reducers/testFormSlice';
 
+type assertionListType = {
+  [index: string]: string,
+}
+type defaultStateType = {
+  requestType: 'Get' | 'Post' | 'Patch' | 'Delete',
+  assertionList: assertionListType,
+  i: number,
+  userInput: string
+}
+
+
 describe('TestForm Reducer', () => {
-  let defaultState;
+  let defaultState: defaultStateType;
   beforeEach(() => {
     defaultState = {
       requestType: 'Get',
