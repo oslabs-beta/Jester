@@ -7,13 +7,13 @@ import Button from '@mui/material/Button';
 import IconButton from '@mui/material/IconButton';
 import MenuIcon from '@mui/icons-material/Menu';
 import { setShowLogin } from '../redux/reducers/userInfoSlice';
-import { useDispatch, useSelector } from 'react-redux';
+import { useAppDispatch, useAppSelector } from '../redux/hooks';
 import { Login } from './Login';
 import { letterSpacing } from '@mui/system';
 
 const NavBar = () => {
-  const dispatch = useDispatch();
-  const open = useSelector((state) => state.userInfo.showLogin)
+  const dispatch = useAppDispatch();
+  const open = useAppSelector((state) => state.userInfo.showLogin)
   const handleLoginOpen = () => {
     dispatch(setShowLogin())
   } 
