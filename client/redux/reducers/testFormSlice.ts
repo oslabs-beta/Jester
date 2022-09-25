@@ -4,7 +4,7 @@ type assertionListType = {
   [index: string]: string,
 }
 
-type initialStateType = {
+type testFormStateType = {
   requestType: string,
   assertionList: assertionListType,
   i: number,
@@ -12,7 +12,7 @@ type initialStateType = {
 }
 
 
-const initialState: initialStateType = {
+const initialState: testFormStateType = {
   requestType: 'Get',
   assertionList: {},
   i: 0,
@@ -23,17 +23,17 @@ export const testFormSlice = createSlice({
   name: 'testForm',
   initialState,
   reducers: {
-    setRequestType: (state: initialStateType, action: PayloadAction<string>) => {
+    setRequestType: (state: testFormStateType, action: PayloadAction<string>) => {
       state.requestType = action.payload;
     },
-    addAssertion: (state: initialStateType) => {
+    addAssertion: (state: testFormStateType) => {
       state.assertionList[state.i] = 'Status Code';
       state.i += 1;
     },
-    setInputType: (state: initialStateType, action: PayloadAction<{id: string, type: string}>) => {
+    setInputType: (state: testFormStateType, action: PayloadAction<{id: string, type: string}>) => {
       state.assertionList[action.payload.id] = action.payload.type;
     },
-    deleteAssertion: (state: initialStateType, action: PayloadAction<string>) => {
+    deleteAssertion: (state: testFormStateType, action: PayloadAction<string>) => {
       delete state.assertionList[action.payload]
     },
   },
