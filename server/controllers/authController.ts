@@ -1,11 +1,15 @@
 import passport from 'passport';
 import { Strategy as GitHubStrategy } from 'passport-github2';
-import { Express } from 'express';
+import { Express, Request, Response, NextFunction } from 'express';
 
 type GitHubSettings = {
   clientID: string,
   clientSecret: string,
   callbackURL: string,
+}
+
+type Auth = {
+  isLoggedIn: (req: Request, res: Response, next: NextFunction) => void,
 }
 
 const gitHubSettings: GitHubSettings = {
@@ -36,5 +40,16 @@ passport.use(
       // logic for creating a new record on the database for the user could do in here
     }
 ));
+
+export const authController: Auth = {
+    // Middleware to verify that user is logged in (typically used before database calls)
+    isLoggedIn: (req: Request, res: Response, next: NextFunction) => {
+      // this controller should verify that the user is logged in
+      // do we do this via a cookie?
+      console.log('authController.isLoggedIn')
+      return next();
+    },
+  };
+  
 
 export default passport;
