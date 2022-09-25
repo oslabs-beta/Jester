@@ -2,16 +2,19 @@ import React from 'react';
 import { Box, Dialog, DialogTitle } from '@mui/material';
 import GitHubIcon from '@mui/icons-material/GitHub';
 import axios from 'axios'
-import { useSelector, useDispatch } from 'react-redux';
+import { useAppDispatch } from '../redux/hooks';
 import { setShowLogin } from '../redux/reducers/userInfoSlice';
 
+type loginProps = {
+  open: boolean,
+}
 
-export const Login = (props) => {
-  const dispatch = useDispatch();
-  const handleClose = () => {
+export const Login = (props: loginProps) => {
+  const dispatch = useAppDispatch();
+  const handleClose = (): void => {
     dispatch(setShowLogin());
   }
-  const handleClick = async () => {
+  const handleClick = async (): Promise<void> => {
    const response = await axios.get('/auth/github')
    // what will the response be? 
   }

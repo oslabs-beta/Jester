@@ -1,7 +1,9 @@
 import { createSlice } from '@reduxjs/toolkit';
 
-
-const initialState = {
+type stateType = {
+  showLogin: boolean,
+}
+const initialState: stateType = {
   showLogin: false,
 }
 
@@ -9,7 +11,7 @@ export const userInfoSlice = createSlice({
   name: 'userInfo',
   initialState,
   reducers: {
-    setShowLogin: (state) => {
+    setShowLogin: (state: stateType) => {
       state.showLogin = state.showLogin ? false : true;
       console.log(state.showLogin)
     }
