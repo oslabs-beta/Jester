@@ -1,5 +1,6 @@
 import passport from 'passport';
-import { Strategy } from 'passport-github2';
+import { Strategy as GitHubStrategy } from 'passport-github2';
+import { Express } from 'express';
 
 type GitHubSettings = {
   clientID: string,
@@ -14,8 +15,10 @@ const gitHubSettings: GitHubSettings = {
 }
 
 // need to clean up the type declarations of user, done, profile and tokens
+// https://typescript.hotexamples.com/examples/passport/-/serializeUser/typescript-serializeuser-function-examples.html
+// https://stackoverflow.com/questions/65772869/how-do-i-type-hint-the-user-argument-when-calling-passport-serializeuser-in-type
 passport.serializeUser(
-  function(user: any, done: any) {
+  function(user: Express.User, done: any) {
     console.log('User', user, typeof user)
     done(null, user);
 });
@@ -26,10 +29,12 @@ passport.deserializeUser(
 });
 
 passport.use(
-  new Strategy(
+  new GitHubStrategy(
     gitHubSettings,
     function(accessToken: any, refreshToken: any, profile: any, done: any) {
       return done(null, profile);
       // logic for creating a new record on the database for the user could do in here
     }
 ));
+
+export default passport;
