@@ -1,5 +1,10 @@
+import cookieSession from 'cookie-session';
+import passport from 'passport';
 import path from 'path';
+
 import express, { Express, Request, Response, NextFunction } from 'express';
+
+import authRoutes from './routes/auth';
 import testsRoutes from './routes/tests';
 import { GlobalError } from './serverTypes';
 
@@ -8,10 +13,22 @@ const PORT = 3000;
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
+
+// passport and cookie-seesion methods for OAuth 2
+app.use(cookieSession({
+  name: 'github-auth-session',
+  keys: ['key1', 'key2']
+}))
+app.use(passport.initialize());
+app.use(passport.session());
+
+// Routers
+app.use('/auth', authRoutes);
 app.use('/api/tests', testsRoutes);
 app.use('/dist', express.static(path.join(__dirname, '../dist')));
 app.use('/assets', express.static(path.join(__dirname, '../client/assets')));
 
+// Serve base HTML file
 app.get('/', (req: Request, res: Response) => {
   return res.status(200).sendFile(path.join(__dirname, '../client/index.html'));
 });
