@@ -6,6 +6,7 @@ import {
   Button,
   Box,
   InputLabel,
+  SelectChangeEvent
 } from '@mui/material';
 import React from 'react';
 import { useAppDispatch, useAppSelector } from '../redux/hooks';
@@ -22,14 +23,14 @@ export const Header = () => {
     assertionList.push(<Middle id={id} key={id} />);
   }
   const dispatch = useAppDispatch();
-  const handleSubmit = (e: React.FormEvent<EventTarget>) => {
+  const handleSubmit = (e: React.FormEvent<EventTarget>): void => {
     e.preventDefault();
     console.log('Submit Post Request');
   };
-  const handleChange = (e) => dispatch(setRequestType(e.target.value));
+  const handleChange = (e: SelectChangeEvent<string>) => dispatch(setRequestType(e.target.value));
   const handleAdd = () => dispatch(addAssertion());
 
-  const menuItems = [];
+  const menuItems: JSX.Element[] = [];
   const menuOptions = ['Get', 'Post', 'Patch', 'Delete'];
   for (let option of menuOptions) {
     menuItems.push(<MenuItem key={option} value={option}>{option}</MenuItem>)
