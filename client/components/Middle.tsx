@@ -26,9 +26,8 @@ export const Middle = (props: middlePropsType) => {
     dispatch(setInputType({ id: props.id, type: event.target.value }));
   };
 
-  const handleDelete = (event: React.FormEvent<EventTarget>) => {
-    const targ = event.target as HTMLInputElement
-    dispatch(deleteAssertion(targ.id))
+  const handleDelete = (event: any) => {
+    dispatch(deleteAssertion(event.target.id))
   }
 
   return (

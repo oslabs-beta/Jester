@@ -29,6 +29,7 @@
   "devDependencies": {
     "@babel/core": "^7.19.1",
     "@babel/preset-env": "^7.19.1",
+    "@babel/preset-flow": "^7.18.6",
     "@babel/preset-react": "^7.18.6",
     "@emotion/react": "^11.10.4",
     "@emotion/styled": "^11.10.4",
