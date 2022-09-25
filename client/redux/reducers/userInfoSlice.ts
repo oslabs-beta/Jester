@@ -13,7 +13,6 @@ export const userInfoSlice = createSlice({
   reducers: {
     setShowLogin: (state: userInfoStateType) => {
       state.showLogin = state.showLogin ? false : true;
-      console.log(state.showLogin)
     }
   }
 })
