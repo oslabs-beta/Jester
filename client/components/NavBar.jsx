@@ -6,8 +6,17 @@ import Typography from '@mui/material/Typography';
 import Button from '@mui/material/Button';
 import IconButton from '@mui/material/IconButton';
 import MenuIcon from '@mui/icons-material/Menu';
+import { setShowLogin } from '../redux/reducers/userInfoSlice';
+import { useDispatch, useSelector } from 'react-redux';
+import { Login } from './Login';
+import { letterSpacing } from '@mui/system';
 
 const NavBar = () => {
+  const dispatch = useDispatch();
+  const open = useSelector((state) => state.userInfo.showLogin)
+  const handleLoginOpen = () => {
+    dispatch(setShowLogin())
+  } 
   return (
     <Box sx={{ flexGrow: 1 }}>
       <AppBar position='static'>
@@ -19,7 +28,8 @@ const NavBar = () => {
             sx={{ flexGrow: 1, marginLeft: '15px' }}
           ></Typography>
           <Button color='inherit'>Tutorial</Button>
-          <Button color='inherit'>Logout</Button>
+          <Button color='inherit' onClick = { handleLoginOpen }>Login</Button>
+          <Login open={open}/>
         </Toolbar>
       </AppBar>
     </Box>
