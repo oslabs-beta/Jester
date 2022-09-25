@@ -1,15 +1,13 @@
-// for auth routes after we implement user accounts
-// import { Request, Response, NextFunction, RequestHandler } from 'express';
-const express = require('express');
-const router = express.Router();
-const passport = require('passport');
+import express, { Express, Request, Response, NextFunction, Router } from 'express';
+const router: Router = express.Router();
+import passport from 'passport';
 // const authController = require('../controllers/authController');
 // MLCK: somehow this line is needed but I'm not quite sure why!
 require('../controllers/passport')
 
 // route for user being unable to sign in with GitHub
 router.get('/error', 
-  (req, res) => {
+(req: Request, res: Response): Response => {
     return res.send('Unknown Error')
   })
 
@@ -20,9 +18,9 @@ router.get('/github',
 
 router.get('/github/callback',
   passport.authenticate('github', { failureRedirect: '/auth/error' }),
-  (req, res) => {
+  (req: Request, res: Response): void => {
     return res.redirect('/');
   }
 );
 
-module.exports = router;
+export default router;
