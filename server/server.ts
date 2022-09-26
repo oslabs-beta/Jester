@@ -27,6 +27,7 @@ app.use('/auth', authRoutes);
 app.use('/api/tests', testsRoutes);
 app.use('/dist', express.static(path.join(__dirname, '../dist')));
 app.use('/assets', express.static(path.join(__dirname, '../client/assets')));
+app.use('/stylesheets', express.static(path.join(__dirname, '../client/stylesheets')));
 
 // Serve base HTML file
 app.get('/', (req: Request, res: Response) => {
