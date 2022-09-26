@@ -9,7 +9,7 @@ import {
 } from '@mui/material';
 import { useSelector, useDispatch } from 'react-redux';
 import { setInputType, deleteAssertion } from '../redux/reducers/testFormSlice';
-import { setUserInputType, setErrorMsgs, setUserInputText } from '../redux/reducers/userInputSlice';
+import { setUserInputType, changeErrorMsg, setUserInputText } from '../redux/reducers/userInputSlice';
 
 export const Middle = (props) => {
 
@@ -23,6 +23,9 @@ export const Middle = (props) => {
     const errorMsgs = useSelector(
     (state) => state.userInput.errorMsgs
   )
+    const i = useSelector(
+      (state) => state.userInput.i
+    )
 
    const verifyNumInputs = (e) => {
     let statusCount = 0;
@@ -32,23 +35,41 @@ export const Middle = (props) => {
             if (val === 'Status Code') statusCount ++;
             if (val === 'Content Type') contentCount++;
         })
-        if (statusCount >= 2 && e.target.id === 'Status Code') dispatch(setErrorMsgs('1 status code permitted'));
-        if (contentCount >= 2 && e.target.id === 'Content Type') dispatch(setErrorMsgs('1 content type permitted'));
+        if (statusCount >= 2 && e.target.id === 'Status Code') dispatch(changeErrorMsg({
+          propsId: props.id,
+          newMsg: '1 status code permitted'
+        }));
+        if (contentCount >= 2 && e.target.id === 'Content Type') dispatch(changeErrorMsg({
+          propsId: props.id,
+          newMsg: '1 content type permitted'
+        }));
   }
 
   const verifyInputType = (e) => {
     const userInput = e.target.value;
     if (e.target.id === 'Status Code') {
       if (!Number(userInput)) {
-        dispatch(setErrorMsgs('invalid status code'));
+        dispatch(changeErrorMsg({
+          propsId: props.id,
+          newMsg: 'invalid status code'
+        }));
       } else {
-        dispatch(setErrorMsgs('looks good!'));
+        dispatch(changeErrorMsg({
+          propsId: props.id,
+          newMsg: 'looks good!'
+        }));
       }
     } else {
       if (e.target.id === 'Content Type' && Number(userInput)) {
-        dispatch(setErrorMsgs('invalid content type'));
+        dispatch(changeErrorMsg({
+          propsId: props.id,
+          newMsg: 'invalid content type'
+        }));
     } else {
-        dispatch(setErrorMsgs('looks good!'));
+        dispatch(changeErrorMsg({
+          propsId: props.id,
+          newMsg: 'looks good!'
+        }));
     }
     }
 
@@ -98,7 +119,7 @@ export const Middle = (props) => {
         error
         //   id="outlined-error-helper-text"
         //   label="Error"
-          helperText={errorMsgs}
+          helperText={errorMsgs[props.id]}
           onChange={handleType}
         />
         <Button

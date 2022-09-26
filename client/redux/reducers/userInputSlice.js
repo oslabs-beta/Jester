@@ -3,18 +3,22 @@ import React from 'react';
 import { Middle } from '../../components/Middle';
 
 const initialState = {
-    errorMsgs: '',
+    errorMsgs: {},
     userInputType: '',
     userInputText: undefined,
+    i: 0,
   };
 
 export const userInputSlice = createSlice({
     name: 'userInput',
     initialState,
     reducers: {
-        setErrorMsgs: (state, action) => {
-            //nothing needed?
-            state.errorMsgs = action.payload;
+        setErrorMsg: (state) => {
+            state.errorMsgs[state.i] = '';
+            state.i = state.i + 1;
+        },
+        changeErrorMsg: (state, action) => {
+            state.errorMsgs[action.payload.propsId] = action.payload.newMsg;
         },
         setUserInputType: (state, action) => {
             //e.target.id
@@ -28,7 +32,8 @@ export const userInputSlice = createSlice({
 })
 
 export const {
-    setErrorMsgs,
+    setErrorMsg,
+    changeErrorMsg,
     setUserInputType,
     setUserInputText
 } = userInputSlice.actions;

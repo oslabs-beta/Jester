@@ -10,6 +10,7 @@ import {
 import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { setRequestType, addAssertion } from '../redux/reducers/testFormSlice';
+import { setErrorMsg } from '../redux/reducers/userInputSlice';
 import { Middle } from './Middle';
 
 export const Header = () => {
@@ -26,7 +27,10 @@ export const Header = () => {
     console.log('Submit Post Request');
   };
   const handleChange = (e) => dispatch(setRequestType(e.target.value));
-  const handleAdd = () => dispatch(addAssertion());
+  const handleAdd = () => {
+    dispatch(addAssertion())
+    dispatch(setErrorMsg())
+  };
 
   const menuItems = [];
   const menuOptions = ['Get', 'Post', 'Patch', 'Delete'];
