@@ -1,11 +1,12 @@
+// Package Imports
 import cookieSession from 'cookie-session';
+import express, { Express, Request, Response, NextFunction } from 'express';
 import passport from 'passport';
 import path from 'path';
 
-import express, { Express, Request, Response, NextFunction } from 'express';
-
 import authRoutes from './routes/auth';
 import testsRoutes from './routes/tests';
+import userRoutes from './routes/user';
 import { GlobalError } from './serverTypes';
 
 const app = express();
@@ -25,6 +26,7 @@ app.use(passport.session());
 // Routers
 app.use('/auth', authRoutes);
 app.use('/api/tests', testsRoutes);
+app.use('/api/user', userRoutes);
 app.use('/dist', express.static(path.join(__dirname, '../dist')));
 app.use('/assets', express.static(path.join(__dirname, '../client/assets')));
 app.use('/stylesheets', express.static(path.join(__dirname, '../client/stylesheets')));
