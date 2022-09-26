@@ -9,8 +9,9 @@ import {
   SelectChangeEvent
 } from '@mui/material';
 import { useAppDispatch, useAppSelector } from '../redux/hooks';
-import { setInputType, deleteAssertion } from '../redux/reducers/testFormSlice';
+import { setInputType, deleteAssertion, setFormValues } from '../redux/reducers/testFormSlice';
 import { setUserInputType, changeErrorMsg, setUserInputText } from '../redux/reducers/userInputSlice';
+import e from 'express';
 
 type middlePropsType = {
   id: string,
@@ -94,6 +95,7 @@ export const Middle = (props: middlePropsType) => {
     verifyInputType(event);
     verifyNumInputs(event);
     dispatch(setUserInputText(event.target.value));
+    dispatch(setFormValues({key: currValue, value: event.target.value}))
   }
 
   return (
@@ -123,8 +125,7 @@ export const Middle = (props: middlePropsType) => {
         <TextField 
         label="User Input" 
         id={currValue} 
-        name={currValue} 
-
+        name={currValue}
         error
         //   id="outlined-error-helper-text"
         //   label="Error"
