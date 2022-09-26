@@ -1,9 +1,7 @@
 import express, { Express, Request, Response, NextFunction, Router } from 'express';
 const router: Router = express.Router();
-import passport from 'passport';
-// const authController = require('../controllers/authController');
-// MLCK: somehow this line is needed but I'm not quite sure why!
-require('../controllers/passport')
+import passport from '../controllers/authController'
+
 
 // route for user being unable to sign in with GitHub
 router.get('/error', 
