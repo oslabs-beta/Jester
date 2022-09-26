@@ -2,12 +2,13 @@ const path = require('path');
 const HTMLWebpackPlugin = require('html-webpack-plugin');
 
 module.exports = {
-  entry: './client/index.js',
+  mode: process.env.NODE_ENV,
+  entry: './client/index.tsx',
   devtool: 'inline-source-map',
   output: {
     filename: 'bundle.js',
     path: path.resolve(__dirname, 'dist'),
-    publicPath: '/',
+    publicPath: '/'
   },
   module: {
     rules: [
@@ -16,27 +17,37 @@ module.exports = {
         use: {
           loader: 'babel-loader',
           options: {
-            presets: ['@babel/preset-env', '@babel/preset-react'],
-          },
+            presets: ['@babel/preset-env', '@babel/preset-react']
+          }
         },
+        exclude: /node_modules/
+      },
+      {
+        test: /\.(ts|tsx)$/,
         exclude: /node_modules/,
+        use: ['ts-loader']
       },
       {
         test: /\.scss$/,
-        use: ['style-loader', 'css-loader', 'sass-loader'],
-      },
-    ],
+        use: ['style-loader', 'css-loader', 'sass-loader']
+      }
+    ]
+  },
+  resolve: {
+    extensions: ['.tsx', '.ts', '.jsx', '.js']
   },
   devServer: {
     host: 'localhost',
     port: 8080,
     static: {
       directory: path.resolve(__dirname, 'dist'),
-      publicPath: '/',
+      publicPath: '/'
     },
     hot: true,
-    proxy: {},
+    proxy: {
+      '/': 'http://localhost:3000',
+      secure: false
+    }
   },
-  resolve: { extensions: ['*', '.js', '.jsx'] },
-  plugins: [new HTMLWebpackPlugin({ template: './client/index.html' })],
+  plugins: [new HTMLWebpackPlugin({ template: './client/index.html' })]
 };

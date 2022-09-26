@@ -1,6 +1,12 @@
-import { createSlice, createAsyncThunk } from '@reduxjs/toolkit'
+import { createSlice, createAsyncThunk, PayloadAction } from '@reduxjs/toolkit'
 
-const initialState = {
+type sliceType = {
+  codeOutput: string,
+  codeOutputEdited: string | undefined,
+  doneIcon: boolean,
+}
+
+const initialState: sliceType = {
   // this property of state will get updated by the POST request
   codeOutput: `describe('Sample description', (arg1) => { code.. }`,
   // this value will be saved into the database
@@ -12,24 +18,24 @@ export const slice = createSlice({
   name: 'slice',
   initialState,
   reducers: {
-    copyText: (state) => {
+    copyText: (state: sliceType) => {
       navigator.clipboard.writeText(state.codeOutputEdited || state.codeOutput);
       // console.log('REDUCER: copyText')
       
     },
-    changeIcon: (state) => {
+    changeIcon: (state: sliceType) => {
       state.doneIcon = true;
       // console.log('REDUCER: changeIcon')
       
     },
-    userEditText: (state, action) => {
+    userEditText: (state: sliceType, action: PayloadAction<string>) => {
       state.codeOutputEdited = action.payload;
       // console.log('REDUCER: userEditText')
     }
   },
   extraReducers: (builder) => {
     builder
-      .addCase(asyncChangeIcon.fulfilled, (state) => {
+      .addCase(asyncChangeIcon.fulfilled, (state: sliceType) => {
         // console.log('REDUCER: asyncChangeIcon')
         state.doneIcon = false;
       });
@@ -40,7 +46,7 @@ const thunks= {
   asyncChangeIcon: createAsyncThunk(
     'slice/asyncChangeIcon', 
     async () => {
-      const timeout = (ms) => new Promise(resolve => setTimeout(resolve, ms));
+      const timeout = (ms: number): Promise<unknown> => new Promise(resolve => setTimeout(resolve, ms));
       const response = await timeout(1000);
       console.log('THUNK: asyncChangeIcon', response)
       return response;
