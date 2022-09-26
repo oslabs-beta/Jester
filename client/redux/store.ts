@@ -3,6 +3,7 @@ import testFormReducer from './reducers/testFormSlice';
 import userInputReducer from './reducers/userInputSlice';
 import slice from './reducers/reducer'
 import userInfoReducer from './reducers/userInfoSlice'
+import navPanelSlice from './reducers/navPanelSlice';
 
 export const store = configureStore({
   reducer: {
@@ -10,6 +11,7 @@ export const store = configureStore({
     userInput: userInputReducer,
     slice: slice,
     userInfo: userInfoReducer,
+    navPanel: navPanelSlice,
   },
 })
 
