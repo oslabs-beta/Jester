@@ -1,7 +1,14 @@
 import express, { Express, Request, Response, NextFunction, Router } from 'express';
 const router: Router = express.Router();
-import passport from '../controllers/authController'
+import passport, { authController } from '../controllers/authController'
 
+
+// route checking if user is authorized
+router.get('/', 
+  authController.isLoggedIn, 
+  (req: Request, res: Response) => {
+  res.status(200).json({ userId: req.user });
+});
 
 // route for user being unable to sign in with GitHub
 router.get('/error', 
@@ -18,8 +25,6 @@ router.get('/github',
 router.get('/github/callback',
   passport.authenticate('github', { failureRedirect: '/error' }),
   (req: Request, res: Response): void => {
-    // is this the right place to insert logic for SQL db for user table
-    // if user doesn't exist on the database, add to user table
     return res.redirect('../../');
   }
 );
