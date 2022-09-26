@@ -29,10 +29,10 @@ const App = () => {
     <ThemeProvider theme={theme}>
       <NavBar />
       <Routes>
-        <Route path='*' element={<NotFound />} />
         <Route path='/' element={<Home />} />
         <Route path='/clipboard' element={<Clipboard />} />
         <Route path='/documentation' element={<Documentation />} />
+        <Route path='*' element={<NotFound />} />
       </Routes>
       <Footer />
     </ThemeProvider>

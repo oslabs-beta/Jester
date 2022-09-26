@@ -39,12 +39,10 @@ module.exports = {
   devServer: {
     host: 'localhost',
     port: 8080,
-    historyApiFallback: true,
     static: {
       directory: path.resolve(__dirname, 'dist'),
       publicPath: '/'
     },
-    hot: true,
     proxy: {
       '/': 'http://localhost:3000',
       secure: false

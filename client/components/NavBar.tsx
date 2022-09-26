@@ -32,10 +32,14 @@ const NavBar = () => {
             sx={{ flexGrow: 1, marginLeft: '15px' }}
           ></Typography>
           <Button color='inherit'>
-            <Link to='/clipboard'>Clipboard</Link>
+            <Link className='nav-link' to='/clipboard'>
+              Clipboard
+            </Link>
           </Button>
           <Button color='inherit'>
-            <Link to='/documentation'>Documentation</Link>
+            <Link className='nav-link' to='/documentation'>
+              Documentation
+            </Link>
           </Button>
           <Button color='inherit' onClick={handleLoginOpen}>
             Login

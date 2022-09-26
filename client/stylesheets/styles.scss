@@ -3,7 +3,7 @@
   font-size: small;
 }
 
-img[alt~="logo"]{
+img[alt~='logo'] {
   height: 60px;
   margin-bottom: 10px;
 }
@@ -23,4 +23,15 @@ img[alt~="logo"]{
 
 #add-assertion {
   align-self: flex-start;
+}
+
+.center {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.nav-link {
+  color: white;
+  text-decoration: none;
 }

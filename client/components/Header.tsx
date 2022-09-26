@@ -16,7 +16,9 @@ import { RequestBody } from './RequestBody';
 
 export const Header = () => {
   const requestType = useAppSelector((state) => state.testForm.requestType);
-  const assertionObject = useAppSelector((state) => state.testForm.assertionList);
+  const assertionObject = useAppSelector(
+    (state) => state.testForm.assertionList
+  );
   const assertionList: JSX.Element[] = [];
   const assertionIds = Object.keys(assertionObject);
   for (let id of assertionIds) {
@@ -27,45 +29,50 @@ export const Header = () => {
     e.preventDefault();
     console.log('Submit Post Request');
   };
-  const handleChange = (e: SelectChangeEvent<string>) => dispatch(setRequestType(e.target.value));
+  const handleChange = (e: SelectChangeEvent<string>) =>
+    dispatch(setRequestType(e.target.value));
   const handleAdd = () => dispatch(addAssertion());
 
   const menuItems: JSX.Element[] = [];
   const menuOptions = ['Get', 'Post', 'Patch', 'Delete'];
   for (let option of menuOptions) {
-    menuItems.push(<MenuItem key={option} value={option}>{option}</MenuItem>)
+    menuItems.push(
+      <MenuItem key={option} value={option}>
+        {option}
+      </MenuItem>
+    );
   }
 
   return (
-    <form id="test-generator-form" onSubmit={handleSubmit}>
+    <form id='test-generator-form' onSubmit={handleSubmit}>
       <span>
         <FormControl>
-          <InputLabel id="requestSelector">Request Type</InputLabel>
+          <InputLabel id='requestSelector'>Request Type</InputLabel>
           <Select
-            name="request-selector"
-            id="request-selector"
-            data-testid="request-selector"
-            label="Request Type"
+            name='request-selector'
+            id='request-selector'
+            data-testid='request-selector'
+            label='Request Type'
             value={requestType}
-            onChange={ handleChange }
+            onChange={handleChange}
           >
             {menuItems}
           </Select>
         </FormControl>
         <TextField
-          label="Endpoint"
+          label='Endpoint'
           data-testid={requestType}
           id={requestType}
           name={requestType}
         />
         <RequestBody showField={requestType === 'Get' ? false : true} />
       </span>
-      <Box id="assertion-list">Assertion List: {assertionList}</Box>
+      <Box id='assertion-list'>Assertion List: {assertionList}</Box>
       <Button
-        id="add-assertion"
-        name="add-assertion"
-        variant="contained"
-        onClick={ handleAdd }
+        id='add-assertion'
+        name='add-assertion'
+        variant='contained'
+        onClick={handleAdd}
       >
         +
       </Button>
