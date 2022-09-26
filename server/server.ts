@@ -35,7 +35,7 @@ app.use(
 );
 
 // Serve base HTML file
-app.get('/', (req: Request, res: Response) => {
+app.get('*', (req: Request, res: Response) => {
   return res.status(200).sendFile(path.join(__dirname, '../client/index.html'));
 });
 
