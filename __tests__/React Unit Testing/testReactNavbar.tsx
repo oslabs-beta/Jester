@@ -4,12 +4,14 @@ import configureStore from 'redux-mock-store';
 import { fireEvent, render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 
-import Navbar from '../client/components/Navbar';
+import Navbar from '../../client/components/Navbar';
 
 import '@testing-library/jest-dom';
 
 const initialState = {slice: {
   codeOutput: `describe('Sample description')`,
+}, userInfo: {
+  showLogin: false,
 }};
 
 const mockStore = configureStore()
@@ -42,8 +44,8 @@ describe('Unit testing Navbar components', () => {
     expect(button).toBeInTheDocument();
   });
 
-  test('Renders the logout button', () => {
-    const button = screen.getByRole('button', { name: /logout/i  });
+  test('Renders the login button', () => {
+    const button = screen.getByRole('button', { name: /login/i  });
     expect(button).toBeInTheDocument();
   });
 

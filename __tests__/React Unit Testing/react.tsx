@@ -3,15 +3,15 @@ import { Provider } from 'react-redux';
 import { fireEvent, render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 
-import CodeContainer from '../client/containers/CodeContainer';
-import ButtonContainer from '../client/containers/ButtonContainer';
-import { Header } from '../client/components/Header';
-import { setRequestType } from '../client/redux/reducers/testFormSlice';
+import CodeContainer from '../../client/containers/CodeContainer';
+import ButtonContainer from '../../client/containers/ButtonContainer';
+import { Header } from '../../client/components/Header';
+import { setRequestType } from '../../client/redux/reducers/testFormSlice';
 
 import configureStore from 'redux-mock-store';
 
 import '@testing-library/jest-dom';
-import { RequestBody } from '../client/components/RequestBody';
+import { RequestBody } from '../../client/components/RequestBody';
 
 
 const initialState = {slice: {
@@ -109,18 +109,17 @@ describe('Unit testing "Header" component', () => {
     // const dropdown = document.querySelector('#request-selector')
 
     userEvent.click(screen.getByRole('button', { name: 'Get' }));
-    await (() => UserEvent.click(screen.getByText(/Post/i)));
+    await (() => userEvent.click(screen.getByText(/Post/i)));
     expect(await screen.getByText('Post')).toBeInTheDocument();
   });
   test('Add assertion button renders successfully', () => {
     expect(screen.getByText('+')).toBeInTheDocument();
-    const addAssertionButton = screen.getByText('+');
-    expect(addAssertionButton.type).toEqual('button');
+    expect(screen.getByRole('button', {name : '+'})).toBeInTheDocument();
   });
   test('Endpoint textbox renders successfully', () => {
     const textbox = screen.getByLabelText('Endpoint');
     expect(textbox).toBeInTheDocument();
-    expect(textbox.type).toEqual('text');
+    expect(screen.getByRole('textbox', {name: 'Endpoint'})).toBeInTheDocument();
     expect(textbox.id).toEqual('Get');
   });
   xtest('Add button renders middle component', () => {
@@ -129,10 +128,10 @@ describe('Unit testing "Header" component', () => {
     expect(dropdown).toBeInTheDocument();
     const textbox = screen.getByLabelText('User Input');
     expect(textbox).toBeInTheDocument();
-    expect(textbox.type).toEqual('text');
+    expect(screen.getByRole('textbox', {name: 'User Input'})).toBeInTheDocument();
     const button = screen.getByText('-');
     expect(button).toBeInTheDocument();
-    expect(button.type).toEqual('Button');
+    expect(screen.getByRole('textbox', {name: '-'})).toBeInTheDocument();
   });
 
   // add button renders middle component

@@ -1,5 +1,5 @@
-import { store } from '../client/redux/store';
-import { changeIcon, userEditText } from '../client/redux/reducers/reducer';
+import { store } from '../../client/redux/store';
+import { changeIcon, userEditText } from '../../client/redux/reducers/reducer';
 
 describe('Code Output Reducer', () => {
   let defaultState;

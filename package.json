@@ -29,6 +29,7 @@
   "devDependencies": {
     "@babel/core": "^7.19.1",
     "@babel/preset-env": "^7.19.1",
+    "@babel/preset-flow": "^7.18.6",
     "@babel/preset-react": "^7.18.6",
     "@emotion/react": "^11.10.4",
     "@emotion/styled": "^11.10.4",
@@ -46,6 +47,7 @@
     "@types/passport-github2": "^1.2.5",
     "@types/react": "^18.0.21",
     "@types/react-dom": "^18.0.6",
+    "axios": "^0.27.2",
     "babel-jest": "^29.0.3",
     "babel-loader": "^8.2.5",
     "css-loader": "^6.7.1",
