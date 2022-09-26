@@ -103,18 +103,22 @@ export const Header = () => {
           justifyContent: 'center',
           gap: '10px',
           marginBottom: '10px',
+          marginTop: '10px',
         }}
       >
-        <Typography>Add expected response:</Typography>
         {assertionList}
-      <Button
-        id="add-assertion"
-        name="add-assertion"
-        variant="outlined"
-        onClick={handleAdd}
-      >
-        +
-      </Button>
+        <Box sx={{ display: 'flex', gap: '10px', alignItems: 'center' }}>
+          <Typography>Add expected response:</Typography>
+          <Button
+            id="add-assertion"
+            name="add-assertion"
+            variant="contained"
+            onClick={handleAdd}
+            sx={{ justifySelf: 'center', alignSelf: 'center' }}
+          >
+            +
+          </Button>
+        </Box>
       </Box>
       <Button type="submit" variant="text" sx={{ backgroundColor: '#E6E6FA' }}>
         Generate Test Code
