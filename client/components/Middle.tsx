@@ -21,17 +21,17 @@ export const Middle = (props: middlePropsType) => {
   const currValue = useAppSelector(
     (state) => state.testForm.assertionList[props.id]
   );
-  const assertions = useSelector(
+  const assertions = useAppSelector(
     (state) => state.testForm.assertionList
   )
-    const errorMsgs = useSelector(
+    const errorMsgs = useAppSelector(
     (state) => state.userInput.errorMsgs
   )
-    const i = useSelector(
+    const i = useAppSelector(
       (state) => state.userInput.i
     )
 
-   const verifyNumInputs = (e) => {
+   const verifyNumInputs = (e: any) => {
     let statusCount = 0;
     let contentCount = 0;
     const assertionVals = Object.values(assertions);
@@ -49,7 +49,7 @@ export const Middle = (props: middlePropsType) => {
         }));
   }
 
-  const verifyInputType = (e) => {
+  const verifyInputType = (e: any) => {
     const userInput = e.target.value;
     if (e.target.id === 'Status Code') {
       if (!Number(userInput)) {
@@ -90,7 +90,7 @@ export const Middle = (props: middlePropsType) => {
     dispatch(deleteAssertion(event.target.id))
   }
 
-  const handleType = (event) => {
+  const handleType = (event: any) => {
     verifyInputType(event);
     verifyNumInputs(event);
     dispatch(setUserInputText(event.target.value));

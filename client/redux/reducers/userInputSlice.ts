@@ -2,7 +2,19 @@ import { createSlice } from '@reduxjs/toolkit';
 import React from 'react';
 import { Middle } from '../../components/Middle';
 
-const initialState = {
+
+type errorMsgsType = {
+    [ errorKey: string ] : string,
+}
+
+type initialStateType = {
+    errorMsgs: errorMsgsType,
+    userInputType: string,
+    userInputText: (undefined | number | string),
+    i: number,
+}
+
+const initialState: initialStateType = {
     errorMsgs: {},
     userInputType: '',
     userInputText: undefined,
