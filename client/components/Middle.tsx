@@ -32,9 +32,6 @@ export const Middle = (props: middlePropsType) => {
       (state) => state.userInput.i
     )
 
-  const formValues = useAppSelector((state) => state.testForm.formValues);
-  console.log('formValues: ', formValues);
-
    const verifyNumInputs = (e: any) => {
     let statusCount = 0;
     let contentCount = 0;

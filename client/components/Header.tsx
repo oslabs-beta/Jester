@@ -11,39 +11,29 @@ import {
 import React from 'react';
 import { useAppDispatch, useAppSelector } from '../redux/hooks';
 import { setRequestType, addAssertion, setFormValues } from '../redux/reducers/testFormSlice';
+import { setCodeOutput } from '../redux/reducers/reducer';
 import { setErrorMsg } from '../redux/reducers/userInputSlice';
 import { Middle } from './Middle';
 import { RequestBody } from './RequestBody';
 import { ChangeEvent } from 'react';
+import axios from 'axios';
 
 export const Header = () => {
   const requestType = useAppSelector((state) => state.testForm.requestType);
   const assertionObject = useAppSelector((state) => state.testForm.assertionList);
   const formValues = useAppSelector((state) => state.testForm.formValues);
-  console.log(formValues)
   const assertionList: JSX.Element[] = [];
   const assertionIds = Object.keys(assertionObject);
   for (let id of assertionIds) {
     assertionList.push(<Middle id={id} key={id} />);
   }
   const dispatch = useAppDispatch();
-  const handleSubmit = (e: React.FormEvent<EventTarget>): void => {
+  const handleSubmit = async (e: React.FormEvent<EventTarget>): Promise<unknown> => {
     e.preventDefault();
+    const response = await axios.post('/api/tests', formValues)
+    dispatch(setCodeOutput(response.data))
+    return;
 
-    // {
-    //   header: {
-    //             endpoint : '/',
-    //             method: 'POST'
-    //             req_body: {a:1} // Needed for POST and PATCH, optional for DELETE
-    //   },
-    //   assertions: [
-    //                 { content: '/text\/html/' },
-    //                 { status: 200 },
-    //                 { res_body: { a: 'b' } }
-    //                 ...
-    //   ]
-    // }
-    console.log('Submit Post Request');
   };
   const handleRequestChange = (e: SelectChangeEvent<string>) => {
     dispatch(setRequestType(e.target.value));

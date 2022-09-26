@@ -9,12 +9,8 @@ type individualAssertionObject = {
 }
 
 type formValuesType = {
-  // endpoint? : string,
-  // method?: string,
-  // req_body?: string,
-  // assertions?: individualAssertionObject[],
-  [key: string] : (string | Array<individualAssertionObject>),
-  assertions: Array<individualAssertionObject>
+  assertions: Array<individualAssertionObject>,
+  header: individualAssertionObject,
 }
 
 type testFormStateType = {
@@ -31,7 +27,7 @@ const initialState: testFormStateType = {
   assertionList: {},
   i: 0,
   userInput: '',
-  formValues: { assertions: []},
+  formValues: { header: { method: 'Get'}, assertions: []},
 };
 
 export const testFormSlice = createSlice({
@@ -69,11 +65,9 @@ export const testFormSlice = createSlice({
           newObj[key] = value;
           if (!found) state.formValues.assertions.push(newObj);
       } else {
-        state.formValues[action.payload.key] = action.payload.value
-        if (state.formValues.method) {
-          if (state.formValues.method === 'Get') {
-            if (state.formValues['req_body']) delete state.formValues['req_body'];
-          }
+        state.formValues.header[action.payload.key] = action.payload.value
+        if (state.formValues.header.method === 'Get') {
+          if (state.formValues.header['req_body']) delete state.formValues.header['req_body'];
         }
       }
     }
