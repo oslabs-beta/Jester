@@ -7,6 +7,7 @@ import CodeContainer from './containers/CodeContainer'
 import ButtonContainer from './containers/ButtonContainer'
 import NavBar from './components/NavBar'
 import Footer from './components/Footer'
+import { PageContainer } from './containers/PageContainer';
 
 const theme = createTheme({
   palette: {
@@ -28,9 +29,7 @@ const App = () => {
   return (
     <ThemeProvider theme={theme}>
       <NavBar />
-      <Header />
-      <CodeContainer />
-      <ButtonContainer />
+      <PageContainer />
       <Footer />
     </ThemeProvider>
   );        
