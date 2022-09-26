@@ -43,7 +43,6 @@ module.exports = {
       directory: path.resolve(__dirname, 'dist'),
       publicPath: '/'
     },
-    hot: true,
     proxy: {
       '/': 'http://localhost:3000',
       secure: false
