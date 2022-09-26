@@ -11,15 +11,17 @@ router.get('/error',
     return res.send('Unknown Error')
   })
 
-// route for dialog box to GitHub authization
+// route for dialog box to GitHub authorization
 router.get('/github',
   passport.authenticate('github',{ scope: [ 'user:email' ] })
 );
 
+// 
 router.get('/github/callback',
-  passport.authenticate('github', { failureRedirect: '/auth/error' }),
+  passport.authenticate('github', { failureRedirect: '/error' }),
   (req: Request, res: Response): void => {
-    return res.redirect('/');
+    console.log('Rerouting  ')
+    return res.redirect('../');
   }
 );
 

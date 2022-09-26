@@ -1,5 +1,5 @@
 import React from 'react';
-import { Box, Dialog, DialogTitle, Typography } from '@mui/material';
+import { Button, Box, Dialog, DialogTitle, Typography } from '@mui/material';
 import GitHubIcon from '@mui/icons-material/GitHub';
 import axios from 'axios'
 import { useAppDispatch } from '../redux/hooks';
@@ -40,7 +40,9 @@ export const Login = (props: loginProps) => {
       backgroundColor: '#5E17EB'
     }}><img alt='logo' src='../assets/logo-jester.png' /></Box>
     <DialogTitle>sign in with</DialogTitle>
-    <GitHubIcon onClick={handleClick}/>
+    <Button href='/auth/github'>
+      <GitHubIcon onClick={handleClick} />
+    </Button>
     <Typography id="error-message" sx={{display: 'none', color: 'red'}}>Error</Typography>
   </Dialog>
  )
