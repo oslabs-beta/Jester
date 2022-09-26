@@ -1,5 +1,5 @@
-import { store } from '../client/redux/store';
-import { setRequestType, addAssertion } from '../client/redux/reducers/testFormSlice';
+import { store } from '../../client/redux/store';
+import { setRequestType, addAssertion } from '../../client/redux/reducers/testFormSlice';
 
 describe('TestForm Reducer', () => {
   let defaultState;
@@ -9,7 +9,6 @@ describe('TestForm Reducer', () => {
       assertionList: {},
       i: 0,
       userInput: '',
-      inputType: 'Status Code',
     };
   });
   describe('default state', () => {

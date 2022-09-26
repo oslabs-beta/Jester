@@ -6,15 +6,19 @@ import {
   TextField,
   Button,
   InputLabel,
+  SelectChangeEvent
 } from '@mui/material';
-import { useSelector, useDispatch } from 'react-redux';
+import { useAppDispatch, useAppSelector } from '../redux/hooks';
 import { setInputType, deleteAssertion } from '../redux/reducers/testFormSlice';
 import { setUserInputType, changeErrorMsg, setUserInputText } from '../redux/reducers/userInputSlice';
 
-export const Middle = (props) => {
+type middlePropsType = {
+  id: string,
+}
 
-  const dispatch = useDispatch();
-  const currValue = useSelector(
+export const Middle = (props: middlePropsType) => {
+  const dispatch = useAppDispatch();
+  const currValue = useAppSelector(
     (state) => state.testForm.assertionList[props.id]
   );
   const assertions = useSelector(
@@ -76,10 +80,15 @@ export const Middle = (props) => {
 
   }
 
-  const handleChange = (event) => {
+
+  const handleChange = (event: SelectChangeEvent<string>) => {
     dispatch(setInputType({ id: props.id, type: event.target.value }));
     dispatch(setUserInputType(event.target.value));
   };
+
+  const handleDelete = (event: any) => {
+    dispatch(deleteAssertion(event.target.id))
+  }
 
   const handleType = (event) => {
     verifyInputType(event);
@@ -124,7 +133,7 @@ export const Middle = (props) => {
         />
         <Button
           id={props.id}
-          onClick={(e) => dispatch(deleteAssertion(e.target.id))}
+          onClick={handleDelete}
         >
           -
         </Button>

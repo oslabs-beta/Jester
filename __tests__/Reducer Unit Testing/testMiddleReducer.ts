@@ -1,5 +1,5 @@
-import { store } from '../client/redux/store';
-import { setInputType, addUserInput, deleteAssertion } from '../client/redux/reducers/testFormSlice';
+import { store } from '../../client/redux/store';
+import { setInputType, deleteAssertion } from '../../client/redux/reducers/testFormSlice';
 
 //WORK IN PROGRESS
 
@@ -11,7 +11,6 @@ describe('Test Middle Reducer', () => {
         assertionList: {},
         i: 0,
         userInput: '',
-        inputType: 'Status Code',
       };
     });
     describe('default state', () => {

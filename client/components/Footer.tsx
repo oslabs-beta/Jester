@@ -8,7 +8,11 @@ import Button from '@mui/material/Button';
 import IconButton from '@mui/material/IconButton';
 import MenuIcon from '@mui/icons-material/Menu';
 
-function Footer(props) {
+type footerPropsType = {
+ // no props currently
+}
+
+function Footer(props: footerPropsType) {
   return (
     <Box id="footer" sx={{
       py: 3,
