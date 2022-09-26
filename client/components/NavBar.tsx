@@ -12,10 +12,13 @@ import { Login } from './Login';
 import { letterSpacing } from '@mui/system';
 
 const NavBar = () => {
+
+  // const [showLogin, setShowLogin] = useState(false)
   const dispatch = useAppDispatch();
   const open = useAppSelector((state) => state.userInfo.showLogin)
   const handleLoginOpen = () => {
     dispatch(setShowLogin())
+    // setShowLogin(true)
   } 
   return (
     <Box sx={{ flexGrow: 1 }}>

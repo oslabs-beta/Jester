@@ -21,7 +21,8 @@ export const Login = (props: loginProps) => {
     const errorElement = document.getElementById('error-message')
     if (errorElement) errorElement.style.display = 'auto'
    } else {
-    const clipboardData = await axios.get('/user-data') //what endpoint??
+    // does the userId come from a cookie?
+    const clipboardData = await axios.get('/userID') //what endpoint??
     // set clipboardData in state
       //slice of state name clipboard
         // reducer called setClipboard
