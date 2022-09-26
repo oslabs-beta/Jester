@@ -20,8 +20,10 @@ import axios from 'axios';
 
 export const Header = () => {
   const requestType = useAppSelector((state) => state.testForm.requestType);
-  const assertionObject = useAppSelector((state) => state.testForm.assertionList);
   const formValues = useAppSelector((state) => state.testForm.formValues);
+  const assertionObject = useAppSelector(
+    (state) => state.testForm.assertionList
+  );
   const assertionList: JSX.Element[] = [];
   const assertionIds = Object.keys(assertionObject);
   for (let id of assertionIds) {
@@ -40,27 +42,33 @@ export const Header = () => {
     dispatch(setFormValues({key: 'method', value: e.target.value}));
   }
   const handleFormValueChange = (e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => dispatch(setFormValues({key: e.target.id, value: e.target.value}))
+  const handleChange = (e: SelectChangeEvent<string>) =>
+    dispatch(setRequestType(e.target.value));
   const handleAdd = () => {
-    dispatch(addAssertion())
-    dispatch(setErrorMsg())
+    dispatch(addAssertion());
+    dispatch(setErrorMsg());
   };
 
   const menuItems: JSX.Element[] = [];
   const menuOptions = ['Get', 'Post', 'Patch', 'Delete'];
   for (let option of menuOptions) {
-    menuItems.push(<MenuItem key={option} value={option}>{option}</MenuItem>)
+    menuItems.push(
+      <MenuItem key={option} value={option}>
+        {option}
+      </MenuItem>
+    );
   }
 
   return (
-    <form id="test-generator-form" onSubmit={handleSubmit}>
+    <form id='test-generator-form' onSubmit={handleSubmit}>
       <span>
         <FormControl>
-          <InputLabel id="requestSelector">Request Type</InputLabel>
+          <InputLabel id='requestSelector'>Request Type</InputLabel>
           <Select
-            name="request-selector"
-            id="request-selector"
-            data-testid="request-selector"
-            label="Request Type"
+            name='request-selector'
+            id='request-selector'
+            data-testid='request-selector'
+            label='Request Type'
             value={requestType}
             onChange={ handleRequestChange }
           >
@@ -68,7 +76,7 @@ export const Header = () => {
           </Select>
         </FormControl>
         <TextField
-          label="Endpoint"
+          label='Endpoint'
           data-testid={requestType}
           id="endpoint"
           name={requestType}
@@ -76,12 +84,12 @@ export const Header = () => {
         />
         <RequestBody showField={requestType === 'Get' ? false : true} />
       </span>
-      <Box id="assertion-list">Assertion List: {assertionList}</Box>
+      <Box id='assertion-list'>Assertion List: {assertionList}</Box>
       <Button
-        id="add-assertion"
-        name="add-assertion"
-        variant="contained"
-        onClick={ handleAdd }
+        id='add-assertion'
+        name='add-assertion'
+        variant='contained'
+        onClick={handleAdd}
       >
         +
       </Button>

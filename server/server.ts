@@ -1,11 +1,12 @@
+// Package Imports
 import cookieSession from 'cookie-session';
+import express, { Express, Request, Response, NextFunction } from 'express';
 import passport from 'passport';
 import path from 'path';
 
-import express, { Express, Request, Response, NextFunction } from 'express';
-
 import authRoutes from './routes/auth';
 import testsRoutes from './routes/tests';
+import userRoutes from './routes/user';
 import { GlobalError } from './serverTypes';
 
 const app = express();
@@ -15,23 +16,29 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
 // passport and cookie-seesion methods for OAuth 2
-app.use(cookieSession({
-  name: 'github-auth-session',
-  keys: ['key1', 'key2']
-}))
+app.use(
+  cookieSession({
+    name: 'github-auth-session',
+    keys: ['key1', 'key2']
+  })
+);
 app.use(passport.initialize());
 app.use(passport.session());
 
 // Routers
 app.use('/auth', authRoutes);
 app.use('/api/tests', testsRoutes);
+app.use('/api/user', userRoutes);
 app.use('/dist', express.static(path.join(__dirname, '../dist')));
 app.use('/assets', express.static(path.join(__dirname, '../client/assets')));
-app.use('/stylesheets', express.static(path.join(__dirname, '../client/stylesheets')));
+app.use(
+  '/stylesheets',
+  express.static(path.join(__dirname, '../client/stylesheets'))
+);
 
 // Serve base HTML file
-app.get('/', (req: Request, res: Response) => {
-  return res.status(200).sendFile(path.join(__dirname, '../client/index.html'));
+app.get('*', (req: Request, res: Response) => {
+  return res.status(200).sendFile(path.join(__dirname, '../dist/index.html'));
 });
 
 // Global error handling middleware
