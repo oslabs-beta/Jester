@@ -1,9 +1,10 @@
 import React from 'react';
-import { Box, Dialog, DialogTitle } from '@mui/material';
+import { Box, Dialog, DialogTitle, Typography } from '@mui/material';
 import GitHubIcon from '@mui/icons-material/GitHub';
 import axios from 'axios'
 import { useAppDispatch } from '../redux/hooks';
 import { setShowLogin } from '../redux/reducers/userInfoSlice';
+// import {setClipboard} from '../redux/reducers/clipboardSlice';
 
 type loginProps = {
   open: boolean,
@@ -15,7 +16,21 @@ export const Login = (props: loginProps) => {
     dispatch(setShowLogin());
   }
   const handleClick = async (): Promise<void> => {
-   const response = await axios.get('/auth/github')
+   const response:(string | any) = await axios.get('/auth/github')
+   if (response === 'Unknown Error') {
+    const errorElement = document.getElementById('error-message')
+    if (errorElement) errorElement.style.display = 'auto'
+   } else {
+    const clipboardData = await axios.get('/user-data') //what endpoint??
+    // set clipboardData in state
+      //slice of state name clipboard
+        // reducer called setClipboard
+    
+    
+    // dispatch(setClipboard(clipboardData))
+    handleClose(); // close login box
+
+   }
    // what will the response be? 
   }
  return (
@@ -25,6 +40,7 @@ export const Login = (props: loginProps) => {
     }}><img alt='logo' src='../assets/logo-jester.png' /></Box>
     <DialogTitle>sign in with</DialogTitle>
     <GitHubIcon onClick={handleClick}/>
+    <Typography id="error-message" sx={{display: 'none', color: 'red'}}>Error</Typography>
   </Dialog>
  )
 }
