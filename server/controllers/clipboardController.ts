@@ -1,31 +1,44 @@
-
 import express, { Express, Request, Response, NextFunction } from 'express';
+import db from '../models/userModel';
 
 type Clipboard = {
-  get: (req: Request, res: Response, next: NextFunction) => void,
-  append: (req: Request, res: Response, next: NextFunction) => void,
-  delete: (req: Request, res: Response, next: NextFunction) => void,
-}
+  getClipboard: (req: Request, res: Response, next: NextFunction) => void;
+  appendClipboard: (req: Request, res: Response, next: NextFunction) => void;
+  deleteSnippet: (req: Request, res: Response, next: NextFunction) => void;
+};
 
 export const clipboardController: Clipboard = {
-  // Middleware to fetch clipboard data from logged in user
-  get: (req: Request, res: Response, next: NextFunction) => {
-    // this controller should query the Clipboard table of database 
-    // and save an array of code snippets to res.locals.clipboard
-    console.log('clipboardController.get');
+  // Middleware to fetch clipboard for a specified project
+  getClipboard: (req: Request, res: Response, next: NextFunction) => {
+    // const { projectId } = req.params;
+
+    // this controller should query the Snippets table for all snippets belonging
+    // to a project and save an array of code snippets to res.locals.clipboard
+
     res.locals.clipboard = 'nothing to send yet';
     return next();
   },
 
-  // Middleware to ...
-  append: (req: Request, res: Response, next: NextFunction) => {
-    // this controller should insert a new record in the Clipboard table 
-    // and the returned value to res.locals.clipboard
+  // Middleware to add a code snippet to the clipboard of a specified project
+  appendClipboard: (req: Request, res: Response, next: NextFunction) => {
+    // const { projectId } = req.params;
+    // const { code_snippet } = req.body
+
+    // this controller should insert a new record in the Clipboard table
+    // and save the updated clipboard to res.locals.clipboard
+
+    res.locals.clipboard = 'nothing to send yet';
+    return next();
   },
 
-  // Middleware to ...
-  delete: (req: Request, res: Response, next: NextFunction) => {
-    // this controller should delete all the records for that user on the Clipboard table array  
-    // and save the returned array to res.locals.clipboard
-  },
+  // Middleware to delete a specific code snippet in a project's clipboard
+  deleteSnippet: (req: Request, res: Response, next: NextFunction) => {
+    // const { snippetId } = req.params;
+
+    // this controller should delete one specific code snippet
+    // and save the updated clipboard to res.locals.clipboard
+
+    res.locals.clipboard = 'nothing to send yet';
+    return next();
+  }
 };
