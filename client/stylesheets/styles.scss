@@ -1,3 +1,11 @@
+
+#page-body { 
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 10px;
+}
+
 #code-output {
   font-family: 'Inconsolata', monospace;
   font-size: small;
@@ -19,10 +27,6 @@ img[alt~='logo'] {
   flex-direction: column;
   justify-content: center;
   align-items: center;
-}
-
-#add-assertion {
-  align-self: flex-start;
 }
 
 .center {
