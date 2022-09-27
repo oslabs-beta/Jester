@@ -1,12 +1,18 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
+type projectsType = {
+  project_id: number,
+  project_name: string,
+  user_id: number,
+}
+
 type userInfoStateType = {
   showLogin: boolean,
-  projectNames: string[]
+  projectsInfo: projectsType[]
 }
 const initialState: userInfoStateType = {
   showLogin: false,
-  projectNames: ['project1', 'project2'],
+  projectsInfo: []
 }
 
 export const userInfoSlice = createSlice({
@@ -16,8 +22,8 @@ export const userInfoSlice = createSlice({
     setShowLogin: (state: userInfoStateType) => {
       state.showLogin = state.showLogin ? false : true;
     },
-    setProjectNames: (state: userInfoStateType, action: PayloadAction<string[]>) => {
-      state.projectNames = action.payload
+    setProjectNames: (state: userInfoStateType, action: PayloadAction<projectsType[]>) => {
+      state.projectsInfo = action.payload
     }
   }
 })
