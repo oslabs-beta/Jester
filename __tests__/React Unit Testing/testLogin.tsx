@@ -6,12 +6,13 @@ import userEvent from '@testing-library/user-event';
 import '@testing-library/jest-dom';
 
 import { Login } from '../../client/components/Login';
+import { AnyListenerPredicate } from '@reduxjs/toolkit';
 
 
 
 const initialState = {};
 
-const mockStore = configureStore()
+const mockStore: any = configureStore()
 
 const login = () => {
   render(
