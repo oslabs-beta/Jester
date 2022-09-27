@@ -19,7 +19,7 @@ app.use(express.urlencoded({ extended: true }));
 app.use(
   cookieSession({
     name: 'github-auth-session',
-    keys: ['key1', 'key2']
+    keys: ['brianhaoisan@lgogod', 'nevertrust@anshuhelie$']
   })
 );
 app.use(passport.initialize());

@@ -13,7 +13,7 @@ export const clipboardController: Clipboard = {
     // this controller should query the Clipboard table of database 
     // and save an array of code snippets to res.locals.clipboard
     console.log('clipboardController.get');
-    res.locals.clipboard = 'nothing to send yet';
+    res.locals.clipboard = "nothing to send yet";
     return next();
   },
 
