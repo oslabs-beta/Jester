@@ -3,7 +3,7 @@ import Typography from '@mui/material/Typography';
 
 const Clipboard = () => {
   return (
-    <div className='center'>
+    <div className='page-body'>
       <Typography variant='h3'>This is the clipboard page.</Typography>
     </div>
   );

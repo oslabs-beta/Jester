@@ -13,7 +13,6 @@ import { letterSpacing } from '@mui/system';
 import { Route, Routes, Link } from 'react-router-dom';
 
 const NavBar = () => {
-
   // const [showLogin, setShowLogin] = useState(false)
   const dispatch = useAppDispatch();
   const open = useAppSelector((state) => state.userInfo.showLogin);
@@ -22,7 +21,7 @@ const NavBar = () => {
   };
 
   return (
-    <Box sx={{ flexGrow: 1 }}>
+    <Box id='navbar' sx={{ flexGrow: 1 }}>
       <AppBar position='static'>
         <Toolbar>
           <Link to='/'>
