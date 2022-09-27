@@ -1,9 +1,17 @@
+
+#page-body { 
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 10px;
+}
+
 #code-output {
   font-family: 'Inconsolata', monospace;
   font-size: small;
 }
 
-img[alt~="logo"]{
+img[alt~='logo'] {
   height: 60px;
   margin-bottom: 10px;
 }
@@ -21,6 +29,13 @@ img[alt~="logo"]{
   align-items: center;
 }
 
-#add-assertion {
-  align-self: flex-start;
+.center {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.nav-link {
+  color: white;
+  text-decoration: none;
 }

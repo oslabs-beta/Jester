@@ -85,7 +85,7 @@ describe('Unit testing "Header" component', () => {
     userInput: '',
   } };
   const mockStore = configureStore();
-  let store;
+  let store: any;
   beforeEach(() => {
     store = mockStore(initialState);
     render(
@@ -117,10 +117,8 @@ describe('Unit testing "Header" component', () => {
     expect(screen.getByRole('button', {name : '+'})).toBeInTheDocument();
   });
   test('Endpoint textbox renders successfully', () => {
-    const textbox = screen.getByLabelText('Endpoint');
-    expect(textbox).toBeInTheDocument();
     expect(screen.getByRole('textbox', {name: 'Endpoint'})).toBeInTheDocument();
-    expect(textbox.id).toEqual('Get');
+    expect(screen.getByRole('textbox', {name: 'Endpoint'}).id).toEqual('endpoint');
   });
   xtest('Add button renders middle component', () => {
     fireEvent.click(screen.getByText('+'));

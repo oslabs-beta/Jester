@@ -31,6 +31,9 @@ export const slice = createSlice({
     userEditText: (state: sliceType, action: PayloadAction<string>) => {
       state.codeOutputEdited = action.payload;
       // console.log('REDUCER: userEditText')
+    }, 
+    setCodeOutput: (state: sliceType, action: PayloadAction<string>) => {
+      state.codeOutput = action.payload;
     }
   },
   extraReducers: (builder) => {
@@ -53,7 +56,7 @@ const thunks= {
   })
 }
 
-export const { copyText, changeIcon, userEditText } = slice.actions
+export const { copyText, changeIcon, userEditText, setCodeOutput } = slice.actions
 
 export const { asyncChangeIcon } = thunks;
 

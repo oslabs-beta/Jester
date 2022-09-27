@@ -1,7 +1,6 @@
 import React from 'react';
-//What import from MUI? Kinda don't want to use a Textfield bc it can be edited and I can't protect it from that?
 import TextField from '@mui/material/TextField';
-//Will need RTK?
+//Will need RTK to create slice of state and for reducer functions.
 import { useAppDispatch, useAppSelector } from '../redux/hooks';
 import { userEditText } from '../redux/reducers/reducer';
 import { ChangeEvent } from 'react';
@@ -24,7 +23,7 @@ function ClipBoard() {
 
 
     return (
-        <TextField 
+        <TextField
         id="clipboard"
         multiline
         rows={10}
