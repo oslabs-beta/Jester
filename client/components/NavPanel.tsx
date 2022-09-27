@@ -6,8 +6,6 @@ import { useAppDispatch } from '../redux/hooks';
 import { setShowProjectPanel } from '../redux/reducers/navPanelSlice';
 
 export const NavPanel = () => {
-  // icon button to open project panel
-  // icon panel to open history panel
   const dispatch = useAppDispatch();
   const handleProjectsClick = () => {
     dispatch(setShowProjectPanel())
