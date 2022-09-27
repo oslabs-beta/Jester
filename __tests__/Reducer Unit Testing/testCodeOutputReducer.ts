@@ -1,8 +1,14 @@
 import { store } from '../../client/redux/store';
 import { changeIcon, userEditText } from '../../client/redux/reducers/reducer';
 
+type defaultStateType = {
+  codeOutput: string,
+  codeOutputEdited: string | undefined,
+  doneIcon: boolean,
+}
+
 describe('Code Output Reducer', () => {
-  let defaultState;
+  let defaultState: defaultStateType;
   beforeEach(() => {
     defaultState = {
       codeOutput: `describe('Sample description', (arg1) => { code.. }`,
