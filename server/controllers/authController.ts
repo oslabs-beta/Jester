@@ -1,6 +1,7 @@
 import passport from 'passport';
 import { Strategy as GitHubStrategy } from 'passport-github2';
 import { Express, Request, Response, NextFunction } from 'express';
+import db from '../models/userModel';
 
 type GitHubSettingsType = {
   clientID: string,
@@ -38,11 +39,11 @@ passport.use(
     gitHubSettings,
     function(accessToken: any, refreshToken: any, profile: any, done: any) {
       const email: string = profile.emails[0].value
+      const params = [email]
       console.log(email)
       // logic for creating a new record on the database for the user could do in here
 
       return done(null, profile);
-      
     }
 ));
 
@@ -53,9 +54,9 @@ export const authController: AuthType = {
       // this controller should verify that the user is logged in
       // do we do this via a cookie?
       // console.log('REQ USER', req.user)
-      if(!req.user){
-        return res.status(401).json("Error: User not authorized");
-      }
+      // if(!req.user){
+      //   return res.status(401).json("Error: User not authorized");
+      // }
       console.log('authController.isLoggedIn')
       return next();
     },
@@ -63,3 +64,11 @@ export const authController: AuthType = {
   
 
 export default passport;
+
+// const newUserQuery = `
+//       INSERT INTO user_table(usermail)
+//       VALUES $1
+//       ON CONFLICT DO NOTHING
+//       RETURNING user_id
+//       `
+//       const result = await db.query(newUserQuery, params);
