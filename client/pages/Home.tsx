@@ -5,11 +5,11 @@ import ButtonContainer from '../containers/ButtonContainer';
 
 const Home = () => {
   return (
-    <React.Fragment>
+    <div id="page-body">
       <Header />
       <CodeContainer />
       <ButtonContainer />
-    </React.Fragment>
+    </div>
   );
 };
 

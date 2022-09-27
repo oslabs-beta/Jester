@@ -6,11 +6,16 @@ import {
   Button,
   Box,
   InputLabel,
-  SelectChangeEvent
+  SelectChangeEvent,
+  Typography,
 } from '@mui/material';
 import React from 'react';
 import { useAppDispatch, useAppSelector } from '../redux/hooks';
-import { setRequestType, addAssertion, setFormValues } from '../redux/reducers/testFormSlice';
+import {
+  setRequestType,
+  addAssertion,
+  setFormValues,
+} from '../redux/reducers/testFormSlice';
 import { setCodeOutput } from '../redux/reducers/reducer';
 import { setErrorMsg } from '../redux/reducers/userInputSlice';
 import { Middle } from './Middle';
@@ -30,18 +35,21 @@ export const Header = () => {
     assertionList.push(<Middle id={id} key={id} />);
   }
   const dispatch = useAppDispatch();
-  const handleSubmit = async (e: React.FormEvent<EventTarget>): Promise<unknown> => {
+  const handleSubmit = async (
+    e: React.FormEvent<EventTarget>
+  ): Promise<unknown> => {
     e.preventDefault();
-    const response = await axios.post('/api/tests', formValues)
-    dispatch(setCodeOutput(response.data))
+    const response = await axios.post('/api/tests', formValues);
+    dispatch(setCodeOutput(response.data));
     return;
-
   };
   const handleRequestChange = (e: SelectChangeEvent<string>) => {
     dispatch(setRequestType(e.target.value));
-    dispatch(setFormValues({key: 'method', value: e.target.value}));
-  }
-  const handleFormValueChange = (e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => dispatch(setFormValues({key: e.target.id, value: e.target.value}))
+    dispatch(setFormValues({ key: 'method', value: e.target.value }));
+  };
+  const handleFormValueChange = (
+    e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+  ) => dispatch(setFormValues({ key: e.target.id, value: e.target.value }));
   const handleChange = (e: SelectChangeEvent<string>) =>
     dispatch(setRequestType(e.target.value));
   const handleAdd = () => {
@@ -60,40 +68,61 @@ export const Header = () => {
   }
 
   return (
-    <form id='test-generator-form' onSubmit={handleSubmit}>
-      <span>
+    <form id="test-generator-form" onSubmit={handleSubmit}>
+      <Box sx={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
         <FormControl>
-          <InputLabel id='requestSelector'>Request Type</InputLabel>
+          <InputLabel id="requestSelector">Request Type</InputLabel>
           <Select
-            name='request-selector'
-            id='request-selector'
-            data-testid='request-selector'
-            label='Request Type'
+            name="request-selector"
+            id="request-selector"
+            data-testid="request-selector"
+            label="Request Type"
             value={requestType}
-            onChange={ handleRequestChange }
+            onChange={handleRequestChange}
+            sx={{ width: '100px' }}
           >
             {menuItems}
           </Select>
         </FormControl>
         <TextField
-          label='Endpoint'
+          label="Endpoint"
           data-testid={requestType}
           id="endpoint"
           name={requestType}
-          onChange={ handleFormValueChange }
+          onChange={handleFormValueChange}
+          required
         />
         <RequestBody showField={requestType === 'Get' ? false : true} />
-      </span>
-      <Box id='assertion-list'>Assertion List: {assertionList}</Box>
-      <Button
-        id='add-assertion'
-        name='add-assertion'
-        variant='contained'
-        onClick={handleAdd}
+      </Box>
+      <Box
+        id="assertion-list"
+        sx={{
+          display: 'flex',
+          flexDirection: 'column',
+          alignItems: 'center',
+          justifyContent: 'center',
+          gap: '10px',
+          marginBottom: '10px',
+          marginTop: '10px',
+        }}
       >
-        +
+        {assertionList}
+        <Box sx={{ display: 'flex', gap: '10px', alignItems: 'center' }}>
+          <Typography>Add expected response:</Typography>
+          <Button
+            id="add-assertion"
+            name="add-assertion"
+            variant="contained"
+            onClick={handleAdd}
+            sx={{ justifySelf: 'center', alignSelf: 'center' }}
+          >
+            +
+          </Button>
+        </Box>
+      </Box>
+      <Button type="submit" variant="text" sx={{ backgroundColor: '#E6E6FA' }}>
+        Generate Test Code
       </Button>
-      <Button type="submit">Generate Test Code</Button>
     </form>
   );
 };
