@@ -13,6 +13,8 @@ import { letterSpacing } from '@mui/system';
 import { Route, Routes, Link } from 'react-router-dom';
 
 const NavBar = () => {
+
+  // const [showLogin, setShowLogin] = useState(false)
   const dispatch = useAppDispatch();
   const open = useAppSelector((state) => state.userInfo.showLogin);
   const handleLoginOpen = () => {
