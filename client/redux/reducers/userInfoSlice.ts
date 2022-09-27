@@ -8,10 +8,12 @@ type projectsType = {
 
 type userInfoStateType = {
   showLogin: boolean,
+  isLoggedIn: boolean,
   projectsInfo: projectsType[]
 }
 const initialState: userInfoStateType = {
   showLogin: false,
+  isLoggedIn: false,
   projectsInfo: []
 }
 
@@ -24,9 +26,12 @@ export const userInfoSlice = createSlice({
     },
     setProjectNames: (state: userInfoStateType, action: PayloadAction<projectsType[]>) => {
       state.projectsInfo = action.payload
+    },
+    setIsLoggedIn: (state: userInfoStateType) => {
+      state.isLoggedIn = state.isLoggedIn ? false : true;
     }
   }
 })
 
-export const { setShowLogin, setProjectNames } = userInfoSlice.actions;
+export const { setShowLogin, setProjectNames, setIsLoggedIn } = userInfoSlice.actions;
 export default userInfoSlice.reducer;

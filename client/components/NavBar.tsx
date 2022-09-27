@@ -17,6 +17,7 @@ const NavBar = () => {
   // const [showLogin, setShowLogin] = useState(false)
   const dispatch = useAppDispatch();
   const open = useAppSelector((state) => state.userInfo.showLogin);
+  const isLoggedIn = useAppSelector((state) => state.userInfo.isLoggedIn);
   const handleLoginOpen = () => {
     dispatch(setShowLogin());
   };
@@ -43,8 +44,11 @@ const NavBar = () => {
               Documentation
             </Link>
           </Button>
-          <Button color='inherit' onClick={handleLoginOpen}>
+          <Button color='inherit' onClick={handleLoginOpen} sx={{display: isLoggedIn ? 'auto' : 'none'}}>
             Login
+          </Button>
+          <Button color='inherit' sx={{display: isLoggedIn ? 'none' : 'auto'}}>
+            Logout
           </Button>
           <Login open={open} />
         </Toolbar>
