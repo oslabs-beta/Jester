@@ -1,4 +1,5 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
+import { stat } from 'fs';
 
 type navPanelStateType = {
   showProjectPanel: boolean,
@@ -15,9 +16,11 @@ export const navPanelSlice = createSlice({
   initialState,
   reducers: {
     setShowProjectPanel: (state: navPanelStateType) => {
+      if (state.showHistoryPanel) state.showHistoryPanel = false;
       state.showProjectPanel = state.showProjectPanel ? false : true;
     },
     setShowHistoryPanel: (state: navPanelStateType) => {
+      if (state.showProjectPanel) state.showProjectPanel = false;
       state.showHistoryPanel = state.showHistoryPanel ? false : true;
     },
     

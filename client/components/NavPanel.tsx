@@ -9,19 +9,11 @@ import {
 } from '../redux/reducers/navPanelSlice';
 
 export const NavPanel = () => {
-  const showProjectPanel = useAppSelector(
-    (state) => state.navPanel.showProjectPanel
-  );
-  const showHistoryPanel = useAppSelector(
-    (state) => state.navPanel.showHistoryPanel
-  );
   const dispatch = useAppDispatch();
   const handleProjectsClick = () => {
-    if (showHistoryPanel) dispatch(setShowHistoryPanel());
     dispatch(setShowProjectPanel());
   };
   const handleHistoryClick = () => {
-    if (showProjectPanel) dispatch(setShowProjectPanel());
     dispatch(setShowHistoryPanel());
   };
   return (
