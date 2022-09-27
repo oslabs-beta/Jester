@@ -6,7 +6,8 @@ import path from 'path';
 
 import authRoutes from './routes/auth';
 import testsRoutes from './routes/tests';
-import userRoutes from './routes/user';
+import projectRoutes from './routes/project';
+import clipboardRoutes from './routes/clipboard';
 import { GlobalError } from './serverTypes';
 
 const app = express();
@@ -28,7 +29,8 @@ app.use(passport.session());
 // Routers
 app.use('/auth', authRoutes);
 app.use('/api/tests', testsRoutes);
-app.use('/api/user', userRoutes);
+app.use('/api/project', projectRoutes);
+app.use('/api/clipboard', clipboardRoutes);
 app.use('/dist', express.static(path.join(__dirname, '../dist')));
 app.use('/assets', express.static(path.join(__dirname, '../client/assets')));
 app.use(
