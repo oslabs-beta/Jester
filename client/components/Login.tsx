@@ -3,7 +3,7 @@ import { Button, Box, Dialog, DialogTitle, Typography } from '@mui/material';
 import GitHubIcon from '@mui/icons-material/GitHub';
 import axios from 'axios'
 import { useAppDispatch } from '../redux/hooks';
-import { setShowLogin } from '../redux/reducers/userInfoSlice';
+import { setShowLogin, setProjectNames } from '../redux/reducers/userInfoSlice';
 // import {setClipboard} from '../redux/reducers/clipboardSlice';
 
 type loginProps = {
@@ -22,13 +22,9 @@ export const Login = (props: loginProps) => {
     if (errorElement) errorElement.style.display = 'auto'
    } else {
     // does the userId come from a cookie?
-    const clipboardData = await axios.get('/userID') //what endpoint??
-    // set clipboardData in state
-      //slice of state name clipboard
-        // reducer called setClipboard
+    const projectData = await axios.get('/api/project/userID') //how to get userId
+    dispatch(setProjectNames(projectData.data));
     
-    
-    // dispatch(setClipboard(clipboardData))
     handleClose(); // close login box
 
    }
