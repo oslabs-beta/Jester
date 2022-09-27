@@ -24,6 +24,7 @@ export const Login = (props: loginProps) => {
     // does the userId come from a cookie?
     const projectData = await axios.get('/api/project/userID') //how to get userId
     dispatch(setProjectNames(projectData.data));
+    // projects = [{}]
     
     handleClose(); // close login box
 

@@ -1,9 +1,9 @@
 import { Box, Button, Typography } from '@mui/material';
 import React from 'react';
-import { couldStartTrivia } from 'typescript';
 import { useAppSelector, useAppDispatch } from '../redux/hooks';
 import { setShowAddProject } from '../redux/reducers/navPanelSlice';
-import { AddProjectDialog } from './AddProjectDialog';
+import { AddProjectDialog } from '../components/AddProjectDialog';
+import { Project } from '../components/Project';
 
 export const ProjectPanel = () => {
 // send request to backend to get project names (get request to '/api/project/:userId')
@@ -22,7 +22,7 @@ export const ProjectPanel = () => {
   const projectName: string[] = useAppSelector((state) => state.userInfo.projectNames);
   const projects: JSX.Element[] = [];
   projectName.forEach(project => {
-    projects.push(<Button>{project}</Button>)
+    projects.push(<Project name={project} />)
   })
   const handleAddProject = () => {
     dispatch(setShowAddProject());
