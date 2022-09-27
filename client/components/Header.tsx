@@ -10,13 +10,17 @@ import {
 } from '@mui/material';
 import React from 'react';
 import { useAppDispatch, useAppSelector } from '../redux/hooks';
-import { setRequestType, addAssertion } from '../redux/reducers/testFormSlice';
+import { setRequestType, addAssertion, setFormValues } from '../redux/reducers/testFormSlice';
+import { setCodeOutput } from '../redux/reducers/reducer';
 import { setErrorMsg } from '../redux/reducers/userInputSlice';
 import { Middle } from './Middle';
 import { RequestBody } from './RequestBody';
+import { ChangeEvent } from 'react';
+import axios from 'axios';
 
 export const Header = () => {
   const requestType = useAppSelector((state) => state.testForm.requestType);
+  const formValues = useAppSelector((state) => state.testForm.formValues);
   const assertionObject = useAppSelector(
     (state) => state.testForm.assertionList
   );
@@ -26,10 +30,18 @@ export const Header = () => {
     assertionList.push(<Middle id={id} key={id} />);
   }
   const dispatch = useAppDispatch();
-  const handleSubmit = (e: React.FormEvent<EventTarget>): void => {
+  const handleSubmit = async (e: React.FormEvent<EventTarget>): Promise<unknown> => {
     e.preventDefault();
-    console.log('Submit Post Request');
+    const response = await axios.post('/api/tests', formValues)
+    dispatch(setCodeOutput(response.data))
+    return;
+
   };
+  const handleRequestChange = (e: SelectChangeEvent<string>) => {
+    dispatch(setRequestType(e.target.value));
+    dispatch(setFormValues({key: 'method', value: e.target.value}));
+  }
+  const handleFormValueChange = (e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => dispatch(setFormValues({key: e.target.id, value: e.target.value}))
   const handleChange = (e: SelectChangeEvent<string>) =>
     dispatch(setRequestType(e.target.value));
   const handleAdd = () => {
@@ -58,7 +70,7 @@ export const Header = () => {
             data-testid='request-selector'
             label='Request Type'
             value={requestType}
-            onChange={handleChange}
+            onChange={ handleRequestChange }
           >
             {menuItems}
           </Select>
@@ -66,8 +78,9 @@ export const Header = () => {
         <TextField
           label='Endpoint'
           data-testid={requestType}
-          id={requestType}
+          id="endpoint"
           name={requestType}
+          onChange={ handleFormValueChange }
         />
         <RequestBody showField={requestType === 'Get' ? false : true} />
       </span>
@@ -80,6 +93,7 @@ export const Header = () => {
       >
         +
       </Button>
+      <Button type="submit">Generate Test Code</Button>
     </form>
   );
 };

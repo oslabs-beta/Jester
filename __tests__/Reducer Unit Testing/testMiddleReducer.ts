@@ -11,6 +11,7 @@ describe('Test Middle Reducer', () => {
         assertionList: {},
         i: 0,
         userInput: '',
+        formValues: { header: { method: 'Get'}, assertions: []},
       };
     });
     describe('default state', () => {
