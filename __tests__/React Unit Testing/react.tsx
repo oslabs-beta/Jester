@@ -120,7 +120,7 @@ describe('Unit testing "Header" component', () => {
     const textbox = screen.getByLabelText('Endpoint');
     expect(textbox).toBeInTheDocument();
     expect(screen.getByRole('textbox', {name: 'Endpoint'})).toBeInTheDocument();
-    expect(textbox.id).toEqual('Get');
+    expect(textbox.id).toEqual('endpoint');
   });
   xtest('Add button renders middle component', () => {
     fireEvent.click(screen.getByText('+'));
