@@ -10,16 +10,12 @@ import {
   Box,
 } from '@mui/material';
 import { useAppDispatch, useAppSelector } from '../redux/hooks';
-import {
-  setInputType,
-  deleteAssertion,
-} from '../redux/reducers/testFormSlice';
+import { setInputType, deleteAssertion } from '../redux/reducers/testFormSlice';
 import {
   setUserInputType,
   changeErrorMsg,
   setUserInputText,
 } from '../redux/reducers/userInputSlice';
-import e from 'express';
 
 type middlePropsType = {
   id: string;
