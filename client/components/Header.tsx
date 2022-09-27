@@ -38,80 +38,46 @@ export const Header = () => {
   }
   const dispatch = useAppDispatch();
 
-
   const getData = (form: any) => {
     const formData = new FormData(form);
-    return (Object.fromEntries(formData));
-  }
-
+    return Object.fromEntries(formData);
+  };
 
   const handleSubmit = async (
     e: React.FormEvent<EventTarget>
   ): Promise<unknown> => {
     e.preventDefault();
-    console.log(document.getElementById('test-generator-form'))
     const formValues = getData(e.target);
-    console.log('formValues: ', formValues);
-
-  console.log(typeof formValues['request-selector'])
     const method = formValues['request-selector'].toString();
     const endpoint = formValues[method].toString();
-    const req_body = formValues['Request-Body'].toString();
-    const contentAssertion = formValues['Content Type'].toString();
-    const statusAssertion = formValues['Status Code'].toString();
-    const res_body = formValues['Response Body'].toString();
+    const req_body = formValues['Request-Body'];
+    const contentAssertion = formValues['Content Type'];
+    const statusAssertion = formValues['Status Code'];
+    const res_body = formValues['Response Body'];
 
     type requestBodyType = {
       header: {
-        method?: string, endpoint?: string, req_body?: string
-      },
-      assertions: {}[]
-    }
+        method?: string;
+        endpoint?: string;
+        req_body?: string;
+      };
+      assertions: {}[];
+    };
 
-    const requestBody: requestBodyType = {header: {}, assertions: []};
+    const requestBody: requestBodyType = { header: {}, assertions: [] };
     if (method) requestBody.header['method'] = method;
-    if (endpoint) requestBody.header['endpoint'] = endpoint
-    if (req_body) requestBody.header['req_body'] = req_body
-    if (contentAssertion) requestBody.assertions.push({content: contentAssertion});
-    if (statusAssertion) requestBody.assertions.push({status: statusAssertion});
-    if (res_body) requestBody.assertions.push({res_body: res_body});
-    
+    if (endpoint) requestBody.header['endpoint'] = endpoint;
+    if (req_body) requestBody.header['req_body'] = req_body.toString();
+    if (contentAssertion)
+      requestBody.assertions.push({ content: contentAssertion.toString() });
+    if (statusAssertion)
+      requestBody.assertions.push({ status: statusAssertion.toString() });
+    if (res_body)
+      requestBody.assertions.push({ res_body: res_body.toString() });
+
     const response = await axios.post('/api/tests', requestBody);
     dispatch(setCodeOutput(response.data));
 
-
-    
-    // {
-    //   header: {
-    //             endpoint : '/',
-    //             method: 'POST'
-    //             req_body: {a:1} // Needed for POST and PATCH, optional for DELETE
-    //   },
-    //   assertions: [
-    //                 { content: '/text\/html/' },
-    //                 { status: 200 },
-    //                 { res_body: { a: 'b' } }
-    //                 ...
-    //   ]
-    // }
-
-    // const assertions = formValues.assertions;
-    // if (assertions.length === 0) alert('Please add your expected response!');
-    // else {
-    //   const newAssertions = [];
-    //   for (let [key, value] of Object.entries(assertions[0])) {
-    //     const obj: any = {};
-    //     obj[key] = value;
-    //     newAssertions.push(obj);
-    //   }
-    //   const requestBody = {
-    //     header: formValues.header,
-    //     assertions: newAssertions,
-    //   };
-    //   console.log(requestBody);
-    //   const response = await axios.post('/api/tests', requestBody);
-    //   dispatch(setCodeOutput(response.data));
-    // }
     return;
   };
   const handleRequestChange = (e: SelectChangeEvent<string>) => {
