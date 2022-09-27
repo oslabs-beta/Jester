@@ -29,4 +29,11 @@ router.get('/github/callback',
   }
 );
 
+router.post('/logout', (req: Request, res: Response, next: NextFunction): void => {
+  req.logout(err => {
+    if (err) { return next(err); }
+    return res.redirect('../../');
+  });
+});
+
 export default router;
