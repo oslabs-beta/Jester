@@ -13,7 +13,6 @@ import { useAppDispatch, useAppSelector } from '../redux/hooks';
 import {
   setInputType,
   deleteAssertion,
-  setFormValues,
 } from '../redux/reducers/testFormSlice';
 import {
   setUserInputType,
@@ -109,7 +108,6 @@ export const Middle = (props: middlePropsType) => {
     verifyInputType(event);
     verifyNumInputs(event);
     dispatch(setUserInputText(event.target.value));
-    dispatch(setFormValues({ key: currValue, value: event.target.value }));
   };
 
   return (

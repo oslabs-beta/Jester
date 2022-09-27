@@ -14,7 +14,6 @@ import { useAppDispatch, useAppSelector } from '../redux/hooks';
 import {
   setRequestType,
   addAssertion,
-  setFormValues,
 } from '../redux/reducers/testFormSlice';
 import { setCodeOutput } from '../redux/reducers/reducer';
 import { setErrorMsg } from '../redux/reducers/userInputSlice';
@@ -22,12 +21,9 @@ import { Middle } from './Middle';
 import { RequestBody } from './RequestBody';
 import { ChangeEvent } from 'react';
 import axios from 'axios';
-import { AnySet } from 'immer/dist/internal';
-import { request } from 'https';
 
 export const Header = () => {
   const requestType = useAppSelector((state) => state.testForm.requestType);
-  const formValues = useAppSelector((state) => state.testForm.formValues);
   const assertionObject = useAppSelector(
     (state) => state.testForm.assertionList
   );
@@ -82,12 +78,9 @@ export const Header = () => {
   };
   const handleRequestChange = (e: SelectChangeEvent<string>) => {
     dispatch(setRequestType(e.target.value));
-    dispatch(setFormValues({ key: 'method', value: e.target.value }));
   };
-  const handleFormValueChange = (
-    e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
-  ) => dispatch(setFormValues({ key: e.target.id, value: e.target.value }));
-  const handleChange = (e: SelectChangeEvent<string>) =>
+
+  const handleChange = (e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) =>
     dispatch(setRequestType(e.target.value));
   const handleAdd = () => {
     dispatch(addAssertion());
@@ -126,7 +119,6 @@ export const Header = () => {
           data-testid={requestType}
           id="endpoint"
           name={requestType}
-          onChange={handleFormValueChange}
           required
         />
         <RequestBody showField={requestType === 'Get' ? false : true} />
