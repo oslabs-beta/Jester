@@ -3,20 +3,13 @@ const router: Router = express.Router();
 import passport, { authController } from '../controllers/authController'
 
 
-// route checking if user is authorized
-router.get('/', 
-  authController.isLoggedIn, 
-  (req: Request, res: Response) => {
-  res.status(200).json({ userId: req.user });
-});
-
 // route for user being unable to sign in with GitHub
 router.get('/error', 
 (req: Request, res: Response): Response => {
     return res.send('Unknown Error')
   })
 
-// route for dialog box to GitHub authorization
+// route for dialog box to GitHub authorization (i.e. login with Github)
 router.get('/github',
   passport.authenticate('github',{ scope: [ 'user:email' ] })
 );
