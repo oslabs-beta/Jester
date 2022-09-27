@@ -11,10 +11,7 @@ import {
 } from '@mui/material';
 import React from 'react';
 import { useAppDispatch, useAppSelector } from '../redux/hooks';
-import {
-  setRequestType,
-  addAssertion,
-} from '../redux/reducers/testFormSlice';
+import { setRequestType, addAssertion } from '../redux/reducers/testFormSlice';
 import { setCodeOutput } from '../redux/reducers/reducer';
 import { setErrorMsg } from '../redux/reducers/userInputSlice';
 import { Middle } from './Middle';
@@ -43,13 +40,30 @@ export const Header = () => {
     e: React.FormEvent<EventTarget>
   ): Promise<unknown> => {
     e.preventDefault();
+    let statusCount = 0;
+    let contentCount = 0;
+    const assertionVals = Object.values(assertionObject);
+    assertionVals.forEach((val) => {
+      if (val === 'Status Code') statusCount++;
+      if (val === 'Content Type') contentCount++;
+    });
+
+    if (statusCount > 1)
+      return alert('Make sure that you have only one Status Code!');
+    if (contentCount > 1)
+      return alert('Make sure that you have only one Content Type!');
+
     const formValues = getData(e.target);
+
     const method = formValues['request-selector'].toString();
     const endpoint = formValues[method].toString();
     const req_body = formValues['Request-Body'];
     const contentAssertion = formValues['Content Type'];
     const statusAssertion = formValues['Status Code'];
     const res_body = formValues['Response Body'];
+
+    if (!contentAssertion && !statusAssertion && !res_body)
+      return alert('Please add expected response!');
 
     type requestBodyType = {
       header: {
@@ -80,8 +94,9 @@ export const Header = () => {
     dispatch(setRequestType(e.target.value));
   };
 
-  const handleChange = (e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) =>
-    dispatch(setRequestType(e.target.value));
+  const handleChange = (
+    e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+  ) => dispatch(setRequestType(e.target.value));
   const handleAdd = () => {
     dispatch(addAssertion());
     dispatch(setErrorMsg());
