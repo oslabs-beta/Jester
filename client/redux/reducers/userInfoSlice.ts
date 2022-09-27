@@ -6,7 +6,7 @@ type userInfoStateType = {
 }
 const initialState: userInfoStateType = {
   showLogin: false,
-  projectNames: [],
+  projectNames: ['project1', 'project2'],
 }
 
 export const userInfoSlice = createSlice({

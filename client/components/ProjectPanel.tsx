@@ -19,6 +19,11 @@ export const ProjectPanel = () => {
   const showProjectPanel = useAppSelector(
     (state) => state.navPanel.showProjectPanel
   );
+  const projectName: string[] = useAppSelector((state) => state.userInfo.projectNames);
+  const projects: JSX.Element[] = [];
+  projectName.forEach(project => {
+    projects.push(<Button>{project}</Button>)
+  })
   const handleAddProject = () => {
     dispatch(setShowAddProject());
   }
@@ -33,7 +38,9 @@ export const ProjectPanel = () => {
           justifyContent: 'space-between',
         }}
       >
-        <Button >Project1</Button>
+        <Box sx={{display: 'flex', flexDirection:'column'}}>
+        {projects}
+        </Box>
         <Button onClick={ handleAddProject }>Add New Project</Button>
         <AddProjectDialog />
       </Box>
