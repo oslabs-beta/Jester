@@ -1,11 +1,27 @@
 import { Box, Button, Typography } from '@mui/material';
 import React from 'react';
-import { useAppSelector } from '../redux/hooks';
+import { couldStartTrivia } from 'typescript';
+import { useAppSelector, useAppDispatch } from '../redux/hooks';
+import { setShowAddProject } from '../redux/reducers/navPanelSlice';
+import { AddProjectDialog } from './AddProjectDialog';
 
 export const ProjectPanel = () => {
+// send request to backend to get project names (get request to '/api/project/:userId')
+// render buttons for project names
+  // add property in state for project names
+  // add delete project functionality as button next to name
+    // popup to confirm delete
+    // send delete request to ('/api/project/:userId')
+
+  
+
+  const dispatch = useAppDispatch();
   const showProjectPanel = useAppSelector(
     (state) => state.navPanel.showProjectPanel
   );
+  const handleAddProject = () => {
+    dispatch(setShowAddProject());
+  }
   if (showProjectPanel)
     return (
       <Box
@@ -17,8 +33,9 @@ export const ProjectPanel = () => {
           justifyContent: 'space-between',
         }}
       >
-        Project1
-        <Button>Add New Project</Button>
+        <Button >Project1</Button>
+        <Button onClick={ handleAddProject }>Add New Project</Button>
+        <AddProjectDialog />
       </Box>
     );
   else return null;
