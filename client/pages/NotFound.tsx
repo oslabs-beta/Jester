@@ -5,7 +5,7 @@ import Typography from '@mui/material/Typography';
 const NotFound = () => {
   return (
     <div className='page-body'>
-      <Typography variant='h3'>
+      <Typography variant='h4' component='h2'>
         404: Page Not Found. Click <Link to='/'>here</Link> to go Home.
       </Typography>
     </div>

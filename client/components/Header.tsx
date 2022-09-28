@@ -73,8 +73,7 @@ export const Header = () => {
         sx={{
           display: 'flex',
           alignItems: 'center',
-          gap: '10px',
-          marginTop: '50px'
+          gap: '10px'
         }}
       >
         <FormControl>
