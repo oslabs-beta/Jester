@@ -1,10 +1,8 @@
 import React, { useState, ChangeEvent } from 'react';
 import {
   Dialog,
-  InputLabel,
   TextField,
   Button,
-  FormControl,
   Typography,
 } from '@mui/material';
 import { setShowAddProject } from '../redux/reducers/navPanelSlice';
