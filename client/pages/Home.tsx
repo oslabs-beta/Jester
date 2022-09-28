@@ -1,9 +1,8 @@
 import React from 'react';
-import { Header } from '../components/Header';
-import CodeContainer from '../containers/CodeContainer';
-import ButtonContainer from '../containers/ButtonContainer';
 import { Box } from '@mui/material';
 import { NavPanelContainer } from './NavPanelContainer';
+import { CodeGenerator } from './CodeGenerator';
+import Clipboard from './Clipboard';
 
 const Home = () => {
   return (
@@ -16,9 +15,8 @@ const Home = () => {
     >
       <NavPanelContainer />
       <div>
-        <Header />
-        <CodeContainer />
-        <ButtonContainer />
+        <CodeGenerator show={true} />
+        <Clipboard show={false} />
       </div>
     </Box>
   );

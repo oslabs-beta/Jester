@@ -1,13 +1,15 @@
 import React from "react";
 import { Box, Button } from "@mui/material";
-import { useAppSelector } from "../redux/hooks";
+import { useAppSelector, useAppDispatch } from "../redux/hooks";
 import { ClipBoard } from "./ClipBoard";
+import { setShowClipboard } from '../redux/reducers/userInfoSlice'
 
 
 type accessClipboardDisplayProps = {
   projectId: number,
 }
 export const AccessClipboardDisplay = (props: accessClipboardDisplayProps) => {
+  const dispatch = useAppDispatch();
   const projects = useAppSelector((state) => state.userInfo.projectsInfo);
   let show;
   for (let project of projects) {
@@ -24,13 +26,12 @@ export const AccessClipboardDisplay = (props: accessClipboardDisplayProps) => {
     // onclick will send delete request to backend and set projectInfo in state with return array
   const handleClipboardClick = () => {
     // onclick will render clipboard page drilling down project id
-
+    dispatch(setShowClipboard(props.projectId));
   }
   if (show) return(
     <Box>
       <Button onClick={handleClipboardClick}>
         Clipboard
-        <ClipBoard/>
       </Button>
       <Button>
         Generate New Test Code

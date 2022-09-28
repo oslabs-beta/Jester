@@ -8,6 +8,7 @@ import Home from './pages/Home';
 import Clipboard from './pages/Clipboard';
 import Documentation from './pages/Documentation';
 import NotFound from './pages/NotFound';
+import { ClipBoard } from './components/ClipBoard';
 
 const theme = createTheme({
   palette: {
@@ -30,7 +31,7 @@ const App = () => {
       <NavBar />
       <Routes>
         <Route path='/' element={<Home />} />
-        <Route path='/clipboard' element={<Clipboard />} />
+        <Route path='/clipboard' element={<Clipboard show={true}/>} />
         <Route path='/documentation' element={<Documentation />} />
         <Route path='*' element={<NotFound />} />
       </Routes>
