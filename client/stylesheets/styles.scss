@@ -1,9 +1,12 @@
+body {
+  margin: 0;
+}
 
-#page-body { 
+.page-body {
   display: flex;
   flex-direction: column;
   align-items: center;
-  margin-top: 10px;
+  margin-top: 50px;
 }
 
 #code-output {
@@ -39,3 +42,34 @@ img[alt~='logo'] {
   color: white;
   text-decoration: none;
 }
+
+.code-container {
+  position: relative;
+}
+
+.code-container:hover > .button-container {
+  transition: all 0.5s ease-in;
+  opacity: 100;
+}
+
+.button-container {
+  position: absolute;
+  display: inline-block;
+  top: 35px;
+  right: 50px;
+  opacity: 0;
+  overflow: hidden;
+  z-index: 10;
+}
+
+#navbar {
+  // position: fixed; // Sticky Navbar
+  top: 0;
+  width: 100%;
+  z-index: 99;
+}
+
+// Uncomment this section if changing Navbar to sticky
+// .page-body {
+//   margin-top: 120px;
+// }
