@@ -3,6 +3,14 @@ const router: Router = express.Router();
 import passport, { authController } from '../controllers/authController'
 
 
+// route checking if user is authorized
+router.get('/', 
+  authController.isLoggedIn, 
+  authController.getUserId,
+  (req, res) => {
+    return res.status(200).json(res.locals.userId)
+    });
+
 // route for user being unable to sign in with GitHub
 router.get('/error', 
 (req: Request, res: Response): Response => {
