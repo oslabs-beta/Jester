@@ -6,81 +6,90 @@ import {
   TextField,
   Button,
   InputLabel,
-  SelectChangeEvent
+  SelectChangeEvent,
+  Box,
 } from '@mui/material';
 import { useAppDispatch, useAppSelector } from '../redux/hooks';
-import { setInputType, deleteAssertion, setFormValues } from '../redux/reducers/testFormSlice';
-import { setUserInputType, changeErrorMsg, setUserInputText } from '../redux/reducers/userInputSlice';
-import e from 'express';
+import { setInputType, deleteAssertion } from '../redux/reducers/testFormSlice';
+import {
+  setUserInputType,
+  changeErrorMsg,
+  setUserInputText,
+} from '../redux/reducers/userInputSlice';
 
 type middlePropsType = {
-  id: string,
-}
+  id: string;
+};
 
 export const Middle = (props: middlePropsType) => {
   const dispatch = useAppDispatch();
   const currValue = useAppSelector(
     (state) => state.testForm.assertionList[props.id]
   );
-  const assertions = useAppSelector(
-    (state) => state.testForm.assertionList
-  )
-    const errorMsgs = useAppSelector(
-    (state) => state.userInput.errorMsgs
-  )
-    const i = useAppSelector(
-      (state) => state.userInput.i
-    )
+  const assertions = useAppSelector((state) => state.testForm.assertionList);
+  const errorMsgs = useAppSelector((state) => state.userInput.errorMsgs);
+  const i = useAppSelector((state) => state.userInput.i);
 
-   const verifyNumInputs = (e: any) => {
+  const verifyNumInputs = (e: any) => {
     let statusCount = 0;
     let contentCount = 0;
     const assertionVals = Object.values(assertions);
-        assertionVals.forEach((val) =>  {
-            if (val === 'Status Code') statusCount ++;
-            if (val === 'Content Type') contentCount++;
+    assertionVals.forEach((val) => {
+      if (val === 'Status Code') statusCount++;
+      if (val === 'Content Type') contentCount++;
+    });
+    if (statusCount >= 2 && e.target.id === 'Status Code')
+      dispatch(
+        changeErrorMsg({
+          propsId: props.id,
+          newMsg: '1 status code permitted',
         })
-        if (statusCount >= 2 && e.target.id === 'Status Code') dispatch(changeErrorMsg({
+      );
+    if (contentCount >= 2 && e.target.id === 'Content Type')
+      dispatch(
+        changeErrorMsg({
           propsId: props.id,
-          newMsg: '1 status code permitted'
-        }));
-        if (contentCount >= 2 && e.target.id === 'Content Type') dispatch(changeErrorMsg({
-          propsId: props.id,
-          newMsg: '1 content type permitted'
-        }));
-  }
+          newMsg: '1 content type permitted',
+        })
+      );
+  };
 
   const verifyInputType = (e: any) => {
     const userInput = e.target.value;
     if (e.target.id === 'Status Code') {
       if (!Number(userInput)) {
-        dispatch(changeErrorMsg({
-          propsId: props.id,
-          newMsg: 'invalid status code'
-        }));
+        dispatch(
+          changeErrorMsg({
+            propsId: props.id,
+            newMsg: 'invalid status code',
+          })
+        );
       } else {
-        dispatch(changeErrorMsg({
-          propsId: props.id,
-          newMsg: 'looks good!'
-        }));
+        dispatch(
+          changeErrorMsg({
+            propsId: props.id,
+            newMsg: '',
+          })
+        );
       }
     } else {
       if (e.target.id === 'Content Type' && Number(userInput)) {
-        dispatch(changeErrorMsg({
-          propsId: props.id,
-          newMsg: 'invalid content type'
-        }));
-    } else {
-        dispatch(changeErrorMsg({
-          propsId: props.id,
-          newMsg: 'looks good!'
-        }));
+        dispatch(
+          changeErrorMsg({
+            propsId: props.id,
+            newMsg: 'invalid content type',
+          })
+        );
+      } else {
+        dispatch(
+          changeErrorMsg({
+            propsId: props.id,
+            newMsg: '',
+          })
+        );
+      }
     }
-    }
-
-
-  }
-
+  };
 
   const handleChange = (event: SelectChangeEvent<string>) => {
     dispatch(setInputType({ id: props.id, type: event.target.value }));
@@ -88,21 +97,27 @@ export const Middle = (props: middlePropsType) => {
   };
 
   const handleDelete = (event: any) => {
-    dispatch(deleteAssertion(event.target.id))
-  }
+    dispatch(deleteAssertion(event.target.id));
+  };
 
   const handleType = (event: any) => {
     verifyInputType(event);
     verifyNumInputs(event);
     dispatch(setUserInputText(event.target.value));
-    dispatch(setFormValues({key: currValue, value: event.target.value}))
-  }
+  };
 
   return (
     <div>
-      <span>
+      <Box
+        sx={{
+          display: 'flex',
+          justifyContent: 'center',
+          alignItems: 'center',
+          gap: '10px',
+        }}
+      >
         <FormControl>
-          <InputLabel>Test Option</InputLabel>
+          <InputLabel></InputLabel>
           <Select
             name="more-test-options"
             id={props.id}
@@ -122,23 +137,26 @@ export const Middle = (props: middlePropsType) => {
             </MenuItem>
           </Select>
         </FormControl>
-        <TextField 
-        label="User Input" 
-        id={currValue} 
-        name={currValue}
-        error
-        //   id="outlined-error-helper-text"
-        //   label="Error"
+        <TextField
+          label={currValue}
+          id={currValue}
+          name={currValue}
+          error={!errorMsgs[props.id] ? false : true}
+          //   id="outlined-error-helper-text"
+          //   label="Error"
           helperText={errorMsgs[props.id]}
           onChange={handleType}
+          required
         />
         <Button
           id={props.id}
           onClick={handleDelete}
+          variant="contained"
+          sx={{ height: '30px', width: '20px' }}
         >
           -
         </Button>
-      </span>
+      </Box>
     </div>
   );
 };

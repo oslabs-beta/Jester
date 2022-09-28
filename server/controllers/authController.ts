@@ -43,15 +43,14 @@ passport.use(
       const email: string = profile.emails[0].value
       const params = [email]
       console.log(email)
-      // logic for creating a new record on the database for the user could do in here
-
+      // logic for creating a new record on the database for the user could go in here
+      
       return done(null, profile);
     }
 ));
 
 export const authController: AuthType = {
     // Middleware to verify that user is logged in (typically used before database calls)
-    // This will check the request to ensure the presence of a token
     isLoggedIn: (req: Request, res: Response, next: NextFunction) => {
       // this controller should verify that the user is logged in
       // do we do this via a cookie?
@@ -59,6 +58,10 @@ export const authController: AuthType = {
       // if(!req.user){
       //   return res.status(401).json("Error: User not authorized");
       // }
+      // MLCK: Is this a security vulnerability?  Another option is to store session in database and make a db call
+      if(!req.user || !req.isAuthenticated()){
+        return res.status(401).json("Error: User not authorized");
+      }
       console.log('authController.isLoggedIn')
       return next();
     },
