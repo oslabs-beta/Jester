@@ -4,13 +4,10 @@ import Box from '@mui/material/Box';
 import Toolbar from '@mui/material/Toolbar';
 import Typography from '@mui/material/Typography';
 import Button from '@mui/material/Button';
-import IconButton from '@mui/material/IconButton';
-import MenuIcon from '@mui/icons-material/Menu';
 import { setShowLogin, logout, setIsLoggedIn } from '../redux/reducers/userInfoSlice';
 import { useAppDispatch, useAppSelector } from '../redux/hooks';
 import { Login } from './Login';
-import { letterSpacing } from '@mui/system';
-import { Route, Routes, Link } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import axios from 'axios';
 
 const NavBar = () => {
@@ -25,8 +22,6 @@ const NavBar = () => {
     dispatch(setShowLogin());
   };
   const handleLogout = async () => {
-  // logout button should clear out user info in state
-
     await axios.post('/auth/logout');
     dispatch(logout());
     dispatch(setIsLoggedIn());

@@ -1,5 +1,4 @@
 import React from 'react';
-import { Provider } from 'react-redux';
 import { ThemeProvider, createTheme } from '@mui/material/styles';
 import { Route, Routes } from 'react-router-dom';
 import NavBar from './components/NavBar';
@@ -8,7 +7,6 @@ import Home from './pages/Home';
 import Clipboard from './pages/Clipboard';
 import Documentation from './pages/Documentation';
 import NotFound from './pages/NotFound';
-import { ClipBoard } from './components/ClipBoard';
 import { NavPanelContainer } from './containers/NavPanelContainer';
 import { Box } from '@mui/material';
 import { CodeGenerator } from './pages/CodeGenerator';

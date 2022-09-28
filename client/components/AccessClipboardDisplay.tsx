@@ -1,7 +1,6 @@
 import React from "react";
 import { Box, Button } from "@mui/material";
 import { useAppSelector, useAppDispatch } from "../redux/hooks";
-import { ClipBoard } from "./ClipBoard";
 import { useNavigate } from "react-router-dom";
 import { setProjectsInfo } from '../redux/reducers/userInfoSlice'
 import axios from 'axios'
