@@ -4,17 +4,22 @@ type projectsType = {
   project_id: number,
   project_name: string,
   user_id: number,
+  clipboardInfo?: string[]
 }
 
 type userInfoStateType = {
   showLogin: boolean,
   isLoggedIn: boolean,
-  projectsInfo: projectsType[]
+  projectsInfo: projectsType[],
 }
 const initialState: userInfoStateType = {
   showLogin: false,
   isLoggedIn: false,
-  projectsInfo: []
+  projectsInfo: [  {
+    project_id: 123,
+    project_name: 'project one',
+    user_id: 1,
+  }]
 }
 /*
 projectsInfo = [
@@ -42,9 +47,17 @@ export const userInfoSlice = createSlice({
     },
     logout: (state: userInfoStateType) => {
       state = initialState;
+    },
+    setClipboardData: (state: userInfoStateType, action: PayloadAction<{projectId: number, clipboardData: string[]}>) => {
+      const projects = state.projectsInfo;
+      for (let project of projects) {
+        if (project.project_id === action.payload.projectId) {
+          project.clipboardInfo = action.payload.clipboardData
+        }
+      }
     }
   }
 })
 
-export const { setShowLogin, setProjectNames, setIsLoggedIn, logout } = userInfoSlice.actions;
+export const { setShowLogin, setProjectNames, setIsLoggedIn, logout, setClipboardData } = userInfoSlice.actions;
 export default userInfoSlice.reducer;
