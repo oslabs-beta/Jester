@@ -4,7 +4,8 @@ type projectsType = {
   project_id: number,
   project_name: string,
   user_id: number,
-  clipboardInfo?: string[]
+  clipboardInfo?: string[],
+  showAccessClipboard: boolean,
 }
 
 type userInfoStateType = {
@@ -19,6 +20,7 @@ const initialState: userInfoStateType = {
     project_id: 123,
     project_name: 'project one',
     user_id: 1,
+    showAccessClipboard: false,
   }]
 }
 /*
@@ -55,9 +57,19 @@ export const userInfoSlice = createSlice({
           project.clipboardInfo = action.payload.clipboardData
         }
       }
+    },
+    setShowAccessClipboard: (state: userInfoStateType, action: PayloadAction<number>) => {
+      const projects = state.projectsInfo;
+      for (let project of projects) {
+        if (project.project_id === action.payload) { // show the clipboard, test code generator, and delete project buttons for selected project
+          project.showAccessClipboard = project.showAccessClipboard ? false : true;
+        } else { // hide the clipboard, test code generator, and delete project buttons for all other projects
+          project.showAccessClipboard = false;
+        }
+      }
     }
   }
 })
 
-export const { setShowLogin, setProjectNames, setIsLoggedIn, logout, setClipboardData } = userInfoSlice.actions;
+export const { setShowLogin, setProjectNames, setIsLoggedIn, logout, setClipboardData, setShowAccessClipboard } = userInfoSlice.actions;
 export default userInfoSlice.reducer;

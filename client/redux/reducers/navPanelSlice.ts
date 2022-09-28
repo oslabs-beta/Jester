@@ -4,14 +4,12 @@ type navPanelStateType = {
   showProjectPanel: boolean,
   showHistoryPanel: boolean,
   showAddProject: boolean,
-  showAccessClipboard: boolean,
 }
 
 const initialState: navPanelStateType = {
   showProjectPanel: false,
   showHistoryPanel: false,
   showAddProject: false,
-  showAccessClipboard: false,
 }
 
 export const navPanelSlice = createSlice({
@@ -29,12 +27,8 @@ export const navPanelSlice = createSlice({
     setShowAddProject: (state: navPanelStateType) => {
       state.showAddProject = state.showAddProject ? false : true
     },
-    setShowAccessClipboard: (state: navPanelStateType) => {
-      state.showAccessClipboard = state.showAccessClipboard ? false : true
-    }
-    
   }
 })
 
-export const { setShowProjectPanel, setShowHistoryPanel, setShowAddProject, setShowAccessClipboard} = navPanelSlice.actions
+export const { setShowProjectPanel, setShowHistoryPanel, setShowAddProject} = navPanelSlice.actions
 export default navPanelSlice.reducer;
