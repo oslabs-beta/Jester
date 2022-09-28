@@ -26,9 +26,12 @@ const NavBar = () => {
   };
   const handleLogout = async () => {
   // logout button should clear out user info in state
+
     await axios.post('/auth/logout');
     dispatch(logout());
     dispatch(setIsLoggedIn());
+
+
   }
 
   return (
