@@ -4,7 +4,6 @@ import GitHubIcon from '@mui/icons-material/GitHub';
 import axios from 'axios'
 import { useAppDispatch } from '../redux/hooks';
 import { setShowLogin, setProjectsInfo, setIsLoggedIn } from '../redux/reducers/userInfoSlice';
-// import {setClipboard} from '../redux/reducers/clipboardSlice';
 
 type loginProps = {
   open: boolean,

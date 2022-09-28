@@ -36,8 +36,8 @@ const App = () => {
       // wrap routes in div */}
       <Box
         sx={{
-          display: 'flex',
-          justifyContent: 'space-between',
+          display: 'grid',
+          gridTemplateColumns: '1fr 5fr',
           marginTop: '10px',
         }}
       >
