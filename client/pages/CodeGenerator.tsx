@@ -3,15 +3,8 @@ import { Header } from '../components/Header';
 import ButtonContainer from '../containers/ButtonContainer';
 import CodeContainer from '../containers/CodeContainer';
 
-type codeGeneratorProps = {
-  show: boolean;
-};
 
-export const CodeGenerator = (props: codeGeneratorProps) => {
-  // props.projectId
-  // grab show value from state
-  
-  if (props.show)
+export const CodeGenerator = () => {
     return (
       <div>
         <Header />
@@ -19,5 +12,4 @@ export const CodeGenerator = (props: codeGeneratorProps) => {
         <ButtonContainer />
       </div>
     );
-  else return null;
 };

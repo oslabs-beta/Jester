@@ -9,32 +9,45 @@ import Clipboard from './pages/Clipboard';
 import Documentation from './pages/Documentation';
 import NotFound from './pages/NotFound';
 import { ClipBoard } from './components/ClipBoard';
+import { NavPanelContainer } from './containers/NavPanelContainer';
+import { Box } from '@mui/material';
 
 const theme = createTheme({
   palette: {
     primary: {
       main: '#5E17EB',
-      contrastText: '#fff'
-    }
+      contrastText: '#fff',
+    },
   },
   typography: {
     // fontFamily: [
     //   'Source Code Pro',
     //   'monospace',
     // ].join(','),
-  }
+  },
 });
 
 const App = () => {
   return (
     <ThemeProvider theme={theme}>
       <NavBar />
-      <Routes>
-        <Route path='/' element={<Home />} />
-        <Route path='/clipboard' element={<Clipboard show={true}/>} />
-        <Route path='/documentation' element={<Documentation />} />
-        <Route path='*' element={<NotFound />} />
-      </Routes>
+      {/* // put nav here
+      // wrap routes in div */}
+      <Box
+        sx={{
+          display: 'flex',
+          justifyContent: 'space-between',
+          marginTop: '10px',
+        }}
+      >
+        <NavPanelContainer />
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="/clipboard/:projectId" element={<Clipboard />} />
+          <Route path="/documentation" element={<Documentation />} />
+          <Route path="*" element={<NotFound />} />
+        </Routes>
+      </Box>
       <Footer />
     </ThemeProvider>
   );

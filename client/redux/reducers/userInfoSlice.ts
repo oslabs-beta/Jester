@@ -17,31 +17,15 @@ type userInfoStateType = {
 const initialState: userInfoStateType = {
   showLogin: false,
   isLoggedIn: false,
-  projectsInfo: [  {
-    project_id: 123,
-    project_name: 'project one',
-    user_id: 1,
+  projectsInfo: [ {
+    project_id: 0,
+    project_name: 'Project One',
+    user_id: 0,
     showAccessClipboard: false,
     showClipboard: false,
   },
-  {
-    project_id: 12,
-    project_name: 'project two',
-    user_id: 2,
-    showAccessClipboard: false,
-    showClipboard: false,
-  }]
-}
-/*
-projectsInfo = [
-  {
-    project_id: 123,
-    project_name: project one,
-    user_id: 1,
-    clipboardInfo: ['code snippet', 'code snippet']
-  }
 ]
-*/
+}
 
 export const userInfoSlice = createSlice({
   name: 'userInfo',

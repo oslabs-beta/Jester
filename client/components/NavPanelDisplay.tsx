@@ -8,7 +8,7 @@ import {
   setShowHistoryPanel,
 } from '../redux/reducers/navPanelSlice';
 
-export const NavPanel = () => {
+export const NavPanelDisplay = () => {
   const dispatch = useAppDispatch();
   const handleProjectsClick = () => {
     dispatch(setShowProjectPanel());

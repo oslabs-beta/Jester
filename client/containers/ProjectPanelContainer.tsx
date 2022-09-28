@@ -5,7 +5,7 @@ import { setShowAddProject } from '../redux/reducers/navPanelSlice';
 import { AddProjectDialog } from '../components/AddProjectDialog';
 import { Project } from '../components/Project';
 
-export const ProjectPanel = () => {
+export const ProjectPanelContainer = () => {
 
   // add delete project functionality as button next to name
     // popup to confirm delete
