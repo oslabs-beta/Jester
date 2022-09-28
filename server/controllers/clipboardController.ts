@@ -14,7 +14,7 @@ export const clipboardController: Clipboard = {
 
     // this controller should query the Snippets table for all snippets belonging
     // to a project and save an array of code snippets to res.locals.clipboard
-
+    console.log('clipboardController.get');
     res.locals.clipboard = 'nothing to send yet';
     return next();
   },
