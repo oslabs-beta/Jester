@@ -12,7 +12,9 @@ type GitHubSettingsType = {
 
 type AuthType = {
   isLoggedIn: (req: Request, res: Response, next: NextFunction) => void,
+  getUserId: (req: Request, res: Response, next: NextFunction) => void,
 }
+
 
 const gitHubSettings: GitHubSettingsType = {
   clientID: 'fa73697734733fc09ac6',
@@ -60,15 +62,21 @@ export const authController: AuthType = {
       console.log('authController.isLoggedIn')
       return next();
     },
+
+    getUserId: async (req: any, res: Response, next: NextFunction) => {
+      const { email } = req.user?.emails[0].value;
+      const newUserQuery = `
+      INSERT INTO user_table(usermail)
+      VALUES $1
+      ON CONFLICT DO NOTHING
+      RETURNING user_id
+      `
+      const params = [email];
+      const result = await db.query(newUserQuery, params);
+      res.locals.userId = result;
+      return next();
+    }
   };
-  
 
 export default passport;
 
-// const newUserQuery = `
-//       INSERT INTO user_table(usermail)
-//       VALUES $1
-//       ON CONFLICT DO NOTHING
-//       RETURNING user_id
-//       `
-//       const result = await db.query(newUserQuery, params);

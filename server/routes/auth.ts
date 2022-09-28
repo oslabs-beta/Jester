@@ -6,9 +6,10 @@ import passport, { authController } from '../controllers/authController'
 // route checking if user is authorized
 router.get('/', 
   authController.isLoggedIn, 
-  (req: Request, res: Response) => {
-  res.status(200).json({ userId: req.user });
-});
+  authController.getUserId,
+  (req, res) => {
+    return res.status(200).json(res.locals.userId)
+    });
 
 // route for user being unable to sign in with GitHub
 router.get('/error', 
