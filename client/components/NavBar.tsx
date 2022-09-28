@@ -46,7 +46,7 @@ const NavBar = () => {
               Documentation
             </Link>
           </Button>
-          <Button color='inherit' onClick={handleLoginOpen} sx={{display: isLoggedIn ? 'auto' : 'none'}}>
+          <Button color='inherit' onClick={handleLoginOpen} sx={{display: 'auto'}}>
             Login
           </Button>
           <Button color='inherit' onClick={handleLogout} sx={{display: isLoggedIn ? 'none' : 'auto'}}>

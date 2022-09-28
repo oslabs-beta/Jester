@@ -12,6 +12,7 @@ import axios from 'axios';
 
 export const AddProjectDialog = () => {
   const [projectName, setProjectName] = useState('');
+  let userId = useAppSelector((state) => state.userInfo.userId);
   const showAddProject = useAppSelector(
     (state) => state.navPanel.showAddProject
   );
@@ -21,9 +22,12 @@ export const AddProjectDialog = () => {
     dispatch(setShowAddProject());
   };
   const handleAddProject = async () => {
-    const response = await axios.post('/api/project/userId', {
+    // TEMPORARY: testing connection between frontend and backend
+    userId = 1;
+    const response = await axios.post(`/api/project/${userId}`, {
       project_name: projectName,
     });
+    console.log(response.data);
     dispatch(setProjectsInfo(response.data));
     handleClose();
   };

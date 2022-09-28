@@ -39,11 +39,15 @@ export const projectController: Project = {
       INSERT INTO projects_table(project_name, user_id)
       VALUES($1, $2)
     `
+    const getAllProjectsQuery = `
+      SELECT * FROM projects_table
+      WHERE user_id=$2
+    `
     const params = [project_name, userId];
 
     const result = await db.query(queryString, params);
-
-    res.locals.projects = result.rows;
+    const allProjs = await db.query(getAllProjectsQuery, params);
+    res.locals.projects = allProjs.rows;
     return next();
   },
 

@@ -4,9 +4,7 @@ import { useAppSelector, useAppDispatch } from "../redux/hooks";
 import { useNavigate } from "react-router-dom";
 import { setProjectsInfo } from '../redux/reducers/userInfoSlice'
 import axios from 'axios'
-import AssignmentIcon from '@mui/icons-material/Assignment';
 import IntegrationInstructionsIcon from '@mui/icons-material/IntegrationInstructions';
-import CodeIcon from '@mui/icons-material/Code';
 import DeleteForeverIcon from '@mui/icons-material/DeleteForever';
 
 
@@ -27,20 +25,15 @@ export const AccessClipboardDisplay = (props: accessClipboardDisplayProps) => {
 
   const handleClipboardClick = () => {
     if(isLoggedIn) navigate(`/clipboard/${props.projectId}`);
-    else navigate('/clipboard/0') // what should this be?
-  }
-  const handleGenerateClick = () =>{
-    if (isLoggedIn) navigate(`/CodeGenerator/${props.projectId}`)
-    else navigate('/home');
+    else navigate('/clipboard/0')
   }
 
   const handleDeleteClick = async () => {
     if (isLoggedIn) {
-      '/api/project/:projectId'
       const projects = await axios.delete(`/api/project/${props.projectId}`);
       dispatch(setProjectsInfo(projects.data))
     } else {
-      // clear clipboard data
+      // clear the clipboard data held in state
     }
   }
   if (show) return(
@@ -49,13 +42,13 @@ export const AccessClipboardDisplay = (props: accessClipboardDisplayProps) => {
         <IntegrationInstructionsIcon />
         Clipboard
       </Button>
-      <Button onClick={handleGenerateClick} sx={{display: 'flex', flexDirection: 'column'}}>
-        <CodeIcon />
-        Generate New Test Code
-      </Button>
-      <Button onClick={handleDeleteClick} sx={{display: 'flex', flexDirection: 'column'}}>
+      <Button onClick={handleDeleteClick} sx={{display: isLoggedIn ? 'flex' : 'none', flexDirection: 'column'}}>
         <DeleteForeverIcon />
         Delete Project
+      </Button>
+      <Button onClick={handleDeleteClick} sx={{display: isLoggedIn ? 'none' : 'flex', flexDirection: 'column'}}>
+        <DeleteForeverIcon />
+        Clear Clipboard
       </Button>
     </Box>
   )
