@@ -4,6 +4,10 @@ import { useAppSelector, useAppDispatch } from "../redux/hooks";
 import { useNavigate } from "react-router-dom";
 import { setProjectsInfo } from '../redux/reducers/userInfoSlice'
 import axios from 'axios'
+import AssignmentIcon from '@mui/icons-material/Assignment';
+import IntegrationInstructionsIcon from '@mui/icons-material/IntegrationInstructions';
+import CodeIcon from '@mui/icons-material/Code';
+import DeleteForeverIcon from '@mui/icons-material/DeleteForever';
 
 
 type accessClipboardDisplayProps = {
@@ -41,13 +45,16 @@ export const AccessClipboardDisplay = (props: accessClipboardDisplayProps) => {
   }
   if (show) return(
     <Box>
-      <Button onClick={handleClipboardClick}>
+      <Button onClick={handleClipboardClick} sx={{display: 'flex', flexDirection: 'column'}}>
+        <IntegrationInstructionsIcon />
         Clipboard
       </Button>
-      <Button onClick={handleGenerateClick}>
+      <Button onClick={handleGenerateClick} sx={{display: 'flex', flexDirection: 'column'}}>
+        <CodeIcon />
         Generate New Test Code
       </Button>
-      <Button onClick={handleDeleteClick}>
+      <Button onClick={handleDeleteClick} sx={{display: 'flex', flexDirection: 'column'}}>
+        <DeleteForeverIcon />
         Delete Project
       </Button>
     </Box>
