@@ -21,7 +21,8 @@ helperFunctions.headerGenerator = (header, assertions) => {
 
   headerOutput.push(`describe('${header.endpoint}', () => {`);
   headerOutput.push(` describe('${header.method}', () => {`);
-  headerOutput.push(`  it('${description}', () => request(server)`);
+  headerOutput.push(`  it('${description}', async () => {`);
+  headerOutput.push(`   const response = await request(server)`);
   headerOutput.push(`   .${header.method.toLowerCase()}('${header.endpoint}')`);
 
   if (
@@ -30,9 +31,10 @@ helperFunctions.headerGenerator = (header, assertions) => {
       header.method === 'DELETE') &&
     header.req_body
   ) {
-    headerOutput.push(`    .send(${header.req_body})`);
+    headerOutput.push(`   .send(${header.req_body})`);
   }
-
+  headerOutput[headerOutput.length - 1] += ';';
+  headerOutput.push('');
   return headerOutput;
 };
 
@@ -45,13 +47,20 @@ helperFunctions.middleGenerator = (assertions) => {
     //So if the dropdown here is status/content/body we push a different string into the output array.
     if (keys[0] === 'status') {
       //add our status description to the it(string) we want to return
-      middleOutput.push(`    .expect(${assertion.status})`);
+      middleOutput.push(
+        `    expect(response.statusCode).toBe(${assertion.status});`
+      );
     }
     if (keys[0] === 'content') {
-      middleOutput.push(`    .expect('Content-Type', ${assertion.content})`);
+      middleOutput.push(
+        `    expect(response.type).toBe(\'${assertion.content}\');`
+      );
     }
     if (keys[0] === 'res_body') {
-      middleOutput.push(`    .expect(${assertion.res_body})`);
+      // console.log(assertion.res_body, typeof assertion.res_body);
+      middleOutput.push(
+        `    expect(response.body).toEqual(${assertion.res_body});`
+      );
     }
   }
   return middleOutput;
@@ -59,9 +68,9 @@ helperFunctions.middleGenerator = (assertions) => {
 
 helperFunctions.compiledCodeGenerator = (headerOutput, middleOutput) => {
   const compiledCode = headerOutput.concat(middleOutput);
-  compiledCode[compiledCode.length - 1] += ';';
-  compiledCode.push(` });`, `});`);
+  compiledCode.push(`  });`, ` });`, `});`);
   return compiledCode.join('\n');
+  // return compiledCode;
 };
 
 module.exports = helperFunctions;
