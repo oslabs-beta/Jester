@@ -4,8 +4,10 @@ import ClipBoard from '../components/ClipBoard';
 
 const Clipboard = () => {
   return (
-    <div className='center'>
-      {/* <Typography variant='h3'>This is the clipboard page.</Typography> */}
+    <div className='page-body'>
+      {/* <Typography variant='h4' component='h2'>
+        This is the clipboard page.
+      </Typography> */}
       <ClipBoard />
     </div>
   );
