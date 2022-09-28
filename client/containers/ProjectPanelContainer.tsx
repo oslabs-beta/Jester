@@ -6,9 +6,7 @@ import { AddProjectDialog } from '../components/AddProjectDialog';
 import { Project } from '../components/Project';
 
 export const ProjectPanel = () => {
-// send request to backend to get project names (get request to '/api/project/:userId')
-// render buttons for project names
-  // add property in state for project names
+
   // add delete project functionality as button next to name
     // popup to confirm delete
     // send delete request to ('/api/project/:userId')

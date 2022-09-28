@@ -1,8 +1,10 @@
 import React from 'react';
-import { Button } from '@mui/material';
+import { Button, Box } from '@mui/material';
 import axios from 'axios'
 import { useAppDispatch } from '../redux/hooks';
 import {setClipboardData} from '../redux/reducers/userInfoSlice'
+import { setShowAccessClipboard } from "../redux/reducers/navPanelSlice";
+import { AccessClipboardDisplay } from './AccessClipboardDisplay'
 
 type projectProps = {
   name: string,
@@ -12,8 +14,16 @@ type projectProps = {
 export const Project = (props: projectProps) => {
   const dispatch = useAppDispatch();
   const handleClick = async () => {    
+    // render clipboard button and generate test code button
+    dispatch(setShowAccessClipboard());
     const clipboardData = await axios.get(`/api/clipboard/${props.projectId}`);
     dispatch(setClipboardData({projectId: props.projectId, clipboardData: clipboardData.data}));
+
     };
-  return <Button onClick={handleClick}>{props.name}</Button>;
+  return (
+    <Box>
+    <Button onClick={handleClick}>{props.name}</Button>
+    <AccessClipboardDisplay />
+  </Box>
+  );
 };

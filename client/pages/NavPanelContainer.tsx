@@ -1,6 +1,6 @@
 import React from "react";
 import { Box } from "@mui/material";
-import { NavPanel } from "../components/NavPanel";
+import { NavPanel } from "../components/NavPanelDisplay";
 import { ProjectPanel } from "../containers/ProjectPanelContainer";
 import { HistoryPanel } from "../components/HistoryPanel";
 
