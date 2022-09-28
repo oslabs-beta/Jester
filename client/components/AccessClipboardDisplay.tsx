@@ -22,12 +22,6 @@ export const AccessClipboardDisplay = (props: accessClipboardDisplayProps) => {
     }
   }
 
-  // render button to access clipboard
-    // onclick will redirect
-  // render button to access test code generator page
-    // onclick will render test code generator page drilling down project id
-  // render button to access delete project
-    // onclick will send delete request to backend and set projectInfo in state with return array
   const handleClipboardClick = () => {
     if(isLoggedIn) navigate(`/clipboard/${props.projectId}`);
     else navigate('/clipboard/0') // what should this be?
@@ -39,8 +33,6 @@ export const AccessClipboardDisplay = (props: accessClipboardDisplayProps) => {
 
   const handleDeleteClick = async () => {
     if (isLoggedIn) {
-      // send delete request
-      // set state with new projects array
       '/api/project/:projectId'
       const projects = await axios.delete(`/api/project/${props.projectId}`);
       dispatch(setProjectsInfo(projects.data))
