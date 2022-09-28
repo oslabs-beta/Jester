@@ -11,6 +11,7 @@ import NotFound from './pages/NotFound';
 import { ClipBoard } from './components/ClipBoard';
 import { NavPanelContainer } from './containers/NavPanelContainer';
 import { Box } from '@mui/material';
+import { CodeGenerator } from './pages/CodeGenerator';
 
 const theme = createTheme({
   palette: {
@@ -45,6 +46,7 @@ const App = () => {
           <Route path="/" element={<Home />} />
           <Route path="/clipboard/:projectId" element={<Clipboard />} />
           <Route path="/documentation" element={<Documentation />} />
+          <Route path="/testCodeGenerator/:projectId" element={<CodeGenerator />} />
           <Route path="*" element={<NotFound />} />
         </Routes>
       </Box>

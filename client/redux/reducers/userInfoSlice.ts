@@ -34,7 +34,7 @@ export const userInfoSlice = createSlice({
     setShowLogin: (state: userInfoStateType) => {
       state.showLogin = state.showLogin ? false : true;
     },
-    setProjectNames: (state: userInfoStateType, action: PayloadAction<projectsType[]>) => {
+    setProjectsInfo: (state: userInfoStateType, action: PayloadAction<projectsType[]>) => {
       state.projectsInfo = action.payload
     },
     setIsLoggedIn: (state: userInfoStateType) => {
@@ -74,5 +74,5 @@ export const userInfoSlice = createSlice({
   }
 })
 
-export const { setShowLogin, setProjectNames, setIsLoggedIn, logout, setClipboardData, setShowAccessClipboard, setShowClipboard } = userInfoSlice.actions;
+export const { setShowLogin, setProjectsInfo, setIsLoggedIn, logout, setClipboardData, setShowAccessClipboard, setShowClipboard } = userInfoSlice.actions;
 export default userInfoSlice.reducer;

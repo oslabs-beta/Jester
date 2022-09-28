@@ -6,13 +6,7 @@ import { AddProjectDialog } from '../components/AddProjectDialog';
 import { Project } from '../components/Project';
 
 export const ProjectPanelContainer = () => {
-
-  // add delete project functionality as button next to name
-    // popup to confirm delete
-    // send delete request to ('/api/project/:userId')
-
   
-
   const dispatch = useAppDispatch();
   const showProjectPanel = useAppSelector(
     (state) => state.navPanel.showProjectPanel

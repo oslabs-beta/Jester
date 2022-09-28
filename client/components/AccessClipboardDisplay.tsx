@@ -3,7 +3,8 @@ import { Box, Button } from "@mui/material";
 import { useAppSelector, useAppDispatch } from "../redux/hooks";
 import { ClipBoard } from "./ClipBoard";
 import { useNavigate } from "react-router-dom";
-import { setShowClipboard } from '../redux/reducers/userInfoSlice'
+import { setShowClipboard, setProjectsInfo } from '../redux/reducers/userInfoSlice'
+import axios from 'axios'
 
 
 type accessClipboardDisplayProps = {
@@ -31,15 +32,31 @@ export const AccessClipboardDisplay = (props: accessClipboardDisplayProps) => {
     if(isLoggedIn) navigate(`/clipboard/${props.projectId}`);
     else navigate('/clipboard/0') // what should this be?
   }
+  const handleGenerateClick = () =>{
+    if (isLoggedIn) navigate(`/testCodeGenerator/${props.projectId}`)
+    else navigate('/home');
+  }
+
+  const handleDeleteClick = async () => {
+    if (isLoggedIn) {
+      // send delete request
+      // set state with new projects array
+      '/api/project/:projectId'
+      const projects = await axios.delete(`/api/project/${props.projectId}`);
+      dispatch(setProjectsInfo(projects.data))
+    } else {
+      // clear clipboard data
+    }
+  }
   if (show) return(
     <Box>
       <Button onClick={handleClipboardClick}>
         Clipboard
       </Button>
-      <Button>
+      <Button onClick={handleGenerateClick}>
         Generate New Test Code
       </Button>
-      <Button>
+      <Button onClick={handleDeleteClick}>
         Delete Project
       </Button>
     </Box>

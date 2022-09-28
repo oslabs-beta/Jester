@@ -2,7 +2,7 @@ import React, {useState, ChangeEvent} from "react";
 import { Dialog, InputLabel, TextField, Button, FormControl } from "@mui/material";
 import { setShowAddProject } from "../redux/reducers/navPanelSlice";
 import { useAppDispatch, useAppSelector } from "../redux/hooks";
-import { setProjectNames } from "../redux/reducers/userInfoSlice";
+import { setProjectsInfo } from "../redux/reducers/userInfoSlice";
 import axios from "axios";
 
 export const AddProjectDialog = () => {
@@ -16,7 +16,7 @@ export const AddProjectDialog = () => {
     // send post request to backend (/api/project/:userId)
     const response = await axios.post('/api/project/userId', {project_name: projectName}) // need to get userId
     // update projectNames array in state with response.data
-    dispatch(setProjectNames(response.data))
+    dispatch(setProjectsInfo(response.data))
     handleClose();
   }
 
