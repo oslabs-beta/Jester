@@ -11,11 +11,7 @@ import {
 } from '@mui/material';
 import React from 'react';
 import { useAppDispatch, useAppSelector } from '../redux/hooks';
-import {
-  setRequestType,
-  addAssertion,
-  setFormValues,
-} from '../redux/reducers/testFormSlice';
+import { setRequestType, addAssertion } from '../redux/reducers/testFormSlice';
 import { setCodeOutput } from '../redux/reducers/reducer';
 import { setErrorMsg } from '../redux/reducers/userInputSlice';
 import { Middle } from './Middle';
@@ -25,7 +21,6 @@ import axios from 'axios';
 
 export const Header = () => {
   const requestType = useAppSelector((state) => state.testForm.requestType);
-  const formValues = useAppSelector((state) => state.testForm.formValues);
   const assertionObject = useAppSelector(
     (state) => state.testForm.assertionList
   );
@@ -35,23 +30,73 @@ export const Header = () => {
     assertionList.push(<Middle id={id} key={id} />);
   }
   const dispatch = useAppDispatch();
+
+  const getData = (form: any) => {
+    const formData = new FormData(form);
+    return Object.fromEntries(formData);
+  };
+
   const handleSubmit = async (
     e: React.FormEvent<EventTarget>
   ): Promise<unknown> => {
     e.preventDefault();
-    const response = await axios.post('/api/tests', formValues);
+    let statusCount = 0;
+    let contentCount = 0;
+    const assertionVals = Object.values(assertionObject);
+    assertionVals.forEach((val) => {
+      if (val === 'Status Code') statusCount++;
+      if (val === 'Content Type') contentCount++;
+    });
+
+    if (statusCount > 1)
+      return alert('Make sure that you have only one Status Code!');
+    if (contentCount > 1)
+      return alert('Make sure that you have only one Content Type!');
+
+    const formValues = getData(e.target);
+
+    const method = formValues['request-selector'].toString();
+    const endpoint = formValues[method].toString();
+    const req_body = formValues['Request-Body'];
+    const contentAssertion = formValues['Content Type'];
+    const statusAssertion = formValues['Status Code'];
+    const res_body = formValues['Response Body'];
+
+    if (!contentAssertion && !statusAssertion && !res_body)
+      return alert('Please add expected response!');
+
+    type requestBodyType = {
+      header: {
+        method?: string;
+        endpoint?: string;
+        req_body?: string;
+      };
+      assertions: {}[];
+    };
+
+    const requestBody: requestBodyType = { header: {}, assertions: [] };
+    if (method) requestBody.header['method'] = method;
+    if (endpoint) requestBody.header['endpoint'] = endpoint;
+    if (req_body) requestBody.header['req_body'] = req_body.toString();
+    if (contentAssertion)
+      requestBody.assertions.push({ content: contentAssertion.toString() });
+    if (statusAssertion)
+      requestBody.assertions.push({ status: statusAssertion.toString() });
+    if (res_body)
+      requestBody.assertions.push({ res_body: res_body.toString() });
+
+    const response = await axios.post('/api/tests', requestBody);
     dispatch(setCodeOutput(response.data));
+
     return;
   };
   const handleRequestChange = (e: SelectChangeEvent<string>) => {
     dispatch(setRequestType(e.target.value));
-    dispatch(setFormValues({ key: 'method', value: e.target.value }));
   };
-  const handleFormValueChange = (
+
+  const handleChange = (
     e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
-  ) => dispatch(setFormValues({ key: e.target.id, value: e.target.value }));
-  const handleChange = (e: SelectChangeEvent<string>) =>
-    dispatch(setRequestType(e.target.value));
+  ) => dispatch(setRequestType(e.target.value));
   const handleAdd = () => {
     dispatch(addAssertion());
     dispatch(setErrorMsg());
@@ -89,7 +134,6 @@ export const Header = () => {
           data-testid={requestType}
           id="endpoint"
           name={requestType}
-          onChange={handleFormValueChange}
           required
         />
         <RequestBody showField={requestType === 'Get' ? false : true} />
