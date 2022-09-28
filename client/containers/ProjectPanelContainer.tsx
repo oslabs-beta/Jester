@@ -19,10 +19,10 @@ export const ProjectPanel = () => {
   const showProjectPanel = useAppSelector(
     (state) => state.navPanel.showProjectPanel
   );
-  const projectName: string[] = useAppSelector((state) => state.userInfo.projectNames);
+  const projectName: {}[] = useAppSelector((state) => state.userInfo.projectsInfo);
   const projects: JSX.Element[] = [];
   projectName.forEach(project => {
-    projects.push(<Project name={project} />)
+    // projects.push(<Project name={project} />)
   })
   const handleAddProject = () => {
     dispatch(setShowAddProject());

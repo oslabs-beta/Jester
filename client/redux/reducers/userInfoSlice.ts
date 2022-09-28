@@ -29,9 +29,12 @@ export const userInfoSlice = createSlice({
     },
     setIsLoggedIn: (state: userInfoStateType) => {
       state.isLoggedIn = state.isLoggedIn ? false : true;
+    },
+    logout: (state: userInfoStateType) => {
+      state = initialState;
     }
   }
 })
 
-export const { setShowLogin, setProjectNames, setIsLoggedIn } = userInfoSlice.actions;
+export const { setShowLogin, setProjectNames, setIsLoggedIn, logout } = userInfoSlice.actions;
 export default userInfoSlice.reducer;

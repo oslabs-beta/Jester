@@ -6,21 +6,30 @@ import Typography from '@mui/material/Typography';
 import Button from '@mui/material/Button';
 import IconButton from '@mui/material/IconButton';
 import MenuIcon from '@mui/icons-material/Menu';
-import { setShowLogin } from '../redux/reducers/userInfoSlice';
+import { setShowLogin, logout, setIsLoggedIn } from '../redux/reducers/userInfoSlice';
 import { useAppDispatch, useAppSelector } from '../redux/hooks';
 import { Login } from './Login';
 import { letterSpacing } from '@mui/system';
 import { Route, Routes, Link } from 'react-router-dom';
+import axios from 'axios';
 
 const NavBar = () => {
 
-  // const [showLogin, setShowLogin] = useState(false)
+
+
+
   const dispatch = useAppDispatch();
   const open = useAppSelector((state) => state.userInfo.showLogin);
   const isLoggedIn = useAppSelector((state) => state.userInfo.isLoggedIn);
   const handleLoginOpen = () => {
     dispatch(setShowLogin());
   };
+  const handleLogout = async () => {
+  // logout button should clear out user info in state
+    await axios.post('/auth/logout');
+    dispatch(logout());
+    dispatch(setIsLoggedIn());
+  }
 
   return (
     <Box sx={{ flexGrow: 1 }}>
@@ -47,7 +56,7 @@ const NavBar = () => {
           <Button color='inherit' onClick={handleLoginOpen} sx={{display: isLoggedIn ? 'auto' : 'none'}}>
             Login
           </Button>
-          <Button color='inherit' sx={{display: isLoggedIn ? 'none' : 'auto'}}>
+          <Button color='inherit' onClick={handleLogout} sx={{display: isLoggedIn ? 'none' : 'auto'}}>
             Logout
           </Button>
           <Login open={open} />

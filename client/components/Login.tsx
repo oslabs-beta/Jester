@@ -3,7 +3,7 @@ import { Button, Box, Dialog, DialogTitle, Typography } from '@mui/material';
 import GitHubIcon from '@mui/icons-material/GitHub';
 import axios from 'axios'
 import { useAppDispatch } from '../redux/hooks';
-import { setShowLogin, setProjectNames } from '../redux/reducers/userInfoSlice';
+import { setShowLogin, setProjectNames, setIsLoggedIn } from '../redux/reducers/userInfoSlice';
 // import {setClipboard} from '../redux/reducers/clipboardSlice';
 
 type loginProps = {
@@ -25,7 +25,7 @@ export const Login = (props: loginProps) => {
     const projectData = await axios.get('/api/project/userID') //how to get userId
     dispatch(setProjectNames(projectData.data));
     // projects = [{project_id: num, project_name: 'string', user_id: num}]
-    
+    dispatch(setIsLoggedIn());
     handleClose(); // close login box
 
    }
