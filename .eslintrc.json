@@ -36,6 +36,8 @@
         "semi": [
             "error",
             "always"
-        ]
+        ],
+        "react/prop-types": "off",
+        "prefer-const": "warn"
     }
 }
