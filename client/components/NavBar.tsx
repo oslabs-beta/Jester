@@ -47,11 +47,6 @@ const NavBar = () => {
             sx={{ flexGrow: 1, marginLeft: '15px' }}
           ></Typography>
           <Button color='inherit'>
-            <Link className='nav-link' to='/clipboard'>
-              Clipboard
-            </Link>
-          </Button>
-          <Button color='inherit'>
             <Link className='nav-link' to='/documentation'>
               Documentation
             </Link>

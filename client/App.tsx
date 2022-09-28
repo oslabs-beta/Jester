@@ -32,8 +32,6 @@ const App = () => {
   return (
     <ThemeProvider theme={theme}>
       <NavBar />
-      {/* // put nav here
-      // wrap routes in div */}
       <Box
         sx={{
           display: 'grid',
@@ -46,7 +44,10 @@ const App = () => {
           <Route path="/" element={<Home />} />
           <Route path="/clipboard/:projectId" element={<Clipboard />} />
           <Route path="/documentation" element={<Documentation />} />
-          <Route path="/testCodeGenerator/:projectId" element={<CodeGenerator />} />
+          <Route
+            path="/CodeGenerator/:projectId"
+            element={<CodeGenerator />}
+          />
           <Route path="*" element={<NotFound />} />
         </Routes>
       </Box>

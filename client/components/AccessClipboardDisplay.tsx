@@ -27,7 +27,7 @@ export const AccessClipboardDisplay = (props: accessClipboardDisplayProps) => {
     else navigate('/clipboard/0') // what should this be?
   }
   const handleGenerateClick = () =>{
-    if (isLoggedIn) navigate(`/testCodeGenerator/${props.projectId}`)
+    if (isLoggedIn) navigate(`/CodeGenerator/${props.projectId}`)
     else navigate('/home');
   }
 
