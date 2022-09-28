@@ -22,7 +22,9 @@ export const Login = (props: loginProps) => {
     if (errorElement) errorElement.style.display = 'auto'
    } else {
     // does the userId come from a cookie?
-    const projectData = await axios.get('/api/project/userID') //how to get userId
+    const userInfo = await axios.get('/auth');
+    const userId = userInfo.data.user_id; // is this how userId is returned?
+    const projectData = await axios.get(`/api/project/${userId}`) //how to get userId
     dispatch(setProjectNames(projectData.data));
     // projects = [{project_id: num, project_name: 'string', user_id: num}]
     dispatch(setIsLoggedIn());
