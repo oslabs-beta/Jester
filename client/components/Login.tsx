@@ -30,21 +30,39 @@ export const Login = (props: loginProps) => {
     }
   };
   return (
-    <Dialog onClose={handleClose} open={props.open}>
-      <Box
-        sx={{
+    <Dialog 
+      onClose={ handleClose } 
+      open={props.open}
+    >
+      <Box sx={{
+        display: 'flex',
+        flexDirection: 'column', 
+        alignItems: 'center',
+        height: 230
+      }}>
+        <Box sx={{
+          width: 400,
+          display: 'flex',
+          flexDirection: 'row', 
           backgroundColor: '#5E17EB',
-        }}
-      >
-        <img alt="logo" src="../assets/logo-jester.png" />
+          justifyContent: 'center'
+        }}>
+          <img alt="logo" src="../assets/logo-jester.png" />
+        </Box>
+        <DialogTitle>Log in to your account</DialogTitle>
+        <Button 
+          variant="outlined" 
+          href="/auth/github"
+          size="large"
+          sx={{
+            margin: 2,
+          }}
+        >
+          <GitHubIcon onClick={ handleClick } />
+            GitHub
+        </Button>
+        <Typography id="error-message" sx={{display: 'none', color: 'red'}}>Error</Typography>
       </Box>
-      <DialogTitle>sign in with</DialogTitle>
-      <Button href="/auth/github">
-        <GitHubIcon onClick={handleClick} />
-      </Button>
-      <Typography id="error-message" sx={{ display: 'none', color: 'red' }}>
-        Error
-      </Typography>
     </Dialog>
   );
 };
