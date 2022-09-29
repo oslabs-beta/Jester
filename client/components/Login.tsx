@@ -1,8 +1,8 @@
 import axios from 'axios';
-import React, {useEffect} from 'react';
+import React from 'react';
 import { Button, Box, Dialog, DialogTitle, Typography } from '@mui/material';
 import GitHubIcon from '@mui/icons-material/GitHub';
-import { useAppDispatch, useAppSelector } from '../redux/hooks';
+import { useAppDispatch } from '../redux/hooks';
 import { setShowLogin, setIsLoggedIn, setUserId, setProjectsInfo } from '../redux/reducers/userInfoSlice';
 
 type loginProps = {
@@ -11,7 +11,6 @@ type loginProps = {
 
 export const Login = (props: loginProps) => {
   const dispatch = useAppDispatch();
-  const isLoggedIn = useAppSelector((state) => state.userInfo.isLoggedIn);
   const handleClose = (): void => {
     dispatch(setShowLogin());
   };
@@ -24,25 +23,12 @@ export const Login = (props: loginProps) => {
       const userInfo = await axios.get('/auth');
       const userId = userInfo.data.user_id;
       dispatch(setUserId(userId));
-
-      // temporary to test backend-frontend connection
-      const projectData = await axios.get('/api/project/1');
-      // const projectData = await axios.get(`/api/project/${userId}`)
+      const projectData = await axios.get(`/api/project/${userId}`);
       dispatch(setProjectsInfo(projectData.data));
       dispatch(setIsLoggedIn());
       handleClose();
     }
   };
-
-  //temporary to check connection with backend
-  useEffect(() => {
-    if (!isLoggedIn) {
-      axios.get('/api/project/1').then((projectData) => {
-        dispatch(setProjectsInfo(projectData.data));
-        dispatch(setIsLoggedIn());
-      });
-    }
-  });
   return (
     <Dialog onClose={handleClose} open={props.open}>
       <Box

@@ -1,16 +1,16 @@
 import { createSlice } from '@reduxjs/toolkit';
 
 type navPanelStateType = {
-  showProjectPanel: boolean,
-  showHistoryPanel: boolean,
-  showAddProject: boolean,
-}
+  showProjectPanel: boolean;
+  showHistoryPanel: boolean;
+  showAddProject: boolean;
+};
 
 const initialState: navPanelStateType = {
   showProjectPanel: false,
   showHistoryPanel: false,
   showAddProject: false,
-}
+};
 
 export const navPanelSlice = createSlice({
   name: 'navPanel',
@@ -25,10 +25,11 @@ export const navPanelSlice = createSlice({
       state.showHistoryPanel = state.showHistoryPanel ? false : true;
     },
     setShowAddProject: (state: navPanelStateType) => {
-      state.showAddProject = state.showAddProject ? false : true
+      state.showAddProject = state.showAddProject ? false : true;
     },
-  }
-})
+  },
+});
 
-export const { setShowProjectPanel, setShowHistoryPanel, setShowAddProject} = navPanelSlice.actions
+export const { setShowProjectPanel, setShowHistoryPanel, setShowAddProject } =
+  navPanelSlice.actions;
 export default navPanelSlice.reducer;

@@ -1,8 +1,8 @@
-import React, { useState } from 'react';
+import React from 'react';
 import HistoryIcon from '@mui/icons-material/History';
 import CollectionsBookmarkIcon from '@mui/icons-material/CollectionsBookmark';
 import { Button, Typography, Box } from '@mui/material';
-import { useAppDispatch, useAppSelector } from '../redux/hooks';
+import { useAppDispatch} from '../redux/hooks';
 import {
   setShowProjectPanel,
   setShowHistoryPanel,
