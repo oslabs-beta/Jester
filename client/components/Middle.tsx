@@ -125,6 +125,7 @@ export const Middle = (props: middlePropsType) => {
             onChange={handleChange}
             displayEmpty
             inputProps={{ 'aria-label': 'Without label' }}
+            sx={{ height: 40 }}
           >
             <MenuItem key="Status Code" value="Status Code" id={props.id}>
               Status Code
@@ -147,12 +148,15 @@ export const Middle = (props: middlePropsType) => {
           helperText={errorMsgs[props.id]}
           onChange={handleType}
           required
+          size="small"
         />
         <Button
           id={props.id}
           onClick={handleDelete}
           variant="contained"
-          sx={{ height: '30px', width: '20px' }}
+          color="secondary"
+          sx={{ height: 39 }}
+          disableElevation
         >
           -
         </Button>

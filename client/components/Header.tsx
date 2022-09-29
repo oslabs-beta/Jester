@@ -26,7 +26,7 @@ export const Header = () => {
   );
   const assertionList: JSX.Element[] = [];
   const assertionIds = Object.keys(assertionObject);
-  for (let id of assertionIds) {
+  for (const id of assertionIds) {
     assertionList.push(<Middle id={id} key={id} />);
   }
   const dispatch = useAppDispatch();
@@ -104,7 +104,7 @@ export const Header = () => {
 
   const menuItems: JSX.Element[] = [];
   const menuOptions = ['Get', 'Post', 'Patch', 'Delete'];
-  for (let option of menuOptions) {
+  for (const option of menuOptions) {
     menuItems.push(
       <MenuItem key={option} value={option}>
         {option}
@@ -118,7 +118,8 @@ export const Header = () => {
         sx={{
           display: 'flex',
           alignItems: 'center',
-          gap: '10px'
+          gap: '10px',
+          mb: 2,
         }}
       >
         <FormControl>
@@ -130,7 +131,7 @@ export const Header = () => {
             label='Request Type'
             value={requestType}
             onChange={handleRequestChange}
-            sx={{ width: '100px' }}
+            sx={{ height: 40 , width: '100px' }}
           >
             {menuItems}
           </Select>
@@ -141,6 +142,7 @@ export const Header = () => {
           id='endpoint'
           name={requestType}
           required
+          size="small"
         />
         <RequestBody showField={requestType === 'Get' ? false : true} />
       </Box>
@@ -158,13 +160,15 @@ export const Header = () => {
       >
         {assertionList}
         <Box sx={{ display: 'flex', gap: '10px', alignItems: 'center' }}>
-          <Typography>Add expected response:</Typography>
+          <Typography>Add Expected Response:</Typography>
           <Button
             id='add-assertion'
             name='add-assertion'
             variant='contained'
+            color='secondary'
             onClick={handleAdd}
-            sx={{ justifySelf: 'center', alignSelf: 'center' }}
+            sx={{ justifySelf: 'center', alignSelf: 'center', height: 35 }}
+            disableElevation
           >
             +
           </Button>
@@ -172,8 +176,9 @@ export const Header = () => {
       </Box>
       <Button
         type='submit'
-        variant='text'
-        sx={{ backgroundColor: '#E6E6FA', marginTop: '30px' }}
+        variant='contained'
+        sx={{ marginTop: '30px', height: 40 }}
+        disableElevation
       >
         Generate Test Code
       </Button>

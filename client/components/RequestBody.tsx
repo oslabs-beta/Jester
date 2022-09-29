@@ -3,7 +3,7 @@ import { TextField } from '@mui/material';
 import { useAppDispatch } from '../redux/hooks';
 
 type requestBodyPropsType = {
-  showField: Boolean;
+  showField: boolean;
 };
 
 export const RequestBody = (props: requestBodyPropsType) => {
@@ -14,6 +14,7 @@ export const RequestBody = (props: requestBodyPropsType) => {
         id="req_body"
         data-testid="Request-Body"
         name="Request-Body"
+        size="small"
       />
     );
   } else
@@ -25,6 +26,7 @@ export const RequestBody = (props: requestBodyPropsType) => {
         name="Request-Body"
         disabled={true}
         sx={{ backgroundColor: 'lightgrey' }}
+        size="small"
       />
     );
 };
