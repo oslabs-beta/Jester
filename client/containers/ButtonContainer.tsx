@@ -3,7 +3,7 @@ import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
 import ContentCopyIcon from '@mui/icons-material/ContentCopy';
 import DoneAllIcon from '@mui/icons-material/DoneAll';
-import { useSelector, useDispatch } from 'react-redux';
+import { useAppDispatch, useAppSelector } from '../redux/hooks';
 
 import {
   copyText,
@@ -15,14 +15,14 @@ import {
 // 2) the button that copies the code to the clipboard
 // 3) for the stretch feature, this container will have the button that appends the code to the consolidated clipboard
 
-const ButtonContainer = (props) => {
-  const dispatch = useDispatch();
+const ButtonContainer = () => {
+  const dispatch = useAppDispatch();
   const copyClipboard = () => {
     dispatch(copyText());
     dispatch(changeIcon());
     dispatch(asyncChangeIcon());
   };
-  const doneIcon = useSelector((state) => state.slice.doneIcon);
+  const doneIcon = useAppSelector((state) => state.slice.doneIcon);
 
   return (
     <Box
