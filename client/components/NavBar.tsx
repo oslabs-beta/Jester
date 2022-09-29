@@ -9,7 +9,6 @@ import { useAppDispatch, useAppSelector } from '../redux/hooks';
 import { Login } from './Login';
 import { Link } from 'react-router-dom';
 import axios from 'axios';
-import { convertToObject } from 'typescript';
 
 const NavBar = () => {
   const dispatch = useAppDispatch();
