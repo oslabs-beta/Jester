@@ -165,9 +165,9 @@ export const Header = () => {
             id='add-assertion'
             name='add-assertion'
             variant='contained'
-            color='secondary'
+            color='primary'
             onClick={handleAdd}
-            sx={{ justifySelf: 'center', alignSelf: 'center', height: 35 }}
+            sx={{ justifySelf: 'center', alignSelf: 'center', height: 25, width: 23, minWidth: 23 }}
             disableElevation
           >
             +

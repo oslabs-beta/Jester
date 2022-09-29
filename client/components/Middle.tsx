@@ -154,8 +154,8 @@ export const Middle = (props: middlePropsType) => {
           id={props.id}
           onClick={handleDelete}
           variant="contained"
-          color="secondary"
-          sx={{ height: 39 }}
+          color="primary"
+          sx={{ height: 25, minWidth: 23, width: 23 }}
           disableElevation
         >
           -
