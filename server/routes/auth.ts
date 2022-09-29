@@ -30,11 +30,11 @@ router.get(
   passport.authenticate('github', { failureRedirect: '/error' }),
   // Can add middleware to query DB for user id here!
   // Can add middleware to store auth code+username in sessions table that expires
-  (req: Request, res: Response): void => {
+  (req: any, res: Response): void => {
     // /github/callback/?code=4234324324 <= user authorization code
     res.cookie('code', req.query.code);
-    res.cookie('email', req.user.emails[0].value);
-    res.cookie('username', req.user.username);
+    res.cookie('email', req.user?.emails[0].value);
+    res.cookie('username', req.user?.username);
     res.cookie('isLoggedIn', true);
     // res.cookie('userId', res.locals.userId) // return userID here
     return res.redirect('../../authenticate');
