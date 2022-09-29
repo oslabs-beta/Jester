@@ -59,19 +59,23 @@ export const authController: AuthType = {
       //   return res.status(401).json("Error: User not authorized");
       // }
       // MLCK: Is this a security vulnerability?  Another option is to store session in database and make a db call
-      if(!req.user || !req.isAuthenticated()){
-        return res.status(401).json("Error: User not authorized");
-      }
+      // if(!req.user || !req.isAuthenticated()){
+      //   return res.status(401).json("Error: User not authorized");
+      // }
       console.log('authController.isLoggedIn')
       return next();
     },
 
     getUserId: async (req: any, res: Response, next: NextFunction) => {
+      // this controller queries the user table for a user ID 
+      // that matches the user email from the request object
       const { email } = req.user?.emails[0].value;
       const newUserQuery = `
       INSERT INTO user_table(usermail)
-      VALUES $1
+      VALUES($1)
       ON CONFLICT DO NOTHING
+      (usermail) DO UPDATE
+      SET usermail=($1)
       RETURNING user_id
       `
       const params = [email];
