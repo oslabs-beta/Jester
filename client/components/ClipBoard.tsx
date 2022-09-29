@@ -42,7 +42,9 @@ const ClipBoard = () => {
     fetch(`/Api/Clipboard/${projectId}`)
       .then((response) => response.json())
     // .then((response) => console.log(response));
-      .then((response) => {dispatch(setCodeOutput1(response));});
+      .then((response) => dispatch(setCodeOutput1(response)))
+      .catch((err) => console.log(err));
+
   });
 
 
