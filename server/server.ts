@@ -52,7 +52,7 @@ app.use((err: GlobalError, req: Request, res: Response, next: NextFunction) => {
   };
   const errorObj = Object.assign({}, defaultErr, err);
   console.log(err);
-  return res.status(errorObj.status).json(errorObj.log);
+  return res.status(errorObj.status).json(errorObj.message);
 });
 
 // Start server
