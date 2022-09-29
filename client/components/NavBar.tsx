@@ -7,26 +7,39 @@ import Button from '@mui/material/Button';
 import {
   setShowLogin,
   logout,
-  setIsLoggedIn,
+  setIsLoggedIn
 } from '../redux/reducers/userInfoSlice';
 import { useAppDispatch, useAppSelector } from '../redux/hooks';
 import { Login } from './Login';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import axios from 'axios';
+import Cookies from 'js-cookie';
 
 const NavBar = () => {
+  const navigate = useNavigate();
+  // const [showLogin, setShowLogin] = useState(false)
+  const open: boolean = useAppSelector((state) => state.userInfo.showLogin);
+  // const isLoggedIn: boolean = useAppSelector((state) => state.userInfo.isLoggedIn);
+  const displayLoginButton = 'auto';
+  const displayLogoutButton = 'auto';
+
   const dispatch = useAppDispatch();
-  const open = useAppSelector((state) => state.userInfo.showLogin);
-  const isLoggedIn: boolean = useAppSelector(
-    (state) => state.userInfo.isLoggedIn
-  );
   const handleLoginOpen = () => {
     dispatch(setShowLogin());
   };
   const handleLogout = async () => {
-    dispatch(logout());
-    dispatch(setIsLoggedIn());
+    console.log('in logout');
+    Cookies.remove('username');
+    Cookies.remove('code');
+    Cookies.remove('email');
+    Cookies.remove('github-auth-session');
+    Cookies.remove('github-auth-session.sig');
+    Cookies.remove('isLoggedIn');
+    sessionStorage.clear();
     await axios.post('/auth/logout');
+    dispatch(setIsLoggedIn());
+    dispatch(logout());
+    navigate('/');
   };
 
   return (
@@ -41,25 +54,43 @@ const NavBar = () => {
             component="div"
             sx={{ flexGrow: 1, marginLeft: '15px' }}
           ></Typography>
-          <Button color="inherit">
-            <Link className="nav-link" to="/documentation">
+          {sessionStorage.getItem('isLoggedIn') ? (
+            <Button className='welcome-text' color='inherit'>
+              Welcome, {sessionStorage.getItem('username')}!
+            </Button>
+          ) : (
+            <Button className='welcome-text' color='inherit'>
+              Welcome, Guest!
+            </Button>
+          )}
+          <Button color='inherit'>
+            <Link className='nav-link' to='/clipboard'>
+              Clipboard
+            </Link>
+          </Button>
+          <Button color='inherit'>
+            <Link className='nav-link' to='/documentation'>
               Documentation
             </Link>
           </Button>
-          <Button
-            color="inherit"
-            onClick={handleLoginOpen}
-            sx={{ display: isLoggedIn ? 'none' : 'auto' }}
-          >
-            Login
-          </Button>
-          <Button
-            color="inherit"
-            onClick={handleLogout}
-            sx={{ display: isLoggedIn ? 'auto' : 'none' }}
-          >
-            Logout
-          </Button>
+          {sessionStorage.getItem('isLoggedIn') ? (
+            <Button
+              color='inherit'
+              onClick={handleLogout}
+              sx={{ display: displayLogoutButton }}
+            >
+              Logout
+            </Button>
+          ) : (
+            <Button
+              color='inherit'
+              onClick={handleLoginOpen}
+              sx={{ display: displayLoginButton }}
+            >
+              Login
+            </Button>
+          )}
+
           <Login open={open} />
         </Toolbar>
       </AppBar>

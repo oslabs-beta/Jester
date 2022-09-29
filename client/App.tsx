@@ -10,6 +10,7 @@ import { NavPanelContainer } from './containers/NavPanelContainer';
 import { Box } from '@mui/material';
 import { CodeGenerator } from './pages/CodeGenerator';
 import ClipBoard from './components/ClipBoard';
+import Auth from './pages/Auth';
 
 const theme = createTheme({
   palette: {
@@ -46,6 +47,7 @@ const App = () => {
           <Route path="/" element={<Home />} />
           <Route path="/clipboard/:projectId" element={<ClipBoard />} />
           <Route path="/documentation" element={<Documentation />} />
+          <Route path='/authenticate' element={<Auth />} />
           <Route
             path="/CodeGenerator/:projectId"
             element={<CodeGenerator />}
