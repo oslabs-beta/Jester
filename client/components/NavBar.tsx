@@ -9,24 +9,19 @@ import { useAppDispatch, useAppSelector } from '../redux/hooks';
 import { Login } from './Login';
 import { Link } from 'react-router-dom';
 import axios from 'axios';
+import { convertToObject } from 'typescript';
 
 const NavBar = () => {
-
-
-
-
   const dispatch = useAppDispatch();
   const open = useAppSelector((state) => state.userInfo.showLogin);
-  const isLoggedIn = useAppSelector((state) => state.userInfo.isLoggedIn);
+  const isLoggedIn: boolean = useAppSelector((state) => state.userInfo.isLoggedIn);
   const handleLoginOpen = () => {
     dispatch(setShowLogin());
   };
   const handleLogout = async () => {
-    await axios.post('/auth/logout');
     dispatch(logout());
     dispatch(setIsLoggedIn());
-
-
+    await axios.post('/auth/logout');
   }
 
   return (
@@ -49,7 +44,7 @@ const NavBar = () => {
           <Button color='inherit' onClick={handleLoginOpen} sx={{display: 'auto'}}>
             Login
           </Button>
-          <Button color='inherit' onClick={handleLogout} sx={{display: isLoggedIn ? 'none' : 'auto'}}>
+          <Button color='inherit' onClick={handleLogout} sx={{display: 'auto'}}>
             Logout
           </Button>
           <Login open={open} />
