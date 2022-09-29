@@ -1,4 +1,4 @@
-import { createSlice, createAsyncThunk, PayloadAction } from '@reduxjs/toolkit'
+import { createSlice, createAsyncThunk, PayloadAction } from '@reduxjs/toolkit';
 
 type sliceType = {
   codeOutput: string,
@@ -8,11 +8,11 @@ type sliceType = {
 
 const initialState: sliceType = {
   // this property of state will get updated by the POST request
-  codeOutput: `describe('Sample description', (arg1) => { code.. }`,
+  codeOutput: 'describe(\'Sample description\', (arg1) => { code.. }',
   // this value will be saved into the database
   codeOutputEdited: undefined,
   doneIcon: false,
-}
+};
 
 export const slice = createSlice({
   name: 'slice',
@@ -43,7 +43,7 @@ export const slice = createSlice({
         state.doneIcon = false;
       });
   }
-})
+});
 
 const thunks= {
   asyncChangeIcon: createAsyncThunk(
@@ -51,13 +51,13 @@ const thunks= {
     async () => {
       const timeout = (ms: number): Promise<unknown> => new Promise(resolve => setTimeout(resolve, ms));
       const response = await timeout(1000);
-      console.log('THUNK: asyncChangeIcon', response)
+      console.log('THUNK: asyncChangeIcon', response);
       return response;
-  })
-}
+    })
+};
 
-export const { copyText, changeIcon, userEditText, setCodeOutput } = slice.actions
+export const { copyText, changeIcon, userEditText, setCodeOutput } = slice.actions;
 
 export const { asyncChangeIcon } = thunks;
 
-export default slice.reducer
+export default slice.reducer;

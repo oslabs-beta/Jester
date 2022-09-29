@@ -1,8 +1,8 @@
-import { configureStore } from '@reduxjs/toolkit'
+import { configureStore } from '@reduxjs/toolkit';
 import testFormReducer from './reducers/testFormSlice';
 import userInputReducer from './reducers/userInputSlice';
-import slice from './reducers/reducer'
-import userInfoReducer from './reducers/userInfoSlice'
+import slice from './reducers/reducer';
+import userInfoReducer from './reducers/userInfoSlice';
 import slice1  from './reducers/ClipBoardReducers';
 
 export const store = configureStore({
@@ -13,7 +13,7 @@ export const store = configureStore({
     slice1: slice1,
     userInfo: userInfoReducer,
   },
-})
+});
 
 export type RootState = ReturnType<typeof store.getState>
 export type AppDispatch = typeof store.dispatch

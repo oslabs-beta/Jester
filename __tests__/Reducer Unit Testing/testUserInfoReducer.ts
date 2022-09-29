@@ -3,13 +3,15 @@ import { setShowLogin } from '../../client/redux/reducers/userInfoSlice';
 
 type defaultStateType = {
   showLogin: boolean,
+  isLoggedIn: boolean,
 }
 
-describe('TestForm Reducer', () => {
+describe('UserInfo Reducer', () => {
   let defaultState: defaultStateType;
   beforeEach(() => {
     defaultState = {
       showLogin: false,
+      isLoggedIn: false,
     };
   });
   test('it should return a default state', () => {

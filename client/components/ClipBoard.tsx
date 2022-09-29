@@ -4,9 +4,9 @@ import { useAppDispatch, useAppSelector } from '../redux/hooks';
 import { userEditText } from '../redux/reducers/ClipBoardReducers';
 import { ChangeEvent, useEffect } from 'react';
 import ClipboardButton from '../containers/ClipboardButton';
-import { useParams } from 'react-router-dom'
+import { useParams } from 'react-router-dom';
 import { setCodeOutput1 } from '../redux/reducers/ClipBoardReducers';
-import axios from 'axios';
+// import axios from 'axios';
 
 
 // const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -26,44 +26,44 @@ import axios from 'axios';
 
 //Had to create slice1 in the store.ts you big dummy!
 const ClipBoard = () => {
-    const codeOutput1 = useAppSelector(state => state.slice1.codeOutput1)
-    // useAppSelector (state => state.userInfo.projectsInfo)
-    const codeOutputEdited1 = useAppSelector(state => state.slice1.codeOutputEdited1)
-    const dispatch = useAppDispatch();
-    const editCode = (e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => dispatch(userEditText(e.target.value));
-    // Need to refactor to expect project id to be drilled down.
-    // useAppselector to grab slice of state. Then use a new reducer to update slice of state.
+  const codeOutput1 = useAppSelector(state => state.slice1.codeOutput1);
+  // useAppSelector (state => state.userInfo.projectsInfo)
+  const codeOutputEdited1 = useAppSelector(state => state.slice1.codeOutputEdited1);
+  const dispatch = useAppDispatch();
+  const editCode = (e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => dispatch(userEditText(e.target.value));
+  // Need to refactor to expect project id to be drilled down.
+  // useAppselector to grab slice of state. Then use a new reducer to update slice of state.
 
-    const { projectId } = useParams();
-    useEffect(() => {
-        // *Learning*: //In axios you don't have to parse or stringify your data.
-        // axios.get(`/Api/Clipboard/${projectId}`)
-        // .then((response) => {dispatch(setCodeOutput1(response))});
-        fetch(`/Api/Clipboard/${projectId}`)
-        .then((response) => response.json())
-        // .then((response) => console.log(response));
-        .then((response) => {dispatch(setCodeOutput1(response))});
-    });
+  const { projectId } = useParams();
+  useEffect(() => {
+    // *Learning*: //In axios you don't have to parse or stringify your data.
+    // axios.get(`/Api/Clipboard/${projectId}`)
+    // .then((response) => {dispatch(setCodeOutput1(response))});
+    fetch(`/Api/Clipboard/${projectId}`)
+      .then((response) => response.json())
+    // .then((response) => console.log(response));
+      .then((response) => {dispatch(setCodeOutput1(response));});
+  });
 
 
 
-    return (
-        <div id="clipboard-page-body">
-            <TextField
-            id="main-clipboard"
-            multiline
-            rows={10}
-            value={ codeOutputEdited1 || codeOutput1 }
-            sx={{ 
-                width: 0.95,
-                fontFamily: "Source Code Pro",
-                }}
-            onChange = { editCode }
-            />
-            <ClipboardButton />
-        </div>
-    );
-}
+  return (
+    <div id="clipboard-page-body">
+      <TextField
+        id="main-clipboard"
+        multiline
+        rows={10}
+        value={ codeOutputEdited1 || codeOutput1 }
+        sx={{ 
+          width: 0.95,
+          fontFamily: 'Source Code Pro',
+        }}
+        onChange = { editCode }
+      />
+      <ClipboardButton />
+    </div>
+  );
+};
 
 export default ClipBoard;
 
