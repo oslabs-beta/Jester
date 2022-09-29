@@ -4,7 +4,9 @@ import { useAppDispatch, useAppSelector } from '../redux/hooks';
 import { userEditText } from '../redux/reducers/ClipBoardReducers';
 import { ChangeEvent, useEffect } from 'react';
 import ClipboardButton from '../containers/ClipboardButton';
-//import useParams() from reactRouterDom?
+import { useParams } from 'react-router-dom'
+import { setCodeOutput1 } from '../redux/reducers/ClipBoardReducers';
+import axios from 'axios';
 
 
 // const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -32,21 +34,18 @@ const ClipBoard = () => {
     // Need to refactor to expect project id to be drilled down.
     // useAppselector to grab slice of state. Then use a new reducer to update slice of state.
 
-    // const { projectId } = useParams();
-    // useEffect -> requesst to the backend to get CB data.
-    // Want to useEffect hook bc we want this to run on the render of the page being id'd by the front-end route.
+    const { projectId } = useParams();
     useEffect(() => {
-        // when this function runs, it will go to the backend and grab the data using a fetch request.
-        fetch('database')
-        // once we have accessed the data we want, let's read and parse it from json
+        // *Learning*: //In axios you don't have to parse or stringify your data.
+        // axios.get(`/Api/Clipboard/${projectId}`)
+        // .then((response) => {dispatch(setCodeOutput1(response))});
+        fetch(`/Api/Clipboard/${projectId}`)
         .then((response) => response.json())
-        //once converted to json, where do we want to send it?
-        //We want to send it to live in state, but how? Do I call a reducer function here? This means I'd call a reducer outside of the textField.
-        // So inside this then, I want to call a reducer to update the state with whatever the response is.
-        .then(respone => {})
+        // .then((response) => console.log(response));
+        .then((response) => {dispatch(setCodeOutput1(response))});
     });
-    // then now that I have the data, feed it into state. ? -> going to need to create and invoke a reducer inside of this component to set value of state.
-    // Render state in CB. To render the state all I need to do is reassign the codeOutputEdited1 (which is in state already) with whatever completedSnippet code we recieve from the fetch request.
+
+
 
     return (
         <div id="clipboard-page-body">

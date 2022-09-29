@@ -15,8 +15,7 @@ type sliceType1 = {
 //array of code snippets.
 const initialState: sliceType1 = {
   // this property of state will get updated by the POST request
-  codeOutput1: `Your Clipboard is currently empty!`,
-
+  codeOutput1: `Your Clipboard is currently empty! Please generate a test before we can display your testing code here.`,
   codeOutputEdited1: undefined,
   doneIcon1: false,
 }
@@ -38,10 +37,12 @@ export const slice1 = createSlice({
     }, 
 
     //add reducer to parse array of snippets and add them to state.
-    setCodeOutput: (state: sliceType1, action: PayloadAction<string>) => {
+    setCodeOutput1: (state: sliceType1, action: PayloadAction<string[]>) => {
       //need to iterate through the array here and add all the snippets into one snippet here?
       //for blah blah blah -> action.payload = result of strings compiled together.
-      state.codeOutput1 = action.payload;
+      //Will the PayloadAction<string> type be an issue here as the type would actually be an array?
+      const streeng = action.payload.join('')
+      state.codeOutput1 = streeng;
     }
     
   },
@@ -58,7 +59,7 @@ const thunks= {
   })
 }
 
-export const { copyCB, changeIcon, userEditText, setCodeOutput } = slice1.actions
+export const { copyCB, changeIcon, userEditText, setCodeOutput1 } = slice1.actions
 
 export const { asyncChangeIcon } = thunks;
 

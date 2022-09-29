@@ -22,20 +22,18 @@ const ClipboardButton = (props) => {
   const doneIcon = useSelector(state => state.slice.doneIcon1)
 
   return (
-    <Box sx={{ 
-      width: 800,
-      marginLeft: 5,
-      marginTop: 2,
-      justifyContent: 'flex-end',
-      alignItems: 'flex-end',
-      }}>
-      <Button 
-        id="bttn-copy"
-        variant="outlined"
-        onClick={ copyClipboard }
-      >
-        { (doneIcon) ? <DoneAllIcon/> : <ContentCopyIcon/> }
-      </Button>
+    <Box 
+      sx={{ 
+        width: 800,
+        marginLeft: 5,
+        marginTop: 2,
+        justifyContent: 'flex-end',
+        alignItems: 'flex-end',
+        }}
+        >
+        <Button id="bttn-copy" variant="outlined" onClick={ copyClipboard }>
+          { (doneIcon) ? <DoneAllIcon/> : <ContentCopyIcon/> }
+        </Button>
     </Box>
   )
 }
