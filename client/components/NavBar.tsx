@@ -18,6 +18,7 @@ const NavBar = () => {
     dispatch(setShowLogin());
   };
   const handleLogout = async () => {
+
     dispatch(logout());
     dispatch(setIsLoggedIn());
     await axios.post('/auth/logout');
@@ -40,10 +41,10 @@ const NavBar = () => {
               Documentation
             </Link>
           </Button>
-          <Button color='inherit' onClick={handleLoginOpen} sx={{display: 'auto'}}>
+          <Button color='inherit' onClick={handleLoginOpen} sx={{display: isLoggedIn ? 'none' : 'auto'}}>
             Login
           </Button>
-          <Button color='inherit' onClick={handleLogout} sx={{display: 'auto'}}>
+          <Button color='inherit' onClick={handleLogout} sx={{display: isLoggedIn ? 'auto' : 'none'}}>
             Logout
           </Button>
           <Login open={open} />
