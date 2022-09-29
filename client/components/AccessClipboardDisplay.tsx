@@ -24,12 +24,12 @@ export const AccessClipboardDisplay = (props: accessClipboardDisplayProps) => {
   }
 
   const handleClipboardClick = () => {
-    if(isLoggedIn) navigate(`/clipboard/${props.projectId}`);
-    else navigate('/clipboard/0')
+    if(sessionStorage.getItem('isLoggedIn')) navigate(`/clipboard/${props.projectId}`);
+    else navigate('/clipboard/0');
   }
 
   const handleDeleteClick = async () => {
-    if (isLoggedIn) {
+    if (sessionStorage.getItem('isLoggedIn')) {
       const projects = await axios.delete(`/api/project/${props.projectId}`);
       dispatch(setProjectsInfo(projects.data))
     } else {

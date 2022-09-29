@@ -37,7 +37,6 @@ const NavBar = () => {
     Cookies.remove('isLoggedIn');
     sessionStorage.clear();
     await axios.post('/auth/logout');
-    dispatch(setIsLoggedIn());
     dispatch(logout());
     navigate('/');
   };

@@ -36,7 +36,7 @@ export const AddProjectDialog = () => {
     setProjectName(e.target.value);
   };
 
-  if (isLoggedIn)
+  if (sessionStorage.getItem('isLoggedIn'))
     return (
       <Dialog onClose={handleClose} open={showAddProject}>
         <TextField
