@@ -8,6 +8,7 @@ import Home from './pages/Home';
 import Clipboard from './pages/Clipboard';
 import Documentation from './pages/Documentation';
 import NotFound from './pages/NotFound';
+import Auth from './pages/Auth';
 
 const theme = createTheme({
   palette: {
@@ -36,6 +37,7 @@ const App = () => {
         <Route path='/' element={<Home />} />
         <Route path='/clipboard' element={<Clipboard />} />
         <Route path='/documentation' element={<Documentation />} />
+        <Route path='/authenticate' element={<Auth />} />
         <Route path='*' element={<NotFound />} />
       </Routes>
       <Footer />
