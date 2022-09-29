@@ -3,7 +3,7 @@ import { Typography } from '@mui/material';
 
 const Documentation = () => {
   return (
-    <div>
+    <div className='page-body'>
       <Typography variant='h4' component='h2'>
         <ol>
           <li>

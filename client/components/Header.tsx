@@ -7,7 +7,7 @@ import {
   Box,
   InputLabel,
   SelectChangeEvent,
-  Typography,
+  Typography
 } from '@mui/material';
 import React from 'react';
 import { useAppDispatch, useAppSelector } from '../redux/hooks';
@@ -26,7 +26,7 @@ export const Header = () => {
   );
   const assertionList: JSX.Element[] = [];
   const assertionIds = Object.keys(assertionObject);
-  for (let id of assertionIds) {
+  for (const id of assertionIds) {
     assertionList.push(<Middle id={id} key={id} />);
   }
   const dispatch = useAppDispatch();
@@ -104,7 +104,7 @@ export const Header = () => {
 
   const menuItems: JSX.Element[] = [];
   const menuOptions = ['Get', 'Post', 'Patch', 'Delete'];
-  for (let option of menuOptions) {
+  for (const option of menuOptions) {
     menuItems.push(
       <MenuItem key={option} value={option}>
         {option}
@@ -113,33 +113,41 @@ export const Header = () => {
   }
 
   return (
-    <form id="test-generator-form" onSubmit={handleSubmit}>
-      <Box sx={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
+    <form id='test-generator-form' onSubmit={handleSubmit}>
+      <Box
+        sx={{
+          display: 'flex',
+          alignItems: 'center',
+          gap: '10px',
+          mb: 2,
+        }}
+      >
         <FormControl>
-          <InputLabel id="requestSelector">Request Type</InputLabel>
+          <InputLabel id='requestSelector'>Request Type</InputLabel>
           <Select
-            name="request-selector"
-            id="request-selector"
-            data-testid="request-selector"
-            label="Request Type"
+            name='request-selector'
+            id='request-selector'
+            data-testid='request-selector'
+            label='Request Type'
             value={requestType}
             onChange={handleRequestChange}
-            sx={{ width: '100px' }}
+            sx={{ height: 40 , width: '100px' }}
           >
             {menuItems}
           </Select>
         </FormControl>
         <TextField
-          label="Endpoint"
+          label='Endpoint'
           data-testid={requestType}
-          id="endpoint"
+          id='endpoint'
           name={requestType}
           required
+          size="small"
         />
         <RequestBody showField={requestType === 'Get' ? false : true} />
       </Box>
       <Box
-        id="assertion-list"
+        id='assertion-list'
         sx={{
           display: 'flex',
           flexDirection: 'column',
@@ -147,24 +155,31 @@ export const Header = () => {
           justifyContent: 'center',
           gap: '10px',
           marginBottom: '10px',
-          marginTop: '10px',
+          marginTop: '10px'
         }}
       >
         {assertionList}
         <Box sx={{ display: 'flex', gap: '10px', alignItems: 'center' }}>
-          <Typography>Add expected response:</Typography>
+          <Typography>Add Expected Response:</Typography>
           <Button
-            id="add-assertion"
-            name="add-assertion"
-            variant="contained"
+            id='add-assertion'
+            name='add-assertion'
+            variant='contained'
+            color='primary'
             onClick={handleAdd}
-            sx={{ justifySelf: 'center', alignSelf: 'center' }}
+            sx={{ justifySelf: 'center', alignSelf: 'center', height: 25, width: 23, minWidth: 23 }}
+            disableElevation
           >
             +
           </Button>
         </Box>
       </Box>
-      <Button type="submit" variant="text" sx={{ backgroundColor: '#E6E6FA' }}>
+      <Button
+        type='submit'
+        variant='contained'
+        sx={{ marginTop: '30px', height: 40 }}
+        disableElevation
+      >
         Generate Test Code
       </Button>
     </form>

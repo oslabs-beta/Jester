@@ -8,59 +8,37 @@ describe('Route integration tests', () => {
   // Test for POST request to /api/tests
   describe('/api/tests', () => {
     describe('POST', () => {
-      it('missing body contents responds with 400', () =>
-        request(server)
+      it('missing assertions property returns 400', async () => {
+        const response = await request(server)
           .post('/api/tests')
           .send({
-            header: {
-              input: '/',
-              method: 'GET'
-            }
-            // missing assertions array
-          })
-          .expect(400));
+            header: { endpoint: '/', method: 'GET' }
+          });
 
-      it('no body provided responds with 400', () =>
-        request(server).post('/api/tests').expect(400));
+        expect(response.statusCode).toBe(400);
+      });
 
-      it('correct body contents responds with 200 status and json content type', () =>
-        request(server)
+      it('empty request body returns 400', async () => {
+        const response = await request(server).post('/api/tests');
+
+        expect(response.statusCode).toBe(400);
+      });
+
+      it('correct body contents responds with 200 status and json content type', async () => {
+        const response = await request(server)
           .post('/api/tests')
           .send({
-            header: {
-              endpoint: '/',
-              method: 'GET'
-            },
-            assertions: []
-          })
-          .expect(200)
-          .expect('Content-Type', /json/));
+            header: { endpoint: '/api/tests', method: 'GET' },
+            assertions: [{ content: 'application/json' }, { status: 200 }]
+          });
 
-      // it('correct body contents responds with generated test code', () => {
-      //   const responseJSON = JSON.stringify([
-      //     "describe('/', () => {",
-      //     "describe('GET', () => {",
-      //     "it('responds with content-type /text/html/ and status 200', () => request(server)",
-      //     ".get('/')",
-      //     ".expect('Content-Type', /text/html/)",
-      //     '.expect(200);',
-      //     '});',
-      //     '});',
-      //     'fsdfsdf'
-      //   ]);
-      //   request(server)
-      //     .post('/api/tests')
-      //     .send({
-      //       header: {
-      //         endpoint: '/',
-      //         method: 'GET'
-      //       },
-      //       assertions: [{ content: '/text/html/' }, { status: 200 }]
-      //     })
-      //     .expect('Content-Type', /json/)
-      //     .expect(200)
-      //     .expect(responseJSON);
-      // });
+        const expectedResponse =
+          "describe('/api/tests', () => {\n describe('GET', () => {\n  it('responds with content-type application/json and status 200', async () => {\n   const response = await request(server)\n   .get('/api/tests');\n    expect(response.type).toBe('application/json');\n    expect(response.statusCode).toBe(200);\n  });\n });\n});";
+
+        expect(response.type).toBe('application/json');
+        expect(response.statusCode).toBe(200);
+        expect(response.body).toEqual(expectedResponse);
+      });
     });
   });
 });

@@ -2,9 +2,7 @@ import React from 'react';
 import { CodeGenerator } from './CodeGenerator';
 
 const Home = () => {
-  return (
-      <CodeGenerator />
-  );
+  return <CodeGenerator />;
 };
 
 export default Home;

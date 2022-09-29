@@ -2,7 +2,7 @@ import React from 'react';
 import { TextField } from '@mui/material';
 
 type requestBodyPropsType = {
-  showField: Boolean;
+  showField: boolean;
 };
 
 export const RequestBody = (props: requestBodyPropsType) => {
@@ -13,6 +13,7 @@ export const RequestBody = (props: requestBodyPropsType) => {
         id="req_body"
         data-testid="Request-Body"
         name="Request-Body"
+        size="small"
       />
     );
   } else
@@ -24,6 +25,7 @@ export const RequestBody = (props: requestBodyPropsType) => {
         name="Request-Body"
         disabled={true}
         sx={{ backgroundColor: 'lightgrey' }}
+        size="small"
       />
     );
 };

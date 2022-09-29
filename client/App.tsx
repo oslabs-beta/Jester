@@ -15,8 +15,12 @@ const theme = createTheme({
   palette: {
     primary: {
       main: '#5E17EB',
-      contrastText: '#fff',
+      contrastText: '#fff'
     },
+    secondary: {
+      main: '#606F7B',
+      contrastText: '#fff'
+    }
   },
   typography: {
     // fontFamily: [

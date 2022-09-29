@@ -55,7 +55,7 @@ export const userInfoSlice = createSlice({
       action: PayloadAction<{ projectId: number; clipboardData: string[] }>
     ) => {
       const projects = state.projectsInfo;
-      for (let project of projects) {
+      for (const project of projects) {
         if (project.project_id === action.payload.projectId) {
           project.clipboardInfo = action.payload.clipboardData;
         }
@@ -66,7 +66,7 @@ export const userInfoSlice = createSlice({
       action: PayloadAction<number>
     ) => {
       const projects = state.projectsInfo;
-      for (let project of projects) {
+      for (const project of projects) {
         if (project.project_id === action.payload) {
           project.showAccessClipboard = project.showAccessClipboard
             ? false
