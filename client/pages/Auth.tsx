@@ -2,8 +2,12 @@ import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import Typography from '@mui/material/Typography';
 import Cookies from 'js-cookie';
+import axios from 'axios';
+import { setIsLoggedIn, setProjectsInfo } from '../redux/reducers/userInfoSlice';
+import { useAppDispatch } from '../redux/hooks';
 
 const Auth = () => {
+  const dispatch = useAppDispatch();
   // Using Hooks, can refactor to RTK
   const navigate = useNavigate();
   const [username, setUsername] = useState('');
@@ -22,6 +26,9 @@ const Auth = () => {
     sessionStorage.setItem('email', cookie_email);
     sessionStorage.setItem('code', cookie_code);
     sessionStorage.setItem('isLoggedIn', 'true');
+    dispatch(setIsLoggedIn());
+    axios.get(`/api/project/1`).then((res) => dispatch(setProjectsInfo(res.data)));
+
     setTimeout(() => {
       navigate('/');
     }, 3000);

@@ -23,7 +23,8 @@ export const Login = (props: loginProps) => {
       const userInfo = await axios.get('/auth');
       const userId = userInfo.data.user_id;
       dispatch(setUserId(userId));
-      const projectData = await axios.get(`/api/project/${userId}`);
+      const projectData = await axios.get(`/api/project/1`);
+      // const projectData = await axios.get(`/api/project/${userId}`);
       dispatch(setProjectsInfo(projectData.data));
       dispatch(setIsLoggedIn());
       handleClose();

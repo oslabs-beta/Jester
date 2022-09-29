@@ -1,6 +1,5 @@
 import { store } from '../../client/redux/store';
 import { setShowLogin } from '../../client/redux/reducers/userInfoSlice';
-import { Z_DEFAULT_STRATEGY } from 'zlib';
 
 type projectsType = {
   project_id: number;
