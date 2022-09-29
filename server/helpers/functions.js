@@ -6,7 +6,7 @@ helperFunctions.headerGenerator = (header, assertions) => {
 
   const assertText = { status: 'status', content: 'content-type' };
 
-  for (let assertion of assertions) {
+  for (const assertion of assertions) {
     const keys = Object.keys(assertion);
     const assert = keys[0];
     if (assertText[assert]) {
@@ -34,15 +34,14 @@ helperFunctions.headerGenerator = (header, assertions) => {
     headerOutput.push(`   .send(${header.req_body})`);
   }
   headerOutput[headerOutput.length - 1] += ';';
-  headerOutput.push('');
   return headerOutput;
 };
 
 helperFunctions.middleGenerator = (assertions) => {
-  let middleOutput = [];
+  const middleOutput = [];
 
   //iterate through the array and push a string that will need to be typed into an output array.
-  for (let assertion of assertions) {
+  for (const assertion of assertions) {
     const keys = Object.keys(assertion);
     //So if the dropdown here is status/content/body we push a different string into the output array.
     if (keys[0] === 'status') {
