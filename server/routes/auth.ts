@@ -1,21 +1,21 @@
-import express, { Express, Request, Response, NextFunction, Router } from 'express';
-const router: Router = express.Router();
-import passport, { authController } from '../controllers/authController'
+import express, { Request, Response, NextFunction, Router } from 'express';
+import passport, { authController } from '../controllers/authController';
 
+const router: Router = express.Router();
 
 // route checking if user is authorized
 router.get('/', 
   authController.isLoggedIn, 
   authController.getUserId,
   (req, res) => {
-    return res.status(200).json(res.locals.userId)
-    });
+    return res.status(200).json(res.locals.userId);
+  });
 
 // route for user being unable to sign in with GitHub
 router.get('/error', 
-(req: Request, res: Response): Response => {
-    return res.send('Unknown Error')
-  })
+  (req: Request, res: Response): Response => {
+    return res.send('Unknown Error');
+  });
 
 // route for dialog box to GitHub authorization (i.e. login with Github)
 router.get('/github',
@@ -30,11 +30,10 @@ router.get('/github/callback',
   }
 );
 
-router.post('/logout', (req: Request, res: Response, next: NextFunction): void => {
-  req.logout(err => {
-    if (err) { return next(err); }
+router.post('/logout', 
+  (req: any, res: Response, next: NextFunction): void => {
+    req.logout();
     return res.redirect('../../');
   });
-});
 
 export default router;
