@@ -31,8 +31,8 @@ router.get('/github/callback',
 );
 
 router.post('/logout', (req: any, res: Response, next: NextFunction): void => {
-    req.logout();
-    return res.redirect('../../');
+  req.logout();
+  return res.redirect('../../');
 });
 
 export default router;
