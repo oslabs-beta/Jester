@@ -21,7 +21,7 @@ const gitHubSettings: GitHubSettingsType = {
   clientSecret: '00e08080239a284e4047e1342393f88dc3ada6ae',
   callbackURL: 'http://localhost:3000/auth/github/callback',
   scope: [ 'user:email' ],
-}
+};
 
 // need to clean up the type declarations of user, done, profile and tokens
 // https://typescript.hotexamples.com/examples/passport/-/serializeUser/typescript-serializeuser-function-examples.html
@@ -29,25 +29,25 @@ const gitHubSettings: GitHubSettingsType = {
 passport.serializeUser(
   function(user: Express.User, done: any) {
     done(null, user);
-});
+  });
 
 passport.deserializeUser(
   function(user: any, done: any) {
     done(null, user);
-});
+  });
 
 passport.use(
   new GitHubStrategy(
     gitHubSettings,
     function(accessToken: any, refreshToken: any, profile: any, done: any) {
-      const email: string = profile.emails[0].value
-      const params = [email]
-      console.log(email)
+      const email: string = profile.emails[0].value;
+      const params = [email];
+      console.log(email);
       // logic for creating a new record on the database for the user could go in here
       
       return done(null, profile);
     }
-));
+  ));
 
 export const authController: AuthType = {
     // Middleware to verify that user is logged in (typically used before database calls)
@@ -83,7 +83,7 @@ export const authController: AuthType = {
       res.locals.userId = result;
       return next();
     }
-  };
+};
 
 export default passport;
 
