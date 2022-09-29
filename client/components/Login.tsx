@@ -4,7 +4,6 @@ import { Button, Box, Dialog, DialogTitle, Typography } from '@mui/material';
 import GitHubIcon from '@mui/icons-material/GitHub';
 import { useAppDispatch, useAppSelector } from '../redux/hooks';
 import { setShowLogin, setIsLoggedIn, setUserId, setProjectsInfo } from '../redux/reducers/userInfoSlice';
-// import {setClipboard} from '../redux/reducers/clipboardSlice';
 
 type loginProps = {
   open: boolean;
