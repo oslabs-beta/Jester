@@ -67,8 +67,10 @@ export const authController: AuthType = {
     },
 
     getUserId: async (req: any, res: Response, next: NextFunction) => {
-      // this controller queries the user table for a user ID 
-      // that matches the user email from the request object
+      // this controller queries the user table to insert a new user
+      // using the email provided on the request object. If the user
+      // already exists, it performs a mock-update so that regardless
+      // of whether the user already existed or not, it returns the user ID.
       const { email } = req.user?.emails[0].value;
       const newUserQuery = `
       INSERT INTO user_table(usermail)

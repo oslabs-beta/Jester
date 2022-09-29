@@ -8,12 +8,10 @@ type Project = {
 };
 
 export const projectController: Project = {
-  // Middleware to fetch list of projects belonging to a user
+  // this controller queries the projects table and returns all projects found
+  //whose user ID matches the user ID from the request body
   getProjects: async (req: Request, res: Response, next: NextFunction) => {
     const { userId } = req.params;
-
-    // this controller should query the the Projects table for all
-    // projects belonging to userId and save an array of projects to res.locals.projects
 
     const queryString = `
     SELECT * FROM projects_table
