@@ -27,7 +27,7 @@ describe('Unit testing Login component', () => {
     login();
   })
   test('it renders login dialog box', () => {
-    expect(screen.getByRole('dialog', {name: /sign in with/i})).toBeInTheDocument();
+    expect(screen.getByRole('dialog', {name: /Log in to your account/i})).toBeInTheDocument();
   })
   test('it renders logo', () => {
     expect(screen.getByRole('img', {name: /logo/i})).toBeInTheDocument();
