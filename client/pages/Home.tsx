@@ -10,7 +10,8 @@ const Home = () => {
 
   useEffect(() => {
     if(sessionStorage.getItem('isLoggedIn')) {
-      axios.get('/api/project/1').then((res) => dispatch(setProjectsInfo(res.data)));
+      // SA - TEMPORARY COMMENT-OUT
+      // axios.get('/api/project/1').then((res) => dispatch(setProjectsInfo(res.data)));
     }
   })
   return <CodeGenerator />;

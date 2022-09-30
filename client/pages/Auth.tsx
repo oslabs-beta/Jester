@@ -26,8 +26,6 @@ const Auth = () => {
     sessionStorage.setItem('email', cookie_email);
     sessionStorage.setItem('code', cookie_code);
     sessionStorage.setItem('isLoggedIn', 'true');
-    axios.get('/api/project/1').then((res) => dispatch(setProjectsInfo(res.data)));
-
     setTimeout(() => {
       navigate('/');
     }, 3000);

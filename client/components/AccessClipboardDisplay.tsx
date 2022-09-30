@@ -30,8 +30,9 @@ export const AccessClipboardDisplay = (props: accessClipboardDisplayProps) => {
 
   const handleDeleteClick = async () => {
     if (sessionStorage.getItem('isLoggedIn')) {
-      const projects = await axios.delete(`/api/project/${props.projectId}`);
-      dispatch(setProjectsInfo(projects.data))
+      // SA - TEMPORARY COMMENT-OUT
+      // const projects = await axios.delete(`/api/project/${props.projectId}`);
+      // dispatch(setProjectsInfo(projects.data))
     } else {
       // clear the clipboard data held in state
     }
@@ -42,11 +43,11 @@ export const AccessClipboardDisplay = (props: accessClipboardDisplayProps) => {
         <IntegrationInstructionsIcon />
         Clipboard
       </Button>
-      <Button onClick={handleDeleteClick} sx={{display: isLoggedIn ? 'flex' : 'none', flexDirection: 'column'}}>
+      <Button onClick={handleDeleteClick} sx={{display: sessionStorage.getItem('isLoggedIn') ? 'flex' : 'none', flexDirection: 'column'}}>
         <DeleteForeverIcon />
         Delete Project
       </Button>
-      <Button onClick={handleDeleteClick} sx={{display: isLoggedIn ? 'none' : 'flex', flexDirection: 'column'}}>
+      <Button onClick={handleDeleteClick} sx={{display: sessionStorage.getItem('isLoggedIn') ? 'none' : 'flex', flexDirection: 'column'}}>
         <DeleteForeverIcon />
         Clear Clipboard
       </Button>
