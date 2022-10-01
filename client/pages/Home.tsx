@@ -1,14 +1,20 @@
-import React from 'react';
-import { Header } from '../components/Header';
-import CodeContainer from '../containers/CodeContainer';
+import React, { useEffect } from 'react';
+import { CodeGenerator } from './CodeGenerator';
+import axios from 'axios';
+import { useAppDispatch } from '../redux/hooks';
+import { setProjectsInfo } from '../redux/reducers/userInfoSlice';
 
 const Home = () => {
-  return (
-    <div className='page-body'>
-      <Header />
-      <CodeContainer />
-    </div>
-  );
+  const dispatch = useAppDispatch();
+
+
+  useEffect(() => {
+    if(sessionStorage.getItem('isLoggedIn')) {
+      // SA - TEMPORARY COMMENT-OUT
+      // axios.get('/api/project/1').then((res) => dispatch(setProjectsInfo(res.data)));
+    }
+  })
+  return <CodeGenerator />;
 };
 
 export default Home;

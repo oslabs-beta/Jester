@@ -2,8 +2,12 @@ import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import Typography from '@mui/material/Typography';
 import Cookies from 'js-cookie';
+import axios from 'axios';
+import { setProjectsInfo } from '../redux/reducers/userInfoSlice';
+import { useAppDispatch } from '../redux/hooks';
 
 const Auth = () => {
+  const dispatch = useAppDispatch();
   // Using Hooks, can refactor to RTK
   const navigate = useNavigate();
   const [username, setUsername] = useState('');

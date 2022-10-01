@@ -7,6 +7,7 @@ import { projectController } from '../controllers/projectController';
 router.get(
   '/:userId',
   authController.isLoggedIn,
+  authController.getUserId,
   projectController.getProjects,
   (req: Request, res: Response) => {
     return res.status(200).json(res.locals.projects);
@@ -14,10 +15,11 @@ router.get(
 );
 
 // route for adding a new Project associated with a userId
-// expected body: { project_name: string}
+// expected body: { project_id: int, user_id: int}
 router.post(
-  '/:userId',
+  '/',
   authController.isLoggedIn,
+  authController.getUserId,
   projectController.addProject,
   (req: Request, res: Response) => {
     return res.status(201).json(res.locals.projects);
@@ -25,10 +27,11 @@ router.post(
 );
 
 // route for deleting a specific project associated with a userId
-// expected body: none
+// expected body: { project_id: int, user_id: int}
 router.delete(
-  '/:projectId',
+  '/',
   authController.isLoggedIn,
+  authController.getUserId,
   projectController.deleteProject,
   (req: Request, res: Response) => {
     return res.status(200).json(res.locals.projects);

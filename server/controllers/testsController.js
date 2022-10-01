@@ -1,4 +1,4 @@
-const helperFunctions = require('../helpers/functions.js');
+import helperFunctions from '../helpers/functions.js';
 
 const testsController = {};
 
@@ -101,4 +101,4 @@ testsController.compileTestCode = (req, res, next) => {
   return next();
 };
 
-module.exports = testsController;
+export default testsController;

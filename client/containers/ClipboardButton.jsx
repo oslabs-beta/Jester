@@ -5,7 +5,7 @@ import ContentCopyIcon from '@mui/icons-material/ContentCopy';
 import DoneAllIcon from '@mui/icons-material/DoneAll';
 import { useSelector, useDispatch } from 'react-redux';
 
-import { copyCB, changeIcon1, asyncChangeIcon1 } from '../redux/reducers/ClipBoardReducers';
+import { copyCB, changeIcon1, asyncChangeIcon } from '../redux/reducers/ClipBoardReducers';
 
 // This container wraps:
 // 2) the button that copies the code to the clipboard
@@ -16,7 +16,7 @@ const ClipboardButton = () => {
   const copyClipboard = () => {
     dispatch(copyCB());
     dispatch(changeIcon1());
-    dispatch(asyncChangeIcon1());
+    dispatch(asyncChangeIcon());
   };
 
   const doneIcon = useSelector(state => state.slice.doneIcon1);

@@ -2,14 +2,12 @@ import axios from 'axios';
 import React from 'react';
 import { Button, Box, Dialog, DialogTitle, Typography } from '@mui/material';
 import GitHubIcon from '@mui/icons-material/GitHub';
-
 import { useAppDispatch } from '../redux/hooks';
-import { setShowLogin, setIsLoggedIn } from '../redux/reducers/userInfoSlice';
-// import {setClipboard} from '../redux/reducers/clipboardSlice';
+import { setShowLogin, setIsLoggedIn, setUserId, setProjectsInfo } from '../redux/reducers/userInfoSlice';
 
 type loginProps = {
-  open: boolean,
-}
+  open: boolean;
+};
 
 export const Login = (props: loginProps) => {
   const dispatch = useAppDispatch();
@@ -17,24 +15,14 @@ export const Login = (props: loginProps) => {
     dispatch(setShowLogin());
   };
   const handleClick = async (): Promise<void> => {
-    const response:(string | any) = await axios.get('/auth/github');
+    const response: string | any = await axios.get('/auth/github');
     if (response === 'Unknown Error') {
       const errorElement = document.getElementById('error-message');
       if (errorElement) errorElement.style.display = 'auto';
     } else {
-    // does the userId come from a cookie?
-    // const clipboardData = await axios.get('/userID') //what endpoint??
-    // set clipboardData in state
-      // slice of state name clipboard
-      // reducer called setClipboard
-    
-    
-      // dispatch(setClipboard(clipboardData))
-      dispatch(setIsLoggedIn());
-      handleClose(); // close login box
-
+      await axios.get('/auth');
+      handleClose();
     }
-    // what will the response be? 
   };
   return (
     <Dialog 

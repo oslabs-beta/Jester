@@ -1,12 +1,31 @@
-import { createSlice } from '@reduxjs/toolkit';
+import { createSlice, PayloadAction } from '@reduxjs/toolkit';
+
+type projectsType = {
+  project_id: number;
+  project_name: string;
+  user_id: number;
+  clipboardInfo?: string[];
+  showAccessClipboard: boolean;
+};
 
 type userInfoStateType = {
-  showLogin: boolean,
-  isLoggedIn: boolean,
-}
+  showLogin: boolean;
+  isLoggedIn: boolean;
+  userId: number;
+  projectsInfo: projectsType[];
+};
 const initialState: userInfoStateType = {
   showLogin: false,
   isLoggedIn: false,
+  userId: 0,
+  projectsInfo: [
+    {
+      project_id: 0,
+      project_name: 'Project One',
+      user_id: 0,
+      showAccessClipboard: false,
+    },
+  ],
 };
 
 export const userInfoSlice = createSlice({
@@ -14,18 +33,59 @@ export const userInfoSlice = createSlice({
   initialState,
   reducers: {
     setShowLogin: (state: userInfoStateType) => {
-      state.showLogin = !state.showLogin;
+      state.showLogin = state.showLogin ? false : true;
+    },
+    setProjectsInfo: (
+      state: userInfoStateType,
+      action: PayloadAction<projectsType[]>
+    ) => {
+      state.projectsInfo = action.payload;
     },
     setIsLoggedIn: (state: userInfoStateType) => {
-      state.isLoggedIn = !state.isLoggedIn;
+      state.isLoggedIn = state.isLoggedIn ? false : true;
+    },
+    setUserId: (state: userInfoStateType, action: PayloadAction<number>) => {
+      state.userId = action.payload;
     },
     logout: (state: userInfoStateType) => {
-      // MLCK: Do we really want to clear the entire state? 
-      // Even so, we may need to do a loop on each property
       state = initialState;
     },
-  }
+    setClipboardData: (
+      state: userInfoStateType,
+      action: PayloadAction<{ projectId: number; clipboardData: string[] }>
+    ) => {
+      const projects = state.projectsInfo;
+      for (const project of projects) {
+        if (project.project_id === action.payload.projectId) {
+          project.clipboardInfo = action.payload.clipboardData;
+        }
+      }
+    },
+    setShowAccessClipboard: (
+      state: userInfoStateType,
+      action: PayloadAction<number>
+    ) => {
+      const projects = state.projectsInfo;
+      for (const project of projects) {
+        if (project.project_id === action.payload) {
+          project.showAccessClipboard = project.showAccessClipboard
+            ? false
+            : true;
+        } else {
+          project.showAccessClipboard = false;
+        }
+      }
+    },
+  },
 });
 
-export const { setShowLogin, setIsLoggedIn, logout } = userInfoSlice.actions;
+export const {
+  setShowLogin,
+  setProjectsInfo,
+  setIsLoggedIn,
+  logout,
+  setClipboardData,
+  setShowAccessClipboard,
+  setUserId,
+} = userInfoSlice.actions;
 export default userInfoSlice.reducer;

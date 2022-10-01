@@ -59,25 +59,29 @@ export const authController: AuthType = {
     //   return res.status(401).json("Error: User not authorized");
     // }
     // MLCK: Is this a security vulnerability?  Another option is to store session in database and make a db call
-    if (!req.user || !req.isAuthenticated()) {
-      return res.status(401).json('Error: User not authorized');
-    }
+    // if (!req.user || !req.isAuthenticated()) {
+    //   return res.status(401).json('Error: User not authorized');
+    // }
     // console.log('authController.isLoggedIn');
     return next();
   },
 
   getUserId: async (req: any, res: Response, next: NextFunction) => {
-    // MLCK why are we deconstructing like this?
-    const { email } = req.user?.emails[0].value;
+    // this controller queries the user table to insert a new user
+    // using the email provided on the request object. If the user
+    // already exists, it performs a mock-update so that regardless
+    // of whether the user already existed or not, it returns the user ID.
+    const { email } = req.user.emails[0].value;
     const newUserQuery = `
-    INSERT INTO user_table(usermail)
-    VALUES $1
-    ON CONFLICT DO NOTHING
-    RETURNING user_id
-    `;
+      INSERT INTO user_table(usermail)
+      VALUES($1)
+      ON CONFLICT (usermail) DO UPDATE
+      SET usermail=($1)
+      RETURNING user_id
+      `;
     const params = [email];
     const result = await db.query(newUserQuery, params);
-    res.locals.userId = result;
+    res.locals.user_id = result;
     return next();
   }
 };
