@@ -1,13 +1,15 @@
 import React from 'react';
-import { Provider } from 'react-redux';
 import { ThemeProvider, createTheme } from '@mui/material/styles';
 import { Route, Routes } from 'react-router-dom';
 import NavBar from './components/NavBar';
 import Footer from './components/Footer';
 import Home from './pages/Home';
-import Clipboard from './pages/Clipboard';
 import Documentation from './pages/Documentation';
 import NotFound from './pages/NotFound';
+import { NavPanelContainer } from './containers/NavPanelContainer';
+import { Box } from '@mui/material';
+import { CodeGenerator } from './pages/CodeGenerator';
+import ClipBoard from './components/ClipBoard';
 import Auth from './pages/Auth';
 
 const theme = createTheme({
@@ -26,20 +28,33 @@ const theme = createTheme({
     //   'Source Code Pro',
     //   'monospace',
     // ].join(','),
-  }
+  },
 });
 
 const App = () => {
   return (
     <ThemeProvider theme={theme}>
       <NavBar />
-      <Routes>
-        <Route path='/' element={<Home />} />
-        <Route path='/clipboard' element={<Clipboard />} />
-        <Route path='/documentation' element={<Documentation />} />
-        <Route path='/authenticate' element={<Auth />} />
-        <Route path='*' element={<NotFound />} />
-      </Routes>
+      <Box
+        sx={{
+          display: 'grid',
+          gridTemplateColumns: '1fr 5fr',
+          marginTop: '10px',
+        }}
+      >
+        <NavPanelContainer />
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="/clipboard/:projectId" element={<ClipBoard />} />
+          <Route path="/documentation" element={<Documentation />} />
+          <Route path='/authenticate' element={<Auth />} />
+          <Route
+            path="/CodeGenerator/:projectId"
+            element={<CodeGenerator />}
+          />
+          <Route path="*" element={<NotFound />} />
+        </Routes>
+      </Box>
       <Footer />
     </ThemeProvider>
   );
