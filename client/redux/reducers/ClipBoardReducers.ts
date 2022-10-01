@@ -46,6 +46,11 @@ export const slice1 = createSlice({
     setServer: (state: sliceType1, action: PayloadAction<string>) => {
       state.server = action.payload;
     },
+    clearCodeSnippets: (state: sliceType1) => {
+      state.codeOutput1 = 'Your Clipboard is currently empty! Please generate a test before we can display your testing code here.';
+      state.codeOutputEdited1 = undefined;
+      state.server = '';
+    }
   },
 });
 
@@ -59,7 +64,7 @@ const thunks = {
   }),
 };
 
-export const { copyCB, changeIcon, userEditText, setCodeOutput1, setServer } =
+export const { copyCB, changeIcon, userEditText, setCodeOutput1, setServer, clearCodeSnippets } =
   slice1.actions;
 
 export const { asyncChangeIcon } = thunks;
