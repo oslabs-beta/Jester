@@ -101,4 +101,4 @@ testsController.compileTestCode = (req, res, next) => {
   return next();
 };
 
-module.exports = testsController;
+export default testsController;
