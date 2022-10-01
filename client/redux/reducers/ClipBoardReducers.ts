@@ -25,7 +25,7 @@ export const slice1 = createSlice({
       );
     },
 
-    changeIcon: (state: sliceType1) => {
+    changeIcon1: (state: sliceType1) => {
       state.doneIcon1 = true;
     },
 
@@ -64,7 +64,7 @@ const thunks = {
   }),
 };
 
-export const { copyCB, changeIcon, userEditText, setCodeOutput1, setServer, clearCodeSnippets } =
+export const { copyCB, changeIcon1, userEditText, setCodeOutput1, setServer, clearCodeSnippets } =
   slice1.actions;
 
 export const { asyncChangeIcon } = thunks;
