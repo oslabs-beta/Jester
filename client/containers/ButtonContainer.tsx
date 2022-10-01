@@ -7,6 +7,7 @@ import DoneAllIcon from '@mui/icons-material/DoneAll';
 
 import { useAppDispatch, useAppSelector } from '../redux/hooks';
 import { appendToClipboard } from '../redux/reducers/ClipBoardReducers';
+import AppButton from '../components/AppButton';
 
 import {
   copyText,
@@ -60,14 +61,11 @@ const ButtonContainer = () => {
       >
         {doneIcon ? <DoneAllIcon /> : <ContentCopyIcon />}
       </Button>
-      <Button 
-        data-testid='bttn-append'
-        variant='outlined' 
-        onClick = { appendClipboard }
-        sx={{ marginBottom: 1 }}
-      >
-        <AddBoxIcon />
-      </Button>
+      <AppButton 
+        start={ <AddBoxIcon /> } 
+        end={ <DoneAllIcon /> } 
+        onClick={ appendClipboard } 
+        testId='bttn-append' />
     </Box>
   );
 };
