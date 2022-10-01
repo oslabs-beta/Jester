@@ -40,14 +40,6 @@ const button = () => {
   );
 }
 
-const buttonDone = () => {
-  render(
-    <Provider store={mockStore(clickedState)}>
-      <ButtonContainer/>
-    </Provider>,
-  );
-}
-
 describe('Unit testing Output Container components', () => {
   test('Renders placeholder code output in Code Container', () => {
     code();
@@ -60,20 +52,6 @@ describe('Unit testing Output Container components', () => {
     button();
     const bttn = screen.getByRole('button', { name: '' });
     expect(bttn).toBeInTheDocument();
-  });
-
-  test('Renders ContentCopyIcon inside button', () => {
-    button();
-    const bttn = screen.getByRole('button', { name: '' });
-    const copyIcon = bttn.innerHTML.includes('data-testid=\"ContentCopyIcon\"');
-    expect(copyIcon).toBeTruthy();
-  });
-
-  test('Renders DoneAllIcon on state change', () => {
-    buttonDone();
-    let bttn = screen.getByRole('button', { name: '' });
-    const checkIcon = bttn.innerHTML.includes('data-testid=\"DoneAllIcon\"');
-    expect(checkIcon).toBeTruthy();
   });
 })
 

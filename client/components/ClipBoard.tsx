@@ -8,7 +8,6 @@ import { useParams } from 'react-router-dom';
 import { setCodeOutput1 } from '../redux/reducers/ClipBoardReducers';
 // import axios from 'axios';
 
-
 // const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
 //     setName(event.target.value);
 //   };
@@ -22,15 +21,16 @@ import { setCodeOutput1 } from '../redux/reducers/ClipBoardReducers';
 
 // This component will render the code from the db that is stored in state alredy from Serena.
 
-
-
 //Had to create slice1 in the store.ts you big dummy!
 const ClipBoard = () => {
-  const codeOutput1 = useAppSelector(state => state.slice1.codeOutput1);
+  const codeOutput1 = useAppSelector((state) => state.slice1.codeOutput1);
   // useAppSelector (state => state.userInfo.projectsInfo)
-  const codeOutputEdited1 = useAppSelector(state => state.slice1.codeOutputEdited1);
+  const codeOutputEdited1 = useAppSelector(
+    (state) => state.slice1.codeOutputEdited1
+  );
   const dispatch = useAppDispatch();
-  const editCode = (e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => dispatch(userEditText(e.target.value));
+  const editCode = (e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) =>
+    dispatch(userEditText(e.target.value));
   // Need to refactor to expect project id to be drilled down.
   // useAppselector to grab slice of state. Then use a new reducer to update slice of state.
 
@@ -39,15 +39,14 @@ const ClipBoard = () => {
     // *Learning*: //In axios you don't have to parse or stringify your data.
     // axios.get(`/Api/Clipboard/${projectId}`)
     // .then((response) => {dispatch(setCodeOutput1(response))});
-    fetch(`/Api/Clipboard/${projectId}`)
-      .then((response) => response.json())
-    // .then((response) => console.log(response));
-      .then((response) => dispatch(setCodeOutput1(response)))
-      .catch((err) => console.log(err));
-
+    if (sessionStorage.getItem('isLoggedIn')) {
+      fetch(`/Api/Clipboard/${projectId}`)
+        .then((response) => response.json())
+        // .then((response) => console.log(response));
+        .then((response) => dispatch(setCodeOutput1(response)))
+        .catch((err) => console.log(err));
+    }
   });
-
-
 
   return (
     <div id="clipboard-page-body">
@@ -55,12 +54,12 @@ const ClipBoard = () => {
         id="main-clipboard"
         multiline
         rows={10}
-        value={ codeOutputEdited1 || codeOutput1 }
-        sx={{ 
+        value={codeOutputEdited1 || codeOutput1}
+        sx={{
           width: 0.95,
           fontFamily: 'Source Code Pro',
         }}
-        onChange = { editCode }
+        onChange={editCode}
       />
       <ClipboardButton />
     </div>
