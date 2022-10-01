@@ -1,20 +1,22 @@
 import React from 'react';
-import HistoryIcon from '@mui/icons-material/History';
 import CollectionsBookmarkIcon from '@mui/icons-material/CollectionsBookmark';
 import { Button, Typography, Box } from '@mui/material';
 import { useAppDispatch} from '../redux/hooks';
 import {
   setShowProjectPanel,
-  setShowHistoryPanel,
 } from '../redux/reducers/navPanelSlice';
+import HomeIcon from '@mui/icons-material/Home';
+import { useNavigate } from 'react-router-dom';
 
 export const NavPanelDisplay = () => {
   const dispatch = useAppDispatch();
+  const navigate = useNavigate();
   const handleProjectsClick = () => {
     dispatch(setShowProjectPanel());
   };
-  const handleHistoryClick = () => {
-    dispatch(setShowHistoryPanel());
+
+  const handleHomeClick = () => {
+    navigate('/');
   };
   return (
     <Box
@@ -24,13 +26,7 @@ export const NavPanelDisplay = () => {
         border: '1px dashed lightgrey',
       }}
     >
-      <Button
-        sx={{ display: 'flex', flexDirection: 'column' }}
-        onClick={handleHistoryClick}
-      >
-        <HistoryIcon />
-        <Typography sx={{ fontSize: '10px' }}>History</Typography>
-      </Button>
+      <Button onClick={handleHomeClick} sx={{display: 'flex', flexDirection:'column'}}><HomeIcon />Home</Button>
       <Button
         sx={{ display: 'flex', flexDirection: 'column' }}
         onClick={handleProjectsClick}
