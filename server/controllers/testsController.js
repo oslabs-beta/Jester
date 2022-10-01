@@ -1,4 +1,4 @@
-const helperFunctions = require('../helpers/functions.js');
+import helperFunctions from '../helpers/functions.js';
 
 const testsController = {};
 
