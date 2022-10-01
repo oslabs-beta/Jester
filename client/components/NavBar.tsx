@@ -37,6 +37,7 @@ const NavBar = () => {
     Cookies.remove('isLoggedIn');
     sessionStorage.clear();
     await axios.post('/auth/logout');
+    // why use 'post' here with no body? is this just a get request?
     dispatch(logout());
     navigate('/');
   };
