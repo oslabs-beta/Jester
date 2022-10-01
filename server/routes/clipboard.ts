@@ -7,6 +7,7 @@ import { clipboardController } from '../controllers/clipboardController';
 router.get(
   '/:project_id',
   authController.isLoggedIn,
+  authController.getUserId,
   clipboardController.getClipboard,
   (req: Request, res: Response) => {
     return res.status(200).json(res.locals.clipboard);
@@ -18,6 +19,7 @@ router.get(
 router.post(
   '/:project_id',
   authController.isLoggedIn,
+  authController.getUserId,
   clipboardController.appendClipboard,
   (req: Request, res: Response) => {
     return res.status(201).json(res.locals.clipboard);
@@ -29,6 +31,7 @@ router.post(
 router.delete(
   '/:snippet_id',
   authController.isLoggedIn,
+  authController.getUserId,
   clipboardController.deleteSnippet,
   (req: Request, res: Response) => {
     return res.status(200).json(res.locals.clipboard);

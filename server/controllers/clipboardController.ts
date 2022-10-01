@@ -31,7 +31,8 @@ export const clipboardController: Clipboard = {
   // Middleware to add a code snippet to the clipboard of a specified project
   appendClipboard: async (req: Request, res: Response, next: NextFunction) => {
     const { project_id } = req.params;
-    const { code_snippet, user_id } = req.body;
+    const { code_snippet} = req.body;
+    const { user_id } = res.locals;
 
     // this controller should insert a new record in the Clipboard table
     // and save the updated clipboard to res.locals.clipboard

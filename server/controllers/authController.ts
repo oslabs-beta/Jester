@@ -75,14 +75,13 @@ export const authController: AuthType = {
     const newUserQuery = `
       INSERT INTO user_table(usermail)
       VALUES($1)
-      ON CONFLICT DO NOTHING
-      (usermail) DO UPDATE
+      ON CONFLICT (usermail) DO UPDATE
       SET usermail=($1)
       RETURNING user_id
       `;
     const params = [email];
     const result = await db.query(newUserQuery, params);
-    res.locals.userId = result;
+    res.locals.user_id = result;
     return next();
   }
 };

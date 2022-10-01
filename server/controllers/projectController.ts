@@ -11,13 +11,13 @@ export const projectController: Project = {
   // this controller queries the projects table and returns all projects found
   //whose user ID matches the user ID from the request body
   getProjects: async (req: Request, res: Response, next: NextFunction) => {
-    const { userId } = req.params;
+    const { user_id } = res.locals;
 
     const queryString = `
     SELECT * FROM projects_table
     WHERE user_id=$1
     `;
-    const params = [userId];
+    const params = [user_id];
 
     const result = await db.query(queryString, params);
 
@@ -28,7 +28,8 @@ export const projectController: Project = {
 
   // Middleware to add a new Project associated with a userId
   addProject: async (req: Request, res: Response, next: NextFunction) => {
-    const { user_id, project_name } = req.body;
+    const { user_id } = res.locals;
+    const { project_name } = req.body;
 
     // this controller should insert a new record in the Projects table
     // with the name of project_name and a foreign key userId
@@ -54,7 +55,8 @@ export const projectController: Project = {
 
   // Middleware to delete a specific project
   deleteProject: async (req: Request, res: Response, next: NextFunction) => {
-    const { user_id, project_id } = req.body;
+    const user_id = res.locals.user_id;
+    const { project_id } = req.body;
     // this controller should delete the project in the Projects table
     // with the provided project_id, AND ALSO all code snippets under this project
     // and send back the updated project list

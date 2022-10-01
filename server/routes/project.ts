@@ -7,6 +7,7 @@ import { projectController } from '../controllers/projectController';
 router.get(
   '/:userId',
   authController.isLoggedIn,
+  authController.getUserId,
   projectController.getProjects,
   (req: Request, res: Response) => {
     return res.status(200).json(res.locals.projects);
@@ -18,6 +19,7 @@ router.get(
 router.post(
   '/',
   authController.isLoggedIn,
+  authController.getUserId,
   projectController.addProject,
   (req: Request, res: Response) => {
     return res.status(201).json(res.locals.projects);
@@ -29,6 +31,7 @@ router.post(
 router.delete(
   '/',
   authController.isLoggedIn,
+  authController.getUserId,
   projectController.deleteProject,
   (req: Request, res: Response) => {
     return res.status(200).json(res.locals.projects);
