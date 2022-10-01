@@ -53,7 +53,7 @@ const ButtonContainer = () => {
       }}
     >
       <Button 
-        id='bttn-copy' 
+        data-testid='bttn-copy'
         variant='outlined' 
         onClick={ copyClipboard }
         sx={{ marginBottom: 1 }}
@@ -61,7 +61,7 @@ const ButtonContainer = () => {
         {doneIcon ? <DoneAllIcon /> : <ContentCopyIcon />}
       </Button>
       <Button 
-        id='bttn-append' 
+        data-testid='bttn-append'
         variant='outlined' 
         onClick = { appendClipboard }
         sx={{ marginBottom: 1 }}

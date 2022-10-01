@@ -14,15 +14,25 @@ import '@testing-library/jest-dom';
 import { RequestBody } from '../../client/components/RequestBody';
 
 
-const initialState = {slice: {
-  codeOutput: `describe('Sample description')`,
-}};
+const initialState = {
+  slice: {
+    codeOutput: 'describe(\'Sample description\')',
+  },
+  userInfo: {
+    isLoggedIn: false,
+  }
+};
 
-const clickedState = {slice: {
-  doneIcon: true,
-}};
+const clickedState = {
+  slice: {
+    doneIcon: true,
+  },
+  userInfo: {
+    isLoggedIn: false,
+  }
+};
 
-const mockStore = configureStore()
+const mockStore = configureStore();
 
 const code = () => {
   render(
@@ -38,7 +48,7 @@ const button = () => {
       <ButtonContainer />
     </Provider>
   );
-}
+};
 
 const buttonDone = () => {
   render(
@@ -46,36 +56,57 @@ const buttonDone = () => {
       <ButtonContainer/>
     </Provider>,
   );
-}
+};
 
-describe('Unit testing Output Container components', () => {
+describe('Unit testing output Code Container components', () => {
+  beforeAll(() => {
+    // button();
+    // const buttons = screen.getAllByRole('button');
+  });
+
   test('Renders placeholder code output in Code Container', () => {
     code();
     const codeOutput = screen.getByLabelText('Testing Code');
-    expect(codeOutput.innerHTML).toEqual(`describe('Sample description')`);
+    expect(codeOutput.innerHTML).toEqual('describe(\'Sample description\')');
   });
   
 
-  test('Renders copy to clipboard button', () => {
+  test('Renders two buttons', () => {
     button();
-    const bttn = screen.getByRole('button', { name: '' });
-    expect(bttn).toBeInTheDocument();
+    expect(screen.getAllByRole('button')).toHaveLength(2);
   });
 
-  test('Renders ContentCopyIcon inside button', () => {
+  test('Renders copy to navigator clipboard button', () => {
     button();
-    const bttn = screen.getByRole('button', { name: '' });
-    const copyIcon = bttn.innerHTML.includes('data-testid=\"ContentCopyIcon\"');
+    expect(screen.getByTestId('bttn-copy')).toBeInTheDocument();
+  });
+
+  test('Renders append to app clipboard button', () => {
+    button();
+    expect(screen.getByTestId('bttn-append')).toBeInTheDocument();
+  });
+
+  test('Renders ContentCopyIcon inside copy to clipboard button', () => {
+    button();
+    const bttn = screen.getByTestId('bttn-copy');
+    const copyIcon = bttn.innerHTML.includes('data-testid="ContentCopyIcon"');
     expect(copyIcon).toBeTruthy();
   });
 
+  test('Renders AddBoxIcon inside add to clipboard button', () => {
+    button();
+    const bttn = screen.getByTestId('bttn-append');
+    const copyIcon = bttn.innerHTML.includes('data-testid="AddBoxIcon"');
+    expect(copyIcon).toBeTruthy();
+  });
+  
   test('Renders DoneAllIcon on state change', () => {
     buttonDone();
-    let bttn = screen.getByRole('button', { name: '' });
-    const checkIcon = bttn.innerHTML.includes('data-testid=\"DoneAllIcon\"');
+    const bttn = screen.getByTestId('bttn-copy');
+    const checkIcon = bttn.innerHTML.includes('data-testid="DoneAllIcon"');
     expect(checkIcon).toBeTruthy();
   });
-})
+});
 
 describe('Unit testing "Header" component', () => {
   const initialState = { testForm: {
@@ -154,6 +185,6 @@ describe('Unit testing "RequestBody" component', () => {
     );
   });
   test('Request body textbox renders successfully when requestType is Post, Patch, or Delete', () => {
-    expect(screen.getByTestId('Request-Body')).toBeInTheDocument()
-  })
-})
+    expect(screen.getByTestId('Request-Body')).toBeInTheDocument();
+  });
+});
