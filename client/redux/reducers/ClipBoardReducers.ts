@@ -19,6 +19,9 @@ export const slice1 = createSlice({
   name: 'slice1',
   initialState,
   reducers: {
+    appendToClipboard: (state: sliceType1, action: PayloadAction<string>) => {
+      state.codeOutput1 += `\n${action.payload}`;
+    },
     copyCB: (state: sliceType1) => {
       navigator.clipboard.writeText(
         state.codeOutputEdited1 || state.codeOutput1
@@ -64,8 +67,10 @@ const thunks = {
   }),
 };
 
-export const { copyCB, changeIcon1, userEditText, setCodeOutput1, setServer, clearCodeSnippets } =
+
+export const { appendToClipboard, copyCB, changeIcon1, userEditText, setCodeOutput1, setServer, clearCodeSnippets } =
   slice1.actions;
+
 
 export const { asyncChangeIcon } = thunks;
 

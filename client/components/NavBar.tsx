@@ -24,7 +24,9 @@ const NavBar = () => {
   const displayLogoutButton = 'auto';
 
   const dispatch = useAppDispatch();
-  const handleLoginOpen = () => dispatch(setShowLogin());
+  const handleLoginOpen = () => {
+    dispatch(setShowLogin());
+  };
   const handleLogout = async () => {
     console.log('in logout');
     Cookies.remove('username');
@@ -35,21 +37,20 @@ const NavBar = () => {
     Cookies.remove('isLoggedIn');
     sessionStorage.clear();
     await axios.post('/auth/logout');
-    dispatch(setIsLoggedIn());
     dispatch(logout());
     navigate('/');
   };
 
   return (
-    <Box id='navbar' sx={{ flexGrow: 1 }}>
-      <AppBar position='static'>
+    <Box id="navbar" sx={{ flexGrow: 1 }}>
+      <AppBar position="static">
         <Toolbar>
-          <Link to='/'>
-            <img alt='logo' src='../assets/logo-jester.png' />
+          <Link to="/">
+            <img alt="logo" src="../assets/logo-jester.png" />
           </Link>
           <Typography
-            variant='h6'
-            component='div'
+            variant="h6"
+            component="div"
             sx={{ flexGrow: 1, marginLeft: '15px' }}
           ></Typography>
           {sessionStorage.getItem('isLoggedIn') ? (
