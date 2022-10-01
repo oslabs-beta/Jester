@@ -14,9 +14,9 @@ router.get(
 );
 
 // route for adding a new Project associated with a userId
-// expected body: { project_name: string}
+// expected body: { project_id: int, user_id: int}
 router.post(
-  '/:userId',
+  '/',
   authController.isLoggedIn,
   projectController.addProject,
   (req: Request, res: Response) => {
@@ -25,9 +25,9 @@ router.post(
 );
 
 // route for deleting a specific project associated with a userId
-// expected body: none
+// expected body: { project_id: int, user_id: int}
 router.delete(
-  '/:projectId',
+  '/',
   authController.isLoggedIn,
   projectController.deleteProject,
   (req: Request, res: Response) => {

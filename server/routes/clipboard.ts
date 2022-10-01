@@ -5,7 +5,7 @@ import { clipboardController } from '../controllers/clipboardController';
 
 // route for fetching clipboard for a specified project
 router.get(
-  '/:projectId',
+  '/:project_id',
   authController.isLoggedIn,
   clipboardController.getClipboard,
   (req: Request, res: Response) => {
@@ -16,7 +16,7 @@ router.get(
 // route for adding a code snippet to the clipboard of a specified project
 // expected body: { code_snippet: string }
 router.post(
-  '/:projectId',
+  '/:project_id',
   authController.isLoggedIn,
   clipboardController.appendClipboard,
   (req: Request, res: Response) => {
@@ -27,7 +27,7 @@ router.post(
 // route for deleting a specific code snippet
 // expected body: none
 router.delete(
-  '/:snippetId',
+  '/:snippet_id',
   authController.isLoggedIn,
   clipboardController.deleteSnippet,
   (req: Request, res: Response) => {
