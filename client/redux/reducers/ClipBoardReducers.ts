@@ -1,4 +1,6 @@
+import axios from 'axios';
 import { createSlice, createAsyncThunk, PayloadAction } from '@reduxjs/toolkit';
+
 
 type sliceType1 = {
   codeOutput1: string;
@@ -27,7 +29,6 @@ export const slice1 = createSlice({
         state.codeOutputEdited1 || state.codeOutput1
       );
     },
-
     changeIcon1: (state: sliceType1) => {
       state.doneIcon1 = true;
     },
@@ -55,6 +56,23 @@ export const slice1 = createSlice({
       state.codeOutputEdited1 = undefined;
       state.server = '';
     }
+  },
+  extraReducers: (builder) => {
+    builder
+      .addCase(postSnippet.fulfilled, (state: sliceType1) => {
+        // nothing to be done here, delete if that's true?
+      })
+      .addCase(getSnippets.fulfilled, (state: sliceType1, action: any) => {
+        const codeArr = [
+          "const request = require('supertest');\n",
+          `const server = '${state.server}';\n\n`,
+          "describe('Route Integration Testing'), ( ) => {\n",
+          ...action.payload,
+          '});'
+        ];
+        const codeSnippet = codeArr.join('');
+        state.codeOutput1 = codeSnippet;
+      });
   }
 });
 
@@ -65,6 +83,24 @@ const thunks = {
     const response = await timeout(1000);
     console.log('THUNK: asyncChangeIcon', response);
     return response;
+  }),
+  postSnippet: createAsyncThunk(
+    'slice1/postSnippet', 
+    async (codeOutput: string) => {
+      console.log('THUNK: postSnippet', 'trying');
+      const response = await axios.post(
+        `/api/clipboard/${ 'projectId' }`,
+        { code_snippet: codeOutput }
+      )
+      console.log('THUNK: postSnippet', response);
+  }),
+  getSnippets: createAsyncThunk(
+    'slice1/getSnippets', 
+    async () => {
+      console.log('THUNK: getSnippets', 'trying');
+      const response = await axios.get(`/api/clipboard/${ 'projectId' }`);
+      console.log('THUNK: getSnippets', response);
+      return response;
   })
 };
 
@@ -78,6 +114,6 @@ export const {
   clearCodeSnippets
 } = slice1.actions;
 
-export const { asyncChangeIcon } = thunks;
+export const { asyncChangeIcon, postSnippet, getSnippets } = thunks;
 
 export default slice1.reducer;

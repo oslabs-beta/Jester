@@ -1,3 +1,4 @@
+import axios from 'axios';
 import React from 'react';
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
@@ -7,7 +8,7 @@ import ContentCopyIcon from '@mui/icons-material/ContentCopy';
 import DoneAllIcon from '@mui/icons-material/DoneAll';
 
 import { useAppDispatch, useAppSelector } from '../redux/hooks';
-import { appendToClipboard } from '../redux/reducers/ClipBoardReducers';
+import { appendToClipboard, postSnippet, getSnippets } from '../redux/reducers/ClipBoardReducers';
 import AppButton from '../components/AppButton';
 
 import {
@@ -26,6 +27,8 @@ const ButtonContainer = () => {
     (state) => state.slice.codeOutputEdited || state.slice.codeOutput
   );
   const isLoggedIn = useAppSelector((state) => state.userInfo.isLoggedIn);
+  // MLCK need to get from cookie instead
+  const projectId = 0; // MLCK need to select from somewhere
 
   const dispatch = useAppDispatch();
   const copyClipboard = () => {
@@ -33,19 +36,17 @@ const ButtonContainer = () => {
     dispatch(changeIcon());
     dispatch(asyncChangeIcon());
   };
-  const appendClipboard = () => {
+  const appendClipboard = async () => {
     if (!isLoggedIn) dispatch(appendToClipboard(codeOutput));
     else {
-      // MLCK
-      // will write after Lilah sets up the route
-      // need to have some logic to perform a post request to the database
-      // and a get request to update the clipboard
+      dispatch(postSnippet(codeOutput));
+      dispatch(getSnippets());
     }
   };
 
   return (
     <Box
-      className='button-container'
+      className="button-container"
       sx={{
         marginLeft: 5,
         marginTop: 2,
@@ -56,19 +57,19 @@ const ButtonContainer = () => {
       }}
     >
       <Button
-        data-testid='bttn-copy'
-        variant='outlined'
-        onClick={copyClipboard}
+        data-testid="bttn-copy"
+        variant="outlined"
+        onClick={ copyClipboard }
         sx={{ marginBottom: 1 }}
       >
         {doneIcon ? <DoneAllIcon /> : <ContentCopyIcon />}
       </Button>
 
       <AppButton
-        start={<AddBoxIcon />}
-        end={<DoneAllIcon />}
-        onClick={appendClipboard}
-        testId='bttn-append'
+        start={ <AddBoxIcon /> }
+        end={ <DoneAllIcon /> }
+        onClick={ appendClipboard }
+        testId="bttn-append"
       />
     </Box>
   );
