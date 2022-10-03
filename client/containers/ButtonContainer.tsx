@@ -18,17 +18,16 @@ import {
 } from '../redux/reducers/reducer';
 
 // This container wraps:
-// 2) the button that copies the code to the clipboard
-// 3) for the stretch feature, this container will have the button that appends the code to the consolidated clipboard
+// 1) the button that copies the code to the navigator clipboard
+// 2) the button that perform a post request to the consolidated app clipboard SQL DB with the code 
 
 const ButtonContainer = () => {
   const doneIcon = useAppSelector((state) => state.slice.doneIcon);
   const codeOutput = useAppSelector(
     (state) => state.slice.codeOutputEdited || state.slice.codeOutput
   );
-  const isLoggedIn = useAppSelector((state) => state.userInfo.isLoggedIn);
-  // MLCK need to get from cookie instead
-  const projectId = 0; // MLCK need to select from somewhere
+  const isLoggedIn = sessionStorage.getItem('isLoggedIn');
+  const projectId = 0; // MLCK need to select from state once project dropdown is build out
 
   const dispatch = useAppDispatch();
   const copyClipboard = () => {
