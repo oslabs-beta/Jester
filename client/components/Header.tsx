@@ -18,8 +18,10 @@ import { Middle } from './Middle';
 import { RequestBody } from './RequestBody';
 import { ChangeEvent } from 'react';
 import axios from 'axios';
+import { ProjectDropdown } from './ProjectDropdown';
 
 export const Header = () => {
+  const isLoggedIn = sessionStorage.getItem('isLoggedIn');
   const requestType = useAppSelector((state) => state.testForm.requestType);
   const assertionObject = useAppSelector(
     (state) => state.testForm.assertionList
@@ -182,6 +184,7 @@ export const Header = () => {
       >
         Generate Test Code
       </Button>
+      { (isLoggedIn) && <ProjectDropdown /> }
     </form>
   );
 };
