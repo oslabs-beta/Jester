@@ -28,6 +28,7 @@ router.get(
 router.get(
   '/github/callback',
   passport.authenticate('github', { failureRedirect: '/error' }),
+  authController.getUserId,
   // Can add middleware to query DB for user id here!
   // Can add middleware to store auth code+username in sessions table that expires
   (req: any, res: Response): void => {
