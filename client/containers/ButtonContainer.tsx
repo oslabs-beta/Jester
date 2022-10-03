@@ -1,12 +1,14 @@
 import React from 'react';
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
+import Tooltip from '@mui/material/Tooltip';
 import AddBoxIcon from '@mui/icons-material/AddBox';
 import ContentCopyIcon from '@mui/icons-material/ContentCopy';
 import DoneAllIcon from '@mui/icons-material/DoneAll';
 
 import { useAppDispatch, useAppSelector } from '../redux/hooks';
 import { appendToClipboard, setBoilerplate } from '../redux/reducers/ClipBoardReducers';
+import AppButton from '../components/AppButton';
 
 import {
   copyText,
@@ -20,7 +22,9 @@ import {
 
 const ButtonContainer = () => {
   const doneIcon = useAppSelector((state) => state.slice.doneIcon);
-  const codeOutput = useAppSelector((state) => state.slice.codeOutputEdited || state.slice.codeOutput);
+  const codeOutput = useAppSelector(
+    (state) => state.slice.codeOutputEdited || state.slice.codeOutput
+  );
   const isLoggedIn = useAppSelector((state) => state.userInfo.isLoggedIn);
 
   const dispatch = useAppDispatch();
@@ -41,7 +45,6 @@ const ButtonContainer = () => {
       // and a get request to update the clipboard
     }
   };
-  
 
   return (
     <Box
@@ -50,27 +53,26 @@ const ButtonContainer = () => {
         marginLeft: 5,
         marginTop: 2,
         display: 'flex',
-        flexDirection: 'column',
+        flexDirection: 'column'
         // justifyContent: 'flex-end',
         // alignItems: 'flex-end'
       }}
     >
-      <Button 
-        id='bttn-copy' 
-        variant='outlined' 
-        onClick={ copyClipboard }
+      <Button
+        data-testid='bttn-copy'
+        variant='outlined'
+        onClick={copyClipboard}
         sx={{ marginBottom: 1 }}
       >
         {doneIcon ? <DoneAllIcon /> : <ContentCopyIcon />}
       </Button>
-      <Button 
-        id='bttn-append' 
-        variant='outlined' 
-        onClick = { appendClipboard }
-        sx={{ marginBottom: 1 }}
-      >
-        <AddBoxIcon />
-      </Button>
+
+      <AppButton
+        start={<AddBoxIcon />}
+        end={<DoneAllIcon />}
+        onClick={appendClipboard}
+        testId='bttn-append'
+      />
     </Box>
   );
 };
