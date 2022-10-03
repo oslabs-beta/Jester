@@ -1,9 +1,9 @@
-import React from "react";
-import { Box, Button } from "@mui/material";
-import { useAppSelector, useAppDispatch } from "../redux/hooks";
-import { useNavigate } from "react-router-dom";
-import { setProjectsInfo } from '../redux/reducers/userInfoSlice'
-import axios from 'axios'
+import React from 'react';
+import { Box, Button } from '@mui/material';
+import { useAppSelector, useAppDispatch } from '../redux/hooks';
+import { useNavigate } from 'react-router-dom';
+import { setProjectsInfo } from '../redux/reducers/userInfoSlice';
+import axios from 'axios';
 import IntegrationInstructionsIcon from '@mui/icons-material/IntegrationInstructions';
 import DeleteForeverIcon from '@mui/icons-material/DeleteForever';
 
@@ -17,7 +17,7 @@ export const AccessClipboardDisplay = (props: accessClipboardDisplayProps) => {
   const isLoggedIn = useAppSelector((state) => state.userInfo.isLoggedIn)
   const projects = useAppSelector((state) => state.userInfo.projectsInfo);
   let show;
-  for (let project of projects) {
+  for (const project of projects) {
     if (project.project_id === props.projectId) {
       show = project.showAccessClipboard;
     }
@@ -26,7 +26,7 @@ export const AccessClipboardDisplay = (props: accessClipboardDisplayProps) => {
   const handleClipboardClick = () => {
     if(sessionStorage.getItem('isLoggedIn')) navigate(`/clipboard/${props.projectId}`);
     else navigate('/clipboard/0');
-  }
+  };
 
   const handleDeleteClick = async () => {
     if (sessionStorage.getItem('isLoggedIn')) {
@@ -36,7 +36,7 @@ export const AccessClipboardDisplay = (props: accessClipboardDisplayProps) => {
     } else {
       // clear the clipboard data held in state
     }
-  }
+  };
   if (show) return(
     <Box>
       <Button onClick={handleClipboardClick} sx={{display: 'flex', flexDirection: 'column'}}>
@@ -52,6 +52,6 @@ export const AccessClipboardDisplay = (props: accessClipboardDisplayProps) => {
         Clear Clipboard
       </Button>
     </Box>
-  )
+  );
   else return null;
-}
+};
