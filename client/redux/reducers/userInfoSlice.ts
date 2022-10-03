@@ -13,6 +13,7 @@ type userInfoStateType = {
   isLoggedIn: boolean;
   userId: number;
   projectsInfo: projectsType[];
+  currentProject: string;
 };
 const initialState: userInfoStateType = {
   showLogin: false,
@@ -26,6 +27,7 @@ const initialState: userInfoStateType = {
       showAccessClipboard: false,
     },
   ],
+  currentProject: 'Project One',
 };
 
 export const userInfoSlice = createSlice({
@@ -40,6 +42,12 @@ export const userInfoSlice = createSlice({
       action: PayloadAction<projectsType[]>
     ) => {
       state.projectsInfo = action.payload;
+    },
+    setCurrentProject: (
+      state: userInfoStateType,
+      action: PayloadAction<string>
+    ) => {
+      state.currentProject = action.payload;
     },
     setIsLoggedIn: (state: userInfoStateType) => {
       state.isLoggedIn = state.isLoggedIn ? false : true;
@@ -82,6 +90,7 @@ export const userInfoSlice = createSlice({
 export const {
   setShowLogin,
   setProjectsInfo,
+  setCurrentProject,
   setIsLoggedIn,
   logout,
   setClipboardData,
