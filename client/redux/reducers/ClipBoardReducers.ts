@@ -45,16 +45,38 @@ export const slice1 = createSlice({
       state.codeOutputEdited1 = action.payload;
     },
     setCodeOutput1: (state: sliceType1, action: PayloadAction<string[]>) => {
-      const streeng = action.payload.join('');
-      state.codeOutput1 = streeng;
+      const codeArr = [
+        'const request = require(\'supertest\');\n',
+        `const server = '${state.server}';\n\n`,
+        'describe(\'Route Integration Testing\'), ( ) => {\n',
+        ...action.payload,
+        '});',
+      ];
+      const codeSnippet = codeArr.join('');
+      state.codeOutput1 = codeSnippet;
     },
     setBoilerplate: (state: sliceType1) => {
       if (
         state.codeOutput1 ===
         'Your Clipboard is currently empty! Please generate a test before we can display your testing code here.'
       )
-        state.codeOutput1 = `const request = require(\'supertest\');\nconst server = '${state.server}';\n\ndescribe(\'Route Integration Testing\'), ( ) => {\n});`;
+      {const codeArr = [
+        'const request = require(\'supertest\');\n',
+        `const server = '${state.server}';\n\n`,
+        'describe(\'Route Integration Testing\'), ( ) => {\n',
+        '});',
+      ];
+      const codeSnippet = codeArr.join('');
+      state.codeOutput1 = codeSnippet;}
     },
+    setServer: (state: sliceType1, action: PayloadAction<string>) => {
+      state.server = action.payload;
+    },
+    clearCodeSnippets: (state: sliceType1) => {
+      state.codeOutput1 = 'Your Clipboard is currently empty! Please generate a test before we can display your testing code here.';
+      state.codeOutputEdited1 = undefined;
+      state.server = '';
+    }
   },
 });
 
@@ -75,6 +97,8 @@ export const {
   userEditText,
   setCodeOutput1,
   setBoilerplate,
+  setServer, 
+  clearCodeSnippets,
 } = slice1.actions;
 
 export const { asyncChangeIcon } = thunks;

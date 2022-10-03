@@ -8,73 +8,81 @@ type Project = {
 };
 
 export const projectController: Project = {
-  // Middleware to fetch list of projects belonging to a user
+  // this controller queries the projects table and returns all projects found
+  //whose user ID matches the user ID from the request body
   getProjects: async (req: Request, res: Response, next: NextFunction) => {
-    const { userId } = req.params;
-
-    // this controller should query the the Projects table for all
-    // projects belonging to userId and save an array of projects to res.locals.projects
+    const { user_id } = res.locals;
 
     const queryString = `
     SELECT * FROM projects_table
-    WHERE user_id=$1`;
-    const params = [userId];
+    WHERE user_id=$1
+    `;
+    const params = [user_id];
 
     const result = await db.query(queryString, params);
 
     res.locals.projects = result.rows;
 
-    return next();
+    return next(); 
   },
 
   // Middleware to add a new Project associated with a userId
   addProject: async (req: Request, res: Response, next: NextFunction) => {
-    const { userId } = req.params;
+    const { user_id } = res.locals;
     const { project_name } = req.body;
 
     // this controller should insert a new record in the Projects table
     // with the name of project_name and a foreign key userId
-    // and save the updated list of projects to res.locals.project
-    const queryString = `
-      INSERT INTO projects_table(project_name, user_id)
+    // and send back the updated project list
+    const queryString1 = `
+      INSERT INTO projects_table(user_id, project_name)
       VALUES($1, $2)
-    `
-    const params = [project_name, userId];
 
-    const result = await db.query(queryString, params);
+    `;
+    const params1 = [user_id, project_name];
+    
+    const queryString2 = `
+    SELECT * FROM projects_table
+    WHERE user_id=$1
+    `;
+    const params2 = [user_id];
 
-    res.locals.projects = result.rows;
+    await db.query(queryString1, params1);
+
+    const allProjs = await db.query(queryString2, params2);
+
+    res.locals.projects = allProjs.rows;
     return next();
   },
 
   // Middleware to delete a specific project
   deleteProject: async (req: Request, res: Response, next: NextFunction) => {
-    const { project_id, user_id } = req.params;
-
+    const user_id = res.locals.user_id;
+    const { project_id } = req.body;
     // this controller should delete the project in the Projects table
     // with the provided project_id, AND ALSO all code snippets under this project
-    // and save the updated list of projects to res.locals.clipboard
-
-
-    const params = [project_id, user_id];
+    // and send back the updated project list
+    const params1 = [project_id];
+    const params2 = [user_id];
+  
 
     const snipsQuery = `
     DELETE FROM code_snippets_table
     WHERE project_id = $1
-    `
+    `; 
     const projQuery = `
     DELETE FROM projects_table
     WHERE project_id = $1
-    `
+    `;
 
-   await db.query(snipsQuery, params);
-   await db.query(projQuery, params);
+    await db.query(snipsQuery, params1);
+    await db.query(projQuery, params1);
 
     const updatedListQuery = `
     SELECT * from projects_table
-    WHERE user_id = $2
-    `
-    const result = await db.query(updatedListQuery, params);
+    WHERE user_id = $1
+    `;
+    const result = await db.query(updatedListQuery, params2);
 
     res.locals.projects = result.rows;
     return next();
