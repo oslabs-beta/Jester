@@ -6,6 +6,7 @@ import { setProjectsInfo } from '../redux/reducers/userInfoSlice'
 import axios from 'axios'
 import IntegrationInstructionsIcon from '@mui/icons-material/IntegrationInstructions';
 import DeleteForeverIcon from '@mui/icons-material/DeleteForever';
+import { clearCodeSnippets } from "../redux/reducers/ClipBoardReducers";
 
 
 type accessClipboardDisplayProps = {
@@ -17,7 +18,7 @@ export const AccessClipboardDisplay = (props: accessClipboardDisplayProps) => {
   const isLoggedIn = useAppSelector((state) => state.userInfo.isLoggedIn)
   const projects = useAppSelector((state) => state.userInfo.projectsInfo);
   let show;
-  for (let project of projects) {
+  for (const project of projects) {
     if (project.project_id === props.projectId) {
       show = project.showAccessClipboard;
     }
@@ -26,17 +27,17 @@ export const AccessClipboardDisplay = (props: accessClipboardDisplayProps) => {
   const handleClipboardClick = () => {
     if(sessionStorage.getItem('isLoggedIn')) navigate(`/clipboard/${props.projectId}`);
     else navigate('/clipboard/0');
-  }
+  };
 
   const handleDeleteClick = async () => {
     if (sessionStorage.getItem('isLoggedIn')) {
       // SA - TEMPORARY COMMENT-OUT
-      // const projects = await axios.delete(`/api/project/${props.projectId}`);
-      // dispatch(setProjectsInfo(projects.data))
+      const projects = await axios.delete(`/api/project/${props.projectId}`);
+      dispatch(setProjectsInfo(projects.data));
     } else {
-      // clear the clipboard data held in state
+      dispatch(clearCodeSnippets());
     }
-  }
+  };
   if (show) return(
     <Box>
       <Button onClick={handleClipboardClick} sx={{display: 'flex', flexDirection: 'column'}}>
@@ -52,6 +53,6 @@ export const AccessClipboardDisplay = (props: accessClipboardDisplayProps) => {
         Clear Clipboard
       </Button>
     </Box>
-  )
+  );
   else return null;
-}
+};

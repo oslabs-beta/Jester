@@ -31,12 +31,12 @@ const ClipBoard = () => {
   };
 
   const handleClear = () => {
-  //   if (sessionStorage.getItem('isLoggedIn')) {
-  //     axios.delete(`/api/project/${projectId}`);
-  //     navigate('/');
-  //   } else {
-  //     dispatch(clearCodeSnippets());
-  //   }
+    if (sessionStorage.getItem('isLoggedIn')) {
+      axios.delete(`/api/project/${projectId}`);
+      navigate('/');
+    } else {
+      dispatch(clearCodeSnippets());
+    }
   };
   // need to discuss how to implement handleClear
 

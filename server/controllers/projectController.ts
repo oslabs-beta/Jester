@@ -58,7 +58,7 @@ export const projectController: Project = {
   // Middleware to delete a specific project
   deleteProject: async (req: Request, res: Response, next: NextFunction) => {
     const user_id = res.locals.user_id;
-    const { project_id } = req.body;
+    const { project_id } = req.params;
     // this controller should delete the project in the Projects table
     // with the provided project_id, AND ALSO all code snippets under this project
     // and send back the updated project list

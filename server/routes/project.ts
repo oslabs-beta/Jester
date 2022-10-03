@@ -29,7 +29,7 @@ router.post(
 // route for deleting a specific project associated with a userId
 // expected body: { project_id: int, user_id: int}
 router.delete(
-  '/',
+  '/:project_id',
   authController.isLoggedIn,
   authController.getUserId,
   projectController.deleteProject,

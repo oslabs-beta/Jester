@@ -12,7 +12,6 @@ import axios from 'axios';
 
 export const AddProjectDialog = () => {
   const [projectName, setProjectName] = useState('');
-  const userId = useAppSelector((state) => state.userInfo.userId);
   const showAddProject = useAppSelector(
     (state) => state.navPanel.showAddProject
   );
@@ -23,11 +22,11 @@ export const AddProjectDialog = () => {
   };
   const handleAddProject = async () => {
     // SA - TEMPORARY COMMENT-OUT
-    // const response = await axios.post(`/api/project/${userId}`, {
-    //   project_name: projectName,
-    // });
-    // console.log(response.data);
-    // dispatch(setProjectsInfo(response.data));
+    const response = await axios.post('/api/project/', {
+      project_name: projectName,
+    });
+    console.log(response.data);
+    dispatch(setProjectsInfo(response.data));
     handleClose();
   };
 
