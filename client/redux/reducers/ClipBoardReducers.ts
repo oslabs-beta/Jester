@@ -20,7 +20,16 @@ export const slice1 = createSlice({
   initialState,
   reducers: {
     appendToClipboard: (state: sliceType1, action: PayloadAction<string>) => {
-      state.codeOutput1 += `\n${action.payload}`;
+      const payload = action.payload.split('\n').join('\n  ');
+      if (state.codeOutputEdited1) {
+        const codeOutput =
+          state.codeOutputEdited1.slice(0, -3) + `\n  ${payload}` + '\n});';
+        state.codeOutputEdited1 = codeOutput;
+      } else {
+        const codeOutput =
+          state.codeOutput1.slice(0, -3) + `\n  ${payload}` + '\n});';
+        state.codeOutput1 = codeOutput;
+      }
     },
     copyCB: (state: sliceType1) => {
       navigator.clipboard.writeText(
@@ -37,14 +46,28 @@ export const slice1 = createSlice({
     },
     setCodeOutput1: (state: sliceType1, action: PayloadAction<string[]>) => {
       const codeArr = [
-        "const request = require('supertest');\n",
+        'const request = require(\'supertest\');\n',
         `const server = '${state.server}';\n\n`,
-        "describe('Route Integration Testing'), ( ) => {\n",
+        'describe(\'Route Integration Testing\'), ( ) => {\n',
         ...action.payload,
         '});'
       ];
       const codeSnippet = codeArr.join('');
       state.codeOutput1 = codeSnippet;
+    },
+    setBoilerplate: (state: sliceType1) => {
+      if (
+        state.codeOutput1 ===
+        'Your Clipboard is currently empty! Please generate a test before we can display your testing code here.'
+      )
+      {const codeArr = [
+        'const request = require(\'supertest\');\n',
+        `const server = '${state.server}';\n\n`,
+        'describe(\'Route Integration Testing\'), ( ) => {\n',
+        '});',
+      ];
+      const codeSnippet = codeArr.join('');
+      state.codeOutput1 = codeSnippet;}
     },
     setServer: (state: sliceType1, action: PayloadAction<string>) => {
       state.server = action.payload;
@@ -74,6 +97,7 @@ export const {
   changeIcon1,
   userEditText,
   setCodeOutput1,
+  setBoilerplate,
   setServer,
   clearCodeSnippets
 } = slice1.actions;
