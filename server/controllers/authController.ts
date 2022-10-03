@@ -2,6 +2,7 @@ import passport from 'passport';
 import { Strategy as GitHubStrategy } from 'passport-github2';
 import { Express, Request, Response, NextFunction } from 'express';
 import db from '../models/userModel';
+import { nextTick } from 'process';
 
 type GitHubSettingsType = {
   clientID: string;
@@ -72,6 +73,11 @@ export const authController: AuthType = {
     // already exists, it performs a mock-update so that regardless
     // of whether the user already existed or not, it returns the user ID.
     const { email } = req.user.emails[0].value;
+    if (!email) return next({
+      log: 'email not fond on request body',
+      status: 400,
+      message: 'an error occurred in attempting to get the user ID'
+    });
     const newUserQuery = `
       INSERT INTO user_table(usermail)
       VALUES($1)
@@ -80,9 +86,18 @@ export const authController: AuthType = {
       RETURNING user_id
       `;
     const params = [email];
-    const result = await db.query(newUserQuery, params);
-    res.locals.user_id = result;
-    return next();
+    try {
+      const result = await db.query(newUserQuery, params);
+      res.locals.user_id = result;
+      return next();
+    }
+    catch(err) {
+      return next({
+        log: `error in getUserId: ${err}`,
+        status: 500,
+        message: 'error occurred in getUserId middleware function'
+      });
+    }
   }
 };
 
