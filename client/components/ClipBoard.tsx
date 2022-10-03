@@ -31,21 +31,21 @@ const ClipBoard = () => {
   };
 
   const handleClear = () => {
-    //   if (sessionStorage.getItem('isLoggedIn')) {
-    //     axios.delete(`/api/project/${projectId}`);
-    //     navigate('/');
-    //   } else {
-    //     dispatch(clearCodeSnippets());
-    //   }
+    if (sessionStorage.getItem('isLoggedIn')) {
+      axios.delete(`/api/project/${projectId}`);
+      navigate('/');
+    } else {
+      dispatch(clearCodeSnippets());
+    }
   };
   // need to discuss how to implement handleClear
 
   useEffect(() => {
     // BH: commented out to fix styling
-    // fetch(`/api/clipboard/${projectId}`)
-    //   .then((response) => response.json())
-    //   .then((response) => dispatch(setCodeOutput1(response)))
-    //   .catch((err) => console.log(err));
+    fetch(`/api/clipboard/${projectId}`)
+      .then((response) => response.json())
+      .then((response) => dispatch(setCodeOutput1(response)))
+      .catch((err) => console.log(err));
   });
 
   return (
