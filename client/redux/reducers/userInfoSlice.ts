@@ -1,4 +1,5 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
+import { DEFAULT_PROJECT } from '../../constants';
 
 type projectsType = {
   project_id: number;
@@ -22,12 +23,12 @@ const initialState: userInfoStateType = {
   projectsInfo: [
     {
       project_id: 0,
-      project_name: 'Project One',
+      project_name: DEFAULT_PROJECT,
       user_id: 0,
       showAccessClipboard: false,
     },
   ],
-  currentProject: 'Project One',
+  currentProject: DEFAULT_PROJECT,
 };
 
 export const userInfoSlice = createSlice({

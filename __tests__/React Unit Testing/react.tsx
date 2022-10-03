@@ -9,12 +9,14 @@ import CodeContainer from '../../client/containers/CodeContainer';
 import ButtonContainer from '../../client/containers/ButtonContainer';
 import AppButton from '../../client/components/AppButton';
 import { Header } from '../../client/components/Header';
+import { ProjectDropdown } from '../../client/components/ProjectDropdown';
 import { setRequestType } from '../../client/redux/reducers/testFormSlice';
 
 import configureStore from 'redux-mock-store';
 
 import '@testing-library/jest-dom';
 import { RequestBody } from '../../client/components/RequestBody';
+import { DEFAULT_PROJECT } from '../../client/constants';
 
 
 const initialState = {
@@ -59,13 +61,10 @@ const props = {
   onClick: jest.fn(),
   testId: 'bttn-append',
 };
+
 const appButton = () => {
   render(
     <AppButton 
-      // start = { <AddBoxIcon/> }
-      // end = { <DoneAllIcon/> }
-      // onClick = { jest.fn() }
-      // testId='bttn-append'
       { ...props }
     />
   );
@@ -127,7 +126,7 @@ describe('Unit testing output Code Container components', () => {
     expect(icon).toBeTruthy();
   });
   
-  test('On click renders DoneAllIcon and fires onClick function', () => {
+  test('Append clipboard button OnClick renders DoneAllIcon and fires onClick function', () => {
     appButton();
     let bttn = screen.getByRole('button', { name: '' });
     fireEvent.click(bttn);
@@ -139,14 +138,28 @@ describe('Unit testing output Code Container components', () => {
 });
 
 describe('Unit testing "Header" component', () => {
-  const initialState = { testForm: {
-    requestType: 'Get',
-    assertionList: {},
-    i: 0,
-    userInput: '',
-  } };
+  const initialState = { 
+    testForm: {
+      requestType: 'Get',
+      assertionList: {},
+      i: 0,
+      userInput: '',
+    },
+    userInfo: { 
+      projectsInfo: [
+        {
+          project_id: 0,
+          project_name: DEFAULT_PROJECT,
+          user_id: 0,
+          showAccessClipboard: false,
+        },
+      ],
+      currentProject: DEFAULT_PROJECT }
+  };
+
   const mockStore = configureStore();
   let store: any;
+
   beforeEach(() => {
     store = mockStore(initialState);
     render(
@@ -155,6 +168,7 @@ describe('Unit testing "Header" component', () => {
       </Provider>
     );
   });
+
   test('Header component renders successfully', () => {
     store = mockStore(initialState);
     render(
@@ -163,6 +177,7 @@ describe('Unit testing "Header" component', () => {
       </Provider>
     );
   });
+
   xtest('Dropdown menu for request type renders successfully', async () => {
     // const dropdown = screen.getByDisplayValue('Get');
     // console.log(dropdown)
@@ -173,14 +188,17 @@ describe('Unit testing "Header" component', () => {
     await (() => userEvent.click(screen.getByText(/Post/i)));
     expect(await screen.getByText('Post')).toBeInTheDocument();
   });
+
   test('Add assertion button renders successfully', () => {
     expect(screen.getByText('+')).toBeInTheDocument();
     expect(screen.getByRole('button', {name : '+'})).toBeInTheDocument();
   });
+
   test('Endpoint textbox renders successfully', () => {
     expect(screen.getByRole('textbox', {name: 'Endpoint'})).toBeInTheDocument();
     expect(screen.getByRole('textbox', {name: 'Endpoint'}).id).toEqual('endpoint');
   });
+
   xtest('Add button renders middle component', () => {
     fireEvent.click(screen.getByText('+'));
     const dropdown = screen.getByLabelText('Test Option');
@@ -194,6 +212,20 @@ describe('Unit testing "Header" component', () => {
   });
 
   // add button renders middle component
+
+  test('Dropdown menu for project renders successfully', async () => {
+    render(
+      <Provider store={store}>
+        <ProjectDropdown />
+      </Provider>
+    );
+    const dropdown = screen.getByRole('button', { name: 'Project One' });
+    expect(dropdown).toBeInTheDocument();
+  });
+
+  xtest('Generate Test Code button renders successfully', () => {
+    // Is that for Lilah?
+  });
 });
 
 describe('Unit testing "RequestBody" component', () => {
@@ -203,8 +235,10 @@ describe('Unit testing "RequestBody" component', () => {
     i: 0,
     userInput: '',
   } };
+
   const mockStore = configureStore();
   let store;
+
   beforeEach(() => {
     store = mockStore(initialState);
     const state = store.getState();
@@ -214,7 +248,9 @@ describe('Unit testing "RequestBody" component', () => {
       </Provider>
     );
   });
+
   test('Request body textbox renders successfully when requestType is Post, Patch, or Delete', () => {
     expect(screen.getByTestId('Request-Body')).toBeInTheDocument();
   });
+
 });

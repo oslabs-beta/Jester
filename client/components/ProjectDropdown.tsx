@@ -8,7 +8,7 @@ import Select, { SelectChangeEvent } from '@mui/material/Select';
 import { setCurrentProject } from '../redux/reducers/userInfoSlice';
 import { useAppDispatch, useAppSelector } from '../redux/hooks';
 
-export const ProjectDropdown = () => {
+const ProjectDropdown = () => {
   const dispatch = useAppDispatch();
   const projectName = useAppSelector((state) => state.userInfo.currentProject);
   const projectsInfo = useAppSelector((state) => state.userInfo.projectsInfo);
@@ -54,3 +54,5 @@ export const ProjectDropdown = () => {
     </Box>
   );
 };
+
+export { ProjectDropdown };
