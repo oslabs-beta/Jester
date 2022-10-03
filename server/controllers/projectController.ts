@@ -13,17 +13,30 @@ export const projectController: Project = {
   getProjects: async (req: Request, res: Response, next: NextFunction) => {
     const { user_id } = res.locals;
 
+    if (!user_id) return next({
+      log: 'user ID not fond on res.locals',
+      status: 400,
+      message: 'an error occurred in getProjects middleware function'
+    });
+
     const queryString = `
     SELECT * FROM projects_table
     WHERE user_id=$1
     `;
     const params = [user_id];
 
-    const result = await db.query(queryString, params);
-
-    res.locals.projects = result.rows;
-
-    return next(); 
+    try {
+      const result = await db.query(queryString, params);
+      res.locals.projects = result.rows;
+      return next(); 
+    }
+    catch(err) {
+      return next({
+        log: `error in getProjects: ${err}`,
+        status: 500,
+        message: 'error occurred in getProjects middleware function'
+      });
+    }
   },
 
   // Middleware to add a new Project associated with a userId
@@ -31,6 +44,17 @@ export const projectController: Project = {
     const { user_id } = res.locals;
     const { project_name } = req.body;
 
+    if (!user_id) return next({
+      log: 'user ID not fond on res.locals',
+      status: 400,
+      message: 'an error occurred in addProject middleware function'
+    });
+
+    if (!project_name) return next({
+      log: 'project name not fond on request body',
+      status: 400,
+      message: 'an error occurred in addProject middleware function'
+    });
     // this controller should insert a new record in the Projects table
     // with the name of project_name and a foreign key userId
     // and send back the updated project list
@@ -47,18 +71,37 @@ export const projectController: Project = {
     `;
     const params2 = [user_id];
 
-    await db.query(queryString1, params1);
-
-    const allProjs = await db.query(queryString2, params2);
-
-    res.locals.projects = allProjs.rows;
-    return next();
+    try {
+      await db.query(queryString1, params1);
+      const allProjs = await db.query(queryString2, params2);
+      res.locals.projects = allProjs.rows;
+      return next();
+    }
+    catch(err) {
+      return next({
+        log: `error in addProject: ${err}`,
+        status: 500,
+        message: 'error occurred in addProject middleware function'
+      });
+    }   
   },
 
   // Middleware to delete a specific project
   deleteProject: async (req: Request, res: Response, next: NextFunction) => {
     const user_id = res.locals.user_id;
     const { project_id } = req.body;
+
+    if (!project_id) return next({
+      log: 'project ID not fond on request body',
+      status: 400,
+      message: 'error occurred in deleteProject middleware function'
+    });
+
+    if (!user_id) return next({
+      log: 'user ID not fond on res.locals',
+      status: 400,
+      message: 'error occurred in deleteProject middleware function'
+    });
     // this controller should delete the project in the Projects table
     // with the provided project_id, AND ALSO all code snippets under this project
     // and send back the updated project list
@@ -74,17 +117,26 @@ export const projectController: Project = {
     DELETE FROM projects_table
     WHERE project_id = $1
     `;
+    try {
+      await db.query(snipsQuery, params1);
+      await db.query(projQuery, params1);
+  
+      const updatedListQuery = `
+      SELECT * from projects_table
+      WHERE user_id = $1
+      `;
+      const result = await db.query(updatedListQuery, params2);
+  
+      res.locals.projects = result.rows;
+      return next();
+    }
 
-    await db.query(snipsQuery, params1);
-    await db.query(projQuery, params1);
-
-    const updatedListQuery = `
-    SELECT * from projects_table
-    WHERE user_id = $1
-    `;
-    const result = await db.query(updatedListQuery, params2);
-
-    res.locals.projects = result.rows;
-    return next();
+    catch(err) {
+      return next({
+        log: `error in addProject: ${err}`,
+        status: 500,
+        message: 'error occurred in deleteProject middleware function'
+      });
+    }  
   }
 };
