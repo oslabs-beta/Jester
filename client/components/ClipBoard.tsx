@@ -42,10 +42,10 @@ const ClipBoard = () => {
 
   useEffect(() => {
     // BH: commented out to fix styling
-    // fetch(`/api/clipboard/${projectId}`)
-    //   .then((response) => response.json())
-    //   .then((response) => dispatch(setCodeOutput1(response)))
-    //   .catch((err) => console.log(err));
+    fetch(`/api/clipboard/${projectId}`)
+      .then((response) => response.json())
+      .then((response) => dispatch(setCodeOutput1(response)))
+      .catch((err) => console.log(err));
   });
 
   return (

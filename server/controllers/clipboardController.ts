@@ -2,7 +2,7 @@ import { createChainedFunction } from '@mui/material';
 import express, { Express, Request, Response, NextFunction } from 'express';
 import db from '../models/userModel';
 
-type Clipboard = { 
+type Clipboard = {
   getClipboard: (req: Request, res: Response, next: NextFunction) => void;
   appendClipboard: (req: Request, res: Response, next: NextFunction) => void;
   deleteSnippet: (req: Request, res: Response, next: NextFunction) => void;
@@ -11,7 +11,6 @@ type Clipboard = {
 export const clipboardController: Clipboard = {
   // Middleware to fetch clipboard for a specified project
   getClipboard: async (req: Request, res: Response, next: NextFunction) => {
-  
     const { project_id } = req.params;
 
     // this controller should query the Snippets table for all snippets belonging
@@ -25,14 +24,16 @@ export const clipboardController: Clipboard = {
 
     try {
       const result = await db.query(queryString, params);
-      res.locals.clipboard = result.rows;
+      const snippet: [] = result.rows.map(
+        (snippets: any) => snippets.code_snippet
+      );
+      res.locals.clipboard = snippet;
       return next();
-    }
-    catch(err) {
+    } catch (err) {
       return next({
         log: `error in getClipboard: ${err}`,
         status: 500,
-        message: 'error occurred in getClipboard middleware function'
+        message: 'error occurred in getClipboard middleware function',
       });
     }
   },
@@ -40,25 +41,26 @@ export const clipboardController: Clipboard = {
   // Middleware to add a code snippet to the clipboard of a specified project
   appendClipboard: async (req: Request, res: Response, next: NextFunction) => {
     const { project_id } = req.params;
-    const { code_snippet} = req.body;
+    const { code_snippet } = req.body;
     const { user_id } = res.locals;
 
-    if (!code_snippet) return next({
-      log: 'code snippet not fond on request body',
-      status: 400,
-      message: 'an error occurred in appendClipboard middleware function'
-    });
+    if (!code_snippet)
+      return next({
+        log: 'code snippet not fond on request body',
+        status: 400,
+        message: 'an error occurred in appendClipboard middleware function',
+      });
 
-    if (!user_id) return next({
-      log: 'user ID not found on res.locals',
-      status: 400,
-      message: 'an error occurred in appendClipboard middleware function'
-    });
+    if (!user_id)
+      return next({
+        log: 'user ID not found on res.locals',
+        status: 400,
+        message: 'an error occurred in appendClipboard middleware function',
+      });
 
     // this controller should insert a new record in the Clipboard table
     // and save the updated clipboard to res.locals.clipboard
     const date = Date.now();
-    
 
     const addClipQuery = `
     INSERT INTO code_snippets_table(code_snippet, created_at, user_id, project_id)
@@ -76,12 +78,11 @@ export const clipboardController: Clipboard = {
       const result = await db.query(getClipsQuery, params2);
       res.locals.clipboard = result.rows;
       return next();
-    }
-    catch(err) {
+    } catch (err) {
       return next({
         log: `error in appendClipboard: ${err}`,
         status: 500,
-        message: 'error occurred in appendClipboard middleware function'
+        message: 'error occurred in appendClipboard middleware function',
       });
     }
   },
@@ -91,11 +92,12 @@ export const clipboardController: Clipboard = {
     const { snippet_id } = req.params;
     const { project_id } = req.body;
 
-    if (!project_id) return next({
-      log: 'project ID not found on request body',
-      status: 400,
-      message: 'an error occurred in appendClipboard middleware function'
-    });
+    if (!project_id)
+      return next({
+        log: 'project ID not found on request body',
+        status: 400,
+        message: 'an error occurred in appendClipboard middleware function',
+      });
 
     // this controller should delete one specific code snippet
     // and save the updated clipboard to res.locals.clipboard
@@ -117,13 +119,12 @@ export const clipboardController: Clipboard = {
       const result = await db.query(getClipsQuery, params2);
       res.locals.clipboard = result.rows;
       return next();
-    }
-    catch(err) {
+    } catch (err) {
       return next({
         log: `error in deleteSnippet: ${err}`,
         status: 500,
-        message: 'error occurred in deleteSnippet middleware function'
+        message: 'error occurred in deleteSnippet middleware function',
       });
     }
-  }
+  },
 };

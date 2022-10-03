@@ -19,6 +19,7 @@ export const ProjectPanelContainer = () => {
   const projectName: projectsType[] = useAppSelector(
     (state) => state.userInfo.projectsInfo
   );
+  console.log(projectName);
   const projects: JSX.Element[] = [];
   projectName.forEach((project) => {
     projects.push(

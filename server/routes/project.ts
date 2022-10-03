@@ -5,7 +5,7 @@ import { projectController } from '../controllers/projectController';
 
 // route for fetching user's list of Projects based on userId
 router.get(
-  '/:userId',
+  '/',
   authController.isLoggedIn,
   authController.getUserId,
   projectController.getProjects,
