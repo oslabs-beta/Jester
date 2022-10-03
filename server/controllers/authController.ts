@@ -88,6 +88,7 @@ export const authController: AuthType = {
     try {
       const result = await db.query(newUserQuery, params);
       res.locals.user_id = result.rows[0].user_id;
+      console.log(result.rows[0]);
       return next();
     }
     catch(err) {
