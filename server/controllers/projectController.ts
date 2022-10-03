@@ -11,9 +11,7 @@ export const projectController: Project = {
   // this controller queries the projects table and returns all projects found
   //whose user ID matches the user ID from the request body
   getProjects: async (req: Request, res: Response, next: NextFunction) => {
-    console.log('here');
     const { user_id } = res.locals;
-    console.log(user_id);
 
     if (!user_id) return next({
       log: 'user ID not fond on res.locals',
@@ -29,9 +27,7 @@ export const projectController: Project = {
 
     try {
       const result = await db.query(queryString, params);
-      console.log('result: ', result);
       res.locals.projects = result.rows;
-      console.log('response', res.locals.projects);
       return next(); 
     }
     catch(err) {
