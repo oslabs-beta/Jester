@@ -19,7 +19,6 @@ body {
   font-size: small;
 }
 
-
 img[alt~='logo'] {
   height: 60px;
   margin-bottom: 10px;
@@ -58,11 +57,26 @@ img[alt~='logo'] {
   opacity: 100;
 }
 
+.code-container:hover > .clipboard-button-container {
+  transition: all 0.5s ease-in;
+  opacity: 100;
+}
+
 .button-container {
   position: absolute;
   display: inline-block;
-  top: 35px;
+  top: 32px;
   right: 50px;
+  opacity: 0;
+  overflow: hidden;
+  z-index: 10;
+}
+
+.clipboard-button-container {
+  position: absolute;
+  display: inline-block;
+  top: 57px;
+  right: 28px;
   opacity: 0;
   overflow: hidden;
   z-index: 10;
