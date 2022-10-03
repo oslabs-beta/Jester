@@ -1,51 +1,52 @@
-import React from 'react';
-import { TextField, Box, Button } from '@mui/material';
-import { useAppDispatch, useAppSelector } from '../redux/hooks';
-import { userEditText } from '../redux/reducers/ClipBoardReducers';
-import { ChangeEvent, useEffect } from 'react';
-import ClipboardButton from './ClipboardButton';
+import axios from 'axios'; // to be used by handleClear
+import React, { ChangeEvent, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
+import { TextField, Box, Button } from '@mui/material';
+import DeleteForeverIcon from '@mui/icons-material/DeleteForever';
+
+import { useAppDispatch, useAppSelector } from '../redux/hooks';
 import {
   setCodeOutput1,
   setServer,
-  clearCodeSnippets
+  clearCodeSnippets, // to be used by handleClear
+  userEditText
 } from '../redux/reducers/ClipBoardReducers';
-import DeleteForeverIcon from '@mui/icons-material/DeleteForever';
-import axios from 'axios';
+import ClipboardButton from './ClipboardButton';
 
 const ClipBoard = () => {
-  const navigate = useNavigate();
+  const navigate = useNavigate(); // to be used by handleClear
   const dispatch = useAppDispatch();
-  const codeOutput1 = useAppSelector((state) => state.slice1.codeOutput1);
+  const { projectId } = useParams();
+
+  const codeOutput1: string = useAppSelector((state) => state.slice1.codeOutput1);
   const server: string = useAppSelector((state) => state.slice1.server);
-  const codeOutputEdited1 = useAppSelector(
+  const codeOutputEdited1: string | undefined = useAppSelector(
     (state) => state.slice1.codeOutputEdited1
   );
 
   const editCode = (e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) =>
     dispatch(userEditText(e.target.value));
-  const { projectId } = useParams();
-
+    
   const updateServer = (e: ChangeEvent<HTMLInputElement>) => {
     dispatch(setServer(e.target.value));
   };
 
   const handleClear = () => {
-    //   if (sessionStorage.getItem('isLoggedIn')) {
-    //     axios.delete(`/api/project/${projectId}`);
-    //     navigate('/');
-    //   } else {
-    //     dispatch(clearCodeSnippets());
-    //   }
+    if (sessionStorage.getItem('isLoggedIn')) {
+      axios.delete(`/api/project/${projectId}`);
+      navigate('/');
+    } else {
+      dispatch(clearCodeSnippets());
+    }
   };
   // need to discuss how to implement handleClear
 
   useEffect(() => {
     // BH: commented out to fix styling
-    // fetch(`/api/clipboard/${projectId}`)
-    //   .then((response) => response.json())
-    //   .then((response) => dispatch(setCodeOutput1(response)))
-    //   .catch((err) => console.log(err));
+    fetch(`/api/clipboard/${projectId}`)
+      .then((response) => response.json())
+      .then((response) => dispatch(setCodeOutput1(response)))
+      .catch((err) => console.log(err));
   });
 
   return (

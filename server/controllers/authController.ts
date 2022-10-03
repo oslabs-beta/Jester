@@ -45,7 +45,6 @@ passport.use(
     const params = [email];
     // console.log(email);
     // logic for creating a new record on the database for the user could go in here
-
     return done(null, profile);
   })
 );
@@ -72,7 +71,7 @@ export const authController: AuthType = {
     // using the email provided on the request object. If the user
     // already exists, it performs a mock-update so that regardless
     // of whether the user already existed or not, it returns the user ID.
-    const { email } = req.user.emails[0].value;
+    const email = req.user.emails[0].value;
     if (!email) return next({
       log: 'email not fond on request body',
       status: 400,
@@ -88,7 +87,7 @@ export const authController: AuthType = {
     const params = [email];
     try {
       const result = await db.query(newUserQuery, params);
-      res.locals.user_id = result;
+      res.locals.user_id = result.rows[0].user_id;
       return next();
     }
     catch(err) {
