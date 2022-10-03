@@ -1,9 +1,9 @@
-import React from "react";
-import { Box, Button } from "@mui/material";
-import { useAppSelector, useAppDispatch } from "../redux/hooks";
-import { useNavigate } from "react-router-dom";
-import { setProjectsInfo } from '../redux/reducers/userInfoSlice'
-import axios from 'axios'
+import React from 'react';
+import { Box, Button } from '@mui/material';
+import { useAppSelector, useAppDispatch } from '../redux/hooks';
+import { useNavigate } from 'react-router-dom';
+import { setProjectsInfo } from '../redux/reducers/userInfoSlice';
+import axios from 'axios';
 import IntegrationInstructionsIcon from '@mui/icons-material/IntegrationInstructions';
 import DeleteForeverIcon from '@mui/icons-material/DeleteForever';
 import { clearCodeSnippets } from "../redux/reducers/ClipBoardReducers";
