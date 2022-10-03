@@ -14,7 +14,7 @@ export const projectController: Project = {
     const { user_id } = res.locals;
 
     if (!user_id) return next({
-      log: 'user ID not fond on res.locals',
+      log: 'user ID not found on res.locals',
       status: 400,
       message: 'an error occurred in getProjects middleware function'
     });
@@ -45,13 +45,13 @@ export const projectController: Project = {
     const { project_name } = req.body;
 
     if (!user_id) return next({
-      log: 'user ID not fond on res.locals',
+      log: 'user ID not found on res.locals',
       status: 400,
       message: 'an error occurred in addProject middleware function'
     });
 
     if (!project_name) return next({
-      log: 'project name not fond on request body',
+      log: 'project name not found on request body',
       status: 400,
       message: 'an error occurred in addProject middleware function'
     });
