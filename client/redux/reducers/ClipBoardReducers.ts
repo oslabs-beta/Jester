@@ -9,10 +9,10 @@ type sliceType1 = {
 
 const initialState: sliceType1 = {
   codeOutput1:
-    'Your Clipboard is currently empty! Please generate a test before we can display your testing code here.',
+    'Your Clipboard is currently empty!\nPlease generate a test before we can display your testing code here.',
   codeOutputEdited1: undefined,
   doneIcon1: false,
-  server: '',
+  server: ''
 };
 
 export const slice1 = createSlice({
@@ -37,11 +37,11 @@ export const slice1 = createSlice({
     },
     setCodeOutput1: (state: sliceType1, action: PayloadAction<string[]>) => {
       const codeArr = [
-        'const request = require(\'supertest\');\n',
+        "const request = require('supertest');\n",
         `const server = '${state.server}';\n\n`,
-        'describe(\'Route Integration Testing\'), ( ) => {\n',
+        "describe('Route Integration Testing'), ( ) => {\n",
         ...action.payload,
-        '});',
+        '});'
       ];
       const codeSnippet = codeArr.join('');
       state.codeOutput1 = codeSnippet;
@@ -50,11 +50,12 @@ export const slice1 = createSlice({
       state.server = action.payload;
     },
     clearCodeSnippets: (state: sliceType1) => {
-      state.codeOutput1 = 'Your Clipboard is currently empty! Please generate a test before we can display your testing code here.';
+      state.codeOutput1 =
+        'Your Clipboard is currently empty! Please generate a test before we can display your testing code here.';
       state.codeOutputEdited1 = undefined;
       state.server = '';
     }
-  },
+  }
 });
 
 const thunks = {
@@ -64,13 +65,18 @@ const thunks = {
     const response = await timeout(1000);
     console.log('THUNK: asyncChangeIcon', response);
     return response;
-  }),
+  })
 };
 
-
-export const { appendToClipboard, copyCB, changeIcon1, userEditText, setCodeOutput1, setServer, clearCodeSnippets } =
-  slice1.actions;
-
+export const {
+  appendToClipboard,
+  copyCB,
+  changeIcon1,
+  userEditText,
+  setCodeOutput1,
+  setServer,
+  clearCodeSnippets
+} = slice1.actions;
 
 export const { asyncChangeIcon } = thunks;
 
