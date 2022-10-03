@@ -1,5 +1,5 @@
-const testsController = require('../server/controllers/testsController');
-const helperFunctions = require('../server/helpers/functions.js');
+import testsController from '../server/controllers/testsController.js';
+import helperFunctions from '../server/helpers/functions.js';
 
 describe('testsController middleware unit tests', () => {
   let mockRequest;
@@ -88,8 +88,9 @@ describe('testsController middleware unit tests', () => {
     const expectedResult = [
       `describe('/', () => {`,
       ` describe('GET', () => {`,
-      `  it('makes a GET request to "/"', () => request(server)`,
-      `   .get('/')`
+      `  it('makes a GET request to \"/\"', async () => {`,
+      `   const response = await request(server)`,
+      `   .get('/');`
     ];
 
     it('empty assertions array should return default header', () => {
@@ -99,14 +100,14 @@ describe('testsController middleware unit tests', () => {
 
     it('assertions array with status assertion should return header with status description', () => {
       assertions.push({ status: 200 });
-      expectedResult[2] = `  it('responds with status 200', () => request(server)`;
+      expectedResult[2] = `  it('responds with status 200', async () => {`;
       const result = helperFunctions.headerGenerator(header, assertions);
       expect(result).toEqual(expectedResult);
     });
 
     it('assertions array with status and content assertion should return header with full description', () => {
       assertions.push({ content: '/text/html/' });
-      expectedResult[2] = `  it('responds with status 200 and content-type /text\/html/', () => request(server)`;
+      expectedResult[2] = `  it('responds with status 200 and content-type /text/html/', async () => {`;
       const result = helperFunctions.headerGenerator(header, assertions);
       expect(result).toEqual(expectedResult);
     });
@@ -123,30 +124,35 @@ describe('testsController middleware unit tests', () => {
     //We want to test that the response being sent from this middleware is in the same positioning as the array we are feeding into it?
     let assertions;
     let expectedResult = [
-      '    .expect(200)',
-      `    .expect('Content-Type', /text/html/)`,
-      `    .expect( { a: 'b' })`
+      '    expect(response.statusCode).toBe(200);',
+      `    expect(response.type).toBe('/text/html/');`,
+      `    expect(response.body).toEqual( { a: 'b' });`
     ];
+
     beforeEach(() => {
       assertions = [];
     });
+
     it('should return proper expect for a status of 200', () => {
       assertions.push({ status: 200 });
       const result = helperFunctions.middleGenerator(assertions);
       expect(result).toEqual([expectedResult[0]]);
     });
+
     it('should return proper expect for a content of text/html', () => {
       assertions.push({ content: '/text/html/' });
       const result = helperFunctions.middleGenerator(assertions);
       expect(result).toEqual([expectedResult[1]]);
     });
-    // Test for body
+
+    // // Test for body
     it('should return proper expect for a body', () => {
       assertions.push({ res_body: " { a: 'b' }" });
       const result = helperFunctions.middleGenerator(assertions);
       expect(result).toEqual([expectedResult[2]]);
     });
     (" { a: 'b' }");
+
     it('assertion of status: 200, content type text/html, and body should return the relevant array', () => {
       assertions.push(
         { status: 200 },
@@ -163,7 +169,8 @@ describe('testsController middleware unit tests', () => {
   describe('compiledCodeGenerator', () => {
     const headerOutput = ['line1', 'line2'];
     const middleOutput = ['line3', 'line4'];
-    const expectedResult = 'line1\nline2\nline3\nline4;\n });\n});';
+    const expectedResult = 'line1\nline2\nline3\nline4\n  });\n });\n});';
+
     it('should compile both headerOutput and middleOutput into a final array', () => {
       const result = helperFunctions.compiledCodeGenerator(
         headerOutput,
@@ -173,4 +180,3 @@ describe('testsController middleware unit tests', () => {
     });
   });
 });
-// jest __tests__/be-middleware.js
