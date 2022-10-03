@@ -6,6 +6,7 @@ import { setProjectsInfo } from '../redux/reducers/userInfoSlice';
 import axios from 'axios';
 import IntegrationInstructionsIcon from '@mui/icons-material/IntegrationInstructions';
 import DeleteForeverIcon from '@mui/icons-material/DeleteForever';
+import { clearCodeSnippets } from '../redux/reducers/ClipBoardReducers';
 
 
 type accessClipboardDisplayProps = {
@@ -31,10 +32,10 @@ export const AccessClipboardDisplay = (props: accessClipboardDisplayProps) => {
   const handleDeleteClick = async () => {
     if (sessionStorage.getItem('isLoggedIn')) {
       // SA - TEMPORARY COMMENT-OUT
-      // const projects = await axios.delete(`/api/project/${props.projectId}`);
-      // dispatch(setProjectsInfo(projects.data))
+      const projects = await axios.delete(`/api/project/${props.projectId}`);
+      dispatch(setProjectsInfo(projects.data));
     } else {
-      // clear the clipboard data held in state
+      dispatch(clearCodeSnippets());
     }
   };
   if (show) return(
