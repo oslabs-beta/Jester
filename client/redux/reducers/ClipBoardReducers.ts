@@ -9,6 +9,10 @@ type sliceType1 = {
   server: string;
 };
 
+type postSnippetPayload = {
+  projectId: number,
+  codeOutput: string,
+}
 const initialState: sliceType1 = {
   codeOutput1: DEFAULT_CLIPBOARD,
   codeOutputEdited1: undefined,
@@ -98,19 +102,20 @@ const thunks = {
   }),
   postSnippet: createAsyncThunk(
     'slice1/postSnippet', 
-    async (codeOutput: string) => {
+    async (payload: postSnippetPayload) => {
+      const { projectId, codeOutput } = payload;
       console.log('THUNK: postSnippet', 'trying');
       const response = await axios.post(
-        `/api/clipboard/${ 'projectId' }`,
+        `/api/clipboard/${ projectId }`,
         { code_snippet: codeOutput }
       )
       console.log('THUNK: postSnippet', response);
   }),
   getSnippets: createAsyncThunk(
     'slice1/getSnippets', 
-    async () => {
+    async (projectId: number) => {
       console.log('THUNK: getSnippets', 'trying');
-      const response = await axios.get(`/api/clipboard/${ 'projectId' }`);
+      const response = await axios.get(`/api/clipboard/${ projectId }`);
       console.log('THUNK: getSnippets', response);
       return response;
   })

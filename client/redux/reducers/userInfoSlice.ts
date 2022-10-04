@@ -15,6 +15,7 @@ type userInfoStateType = {
   userId: number;
   projectsInfo: projectsType[];
   currentProject: string;
+  currentProjectId: number;
 };
 const initialState: userInfoStateType = {
   showLogin: false,
@@ -29,6 +30,7 @@ const initialState: userInfoStateType = {
     },
   ],
   currentProject: DEFAULT_PROJECT,
+  currentProjectId: 0,
 };
 
 export const userInfoSlice = createSlice({
@@ -49,6 +51,9 @@ export const userInfoSlice = createSlice({
       action: PayloadAction<string>
     ) => {
       state.currentProject = action.payload;
+      const projects = state.projectsInfo.map(el => el.project_name);
+      const projectIds = state.projectsInfo.map(el => el.project_id);
+      state.currentProjectId = projectIds[projects.indexOf(action.payload)]
     },
     setIsLoggedIn: (state: userInfoStateType) => {
       state.isLoggedIn = state.isLoggedIn ? false : true;
