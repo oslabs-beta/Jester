@@ -1,4 +1,5 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
+import { DEFAULT_PROJECT } from '../../constants';
 
 type projectsType = {
   project_id: number;
@@ -13,6 +14,8 @@ type userInfoStateType = {
   isLoggedIn: boolean;
   userId: number;
   projectsInfo: projectsType[];
+  currentProject: string;
+  currentProjectId: number;
 };
 const initialState: userInfoStateType = {
   showLogin: false,
@@ -21,11 +24,13 @@ const initialState: userInfoStateType = {
   projectsInfo: [
     {
       project_id: 0,
-      project_name: 'Project One',
+      project_name: DEFAULT_PROJECT,
       user_id: 0,
       showAccessClipboard: false,
     },
   ],
+  currentProject: DEFAULT_PROJECT,
+  currentProjectId: 0,
 };
 
 export const userInfoSlice = createSlice({
@@ -40,6 +45,15 @@ export const userInfoSlice = createSlice({
       action: PayloadAction<projectsType[]>
     ) => {
       state.projectsInfo = action.payload;
+    },
+    setCurrentProject: (
+      state: userInfoStateType,
+      action: PayloadAction<string>
+    ) => {
+      state.currentProject = action.payload;
+      const projects = state.projectsInfo.map(el => el.project_name);
+      const projectIds = state.projectsInfo.map(el => el.project_id);
+      state.currentProjectId = projectIds[projects.indexOf(action.payload)]
     },
     setIsLoggedIn: (state: userInfoStateType) => {
       state.isLoggedIn = state.isLoggedIn ? false : true;
@@ -82,6 +96,7 @@ export const userInfoSlice = createSlice({
 export const {
   setShowLogin,
   setProjectsInfo,
+  setCurrentProject,
   setIsLoggedIn,
   logout,
   setClipboardData,

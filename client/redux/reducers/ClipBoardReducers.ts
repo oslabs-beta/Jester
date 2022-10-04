@@ -1,6 +1,6 @@
 import axios from 'axios';
 import { createSlice, createAsyncThunk, PayloadAction } from '@reduxjs/toolkit';
-
+import { boilerplate_start, BOILERPLATE_END, DEFAULT_CLIPBOARD } from '../../constants';
 
 type sliceType1 = {
   codeOutput1: string;
@@ -9,9 +9,12 @@ type sliceType1 = {
   server: string;
 };
 
+type postSnippetPayload = {
+  projectId: number,
+  codeOutput: string,
+}
 const initialState: sliceType1 = {
-  codeOutput1:
-    'Your Clipboard is currently empty!\nPlease generate a test before we can display your testing code here.',
+  codeOutput1: DEFAULT_CLIPBOARD,
   codeOutputEdited1: undefined,
   doneIcon1: false,
   server: ''
@@ -47,25 +50,18 @@ export const slice1 = createSlice({
     },
     setCodeOutput1: (state: sliceType1, action: PayloadAction<string[]>) => {
       const codeArr = [
-        'const request = require(\'supertest\');\n',
-        `const server = '${state.server}';\n\n`,
-        'describe(\'Route Integration Testing\'), ( ) => {\n',
+        ...boilerplate_start(state.server),
         ...action.payload,
-        '});'
+        BOILERPLATE_END
       ];
       const codeSnippet = codeArr.join('');
       state.codeOutput1 = codeSnippet;
     },
     setBoilerplate: (state: sliceType1) => {
-      if (
-        state.codeOutput1 ===
-        'Your Clipboard is currently empty! Please generate a test before we can display your testing code here.'
-      )
+      if ( state.codeOutput1 === DEFAULT_CLIPBOARD )
       {const codeArr = [
-        'const request = require(\'supertest\');\n',
-        `const server = '${state.server}';\n\n`,
-        'describe(\'Route Integration Testing\'), ( ) => {\n',
-        '});',
+        ...boilerplate_start(state.server),
+        BOILERPLATE_END
       ];
       const codeSnippet = codeArr.join('');
       state.codeOutput1 = codeSnippet;}
@@ -74,8 +70,7 @@ export const slice1 = createSlice({
       state.server = action.payload;
     },
     clearCodeSnippets: (state: sliceType1) => {
-      state.codeOutput1 =
-        'Your Clipboard is currently empty! Please generate a test before we can display your testing code here.';
+      state.codeOutput1 = DEFAULT_CLIPBOARD;
       state.codeOutputEdited1 = undefined;
       state.server = '';
     }
@@ -87,11 +82,9 @@ export const slice1 = createSlice({
       })
       .addCase(getSnippets.fulfilled, (state: sliceType1, action: any) => {
         const codeArr = [
-          "const request = require('supertest');\n",
-          `const server = '${state.server}';\n\n`,
-          "describe('Route Integration Testing'), ( ) => {\n",
+          ...boilerplate_start(state.server),,
           ...action.payload,
-          '});'
+          BOILERPLATE_END
         ];
         const codeSnippet = codeArr.join('');
         state.codeOutput1 = codeSnippet;
@@ -109,19 +102,20 @@ const thunks = {
   }),
   postSnippet: createAsyncThunk(
     'slice1/postSnippet', 
-    async (codeOutput: string) => {
+    async (payload: postSnippetPayload) => {
+      const { projectId, codeOutput } = payload;
       console.log('THUNK: postSnippet', 'trying');
       const response = await axios.post(
-        `/api/clipboard/${ 'projectId' }`,
+        `/api/clipboard/${ projectId }`,
         { code_snippet: codeOutput }
       )
       console.log('THUNK: postSnippet', response);
   }),
   getSnippets: createAsyncThunk(
     'slice1/getSnippets', 
-    async () => {
+    async (projectId: number) => {
       console.log('THUNK: getSnippets', 'trying');
-      const response = await axios.get(`/api/clipboard/${ 'projectId' }`);
+      const response = await axios.get(`/api/clipboard/${ projectId }`);
       console.log('THUNK: getSnippets', response);
       return response;
   })

@@ -21,13 +21,14 @@ import {
 // 1) the button that copies the code to the navigator clipboard
 // 2) the button that perform a post request to the consolidated app clipboard SQL DB with the code 
 
+
 const ButtonContainer = () => {
   const doneIcon = useAppSelector((state) => state.slice.doneIcon);
   const codeOutput = useAppSelector(
     (state) => state.slice.codeOutputEdited || state.slice.codeOutput
   );
   const isLoggedIn = sessionStorage.getItem('isLoggedIn');
-  const projectId = 0; // MLCK need to select from state once project dropdown is build out
+  const projectId = useAppSelector((state) => state.userInfo.currentProjectId);
 
   const dispatch = useAppDispatch();
   const copyClipboard = () => {
@@ -42,8 +43,8 @@ const ButtonContainer = () => {
       dispatch(appendToClipboard(codeOutput));
     }
     else {
-      dispatch(postSnippet(codeOutput));
-      dispatch(getSnippets());
+      dispatch(postSnippet({ projectId, codeOutput }));
+      dispatch(getSnippets(projectId));
     }
   };
 
