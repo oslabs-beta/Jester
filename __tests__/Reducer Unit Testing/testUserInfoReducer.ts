@@ -16,6 +16,7 @@ type userInfoStateType = {
   userId: number;
   projectsInfo: projectsType[];
   currentProject: string;
+  currentProjectId: number;
 };
 
 describe('UserInfo Reducer', () => {
@@ -33,7 +34,8 @@ describe('UserInfo Reducer', () => {
         showAccessClipboard: false,
       },
     ],
-    currentProject: DEFAULT_PROJECT
+    currentProject: DEFAULT_PROJECT,
+    currentProjectId: 0,
   });
 
   test('it should return a default state', () => {
