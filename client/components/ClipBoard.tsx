@@ -61,14 +61,14 @@ const ClipBoard = () => {
         <TextField
           id="main-clipboard"
           multiline
-          rows={ 10 }
+          rows={ 30 }
           value={ codeDisplay }
           sx={{
             width: 0.95,
             fontFamily: 'Source Code Pro'
           }}
         />
-        {/* <ClipboardButton /> */}
+        <ClipboardButton />
         <Button
           onClick={ handleClear }
           sx={{

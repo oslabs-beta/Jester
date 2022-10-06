@@ -3,27 +3,19 @@ import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
 import ContentCopyIcon from '@mui/icons-material/ContentCopy';
 import DoneAllIcon from '@mui/icons-material/DoneAll';
-import { useSelector, useDispatch } from 'react-redux';
+import { useDispatch } from 'react-redux';
 
-import {
-  copyCB,
-  changeIcon1,
-  asyncChangeIcon
-} from '../redux/reducers/ClipBoardReducers';
+import { copyClipboard } from '../redux/reducers/ClipBoardReducers';
+import AppButton from '../components/AppButton';
 
 // This container wraps:
-// 2) the button that copies the code to the clipboard
-// 3) for the stretch feature, this container will have the button that appends the code to the consolidated clipboard
+// 1) the button that copies the app clipboard to the navigator clipboard
 
 const ClipboardButton = () => {
   const dispatch = useDispatch();
-  const copyClipboard = () => {
-    dispatch(copyCB());
-    dispatch(changeIcon1());
-    dispatch(asyncChangeIcon());
+  const handleClick = () => {
+    dispatch(copyClipboard());
   };
-
-  const doneIcon = useSelector((state) => state.slice.doneIcon1);
 
   return (
     <Box
@@ -35,9 +27,12 @@ const ClipboardButton = () => {
         alignItems: 'flex-end'
       }}
     >
-      <Button id='bttn-copy' variant='outlined' onClick={copyClipboard}>
-        {doneIcon ? <DoneAllIcon /> : <ContentCopyIcon />}
-      </Button>
+      <AppButton
+        start={ <ContentCopyIcon /> }
+        end={ <DoneAllIcon /> }
+        onClick={ handleClick }
+        testId="bttn-copy"
+      />
     </Box>
   );
 };

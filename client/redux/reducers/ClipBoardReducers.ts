@@ -25,46 +25,12 @@ export const clipboardSlice = createSlice({
   initialState,
   reducers: {
     appendToClipboard: (state: clipboardStateType, action: PayloadAction<string>) => {
-      // const payload = action.payload.split('\n').join('\n  ');
-      // if (state.codeOutputEdited1) {
-      //   const codeOutput =
-      //     state.codeOutputEdited1.slice(0, -3) + `\n  ${payload}` + '\n});';
-      //   state.codeOutputEdited1 = codeOutput;
-      // } else {
-      //   const codeOutput =
-      //     state.codeOutput1.slice(0, -3) + `\n  ${payload}` + '\n});';
-      //   state.codeOutput1 = codeOutput;
-      // }
       state.codeSnippets.push(action.payload);
       updateCodeDisplay(state);
     },
     copyClipboard: (state: clipboardStateType, action: PayloadAction<string>) => {
       navigator.clipboard.writeText(state.codeDisplay);
     },
-    // changeIcon1: (state: clipboardStateType) => {
-    //   state.doneIcon1 = true;
-    // },
-    // userEditText: (state: clipboardStateType, action: PayloadAction<string>) => {
-    //   state.codeOutputEdited1 = action.payload;
-    // },
-    // setCodeOutput1: (state: clipboardStateType, action: PayloadAction<string[]>) => {
-    //   const codeArr = [
-    //     ...boilerplate_start(state.server),
-    //     ...action.payload,
-    //     BOILERPLATE_END
-    //   ];
-    //   const codeSnippet = codeArr.join('');
-    //   state.codeOutput1 = codeSnippet;
-    // },
-    // setBoilerplate: (state: clipboardStateType) => {
-    //   if ( state.codeOutput1 === DEFAULT_CLIPBOARD )
-    //   {const codeArr = [
-    //     ...boilerplate_start(state.server),
-    //     BOILERPLATE_END
-    //   ];
-    //   const codeSnippet = codeArr.join('');
-    //   state.codeOutput1 = codeSnippet;}
-    // },
     setServer: (state: clipboardStateType, action: PayloadAction<string>) => {
       state.server = action.payload;
     },
@@ -80,13 +46,6 @@ export const clipboardSlice = createSlice({
         // nothing to be done here, delete if that's true?
       })
       .addCase(getSnippets.fulfilled, (state: clipboardStateType, action: any) => {
-        // const codeArr = [
-        //   ...boilerplate_start(state.server),,
-        //   ...action.payload,
-        //   BOILERPLATE_END
-        // ];
-        // const codeSnippet = codeArr.join('');
-        // state.codeOutput1 = codeSnippet;
         state.codeSnippets = action.payload.data;
         updateCodeDisplay(state);
       })
