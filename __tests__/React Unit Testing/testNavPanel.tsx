@@ -6,6 +6,8 @@ import '@testing-library/jest-dom';
 import { NavPanelContainer } from '../../client/containers/NavPanelContainer';
 import { BrowserRouter } from 'react-router-dom';
 import { ProjectPanelContainer } from '../../client/containers/ProjectPanelContainer';
+import { AccessClipboardDisplay } from '../../client/components/AccessClipboardDisplay';
+import Cookies from 'js-cookie';
 
 const initialState = {
   navPanel: {
@@ -70,4 +72,42 @@ describe('Unit testing ProjectPanelContainer', () => {
     expect(screen.getByRole('button', {name: 'Project One'})).toBeInTheDocument();
   });
 
+});
+
+const defaultStore= {
+  navPanel: {
+    showProjectPanel: true,
+    showAddProject: false,
+  },
+  userInfo: {
+    projectsInfo: [{project_id: 1, project_name: 'Project One', showAccessClipboard: true,}],
+  },
+};
+const accessClipboardDisplay = () => {
+  render(
+    <Provider store={mockStore(defaultStore)}>
+      <BrowserRouter>
+        <AccessClipboardDisplay projectId={1}/>
+      </BrowserRouter>
+    </Provider>
+  );
+};
+
+describe('Unit testing AccessClipboardDisplay', () => {
+  beforeEach(() => {
+    accessClipboardDisplay();
+  });
+  test('it should render clipboard button', () => {
+    expect(screen.getByRole('button', {name: 'Clipboard'})).toBeInTheDocument();
+  });
+  test('it should render clear clipboard button', () => {
+    expect(screen.getByRole('button', {name: 'Clear Clipboard'})).toBeInTheDocument();
+  });
+  test('it should render delete project button when user logged in', () => {
+    sessionStorage.setItem('isLoggedIn', 'true');
+    accessClipboardDisplay();
+    expect(screen.getByRole('button', {name: 'Delete Project'})).toBeInTheDocument();
+    Cookies.remove('isLoggedIn');
+    sessionStorage.clear();
+  });
 });
