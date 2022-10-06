@@ -19,6 +19,7 @@ export type projectsType = {
 
 export type userInfoStateType = {
   showLogin: boolean;
+  showSave: boolean;
   isLoggedIn: boolean;
   userId: number;
   projectsInfo: projectsType[];

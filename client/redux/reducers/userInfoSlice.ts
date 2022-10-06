@@ -1,9 +1,11 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { DEFAULT_PROJECT } from '../../constants';
-import { userInfoStateType, projectsType } from '../../types'
+import { userInfoStateType, projectsType } from '../../types';
 
 const initialState: userInfoStateType = {
   showLogin: false,
+  // MLCK what is the name of the property in sessionStorage with clipboard data?
+  showSave: Boolean(sessionStorage.getItem('isLoggedIn')),
   isLoggedIn: false,
   userId: 0,
   projectsInfo: [
@@ -26,6 +28,9 @@ export const userInfoSlice = createSlice({
     setShowLogin: (state: userInfoStateType) => {
       state.showLogin = state.showLogin ? false : true;
     },
+    setShowSave: (state: userInfoStateType) => {
+      state.showSave = !state.showSave;
+    },
     setProjectsInfo: (
       state: userInfoStateType,
       action: PayloadAction<projectsType[]>
@@ -39,7 +44,10 @@ export const userInfoSlice = createSlice({
       state.currentProject = action.payload;
       const projects = state.projectsInfo.map(el => el.project_name);
       const projectIds = state.projectsInfo.map(el => el.project_id);
-      state.currentProjectId = projectIds[projects.indexOf(action.payload)]
+      state.currentProjectId = projectIds[projects.indexOf(action.payload)];
+    },
+    setNewProject: (state: userInfoStateType, action: PayloadAction<string>) => {
+      state.newProject = action.payload;
     },
     setIsLoggedIn: (state: userInfoStateType) => {
       state.isLoggedIn = state.isLoggedIn ? false : true;
@@ -81,6 +89,7 @@ export const userInfoSlice = createSlice({
 
 export const {
   setShowLogin,
+  setShowSave,
   setProjectsInfo,
   setCurrentProject,
   setIsLoggedIn,
@@ -88,5 +97,6 @@ export const {
   setClipboardData,
   setShowAccessClipboard,
   setUserId,
+  setNewProject,
 } = userInfoSlice.actions;
 export default userInfoSlice.reducer;

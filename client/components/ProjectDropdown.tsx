@@ -10,6 +10,7 @@ import { useAppDispatch, useAppSelector } from '../redux/hooks';
 
 type projectDropdownPropsType = {
   allowNew?: boolean;
+  disabled?: boolean;
 };
 
 
@@ -51,6 +52,7 @@ const ProjectDropdown = (props: projectDropdownPropsType) => {
           value={ projectName }
           onChange={ handleChange }
           sx={{ height: 40 }}
+          disabled={ props.disabled }
         >
           { menuItems }
         </Select>
