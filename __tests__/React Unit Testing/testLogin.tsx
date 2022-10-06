@@ -12,7 +12,7 @@ import { AnyListenerPredicate } from '@reduxjs/toolkit';
 
 const initialState = {};
 
-const mockStore: any = configureStore()
+const mockStore: any = configureStore();
 
 const login = () => {
   render(
@@ -25,14 +25,14 @@ const login = () => {
 describe('Unit testing Login component', () => {
   beforeEach(() => {
     login();
-  })
+  });
   test('it renders login dialog box', () => {
     expect(screen.getByRole('dialog', {name: /Log in to your account/i})).toBeInTheDocument();
-  })
+  });
   test('it renders logo', () => {
     expect(screen.getByRole('img', {name: /logo/i})).toBeInTheDocument();
-  })
+  });
   test('it renders github sign-in button', () => {
     expect(screen.getByTestId('GitHubIcon')).toBeInTheDocument();
-  })
-})
+  });
+});
