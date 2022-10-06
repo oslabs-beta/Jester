@@ -14,13 +14,13 @@ import { useAppDispatch, useAppSelector } from '../redux/hooks';
 import { setRequestType, addAssertion } from '../redux/reducers/testFormSlice';
 import { setCodeOutput } from '../redux/reducers/reducer';
 import { setErrorMsg } from '../redux/reducers/userInputSlice';
-import { Middle } from './Middle';
+import { Assertions } from './Assertions';
 import { RequestBody } from './RequestBody';
 import { ChangeEvent } from 'react';
 import axios from 'axios';
 import { ProjectDropdown } from './ProjectDropdown';
 
-export const Header = () => {
+export const TestInputForm = () => {
   const isLoggedIn = sessionStorage.getItem('isLoggedIn');
   const requestType = useAppSelector((state) => state.testForm.requestType);
   const assertionObject = useAppSelector(
@@ -29,7 +29,7 @@ export const Header = () => {
   const assertionList: JSX.Element[] = [];
   const assertionIds = Object.keys(assertionObject);
   for (const id of assertionIds) {
-    assertionList.push(<Middle id={id} key={id} />);
+    assertionList.push(<Assertions id={id} key={id} />);
   }
   const dispatch = useAppDispatch();
 

@@ -1,6 +1,6 @@
 import { createSlice } from '@reduxjs/toolkit';
 import React from 'react';
-import { Middle } from '../../components/Middle';
+import { Assertions } from '../../components/Assertions';
 
 
 type errorMsgsType = {
