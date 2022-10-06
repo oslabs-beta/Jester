@@ -5,17 +5,18 @@ import { fireEvent, render, screen } from '@testing-library/react';
 import '@testing-library/jest-dom';
 import { NavPanelContainer } from '../../client/containers/NavPanelContainer';
 import { BrowserRouter } from 'react-router-dom';
-import { ProjectPanelContainer } from '../../client/containers/ProjectPanelContainer';
-import { AccessClipboardDisplay } from '../../client/components/AccessClipboardDisplay';
 import Cookies from 'js-cookie';
+import { AddProjectDialog } from '../../client/components/AddProjectDialog';
 
 const initialState = {
   navPanel: {
-    showProjectPanel: false,
+    showProjectPanel: true,
     showAddProject: false,
   },
   userInfo: {
-    projectsInfo: [],
+    projectsInfo: [
+      { project_id: 1, project_name: 'Project One', showAccessClipboard: true },
+    ],
   },
 };
 const mockStore: any = configureStore();
@@ -39,74 +40,90 @@ describe('Unit testing navPanel', () => {
       screen.getByRole('button', { name: 'Projects' })
     ).toBeInTheDocument();
   });
+
+  describe('Unit testing ProjectPanelContainer when Projects button clicked', () => {
+    let button;
+    beforeEach(() => {
+      button = screen.getByRole('button', { name: 'Projects' });
+      fireEvent.click(button);
+    });
+    test('it should render add new project button', () => {
+      expect(
+        screen.getByRole('button', { name: 'Add New Project' })
+      ).toBeInTheDocument();
+    });
+    test('it should render a button for each project', () => {
+      expect(
+        screen.getByRole('button', { name: 'Project One' })
+      ).toBeInTheDocument();
+    });
+
+    describe('Unit testing AccessClipboardDisplay when a project is clicked', () => {
+      let button;
+      beforeEach(() => {
+        button = screen.getByRole('button', { name: 'Project One' });
+        fireEvent.click(button);
+      });
+      test('it should render clipboard button', () => {
+        const button = screen.getByRole('button', { name: 'Project One' });
+        fireEvent.click(button);
+        expect(
+          screen.getByRole('button', { name: 'Clipboard' })
+        ).toBeInTheDocument();
+      });
+      test('it should render clear clipboard button', () => {
+        expect(
+          screen.getByRole('button', { name: 'Clear Clipboard' })
+        ).toBeInTheDocument();
+      });
+      test('it should render delete project button when user logged in', () => {
+        sessionStorage.setItem('isLoggedIn', 'true');
+        navPanel();
+        expect(
+          screen.getByRole('button', { name: 'Delete Project' })
+        ).toBeInTheDocument();
+        Cookies.remove('isLoggedIn');
+        sessionStorage.clear();
+      });
+    });
+  });
 });
 
-
-const initialStore= {
+const defaultStore = {
   navPanel: {
-    showProjectPanel: true,
-    showAddProject: false,
-  },
-  userInfo: {
-    projectsInfo: [{project_id: 1, project_name: 'Project One'}],
+    showAddProject: true,
   },
 };
-const projectPanelContainer = () => {
-  render(
-    <Provider store={mockStore(initialStore)}>
-      <BrowserRouter>
-        <ProjectPanelContainer />
-      </BrowserRouter>
-    </Provider>
-  );
-};
 
-describe('Unit testing ProjectPanelContainer', () => {
-  beforeEach(() => {
-    projectPanelContainer();
-  });
-  test('it should render add new project button', () => {
-    expect(screen.getByRole('button', {name: 'Add New Project'})).toBeInTheDocument();
-  });
-  test('it should render a button for each project', () => {
-    expect(screen.getByRole('button', {name: 'Project One'})).toBeInTheDocument();
-  });
-
-});
-
-const defaultStore= {
-  navPanel: {
-    showProjectPanel: true,
-    showAddProject: false,
-  },
-  userInfo: {
-    projectsInfo: [{project_id: 1, project_name: 'Project One', showAccessClipboard: true,}],
-  },
-};
-const accessClipboardDisplay = () => {
+const addProjectDialog = () => {
   render(
     <Provider store={mockStore(defaultStore)}>
       <BrowserRouter>
-        <AccessClipboardDisplay projectId={1}/>
+        <AddProjectDialog />
       </BrowserRouter>
     </Provider>
   );
 };
 
-describe('Unit testing AccessClipboardDisplay', () => {
+describe('Unit testing AddProjectDialog when add new project is clicked', () => {
   beforeEach(() => {
-    accessClipboardDisplay();
+    addProjectDialog();
   });
-  test('it should render clipboard button', () => {
-    expect(screen.getByRole('button', {name: 'Clipboard'})).toBeInTheDocument();
+  test('it should render a dialog box with instructions if a user is not logged in', () => {
+    expect(screen.getByRole('dialog', { name: '' })).toBeInTheDocument();
+    expect(
+      screen.getByText('To add a project, you must be logged in!')
+    ).toBeInTheDocument();
   });
-  test('it should render clear clipboard button', () => {
-    expect(screen.getByRole('button', {name: 'Clear Clipboard'})).toBeInTheDocument();
-  });
-  test('it should render delete project button when user logged in', () => {
+  test('it should render a dialog box for user to add project if they are logged in', () => {
     sessionStorage.setItem('isLoggedIn', 'true');
-    accessClipboardDisplay();
-    expect(screen.getByRole('button', {name: 'Delete Project'})).toBeInTheDocument();
+    addProjectDialog();
+    expect(
+      screen.getByRole('textbox', { name: 'Project Name:' })
+    ).toBeInTheDocument();
+    expect(
+      screen.getByRole('button', { name: 'Create Project' })
+    ).toBeInTheDocument();
     Cookies.remove('isLoggedIn');
     sessionStorage.clear();
   });
