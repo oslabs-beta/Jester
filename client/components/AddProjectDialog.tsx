@@ -15,7 +15,6 @@ export const AddProjectDialog = () => {
   const showAddProject = useAppSelector(
     (state) => state.navPanel.showAddProject
   );
-  const isLoggedIn = useAppSelector((state) => state.userInfo.isLoggedIn);
   const dispatch = useAppDispatch();
   const handleClose = () => {
     dispatch(setShowAddProject());

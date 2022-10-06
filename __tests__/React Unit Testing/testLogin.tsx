@@ -8,8 +8,6 @@ import '@testing-library/jest-dom';
 import { Login } from '../../client/components/Login';
 import { AnyListenerPredicate } from '@reduxjs/toolkit';
 
-
-
 const initialState = {};
 
 const mockStore: any = configureStore();
@@ -17,20 +15,26 @@ const mockStore: any = configureStore();
 const login = () => {
   render(
     <Provider store={mockStore(initialState)}>
-      <Login open={true}/>
+      <Login open={true} />
     </Provider>
   );
 };
 
 describe('Unit testing Login component', () => {
   beforeEach(() => {
-    login();
+    render(
+      <Provider store={mockStore(initialState)}>
+        <Login open={true} />
+      </Provider>
+    );
   });
   test('it renders login dialog box', () => {
-    expect(screen.getByRole('dialog', {name: /Log in to your account/i})).toBeInTheDocument();
+    expect(
+      screen.getByRole('dialog', { name: /Log in to your account/i })
+    ).toBeInTheDocument();
   });
   test('it renders logo', () => {
-    expect(screen.getByRole('img', {name: /logo/i})).toBeInTheDocument();
+    expect(screen.getByRole('img', { name: /logo/i })).toBeInTheDocument();
   });
   test('it renders github sign-in button', () => {
     expect(screen.getByTestId('GitHubIcon')).toBeInTheDocument();
