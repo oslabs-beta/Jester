@@ -5,7 +5,7 @@ import SaveIcon from '@mui/icons-material/Save';
 
 import { useAppDispatch, useAppSelector } from '../redux/hooks';
 import { ProjectDropdown } from '../components/ProjectDropdown';
-import { setShowSave, setNewProject } from '../redux/reducers/userInfoSlice';
+import { setShowSave, setCurrentProject, setNewProject } from '../redux/reducers/userInfoSlice';
 
 type saveDataPropsType = {
   open: boolean;
@@ -19,6 +19,7 @@ const SaveDataContainer = (props: saveDataPropsType) => {
   const dispatch = useAppDispatch();
   const handleChange = (e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     dispatch(setNewProject(e.target.value));
+    dispatch(setCurrentProject(e.target.value));
   };
   const handleDiscard = () => {
     // Need to write functionality to handle the discard
