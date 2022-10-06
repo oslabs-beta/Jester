@@ -28,7 +28,7 @@ const ClipBoard = () => {
   };
 
   const handleClear = () => {
-    if (sessionStorage.getItem('isLoggedIn')) {
+    if (isLoggedIn) {
       dispatch(deleteSnippets(projectId));
       navigate('/');
     } else {
