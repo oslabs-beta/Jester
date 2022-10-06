@@ -39,10 +39,8 @@ const ClipBoard = () => {
       dispatch(clearCodeSnippets());
     }
   };
-  // need to discuss how to implement handleClear
 
   useEffect(() => {
-    // BH: commented out to fix styling
     fetch(`/api/clipboard/${projectId}`)
       .then((response) => response.json())
       .then((response) => dispatch(setCodeOutput1(response)))

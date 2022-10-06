@@ -28,7 +28,6 @@ const NavBar = () => {
     dispatch(setShowLogin());
   };
   const handleLogout = async () => {
-    console.log('in logout');
     Cookies.remove('username');
     Cookies.remove('code');
     Cookies.remove('email');
