@@ -61,9 +61,16 @@ export const Assertions = (props: assertionsPropsType) => {
         dispatch(
           changeErrorMsg({
             propsId: props.id,
-            newMsg: 'invalid status code',
+            newMsg: 'please enter a number',
           })
         );
+      } else if (userInput < 100 || userInput > 511){
+        dispatch(
+          changeErrorMsg({
+            propsId: props.id,
+            newMsg: 'enter a number between 100 and 511'
+          })
+        )
       } else {
         dispatch(
           changeErrorMsg({
@@ -73,20 +80,25 @@ export const Assertions = (props: assertionsPropsType) => {
         );
       }
     } else {
-      if (e.target.id === 'Content Type' && Number(userInput)) {
-        dispatch(
-          changeErrorMsg({
-            propsId: props.id,
-            newMsg: 'invalid content type',
-          })
-        );
-      } else {
-        dispatch(
-          changeErrorMsg({
-            propsId: props.id,
-            newMsg: '',
-          })
-        );
+      if (e.target.id === 'Content Type'){
+        if (Number(userInput) || 
+        !userInput.includes('/') || 
+        userInput[0] === '/' || 
+        userInput[userInput.length - 1] === '/') {
+          dispatch(
+            changeErrorMsg({
+              propsId: props.id,
+              newMsg: 'invalid content type',
+            })
+          );
+        } else {
+          dispatch(
+            changeErrorMsg({
+              propsId: props.id,
+              newMsg: '',
+            })
+          );
+        }
       }
     }
   };

@@ -28,7 +28,7 @@ const initialState: initialStateType = {slice: {
   showLogin: false,
 }};
 
-const mockStore: any = configureStore()
+const mockStore: any = configureStore();
 // const initialState = {
 //   slice: {
 //     codeOutput: `describe('Sample description')`

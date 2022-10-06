@@ -105,17 +105,19 @@ export const projectController: Project = {
     // this controller should delete the project in the Projects table
     // with the provided project_id, AND ALSO all code snippets under this project
     // and send back the updated project list
-    const params1 = [project_id];
+    const params1 = [project_id, user_id];
     const params2 = [user_id];
   
 
     const snipsQuery = `
     DELETE FROM code_snippets_table
     WHERE project_id = $1
+    AND user_id = $2
     `; 
     const projQuery = `
     DELETE FROM projects_table
     WHERE project_id = $1
+    AND user_id = $2
     `;
     try {
       await db.query(snipsQuery, params1);
