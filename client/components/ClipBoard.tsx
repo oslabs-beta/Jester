@@ -38,8 +38,9 @@ const ClipBoard = () => {
   // need to discuss how to implement handleClear to match the back-end
 
   useEffect(() => {
-    dispatch(getSnippets(projectId))
-  });
+    if (isLoggedIn) {
+      dispatch(getSnippets(projectId))}
+    });
 
   return (
     <div className="page-body">
