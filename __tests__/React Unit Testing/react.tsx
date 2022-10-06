@@ -8,7 +8,7 @@ import DoneAllIcon from '@mui/icons-material/DoneAll';
 import CodeContainer from '../../client/containers/CodeContainer';
 import ButtonContainer from '../../client/containers/ButtonContainer';
 import AppButton from '../../client/components/AppButton';
-import { Header } from '../../client/components/Header';
+import { TestInputForm } from '../../client/components/TestInputForm';
 import { ProjectDropdown } from '../../client/components/ProjectDropdown';
 import { setRequestType } from '../../client/redux/reducers/testFormSlice';
 
@@ -137,7 +137,7 @@ describe('Unit testing output Code Container components', () => {
   });
 });
 
-describe('Unit testing "Header" component', () => {
+describe('Unit testing "TestInputForm" component', () => {
   const initialState = { 
     testForm: {
       requestType: 'Get',
@@ -164,16 +164,16 @@ describe('Unit testing "Header" component', () => {
     store = mockStore(initialState);
     render(
       <Provider store={store}>
-        <Header />
+        <TestInputForm />
       </Provider>
     );
   });
 
-  test('Header component renders successfully', () => {
+  test('TestInputForm component renders successfully', () => {
     store = mockStore(initialState);
     render(
       <Provider store={store}>
-        <Header />
+        <TestInputForm />
       </Provider>
     );
   });
