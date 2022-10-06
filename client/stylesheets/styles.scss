@@ -2,6 +2,11 @@ body {
   margin: 0;
 }
 
+.page-container {
+    margin-left:-120px;
+    min-width: 1050px;
+}
+
 .page-body {
   display: flex;
   flex-direction: column;
@@ -84,10 +89,10 @@ img[alt~='logo'] {
 }
 
 #navbar {
-  // position: fixed; // Sticky Navbar
-  top: 0;
+  position: relative;
   width: 100%;
   z-index: 99;
+  box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
 }
 
 // Uncomment this section if changing Navbar to sticky
@@ -97,4 +102,25 @@ img[alt~='logo'] {
 
 .welcome-text {
   pointer-events: none;
+}
+
+.contents {
+  z-index: 10;
+}
+
+.panel {
+  position: relative;
+  height: 100%;
+  z-index: 10;
+  background: #f8f1ff;
+  padding-top: 10px;
+  box-shadow: rgba(6, 24, 44, 0.4) 0px 0px 0px 2px, rgba(6, 24, 44, 0.65) 0px 4px 6px -1px, rgba(255, 255, 255, 0.08) 0px 1px 0px inset;
+}
+
+.nav-panel-container {
+  z-index: 10;
+}
+
+.project-panel-container {
+  z-index: 9;
 }

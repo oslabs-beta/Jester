@@ -36,26 +36,29 @@ const App = () => {
     <ThemeProvider theme={theme}>
       <NavBar />
       <Box
+        className="contents"
         sx={{
           display: 'grid',
           gridTemplateColumns: '1fr 5fr',
-          marginTop: '10px',
+          height: '100%'
         }}
       >
         <NavPanelContainer />
-        <Routes>
-          <Route path="/" element={<Home />} />
-          <Route path="/clipboard/:projectId" element={<ClipBoard />} />
-          <Route path="/documentation" element={<Documentation />} />
-          <Route path='/authenticate' element={<Auth />} />
-          <Route
-            path="/CodeGenerator/:projectId"
-            element={<CodeGenerator />}
-          />
-          <Route path="*" element={<NotFound />} />
-        </Routes>
+        <div className="page-container">
+          <Routes>
+            <Route path="/" element={<Home />} />
+            <Route path="/clipboard/:projectId" element={<ClipBoard />} />
+            <Route path="/documentation" element={<Documentation />} />
+            <Route path='/authenticate' element={<Auth />} />
+            <Route
+              path="/CodeGenerator/:projectId"
+              element={<CodeGenerator />}
+            />
+            <Route path="*" element={<NotFound />} />
+          </Routes>
+          <Footer />
+        </div>
       </Box>
-      <Footer />
     </ThemeProvider>
   );
 };

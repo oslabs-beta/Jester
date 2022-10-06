@@ -1,5 +1,6 @@
 import { Box, Button } from '@mui/material';
 import React from 'react';
+import AddCardIcon from '@mui/icons-material/AddCard';
 import { useAppSelector, useAppDispatch } from '../redux/hooks';
 import { setShowAddProject } from '../redux/reducers/navPanelSlice';
 import { AddProjectDialog } from '../components/AddProjectDialog';
@@ -35,16 +36,16 @@ export const ProjectPanelContainer = () => {
   if (showProjectPanel)
     return (
       <Box
+      className="panel project-panel-container"
         sx={{
-          border: '1px dashed lightgrey',
           width: '100px',
           display: 'flex',
           flexDirection: 'column',
-          justifyContent: 'space-between',
         }}
       >
-        <Box sx={{ display: 'flex', flexDirection: 'column' }}>{projects}</Box>
-        <Button onClick={handleAddProject}>Add New Project</Button>
+        <Button onClick={handleAddProject} sx={{ display: 'flex', flexDirection: 'column' }}><AddCardIcon />Add New Project</Button>
+        {projects}
+        
         <AddProjectDialog />
       </Box>
     );
