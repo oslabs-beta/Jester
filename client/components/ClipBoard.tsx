@@ -8,13 +8,13 @@ import { useAppDispatch, useAppSelector } from '../redux/hooks';
 import {
   setCodeOutput1,
   setServer,
-  clearCodeSnippets, // to be used by handleClear
+  clearCodeSnippets,
   userEditText
 } from '../redux/reducers/ClipBoardReducers';
 import ClipboardButton from './ClipboardButton';
 
 const ClipBoard = () => {
-  const navigate = useNavigate(); // to be used by handleClear
+  const navigate = useNavigate();
   const dispatch = useAppDispatch();
   const { projectId } = useParams();
 
@@ -39,14 +39,14 @@ const ClipBoard = () => {
       dispatch(clearCodeSnippets());
     }
   };
-  // need to discuss how to implement handleClear
 
   useEffect(() => {
-    // BH: commented out to fix styling
-    fetch(`/api/clipboard/${projectId}`)
+    if (sessionStorage.getItem('isLoggedIn')) {
+      fetch(`/api/clipboard/${projectId}`)
       .then((response) => response.json())
       .then((response) => dispatch(setCodeOutput1(response)))
       .catch((err) => console.log(err));
+    }
   });
 
   return (

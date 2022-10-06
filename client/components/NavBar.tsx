@@ -28,7 +28,6 @@ const NavBar = () => {
     dispatch(setShowLogin());
   };
   const handleLogout = async () => {
-    console.log('in logout');
     Cookies.remove('username');
     Cookies.remove('code');
     Cookies.remove('email');
@@ -63,11 +62,6 @@ const NavBar = () => {
               Welcome, Guest!
             </Button>
           )}
-          <Button color='inherit'>
-            <Link className='nav-link' to='/clipboard'>
-              Clipboard
-            </Link>
-          </Button>
           <Button color='inherit'>
             <Link className='nav-link' to='/documentation'>
               Documentation

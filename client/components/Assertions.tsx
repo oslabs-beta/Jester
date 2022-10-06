@@ -17,11 +17,11 @@ import {
   setUserInputText,
 } from '../redux/reducers/userInputSlice';
 
-type middlePropsType = {
+type assertionsPropsType = {
   id: string;
 };
 
-export const Middle = (props: middlePropsType) => {
+export const Assertions = (props: assertionsPropsType) => {
   const dispatch = useAppDispatch();
   const currValue = useAppSelector(
     (state) => state.testForm.assertionList[props.id]
