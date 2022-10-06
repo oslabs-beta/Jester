@@ -33,6 +33,7 @@ export const clipboardSlice = createSlice({
     },
     setServer: (state: clipboardStateType, action: PayloadAction<string>) => {
       state.server = action.payload;
+      updateCodeDisplay(state);
     },
     clearClipboardState: (state: clipboardStateType) => {
       state.server = '';
