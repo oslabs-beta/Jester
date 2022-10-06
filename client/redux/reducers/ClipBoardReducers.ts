@@ -153,7 +153,3 @@ export const {
 export const { postSnippet, getSnippets, deleteSnippets } = thunks;
 
 export default clipboardSlice.reducer;
-
-const request = require('supertest');
-const server = 'localhost';
-
