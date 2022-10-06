@@ -13,7 +13,7 @@ const updateCodeDisplay = (state: clipboardStateType) => {
   if (state.codeSnippets.length) {
     const codeArr = [
       ...boilerplate_start(state.server),
-      ...state.codeSnippets,
+      ...state.codeSnippets.map(el => el + '\n'),
       BOILERPLATE_END
     ];
     state.codeDisplay = codeArr.join('');

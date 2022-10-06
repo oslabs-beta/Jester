@@ -14,9 +14,11 @@ import {
 import ClipboardButton from './ClipboardButton';
 
 const ClipBoard = () => {
-  const navigate = useNavigate(); // to be used by handleClear
+  const navigate = useNavigate();
   const dispatch = useAppDispatch();
   const projectId = Number(useParams().projectId);
+  const isLoggedIn = sessionStorage.getItem('isLoggedIn');
+  const buttonText = (isLoggedIn) ? 'Delete Project' : 'Clear Clipboard'
 
   const server: string = useAppSelector((state) => state.clipboard.server);
   const codeDisplay: string = useAppSelector((state) => state.clipboard.codeDisplay);
@@ -33,7 +35,7 @@ const ClipBoard = () => {
       dispatch(clearClipboardState());
     }
   };
-  // need to discuss how to implement handleClear
+  // need to discuss how to implement handleClear to match the back-end
 
   useEffect(() => {
     dispatch(getSnippets(projectId))
@@ -72,20 +74,10 @@ const ClipBoard = () => {
         <Button
           onClick={ handleClear }
           sx={{
-            display: sessionStorage.getItem('isLoggedIn') ? 'none' : 'flex',
             flexDirection: 'column'
           }}
         >
-          <DeleteForeverIcon /> Clear Clipboard
-        </Button>
-        <Button
-          onClick={ handleClear }
-          sx={{
-            display: sessionStorage.getItem('isLoggedIn') ? 'flex' : 'none',
-            flexDirection: 'column'
-          }}
-        >
-          <DeleteForeverIcon /> Delete Project
+          <DeleteForeverIcon /> { buttonText }
         </Button>
       </Box>
     </div>
