@@ -1,5 +1,6 @@
 import { store } from '../../client/redux/store';
 import { setShowLogin } from '../../client/redux/reducers/userInfoSlice';
+import { DEFAULT_PROJECT } from '../../client/constants';
 
 type projectsType = {
   project_id: number;
@@ -14,10 +15,13 @@ type userInfoStateType = {
   isLoggedIn: boolean;
   userId: number;
   projectsInfo: projectsType[];
+  currentProject: string;
+  currentProjectId: number;
 };
 
 describe('UserInfo Reducer', () => {
   let defaultState: userInfoStateType;
+
   beforeEach(() => defaultState = {
     showLogin: false,
     isLoggedIn: false,
@@ -25,16 +29,20 @@ describe('UserInfo Reducer', () => {
     projectsInfo: [
       {
         project_id: 0,
-        project_name: 'Project One',
+        project_name: DEFAULT_PROJECT,
         user_id: 0,
         showAccessClipboard: false,
       },
     ],
+    currentProject: DEFAULT_PROJECT,
+    currentProjectId: 0,
   });
+
   test('it should return a default state', () => {
     const state = store.getState();
     expect(state.userInfo).toEqual(defaultState);
-  })
+  });
+
   test('setShowLogin should toggle showLogin boolean', () => {
     store.dispatch(setShowLogin());
     let state = store.getState();
@@ -42,5 +50,5 @@ describe('UserInfo Reducer', () => {
     store.dispatch(setShowLogin());
     state = store.getState();
     expect(state.userInfo.showLogin).toEqual(false);
-  })
+  });
 });

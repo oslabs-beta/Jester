@@ -1,83 +1,115 @@
+import axios from 'axios';
 import { createSlice, createAsyncThunk, PayloadAction } from '@reduxjs/toolkit';
+import { boilerplate_start, BOILERPLATE_END, DEFAULT_CLIPBOARD } from '../../constants';
+import { clipboardStateType, postSnippetPayload } from '../../types';
 
-type sliceType1 = {
-  codeOutput1: string;
-  codeOutputEdited1: string | undefined;
-  doneIcon1: boolean;
-  server: string;
+const initialState: clipboardStateType = {
+  server: '',
+  codeSnippets: [],
+  codeDisplay: DEFAULT_CLIPBOARD
 };
 
-const initialState: sliceType1 = {
-  codeOutput1:
-    'Your Clipboard is currently empty!\nPlease generate a test before we can display your testing code here.',
-  codeOutputEdited1: undefined,
-  doneIcon1: false,
-  server: ''
-};
+const updateCodeDisplay = (state: clipboardStateType) => {
+  if (state.codeSnippets.length) {
+    const codeArr = [
+      ...boilerplate_start(state.server),
+      ...state.codeSnippets.map(el => el + '\n'),
+      BOILERPLATE_END
+    ];
+    state.codeDisplay = codeArr.join('');
+  }
+}
 
-export const slice1 = createSlice({
-  name: 'slice1',
+export const clipboardSlice = createSlice({
+  name: 'clipboard',
   initialState,
   reducers: {
-    appendToClipboard: (state: sliceType1, action: PayloadAction<string>) => {
-      state.codeOutput1 += `\n${action.payload}`;
+    appendToClipboard: (state: clipboardStateType, action: PayloadAction<string>) => {
+      state.codeSnippets.push(action.payload);
+      updateCodeDisplay(state);
     },
-    copyCB: (state: sliceType1) => {
-      navigator.clipboard.writeText(
-        state.codeOutputEdited1 || state.codeOutput1
-      );
+    copyClipboard: (state: clipboardStateType, action: PayloadAction<string>) => {
+      navigator.clipboard.writeText(state.codeDisplay);
     },
-
-    changeIcon1: (state: sliceType1) => {
-      state.doneIcon1 = true;
-    },
-
-    userEditText: (state: sliceType1, action: PayloadAction<string>) => {
-      state.codeOutputEdited1 = action.payload;
-    },
-    setCodeOutput1: (state: sliceType1, action: PayloadAction<string[]>) => {
-      const codeArr = [
-        "const request = require('supertest');\n",
-        `const server = '${state.server}';\n\n`,
-        "describe('Route Integration Testing'), ( ) => {\n",
-        ...action.payload,
-        '});'
-      ];
-      const codeSnippet = codeArr.join('');
-      state.codeOutput1 = codeSnippet;
-    },
-    setServer: (state: sliceType1, action: PayloadAction<string>) => {
+    setServer: (state: clipboardStateType, action: PayloadAction<string>) => {
       state.server = action.payload;
+      updateCodeDisplay(state);
     },
-    clearCodeSnippets: (state: sliceType1) => {
-      state.codeOutput1 =
-        'Your Clipboard is currently empty! Please generate a test before we can display your testing code here.';
-      state.codeOutputEdited1 = undefined;
+    clearClipboardState: (state: clipboardStateType) => {
       state.server = '';
+      state.codeSnippets = [];
+      state.codeDisplay = DEFAULT_CLIPBOARD;
     }
+  },
+  extraReducers: (builder) => {
+    builder
+      .addCase(postSnippet.fulfilled, (state: clipboardStateType) => {
+        // nothing to be done here, delete if that's true?
+      })
+      .addCase(getSnippets.fulfilled, (state: clipboardStateType, action: any) => {
+        state.codeSnippets = action.payload.data;
+        updateCodeDisplay(state);
+      })
+      .addCase(deleteSnippets.fulfilled, (state: clipboardStateType) => {
+        state.server = '';
+        state.codeSnippets = [];
+        state.codeDisplay = DEFAULT_CLIPBOARD;
+      });
   }
 });
 
 const thunks = {
-  asyncChangeIcon: createAsyncThunk('slice/asyncChangeIcon', async () => {
-    const timeout = (ms: number): Promise<unknown> =>
-      new Promise((resolve) => setTimeout(resolve, ms));
-    const response = await timeout(1000);
-    console.log('THUNK: asyncChangeIcon', response);
-    return response;
+  postSnippet: createAsyncThunk(
+    'clipboardSlice/postSnippet', 
+    async (payload: postSnippetPayload) => {
+      const { projectId, codeOutput } = payload;
+      console.log('THUNK: postSnippet', 'trying');
+      let response;
+      try {
+        response = await axios.post(
+          `/api/clipboard/${ projectId }`,
+          { code_snippet: codeOutput }
+        )
+      } catch (error) {
+        console.log('clipboardSlice/postSnippet', error);
+      }
+      console.log('THUNK: postSnippet', response);
+  }),
+  getSnippets: createAsyncThunk(
+    'clipboardSlice/getSnippets', 
+    async (projectId: number) => {
+      console.log('THUNK: getSnippets', 'trying');
+      let response;
+      try {
+        response = await axios.get(`/api/clipboard/${ projectId }`);
+      } catch (error) {
+        console.log('clipboardSlice/getSnippets', error);
+      }
+      console.log('THUNK: getSnippets', response);
+      return response;
+  }),
+  deleteSnippets: createAsyncThunk(
+    'clipboardSlice/deleteSnippets', 
+    async (projectId: number) => {
+      console.log('THUNK: deleteSnippets', 'trying');
+      let response;
+      try {
+        response = await axios.delete(`/api/clipboard/${ projectId }`);
+      } catch (error) {
+        console.log('clipboardSlice/deleteSnippets', error);
+      }
+      console.log('THUNK: deleteSnippets', response);
+      return response;
   })
 };
 
 export const {
   appendToClipboard,
-  copyCB,
-  changeIcon1,
-  userEditText,
-  setCodeOutput1,
+  copyClipboard,
   setServer,
-  clearCodeSnippets
-} = slice1.actions;
+  clearClipboardState,
+} = clipboardSlice.actions;
 
-export const { asyncChangeIcon } = thunks;
+export const { postSnippet, getSnippets, deleteSnippets } = thunks;
 
-export default slice1.reducer;
+export default clipboardSlice.reducer;

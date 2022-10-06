@@ -1,3 +1,4 @@
+import axios from 'axios';
 import React from 'react';
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
@@ -7,7 +8,7 @@ import ContentCopyIcon from '@mui/icons-material/ContentCopy';
 import DoneAllIcon from '@mui/icons-material/DoneAll';
 
 import { useAppDispatch, useAppSelector } from '../redux/hooks';
-import { appendToClipboard } from '../redux/reducers/ClipBoardReducers';
+import { appendToClipboard, postSnippet, getSnippets } from '../redux/reducers/ClipBoardReducers';
 import AppButton from '../components/AppButton';
 
 import {
@@ -17,15 +18,17 @@ import {
 } from '../redux/reducers/reducer';
 
 // This container wraps:
-// 2) the button that copies the code to the clipboard
-// 3) for the stretch feature, this container will have the button that appends the code to the consolidated clipboard
+// 1) the button that copies the code to the navigator clipboard
+// 2) the button that perform a post request to the consolidated app clipboard SQL DB with the code 
+
 
 const ButtonContainer = () => {
   const doneIcon = useAppSelector((state) => state.slice.doneIcon);
   const codeOutput = useAppSelector(
     (state) => state.slice.codeOutputEdited || state.slice.codeOutput
   );
-  const isLoggedIn = useAppSelector((state) => state.userInfo.isLoggedIn);
+  const isLoggedIn = sessionStorage.getItem('isLoggedIn');
+  const projectId = useAppSelector((state) => state.userInfo.currentProjectId);
 
   const dispatch = useAppDispatch();
   const copyClipboard = () => {
@@ -33,19 +36,20 @@ const ButtonContainer = () => {
     dispatch(changeIcon());
     dispatch(asyncChangeIcon());
   };
+
   const appendClipboard = () => {
-    if (!isLoggedIn) dispatch(appendToClipboard(codeOutput));
+    if (isLoggedIn) {
+      dispatch(postSnippet({ projectId, codeOutput }));
+      dispatch(getSnippets(projectId));
+    }
     else {
-      // MLCK
-      // will write after Lilah sets up the route
-      // need to have some logic to perform a post request to the database
-      // and a get request to update the clipboard
+      dispatch(appendToClipboard(codeOutput));
     }
   };
 
   return (
     <Box
-      className='button-container'
+      className="button-container"
       sx={{
         marginLeft: 5,
         marginTop: 2,
@@ -56,19 +60,19 @@ const ButtonContainer = () => {
       }}
     >
       <Button
-        data-testid='bttn-copy'
-        variant='outlined'
-        onClick={copyClipboard}
+        data-testid="bttn-copy"
+        variant="outlined"
+        onClick={ copyClipboard }
         sx={{ marginBottom: 1 }}
       >
         {doneIcon ? <DoneAllIcon /> : <ContentCopyIcon />}
       </Button>
 
       <AppButton
-        start={<AddBoxIcon />}
-        end={<DoneAllIcon />}
-        onClick={appendClipboard}
-        testId='bttn-append'
+        start={ <AddBoxIcon /> }
+        end={ <DoneAllIcon /> }
+        onClick={ appendClipboard }
+        testId="bttn-append"
       />
     </Box>
   );

@@ -6,7 +6,7 @@ import { setProjectsInfo } from '../redux/reducers/userInfoSlice';
 import axios from 'axios';
 import IntegrationInstructionsIcon from '@mui/icons-material/IntegrationInstructions';
 import DeleteForeverIcon from '@mui/icons-material/DeleteForever';
-import { clearCodeSnippets } from '../redux/reducers/ClipBoardReducers';
+import { clearClipboardState } from '../redux/reducers/ClipBoardReducers';
 
 
 type accessClipboardDisplayProps = {
@@ -35,7 +35,7 @@ export const AccessClipboardDisplay = (props: accessClipboardDisplayProps) => {
       const projects = await axios.delete(`/api/project/${props.projectId}`);
       dispatch(setProjectsInfo(projects.data));
     } else {
-      dispatch(clearCodeSnippets());
+      dispatch(clearClipboardState());
     }
   };
   if (show) return(

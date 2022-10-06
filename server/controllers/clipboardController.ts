@@ -12,6 +12,7 @@ export const clipboardController: Clipboard = {
   // Middleware to fetch clipboard for a specified project
   getClipboard: async (req: Request, res: Response, next: NextFunction) => {
     const { project_id } = req.params;
+    const { user_id } = res.locals;
 
     // this controller should query the Snippets table for all snippets belonging
     // to a project and save an array of code snippets to res.locals.clipboard
@@ -19,8 +20,9 @@ export const clipboardController: Clipboard = {
     const queryString = `
       SELECT * FROM code_snippets_table
       WHERE project_id = $1
+      AND user_id = $2
     `;
-    const params = [project_id];
+    const params = [project_id, user_id];
 
     try {
       const result = await db.query(queryString, params);
@@ -51,13 +53,6 @@ export const clipboardController: Clipboard = {
         message: 'an error occurred in appendClipboard middleware function',
       });
 
-    if (!user_id)
-      return next({
-        log: 'user ID not found on res.locals',
-        status: 400,
-        message: 'an error occurred in appendClipboard middleware function',
-      });
-
     // this controller should insert a new record in the Clipboard table
     // and save the updated clipboard to res.locals.clipboard
     const date = Date.now();
@@ -71,8 +66,9 @@ export const clipboardController: Clipboard = {
     const getClipsQuery = `
     SELECT * FROM code_snippets_table
     WHERE project_id = $1
+    AND user_id = $2
     `;
-    const params2 = [project_id];
+    const params2 = [project_id, user_id];
     try {
       await db.query(addClipQuery, params1);
       const result = await db.query(getClipsQuery, params2);
@@ -91,6 +87,7 @@ export const clipboardController: Clipboard = {
   deleteSnippet: async (req: Request, res: Response, next: NextFunction) => {
     const { snippet_id } = req.params;
     const { project_id } = req.body;
+    const { user_id } = res.locals;
 
     if (!project_id)
       return next({
@@ -101,17 +98,19 @@ export const clipboardController: Clipboard = {
 
     // this controller should delete one specific code snippet
     // and save the updated clipboard to res.locals.clipboard
-    const params1 = [snippet_id];
-    const params2 = [project_id];
+    const params1 = [snippet_id, user_id];
+    const params2 = [project_id, user_id];
 
     const deleteSnipQuery = `
     DELETE FROM code_snippets_table
     WHERE snippet_id=$1
+    AND user_id = $2
     `;
 
     const getClipsQuery = `
     SELECT * FROM code_snippets_table
     WHERE project_id = $1
+    AND user_id = $2
     `;
 
     try {

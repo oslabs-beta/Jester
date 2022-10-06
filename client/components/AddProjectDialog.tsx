@@ -24,7 +24,6 @@ export const AddProjectDialog = () => {
     const response = await axios.post('/api/project/', {
       project_name: projectName,
     });
-    console.log(response.data);
     dispatch(setProjectsInfo(response.data));
     handleClose();
   };
