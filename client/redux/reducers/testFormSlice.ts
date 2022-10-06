@@ -4,15 +4,19 @@ import { KeyObject } from 'crypto';
 type assertionListType = {
   [index: string]: string;
 };
+
 type individualAssertionObject = {
   [key: string]: string;
 };
+
+type assertionTypesType = string[];
 
 type testFormStateType = {
   requestType: string;
   assertionList: assertionListType;
   i: number;
   userInput: string;
+  assertionTypes: assertionTypesType;
 };
 
 const initialState: testFormStateType = {
@@ -20,6 +24,7 @@ const initialState: testFormStateType = {
   assertionList: {},
   i: 0,
   userInput: '',
+  assertionTypes: ['Status Code', 'Content Type', 'Response Body']
 };
 
 export const testFormSlice = createSlice({
@@ -33,7 +38,9 @@ export const testFormSlice = createSlice({
       state.requestType = action.payload;
     },
     addAssertion: (state: testFormStateType) => {
-      state.assertionList[state.i] = 'Status Code';
+      if (state.i === 3) state.i = 0;
+      console.log(state.i);
+      state.assertionList[state.i] = state.assertionTypes[state.i];
       state.i += 1;
     },
     setInputType: (

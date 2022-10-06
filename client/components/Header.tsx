@@ -114,6 +114,11 @@ export const Header = () => {
     );
   }
 
+  // const getContentTypes = () => {
+  //   axios.get('https://www.geeksforgeeks.org/http-headers-content-type/')
+  //   .then(res => console.log(res))
+  // }
+
   return (
     <form id='test-generator-form' onSubmit={handleSubmit}>
       <Box
@@ -185,6 +190,14 @@ export const Header = () => {
         Generate Test Code
       </Button>
       { (isLoggedIn) && <ProjectDropdown /> }
+      {/* <Button 
+      type='submit'
+      variant='contained'
+      sx={{ marginTop: '30px', height: 40 }}
+      disableElevation
+      onClick={getContentTypes}>
+        Get all content types
+      </Button> */}
     </form>
   );
 };
