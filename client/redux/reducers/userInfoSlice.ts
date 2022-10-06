@@ -1,22 +1,7 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { DEFAULT_PROJECT } from '../../constants';
+import { userInfoStateType, projectsType } from '../../types'
 
-type projectsType = {
-  project_id: number;
-  project_name: string;
-  user_id: number;
-  clipboardInfo?: string[];
-  showAccessClipboard: boolean;
-};
-
-type userInfoStateType = {
-  showLogin: boolean;
-  isLoggedIn: boolean;
-  userId: number;
-  projectsInfo: projectsType[];
-  currentProject: string;
-  currentProjectId: number;
-};
 const initialState: userInfoStateType = {
   showLogin: false,
   isLoggedIn: false,
@@ -31,6 +16,7 @@ const initialState: userInfoStateType = {
   ],
   currentProject: DEFAULT_PROJECT,
   currentProjectId: 0,
+  newProject: ''
 };
 
 export const userInfoSlice = createSlice({
