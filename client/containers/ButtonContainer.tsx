@@ -8,7 +8,7 @@ import ContentCopyIcon from '@mui/icons-material/ContentCopy';
 import DoneAllIcon from '@mui/icons-material/DoneAll';
 
 import { useAppDispatch, useAppSelector } from '../redux/hooks';
-import { appendToClipboard, setBoilerplate, postSnippet, getSnippets } from '../redux/reducers/ClipBoardReducers';
+import { appendToClipboard, postSnippet, getSnippets } from '../redux/reducers/ClipBoardReducers';
 import AppButton from '../components/AppButton';
 
 import {
@@ -38,13 +38,12 @@ const ButtonContainer = () => {
   };
 
   const appendClipboard = () => {
-    if (!isLoggedIn) {
-      dispatch(setBoilerplate());
-      dispatch(appendToClipboard(codeOutput));
-    }
-    else {
+    if (isLoggedIn) {
       dispatch(postSnippet({ projectId, codeOutput }));
       dispatch(getSnippets(projectId));
+    }
+    else {
+      dispatch(appendToClipboard(codeOutput));
     }
   };
 

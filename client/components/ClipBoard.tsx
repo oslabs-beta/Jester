@@ -6,51 +6,41 @@ import DeleteForeverIcon from '@mui/icons-material/DeleteForever';
 
 import { useAppDispatch, useAppSelector } from '../redux/hooks';
 import {
-  setCodeOutput1,
   setServer,
-  clearCodeSnippets, // to be used by handleClear
-  userEditText
+  deleteSnippets,
+  getSnippets,
+  clearClipboardState
 } from '../redux/reducers/ClipBoardReducers';
 import ClipboardButton from './ClipboardButton';
 
 const ClipBoard = () => {
   const navigate = useNavigate(); // to be used by handleClear
   const dispatch = useAppDispatch();
-  const { projectId } = useParams();
+  const projectId = Number(useParams().projectId);
 
-  const codeOutput1: string = useAppSelector((state) => state.slice1.codeOutput1);
-  const server: string = useAppSelector((state) => state.slice1.server);
-  const codeOutputEdited1: string | undefined = useAppSelector(
-    (state) => state.slice1.codeOutputEdited1
-  );
-
-  const editCode = (e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) =>
-    dispatch(userEditText(e.target.value));
-    
+  const server: string = useAppSelector((state) => state.clipboard.server);
+  const codeDisplay: string = useAppSelector((state) => state.clipboard.codeDisplay);
+  
   const updateServer = (e: ChangeEvent<HTMLInputElement>) => {
     dispatch(setServer(e.target.value));
   };
 
   const handleClear = () => {
     if (sessionStorage.getItem('isLoggedIn')) {
-      axios.delete(`/api/project/${projectId}`);
+      dispatch(deleteSnippets(projectId));
       navigate('/');
     } else {
-      dispatch(clearCodeSnippets());
+      dispatch(clearClipboardState());
     }
   };
   // need to discuss how to implement handleClear
 
   useEffect(() => {
-    // BH: commented out to fix styling
-    fetch(`/api/clipboard/${projectId}`)
-      .then((response) => response.json())
-      .then((response) => dispatch(setCodeOutput1(response)))
-      .catch((err) => console.log(err));
+    dispatch(getSnippets(projectId))
   });
 
   return (
-    <div className='page-body'>
+    <div className="page-body">
       <Box
         sx={{
           display: 'flex',
@@ -59,29 +49,28 @@ const ClipBoard = () => {
           gap: '10px',
           width: 800
         }}
-        className='code-container'
+        className="code-container"
       >
         <TextField
-          label='Server URL'
+          label="Server URL"
           sx={{ width: '300px' }}
-          value={server}
-          error={server === ''}
-          onChange={updateServer}
+          value={ server }
+          error={ server === '' }
+          onChange={ updateServer }
         ></TextField>
         <TextField
-          id='main-clipboard'
+          id="main-clipboard"
           multiline
-          rows={10}
-          value={codeOutputEdited1 || codeOutput1}
+          rows={ 10 }
+          value={ codeDisplay }
           sx={{
             width: 0.95,
             fontFamily: 'Source Code Pro'
           }}
-          onChange={editCode}
         />
-        <ClipboardButton />
+        {/* <ClipboardButton /> */}
         <Button
-          onClick={handleClear}
+          onClick={ handleClear }
           sx={{
             display: sessionStorage.getItem('isLoggedIn') ? 'none' : 'flex',
             flexDirection: 'column'
@@ -90,7 +79,7 @@ const ClipBoard = () => {
           <DeleteForeverIcon /> Clear Clipboard
         </Button>
         <Button
-          onClick={handleClear}
+          onClick={ handleClear }
           sx={{
             display: sessionStorage.getItem('isLoggedIn') ? 'flex' : 'none',
             flexDirection: 'column'
