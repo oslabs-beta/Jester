@@ -54,7 +54,7 @@ export const clipboardSlice = createSlice({
         state.server = '';
         state.codeSnippets = [];
         state.codeDisplay = DEFAULT_CLIPBOARD;
-      });
+      })
   }
 });
 
@@ -100,7 +100,8 @@ const thunks = {
       }
       console.log('THUNK: deleteSnippets', response);
       return response;
-  })
+  }),
+
 };
 
 export const {

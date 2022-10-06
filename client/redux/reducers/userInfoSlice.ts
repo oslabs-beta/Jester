@@ -1,5 +1,6 @@
-import { createSlice, PayloadAction } from '@reduxjs/toolkit';
+import { createSlice, PayloadAction, createAsyncThunk } from '@reduxjs/toolkit';
 import { DEFAULT_PROJECT } from '../../constants';
+import axios from 'axios';
 
 type projectsType = {
   project_id: number;
@@ -44,6 +45,7 @@ export const userInfoSlice = createSlice({
       state: userInfoStateType,
       action: PayloadAction<projectsType[]>
     ) => {
+      console.log(action.payload);
       state.projectsInfo = action.payload;
     },
     setCurrentProject: (
@@ -91,7 +93,33 @@ export const userInfoSlice = createSlice({
       }
     },
   },
+  extraReducers: (builder) => {
+    builder
+    .addCase(addProject.fulfilled, (state: userInfoStateType, action: PayloadAction<any>) => {
+      console.log(action.payload.data);
+      setProjectsInfo(action.payload.data);
+      // this is not working
+    })
+  }
 });
+
+const thunks = {
+  addProject: createAsyncThunk(
+    'clipboardSlice/addProject', 
+    async (projectName: string) => {
+      console.log('THUNK: deleteSnippets', 'trying');
+      let response;
+      try {
+        response = await axios.post('api/project/', {
+          project_name: projectName,
+        })
+      } catch (error) {
+        console.log('clipboardSlice/addProject', error);
+      }
+      console.log('THUNK: addProject', response);
+      return response;
+    })
+}
 
 export const {
   setShowLogin,
@@ -103,4 +131,5 @@ export const {
   setShowAccessClipboard,
   setUserId,
 } = userInfoSlice.actions;
+export const { addProject } = thunks;
 export default userInfoSlice.reducer;

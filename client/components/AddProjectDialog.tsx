@@ -7,7 +7,7 @@ import {
 } from '@mui/material';
 import { setShowAddProject } from '../redux/reducers/navPanelSlice';
 import { useAppDispatch, useAppSelector } from '../redux/hooks';
-import { setProjectsInfo } from '../redux/reducers/userInfoSlice';
+import { addProject } from '../redux/reducers/userInfoSlice';
 import axios from 'axios';
 
 export const AddProjectDialog = () => {
@@ -20,11 +20,7 @@ export const AddProjectDialog = () => {
     dispatch(setShowAddProject());
   };
   const handleAddProject = async () => {
-    // SA - TEMPORARY COMMENT-OUT
-    const response = await axios.post('/api/project/', {
-      project_name: projectName,
-    });
-    dispatch(setProjectsInfo(response.data));
+    dispatch(addProject(projectName));
     handleClose();
   };
 
