@@ -17,9 +17,7 @@ import Cookies from 'js-cookie';
 
 const NavBar = () => {
   const navigate = useNavigate();
-  // const [showLogin, setShowLogin] = useState(false)
   const open: boolean = useAppSelector((state) => state.userInfo.showLogin);
-  // const isLoggedIn: boolean = useAppSelector((state) => state.userInfo.isLoggedIn);
   const displayLoginButton = 'auto';
   const displayLogoutButton = 'auto';
 

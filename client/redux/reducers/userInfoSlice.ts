@@ -10,7 +10,6 @@ const initialState: userInfoStateType = {
   showLogin: false,
   // MLCK what is the name of the property in sessionStorage with clipboard data?
   showSave: showSave,
-  isLoggedIn: false,
   userId: 0,
   projectsInfo: [
     {
@@ -56,9 +55,6 @@ export const userInfoSlice = createSlice({
     ) => {
       state.newProject = action.payload;
     },
-    setIsLoggedIn: (state: userInfoStateType) => {
-      state.isLoggedIn = state.isLoggedIn ? false : true;
-    },
     setUserId: (state: userInfoStateType, action: PayloadAction<number>) => {
       state.userId = action.payload;
     },
@@ -74,7 +70,7 @@ export const userInfoSlice = createSlice({
       state.userId = 0;
       state.currentProject = DEFAULT_PROJECT;
       state.newProject = '';
-      
+
     },
     setClipboardData: (
       state: userInfoStateType,
