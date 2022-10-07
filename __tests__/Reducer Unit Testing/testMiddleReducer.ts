@@ -13,19 +13,20 @@ type defaultStateType = {
 }
 
 describe('Test Middle Reducer', () => {
-    let defaultState: defaultStateType;
-    beforeEach(() => {
-      defaultState = {
-        requestType: 'Get',
-        assertionList: {},
-        i: 0,
-        userInput: '',
-      };
+  let defaultState: defaultStateType;
+  beforeEach(() => {
+    defaultState = {
+      requestType: 'Get',
+      assertionList: {},
+      i: 0,
+      userInput: '',
+      assertionTypes: ['Status Code', 'Content Type', 'Response Body']
+    };
+  });
+  describe('default state', () => {
+    it('should return a default state', () => {
+      const state = store.getState();
+      expect(state.testForm).toEqual(defaultState);
     });
-    describe('default state', () => {
-      it('should return a default state', () => {
-        const state = store.getState();
-        expect(state.testForm).toEqual(defaultState);
-      });
-    })
-})
+  });
+});

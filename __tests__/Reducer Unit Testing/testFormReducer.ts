@@ -20,6 +20,7 @@ describe('TestForm Reducer', () => {
       assertionList: {},
       i: 0,
       userInput: '',
+      assertionTypes: ['Status Code', 'Content Type', 'Response Body']
     };
   });
   describe('default state', () => {
