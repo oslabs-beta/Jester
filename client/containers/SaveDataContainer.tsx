@@ -50,7 +50,7 @@ const SaveDataContainer = (props: saveDataPropsType) => {
       const storedSnippets = sessionStorage.getItem('clipboardData');
       if (storedSnippets) snippets = JSON.parse(storedSnippets);
     }
-    if (newProject !== '') {
+    if (newProject !== '') { // add saved code snippets to a new project
       const response = await axios.post('api/project/', {
         project_name: newProject,
       });
@@ -64,7 +64,7 @@ const SaveDataContainer = (props: saveDataPropsType) => {
           })
         );
       });
-    } else {
+    } else { // add saved code snippets to a pre-existing project
       let projectId: number;
       for (const project of projects) {
         if (project.project_name === selectedProject)
