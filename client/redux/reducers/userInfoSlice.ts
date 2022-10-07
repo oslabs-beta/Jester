@@ -1,18 +1,14 @@
-import { createSlice, PayloadAction, createAsyncThunk } from '@reduxjs/toolkit';
+import { createSlice, PayloadAction} from '@reduxjs/toolkit';
 import { DEFAULT_PROJECT } from '../../constants';
-import axios from 'axios';
 import {
   userInfoStateType,
   projectsType,
 } from '../../types';
 
 const showSave = sessionStorage.getItem('clipboardData') ? true : false;
-// For testing only, delete later
-// const showSave = true;
 
 const initialState: userInfoStateType = {
   showLogin: false,
-  // MLCK what is the name of the property in sessionStorage with clipboard data?
   showSave: showSave,
   isLoggedIn: false,
   userId: 0,
