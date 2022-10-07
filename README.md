@@ -5,7 +5,7 @@
               margin-left: auto;
               margin-right: auto;
               "
-        src="client/assets/logo-jester.png" 
+        src="client/assets/logo-jester2.png" 
         height=200
         alt="Jester">
     </img>
