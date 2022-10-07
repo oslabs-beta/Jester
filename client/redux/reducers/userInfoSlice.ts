@@ -2,10 +2,9 @@ import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { DEFAULT_PROJECT } from '../../constants';
 import { userInfoStateType, projectsType } from '../../types';
 
-
 // const showSave =  (sessionStorage.getItem('clipboardData')) ? true : false;
 // For testing only, delete later
-const showSave =  true;
+const showSave = true;
 
 const initialState: userInfoStateType = {
   showLogin: false,
@@ -23,7 +22,7 @@ const initialState: userInfoStateType = {
   ],
   currentProject: DEFAULT_PROJECT,
   currentProjectId: 0,
-  newProject: ''
+  newProject: '',
 };
 
 export const userInfoSlice = createSlice({
@@ -47,11 +46,14 @@ export const userInfoSlice = createSlice({
       action: PayloadAction<string>
     ) => {
       state.currentProject = action.payload;
-      const projects = state.projectsInfo.map(el => el.project_name);
-      const projectIds = state.projectsInfo.map(el => el.project_id);
+      const projects = state.projectsInfo.map((el) => el.project_name);
+      const projectIds = state.projectsInfo.map((el) => el.project_id);
       state.currentProjectId = projectIds[projects.indexOf(action.payload)];
     },
-    setNewProject: (state: userInfoStateType, action: PayloadAction<string>) => {
+    setNewProject: (
+      state: userInfoStateType,
+      action: PayloadAction<string>
+    ) => {
       state.newProject = action.payload;
     },
     setIsLoggedIn: (state: userInfoStateType) => {
@@ -61,7 +63,18 @@ export const userInfoSlice = createSlice({
       state.userId = action.payload;
     },
     logout: (state: userInfoStateType) => {
-      state = initialState;
+      state.projectsInfo = [
+        {
+          project_id: 0,
+          project_name: DEFAULT_PROJECT,
+          user_id: 0,
+          showAccessClipboard: false,
+        },
+      ];
+      state.userId = 0;
+      state.currentProject = DEFAULT_PROJECT;
+      state.newProject = '';
+      
     },
     setClipboardData: (
       state: userInfoStateType,
