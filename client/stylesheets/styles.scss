@@ -1,5 +1,8 @@
 body {
   margin: 0;
+  background-color: #fff;
+  background-image: linear-gradient(62deg, rgba(142, 197, 252, 0.2) 0%, rgba(224, 195, 252, 0.2) 100%);
+
 }
 
 .page-container {
@@ -18,6 +21,9 @@ body {
 #code-output {
   font-family: 'Inconsolata', monospace;
   font-size: small;
+  // background-color: rgba(255,255,255, 1);
+  // border-radius: 5px;
+  // padding: 10px;
 }
 
 #main-clipboard {
@@ -114,12 +120,12 @@ img[alt~='logo'] {
   position: relative;
   height: 100%;
   z-index: 10;
-  background: #f9f6ff;
+  background: rgba(249, 246, 255, 0.4);
   padding-top: 25px;
-  // box-shadow: rgba(6, 24, 44, 0.4) 0px 0px 0px 2px, rgba(6, 24, 44, 0.65) 0px 4px 6px -1px, rgba(255, 255, 255, 0.08) 0px 1px 0px inset;
-  box-shadow: rgba(0, 0, 0, 0.12) 0px 1px 3px, rgba(0, 0, 0, 0.24) 0px 1px 2px;
+  box-shadow: rgba(60, 64, 67, 0.3) 1px 0px 1px 0px, rgba(60, 64, 67, 0.15) 1px 0px 3px 0px;
+  border-right: 1px solid rgba(0,0,0,0.3);
+  // box-shadow: 5px 1px 5px 0px rgba(0,0,0,0.75);
 
-  box-shadow: rgba(60, 64, 67, 0.3) 0px 1px 2px 0px, rgba(60, 64, 67, 0.15) 0px 1px 3px 1px;
 }
 
 .nav-panel-container {
@@ -132,11 +138,15 @@ img[alt~='logo'] {
 
 .divider {
   width: 80px;
-  background-color: #5E17EB;
+  background-color: #6e00bb;
   height: 2px;
   border: none;
 }
 
 .documentation-container {
   width: 800px;
+}
+
+.text-display {
+  background-color: rgba(255,255,255,0.4);
 }

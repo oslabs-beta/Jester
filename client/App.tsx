@@ -15,7 +15,8 @@ import Auth from './pages/Auth';
 const theme = createTheme({
   palette: {
     primary: {
-      main: '#5E17EB',
+      // main: '#5E17EB',
+      main: '#6e00bb',
       contrastText: '#fff'
     },
     secondary: {

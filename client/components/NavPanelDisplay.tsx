@@ -26,7 +26,7 @@ export const NavPanelDisplay = () => {
     <Box
     className="panel nav-panel-container"
       sx={{
-        width: '80px',
+        width: '100px',
         display: 'flex',
         flexDirection: 'column',
 
@@ -40,7 +40,10 @@ export const NavPanelDisplay = () => {
         <CollectionsBookmarkIcon />
         <Typography sx={{ fontSize: '12px' }}>Projects</Typography>
       </Button>
-      <Button onClick={handleDocumentationClick} sx={{display: 'flex', flexDirection:'column', marginBottom:2}}><ArticleIcon />Docs</Button>
+      <Button onClick={handleDocumentationClick} sx={{display: 'flex', flexDirection:'column', marginBottom:2}}>
+        <ArticleIcon />
+        <Typography sx={{ fontSize: '10px' }}>Documentation</Typography>
+        </Button>
     </Box>
   );
 };
