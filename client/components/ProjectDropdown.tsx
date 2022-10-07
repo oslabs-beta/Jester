@@ -8,13 +8,18 @@ import Select, { SelectChangeEvent } from '@mui/material/Select';
 import { setCurrentProject } from '../redux/reducers/userInfoSlice';
 import { useAppDispatch, useAppSelector } from '../redux/hooks';
 
-const ProjectDropdown = () => {
+type projectDropdownPropsType = {
+  allowNew?: boolean;
+  disabled?: boolean;
+};
+
+
+const ProjectDropdown = (props: projectDropdownPropsType) => {
   const dispatch = useAppDispatch();
   const projectName = useAppSelector((state) => state.userInfo.currentProject);
   const projectsInfo = useAppSelector((state) => state.userInfo.projectsInfo);
   const projects = projectsInfo.map(el => el.project_name);
   
-
   const handleChange = (e: SelectChangeEvent<string>) => {
     dispatch(setCurrentProject(e.target.value));
   };
@@ -47,6 +52,7 @@ const ProjectDropdown = () => {
           value={ projectName }
           onChange={ handleChange }
           sx={{ height: 40 }}
+          disabled={ props.disabled }
         >
           { menuItems }
         </Select>

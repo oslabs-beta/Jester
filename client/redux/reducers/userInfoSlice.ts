@@ -1,25 +1,17 @@
 import { createSlice, PayloadAction, createAsyncThunk } from '@reduxjs/toolkit';
 import { DEFAULT_PROJECT } from '../../constants';
 import axios from 'axios';
+import { userInfoStateType, projectsType } from '../../types';
 
-type projectsType = {
-  project_id: number;
-  project_name: string;
-  user_id: number;
-  clipboardInfo?: string[];
-  showAccessClipboard: boolean;
-};
 
-type userInfoStateType = {
-  showLogin: boolean;
-  isLoggedIn: boolean;
-  userId: number;
-  projectsInfo: projectsType[];
-  currentProject: string;
-  currentProjectId: number;
-};
+// const showSave =  (sessionStorage.getItem('clipboardData')) ? true : false;
+// For testing only, delete later
+const showSave =  true;
+
 const initialState: userInfoStateType = {
   showLogin: false,
+  // MLCK what is the name of the property in sessionStorage with clipboard data?
+  showSave: showSave,
   isLoggedIn: false,
   userId: 0,
   projectsInfo: [
@@ -32,6 +24,7 @@ const initialState: userInfoStateType = {
   ],
   currentProject: DEFAULT_PROJECT,
   currentProjectId: 0,
+  newProject: ''
 };
 
 export const userInfoSlice = createSlice({
@@ -40,6 +33,9 @@ export const userInfoSlice = createSlice({
   reducers: {
     setShowLogin: (state: userInfoStateType) => {
       state.showLogin = state.showLogin ? false : true;
+    },
+    setShowSave: (state: userInfoStateType) => {
+      state.showSave = !state.showSave;
     },
     setProjectsInfo: (
       state: userInfoStateType,
@@ -55,7 +51,10 @@ export const userInfoSlice = createSlice({
       state.currentProject = action.payload;
       const projects = state.projectsInfo.map(el => el.project_name);
       const projectIds = state.projectsInfo.map(el => el.project_id);
-      state.currentProjectId = projectIds[projects.indexOf(action.payload)]
+      state.currentProjectId = projectIds[projects.indexOf(action.payload)];
+    },
+    setNewProject: (state: userInfoStateType, action: PayloadAction<string>) => {
+      state.newProject = action.payload;
     },
     setIsLoggedIn: (state: userInfoStateType) => {
       state.isLoggedIn = state.isLoggedIn ? false : true;
@@ -123,6 +122,7 @@ const thunks = {
 
 export const {
   setShowLogin,
+  setShowSave,
   setProjectsInfo,
   setCurrentProject,
   setIsLoggedIn,
@@ -130,6 +130,7 @@ export const {
   setClipboardData,
   setShowAccessClipboard,
   setUserId,
+  setNewProject,
 } = userInfoSlice.actions;
 export const { addProject } = thunks;
 export default userInfoSlice.reducer;

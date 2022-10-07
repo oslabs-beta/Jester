@@ -1,6 +1,6 @@
 import axios from 'axios';
 import { createSlice, createAsyncThunk, PayloadAction } from '@reduxjs/toolkit';
-import { boilerplate_start, BOILERPLATE_END, DEFAULT_CLIPBOARD } from '../../constants';
+import { boilerplate_start, BOILERPLATE_END, DEFAULT_CLIPBOARD, INDENT } from '../../constants';
 import { clipboardStateType, postSnippetPayload } from '../../types';
 
 const initialState: clipboardStateType = {
@@ -11,14 +11,17 @@ const initialState: clipboardStateType = {
 
 const updateCodeDisplay = (state: clipboardStateType) => {
   if (state.codeSnippets.length) {
+    let codeSnips = state.codeSnippets;
+    codeSnips = codeSnips.map(snippet => snippet.split('\n').map(line => INDENT + line).join('\n'));
+
     const codeArr = [
       ...boilerplate_start(state.server),
-      ...state.codeSnippets.map(el => el + '\n'),
+      ...codeSnips.map(snippet => snippet + '\n'),
       BOILERPLATE_END
     ];
     state.codeDisplay = codeArr.join('');
   }
-}
+};
 
 export const clipboardSlice = createSlice({
   name: 'clipboard',
@@ -28,7 +31,7 @@ export const clipboardSlice = createSlice({
       state.codeSnippets.push(action.payload);
       updateCodeDisplay(state);
     },
-    copyClipboard: (state: clipboardStateType, action: PayloadAction<string>) => {
+    copyClipboard: (state: clipboardStateType) => {
       navigator.clipboard.writeText(state.codeDisplay);
     },
     setServer: (state: clipboardStateType, action: PayloadAction<string>) => {
@@ -69,12 +72,13 @@ const thunks = {
         response = await axios.post(
           `/api/clipboard/${ projectId }`,
           { code_snippet: codeOutput }
-        )
+        );
       } catch (error) {
         console.log('clipboardSlice/postSnippet', error);
       }
       console.log('THUNK: postSnippet', response);
-  }),
+    }
+  ),
   getSnippets: createAsyncThunk(
     'clipboardSlice/getSnippets', 
     async (projectId: number) => {
@@ -87,7 +91,8 @@ const thunks = {
       }
       console.log('THUNK: getSnippets', response);
       return response;
-  }),
+    }
+  ),
   deleteSnippets: createAsyncThunk(
     'clipboardSlice/deleteSnippets', 
     async (projectId: number) => {
@@ -100,8 +105,8 @@ const thunks = {
       }
       console.log('THUNK: deleteSnippets', response);
       return response;
-  }),
-
+    }
+  )
 };
 
 export const {
