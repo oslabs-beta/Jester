@@ -15,14 +15,14 @@ helperFunctions.headerGenerator = (header, assertions) => {
     }
   }
 
-  description = `responds with ` + description;
+  description = 'responds with ' + description;
   if (!assertions.length)
     description = `makes a ${header.method} request to "${header.endpoint}"`;
 
   headerOutput.push(`describe('${header.endpoint}', () => {`);
   headerOutput.push(` describe('${header.method}', () => {`);
   headerOutput.push(`  it('${description}', async () => {`);
-  headerOutput.push(`   const response = await request(server)`);
+  headerOutput.push('   const response = await request(server)');
   headerOutput.push(`   .${header.method.toLowerCase()}('${header.endpoint}')`);
 
   if (

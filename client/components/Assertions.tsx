@@ -70,7 +70,7 @@ export const Assertions = (props: assertionsPropsType) => {
             propsId: props.id,
             newMsg: 'enter a number between 100 and 511'
           })
-        )
+        );
       } else {
         dispatch(
           changeErrorMsg({

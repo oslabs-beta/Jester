@@ -11,6 +11,7 @@ import { Box } from '@mui/material';
 import { CodeGenerator } from './pages/CodeGenerator';
 import ClipBoard from './components/ClipBoard';
 import Auth from './pages/Auth';
+import { About } from './pages/About';
 
 const theme = createTheme({
   palette: {
@@ -46,6 +47,7 @@ const App = () => {
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/clipboard/:projectId" element={<ClipBoard />} />
+          <Route path='/about' element={<About />} />
           <Route path="/documentation" element={<Documentation />} />
           <Route path='/authenticate' element={<Auth />} />
           <Route

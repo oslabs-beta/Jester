@@ -1,7 +1,7 @@
 import React from 'react';
 import CollectionsBookmarkIcon from '@mui/icons-material/CollectionsBookmark';
 import { Button, Typography, Box } from '@mui/material';
-import { useAppDispatch} from '../redux/hooks';
+import { useAppDispatch } from '../redux/hooks';
 import {
   setShowProjectPanel,
 } from '../redux/reducers/navPanelSlice';
