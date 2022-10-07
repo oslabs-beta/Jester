@@ -1,11 +1,11 @@
-import { createSlice, PayloadAction } from '@reduxjs/toolkit';
+import { createSlice, PayloadAction, createAsyncThunk } from '@reduxjs/toolkit';
 import { DEFAULT_PROJECT } from '../../constants';
 import { userInfoStateType, projectsType } from '../../types';
-
+import axios from 'axios';
 
 // const showSave =  (sessionStorage.getItem('clipboardData')) ? true : false;
 // For testing only, delete later
-const showSave =  true;
+const showSave = true;
 
 const initialState: userInfoStateType = {
   showLogin: false,
@@ -23,7 +23,7 @@ const initialState: userInfoStateType = {
   ],
   currentProject: DEFAULT_PROJECT,
   currentProjectId: 0,
-  newProject: ''
+  newProject: '',
 };
 
 export const userInfoSlice = createSlice({
@@ -47,11 +47,14 @@ export const userInfoSlice = createSlice({
       action: PayloadAction<string>
     ) => {
       state.currentProject = action.payload;
-      const projects = state.projectsInfo.map(el => el.project_name);
-      const projectIds = state.projectsInfo.map(el => el.project_id);
+      const projects = state.projectsInfo.map((el) => el.project_name);
+      const projectIds = state.projectsInfo.map((el) => el.project_id);
       state.currentProjectId = projectIds[projects.indexOf(action.payload)];
     },
-    setNewProject: (state: userInfoStateType, action: PayloadAction<string>) => {
+    setNewProject: (
+      state: userInfoStateType,
+      action: PayloadAction<string>
+    ) => {
       state.newProject = action.payload;
     },
     setIsLoggedIn: (state: userInfoStateType) => {
@@ -90,7 +93,29 @@ export const userInfoSlice = createSlice({
       }
     },
   },
+  extraReducers: (builder) => {
+    builder.addCase(deleteProject.fulfilled, (state: userInfoStateType, action: any) => {
+      state.projectsInfo = action.payload.data;
+    });
+  },
 });
+
+const thunks = {
+  deleteProject: createAsyncThunk(
+    'userInfoSlice/deleteProject',
+    async (projectId: number) => {
+      console.log('THUNK: deleteProject', 'trying');
+      let response;
+      try {
+        response = await axios.delete(`/api/project/${projectId}`);
+      } catch (error) {
+        console.log('userInfoSlice/deleteProject', error);
+      }
+      console.log('THUNK: deleteProject', response);
+      return response;
+    }
+  ),
+};
 
 export const {
   setShowLogin,
@@ -104,4 +129,6 @@ export const {
   setUserId,
   setNewProject,
 } = userInfoSlice.actions;
+
+export const { deleteProject } = thunks;
 export default userInfoSlice.reducer;
