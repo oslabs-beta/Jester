@@ -3,19 +3,24 @@ import { Provider } from 'react-redux';
 import { fireEvent, render, screen } from '@testing-library/react';
 import configureStore from 'redux-mock-store';
 
+
 import '@testing-library/jest-dom';
 
 import ClipBoard from '../../client/components/ClipBoard';
 import ClipboardButton from '../../client/components/ClipboardButton';
+import { BrowserRouter } from 'react-router-dom';
 
 
-const initialState: any = {
-    // //should this be slice1 instead of base slice?
-    // slice: {
-    //   codeOutput1: 'describe(\'Sample description\')',
-    // },
-  };
-const mockStore: any = configureStore();
+const initialState = {
+  // //should this be slice1 instead of base slice?
+  slice1: {
+    codeOutput1: 'describe(\'Sample description\')',
+  },
+  slice: {
+    doneIcon1: 'describe()'
+  }
+};
+const mockStore = configureStore();
 
 /* What do we want CB to ideally do?
 
@@ -38,22 +43,51 @@ const mockStore: any = configureStore();
 
 
 const board = () => {
+  render(
+    <Provider store={mockStore(initialState)}>
+      <BrowserRouter>
+        <ClipBoard />
+      </BrowserRouter>
+    </Provider>  
+  );
+};
+
+const dButton = () => {
     render(
-        <Provider store={mockStore(initialState)}>
-            <ClipBoard />
-        </Provider>  
-    )
-};
+      <Provider store={mockStore(initialState)}>
+        <BrowserRouter>
+          <? />
+        </BrowserRouter>
+      </Provider>  
+    );
+  };
+  
 
 
 
-describe('', () => {
-    beforeAll(() => {
-    });
-
-    //So now our text block. We should use a .toBeInTheDocument() to test if it is rendering.
-    test('', () => {
-      const codeOutput = screen.getByLabelText('Testing Code');
-      expect(codeOutput.innerHTML).toEqual('describe(\'Sample description\')');
-    });
-};
+describe('Unit testing Clipboard component', () => {
+//   beforeAll(() => {
+//   });
+  //So now our text block. We should use a .toBeInTheDocument() to test if it is rendering.
+  //could get element by role instead since it is test field. textbox, {name: name of textbox}
+  test(`Renders a Clipboard with the role of ${'textbox'}`, () => {
+    board();
+    expect(screen.getByRole('textbox', {name:''})).toBeInTheDocument();
+  });
+  // Three more things we could unit test for: server url textbox, delete button, copy button.
+  //delete button:
+  test(`Renders the delete button with an identity of ${'main-clipboard'}`, () => {
+    dButton();
+    expect(screen.getByRole('textbox', {name:''})).toBeInTheDocument();
+  });
+  // copy button.
+  test(`Renders the copy button with an identity of ${'main-clipboard'}`, () => {
+    dButton();
+    expect(screen.getByRole('textbox', {name:''})).toBeInTheDocument();
+  });
+  // server url textbox
+  test(`Renders the server url textbox ${'main-clipboard'}`, () => {
+    dButton();
+    expect(screen.getByRole('textbox', {name:''})).toBeInTheDocument();
+  });
+});

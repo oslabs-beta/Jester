@@ -42,16 +42,20 @@ const ClipBoard = () => {
 
   useEffect(() => {
     // BH: commented out to fix styling
-    fetch(`/api/clipboard/${projectId}`)
-      .then((response) => response.json())
-      .then((response) => dispatch(setCodeOutput1(response)))
+    axios.get(`/api/clipboard/${projectId}`)
+      .then((response) => dispatch(setCodeOutput1(response.data)))
       .catch((err) => console.log(err));
+
+    // fetch(`/api/clipboard/${projectId}`)
+    //   .then((response) => response.json())
+    //   .then((response) => dispatch(setCodeOutput1(response)))
+    //   .catch((err) => console.log(err));
   });
 
   return (
     <div className='page-body'>
       <Box
-        sx={{
+        sx={{ 
           display: 'flex',
           flexDirection: 'column',
           alignItems: 'center',
