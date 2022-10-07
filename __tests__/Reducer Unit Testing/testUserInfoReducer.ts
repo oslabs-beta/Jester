@@ -9,7 +9,7 @@ describe('UserInfo Reducer', () => {
 
   beforeEach(() => defaultState = {
     showLogin: false,
-    showSave: false,
+    showSave: true,
     isLoggedIn: false,
     userId: 0,
     projectsInfo: [
