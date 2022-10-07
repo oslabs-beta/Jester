@@ -38,7 +38,7 @@
             "always"
         ],
         "object-curly-spacing": [
-            "warning", 
+            "warn", 
             "always"
         ],
         "react/prop-types": "off",
