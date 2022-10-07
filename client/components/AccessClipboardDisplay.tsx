@@ -15,7 +15,7 @@ type accessClipboardDisplayProps = {
 export const AccessClipboardDisplay = (props: accessClipboardDisplayProps) => {
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
-  const isLoggedIn = useAppSelector((state) => state.userInfo.isLoggedIn);
+  const isLoggedIn = sessionStorage.getItem('isLoggedIn');
   const projects = useAppSelector((state) => state.userInfo.projectsInfo);
   let show;
   for (const project of projects) {
