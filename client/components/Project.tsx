@@ -16,8 +16,10 @@ export const Project = (props: projectProps) => {
     dispatch(setShowAccessClipboard(props.projectId));
   };
   return (
-    <Box>
-      <Button onClick={handleClick} sx={{ display: 'flex', flexDirection: 'column' }}><CreditCardIcon />{props.name}</Button>
+    <Box sx={{ alignItems: 'center', justifyContent: 'center' }}>
+      <Button onClick={handleClick} sx={{ display: 'flex', flexDirection: 'column', wordWrap: 'anywhere', width: '100%'}}><CreditCardIcon />
+      {props.name}
+      </Button>
       <AccessClipboardDisplay projectId={props.projectId} />
     </Box>
   );

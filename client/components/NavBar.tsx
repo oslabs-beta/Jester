@@ -70,7 +70,7 @@ const NavBar = () => {
               onClick={handleLogout}
               sx={{ display: displayLogoutButton }}
             >
-              <LogoutIcon sx={{marginRight: '5px'}} /> Logout
+              <LogoutIcon sx={{marginRight: '5px', marginLeft: '5px'}} /> Logout
             </Button>
           ) : (
             <Button
@@ -78,7 +78,7 @@ const NavBar = () => {
               onClick={handleLoginOpen}
               sx={{ display: displayLoginButton }}
             >
-              <LoginIcon sx={{marginRight: '5px'}} />Login
+              <LoginIcon sx={{marginRight: '5px', marginLeft: '5px'}} />Login
             </Button>
           )}
 

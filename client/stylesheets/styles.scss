@@ -5,6 +5,7 @@ body {
 .page-container {
     margin-left:-120px;
     min-width: 1050px;
+    // max-height: 600px;
 }
 
 .page-body {
@@ -92,7 +93,8 @@ img[alt~='logo'] {
   position: relative;
   width: 100%;
   z-index: 99;
-  box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+  // box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+  box-shadow: rgba(0, 0, 0, 0.12) 0px 1px 3px, rgba(0, 0, 0, 0.24) 0px 1px 2px;
 }
 
 // Uncomment this section if changing Navbar to sticky
@@ -112,9 +114,12 @@ img[alt~='logo'] {
   position: relative;
   height: 100%;
   z-index: 10;
-  background: #f8f1ff;
-  padding-top: 10px;
-  box-shadow: rgba(6, 24, 44, 0.4) 0px 0px 0px 2px, rgba(6, 24, 44, 0.65) 0px 4px 6px -1px, rgba(255, 255, 255, 0.08) 0px 1px 0px inset;
+  background: #f9f6ff;
+  padding-top: 25px;
+  // box-shadow: rgba(6, 24, 44, 0.4) 0px 0px 0px 2px, rgba(6, 24, 44, 0.65) 0px 4px 6px -1px, rgba(255, 255, 255, 0.08) 0px 1px 0px inset;
+  box-shadow: rgba(0, 0, 0, 0.12) 0px 1px 3px, rgba(0, 0, 0, 0.24) 0px 1px 2px;
+
+  box-shadow: rgba(60, 64, 67, 0.3) 0px 1px 2px 0px, rgba(60, 64, 67, 0.15) 0px 1px 3px 1px;
 }
 
 .nav-panel-container {
@@ -123,4 +128,11 @@ img[alt~='logo'] {
 
 .project-panel-container {
   z-index: 9;
+}
+
+.divider {
+  width: 80px;
+  background-color: #5E17EB;
+  height: 2px;
+  border: none;
 }

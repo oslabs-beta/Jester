@@ -26,20 +26,21 @@ export const NavPanelDisplay = () => {
     <Box
     className="panel nav-panel-container"
       sx={{
+        width: '80px',
         display: 'flex',
         flexDirection: 'column',
 
       }}
     >
-      <Button onClick={handleHomeClick} sx={{display: 'flex', flexDirection:'column'}}><HomeIcon />Home</Button>
+      <Button onClick={handleHomeClick} sx={{display: 'flex', flexDirection:'column', marginBottom:2}}><HomeIcon />Home</Button>
       <Button
-        sx={{ display: 'flex', flexDirection: 'column' }}
+        sx={{ display: 'flex', flexDirection: 'column', marginBottom:2 }}
         onClick={handleProjectsClick}
       >
         <CollectionsBookmarkIcon />
-        <Typography sx={{ fontSize: '10px' }}>Projects</Typography>
+        <Typography sx={{ fontSize: '12px' }}>Projects</Typography>
       </Button>
-      <Button onClick={handleDocumentationClick} sx={{display: 'flex', flexDirection:'column'}}><ArticleIcon />Docs</Button>
+      <Button onClick={handleDocumentationClick} sx={{display: 'flex', flexDirection:'column', marginBottom:2}}><ArticleIcon />Docs</Button>
     </Box>
   );
 };

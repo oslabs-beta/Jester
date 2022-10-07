@@ -29,7 +29,9 @@ export const ProjectPanelContainer = () => {
         projectId={project['project_id']}
       />
     );
+    projects.push(<hr className="divider"/>);
   });
+  projects.pop();
   const handleAddProject = () => {
     dispatch(setShowAddProject());
   };
@@ -40,10 +42,11 @@ export const ProjectPanelContainer = () => {
         sx={{
           width: '100px',
           display: 'flex',
-          flexDirection: 'column',
+          flexDirection: 'column'
         }}
       >
         <Button onClick={handleAddProject} sx={{ display: 'flex', flexDirection: 'column' }}><AddCardIcon />Add New Project</Button>
+        <hr className="divider"/>
         {projects}
         
         <AddProjectDialog />
