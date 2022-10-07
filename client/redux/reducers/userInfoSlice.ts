@@ -1,12 +1,14 @@
 import { createSlice, PayloadAction, createAsyncThunk } from '@reduxjs/toolkit';
 import { DEFAULT_PROJECT } from '../../constants';
 import axios from 'axios';
-import { userInfoStateType, projectsType } from '../../types';
+import {
+  userInfoStateType,
+  projectsType,
+} from '../../types';
 
-
-// const showSave =  (sessionStorage.getItem('clipboardData')) ? true : false;
+const showSave = sessionStorage.getItem('clipboardData') ? true : false;
 // For testing only, delete later
-const showSave =  true;
+// const showSave = true;
 
 const initialState: userInfoStateType = {
   showLogin: false,
@@ -24,7 +26,7 @@ const initialState: userInfoStateType = {
   ],
   currentProject: DEFAULT_PROJECT,
   currentProjectId: 0,
-  newProject: ''
+  newProject: '',
 };
 
 export const userInfoSlice = createSlice({
@@ -49,11 +51,14 @@ export const userInfoSlice = createSlice({
       action: PayloadAction<string>
     ) => {
       state.currentProject = action.payload;
-      const projects = state.projectsInfo.map(el => el.project_name);
-      const projectIds = state.projectsInfo.map(el => el.project_id);
+      const projects = state.projectsInfo.map((el) => el.project_name);
+      const projectIds = state.projectsInfo.map((el) => el.project_id);
       state.currentProjectId = projectIds[projects.indexOf(action.payload)];
     },
-    setNewProject: (state: userInfoStateType, action: PayloadAction<string>) => {
+    setNewProject: (
+      state: userInfoStateType,
+      action: PayloadAction<string>
+    ) => {
       state.newProject = action.payload;
     },
     setIsLoggedIn: (state: userInfoStateType) => {
@@ -92,33 +97,7 @@ export const userInfoSlice = createSlice({
       }
     },
   },
-  extraReducers: (builder) => {
-    builder
-    .addCase(addProject.fulfilled, (state: userInfoStateType, action: PayloadAction<any>) => {
-      console.log(action.payload.data);
-      setProjectsInfo(action.payload.data);
-      // this is not working
-    })
-  }
 });
-
-const thunks = {
-  addProject: createAsyncThunk(
-    'clipboardSlice/addProject', 
-    async (projectName: string) => {
-      console.log('THUNK: deleteSnippets', 'trying');
-      let response;
-      try {
-        response = await axios.post('api/project/', {
-          project_name: projectName,
-        })
-      } catch (error) {
-        console.log('clipboardSlice/addProject', error);
-      }
-      console.log('THUNK: addProject', response);
-      return response;
-    })
-}
 
 export const {
   setShowLogin,
@@ -132,5 +111,4 @@ export const {
   setUserId,
   setNewProject,
 } = userInfoSlice.actions;
-export const { addProject } = thunks;
 export default userInfoSlice.reducer;
