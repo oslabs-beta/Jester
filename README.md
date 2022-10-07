@@ -36,7 +36,7 @@ As an open source project, we are always open to contributors wanting to improve
 <ul>
   <li>
     Anshuman Sinha
-    <a href="https://www.linkedin.com/in/mlamchamkee" target="_blank">
+    <a href="https://www.linkedin.com/in/anshuman-sinha1998" target="_blank">
       <img src="https://img.shields.io/badge/LinkedIn-0077B5?style=social&logo=linkedin" />
     </a>
       <a href="https://www.github.com/AnshumanSinha8" target="_blank">
@@ -45,7 +45,7 @@ As an open source project, we are always open to contributors wanting to improve
   </li>
   <li>
     Brian Hao
-    <a href="https://www.linkedin.com/in/mlamchamkee/" target="_blank">
+    <a href="https://www.linkedin.com/in/brianhao" target="_blank">
       <img src="https://img.shields.io/badge/LinkedIn-0077B5?style=social&logo=linkedin" />
     </a>
       <a href="https://www.github.com/BrianHao" target="_blank">
@@ -54,7 +54,7 @@ As an open source project, we are always open to contributors wanting to improve
   </li>
   <li>
     Lilah September
-    <a href="https://www.linkedin.com/in/mlamchamkee" target="_blank">
+    <a href="https://www.linkedin.com/in/lilah-august-28a857243" target="_blank">
       <img src="https://img.shields.io/badge/LinkedIn-0077B5?style=social&logo=linkedin" />
     </a>
       <a href="https://www.github.com/lilahaugust" target="_blank">
@@ -72,10 +72,10 @@ As an open source project, we are always open to contributors wanting to improve
   </li>
   <li>
     Serena Amos
-    <a href="https://www.linkedin.com/in/mlamchamkee/" target="_blank">
+    <a href="https://www.linkedin.com/in/serena-amos" target="_blank">
       <img src="https://img.shields.io/badge/LinkedIn-0077B5?style=social&logo=linkedin" />
     </a>
-      <a href="https://www.github.com/mlamchamkee/" target="_blank">
+      <a href="https://www.github.com/samos17" target="_blank">
       <img src="https://img.shields.io/badge/Github-0077B5?style=social&logo=github" />
     </a>
   </li>
