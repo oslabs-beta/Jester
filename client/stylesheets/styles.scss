@@ -120,10 +120,11 @@ img[alt~='logo'] {
   position: relative;
   height: 100%;
   z-index: 10;
-  background: rgba(249, 246, 255, 0.4);
+  background: rgba(249, 246, 255, 0.5);
   padding-top: 25px;
-  box-shadow: rgba(60, 64, 67, 0.3) 1px 0px 1px 0px, rgba(60, 64, 67, 0.15) 1px 0px 3px 0px;
-  border-right: 1px solid rgba(0,0,0,0.3);
+  box-shadow: rgba(60, 64, 67, 0.2) 1px 0px 1px 0px, rgba(60, 64, 67, 0.15) 1px 0px 1px 0px;
+  border-right: 1px solid rgba(74, 74, 74, 0.7);
+  backdrop-filter: blur(8px);
   // box-shadow: 5px 1px 5px 0px rgba(0,0,0,0.75);
 
 }
