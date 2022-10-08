@@ -6,6 +6,7 @@
   "scripts": {
     "test": "jest --verbose",
     "build": "NODE_ENV=production webpack",
+    "postinstall": "npm run build",
     "start": "NODE_ENV=production npx ts-node server/server.ts",
     "dev": "NODE_ENV=development webpack-dev-server & NODE_ENV=development nodemon server/server.ts"
   },
