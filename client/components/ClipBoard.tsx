@@ -29,6 +29,16 @@ const ClipBoard = () => {
     (state) => state.clipboard.codeDisplay
   );
 
+  const elementArr: JSX.Element[] = [];
+  codeDisplay.split('\n').forEach((el) => {
+    elementArr.push(
+      <pre>
+        { el }
+      </pre>
+    );
+  });
+  
+
   const updateServer = (e: ChangeEvent<HTMLInputElement>) => {
     dispatch(setServer(e.target.value));
   };
@@ -69,17 +79,20 @@ const ClipBoard = () => {
           error={server === ''}
           onChange={updateServer}
         ></TextField>
-        <TextField
-          className="text-display"
-          id="main-clipboard"
-          multiline
-          rows={30}
-          value={codeDisplay}
-          sx={{
-            width: 0.95,
-            fontFamily: 'Source Code Pro',
+        <Box 
+          sx={{ 
+            width: 800, 
+            minHeight: 400, 
+            overflow: 'auto',
+            color: 'white',
+            backgroundColor: '#011E3C',
+            p: 3,
           }}
-        />
+        >
+          <div id="main-clipboard">
+            { elementArr }
+          </div>
+        </Box> 
         <ClipboardButton />
         <Button
           onClick={handleClear}
