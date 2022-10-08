@@ -1,6 +1,6 @@
 // Package Imports
 import cookieSession from 'cookie-session';
-import express, { Express, Request, Response, NextFunction } from 'express';
+import express, { Request, Response, NextFunction } from 'express';
 import passport from 'passport';
 import path from 'path';
 import authRoutes from './routes/auth';

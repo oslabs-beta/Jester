@@ -40,10 +40,6 @@ passport.use(
     profile: any,
     done: any
   ) {
-    const email: string = profile.emails[0].value;
-    const params = [email];
-    // console.log(email);
-    // logic for creating a new record on the database for the user could go in here
     return done(null, profile);
   })
 );

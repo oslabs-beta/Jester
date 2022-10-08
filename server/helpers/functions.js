@@ -15,14 +15,14 @@ helperFunctions.headerGenerator = (header, assertions) => {
     }
   }
 
-  description = `responds with ` + description;
+  description = 'responds with ' + description;
   if (!assertions.length)
     description = `makes a ${header.method} request to "${header.endpoint}"`;
 
   headerOutput.push(`describe('${header.endpoint}', () => {`);
   headerOutput.push(` describe('${header.method}', () => {`);
   headerOutput.push(`  it('${description}', async () => {`);
-  headerOutput.push(`   const response = await request(server)`);
+  headerOutput.push('   const response = await request(server)');
   headerOutput.push(`   .${header.method.toLowerCase()}('${header.endpoint}')`);
 
   if (
@@ -52,7 +52,7 @@ helperFunctions.middleGenerator = (assertions) => {
     }
     if (keys[0] === 'content') {
       middleOutput.push(
-        `    expect(response.type).toBe(\'${assertion.content}\');`
+        `    expect(response.type).toBe('${assertion.content}');`
       );
     }
     if (keys[0] === 'res_body') {
@@ -67,7 +67,7 @@ helperFunctions.middleGenerator = (assertions) => {
 
 helperFunctions.compiledCodeGenerator = (headerOutput, middleOutput) => {
   const compiledCode = headerOutput.concat(middleOutput);
-  compiledCode.push(`  });`, ` });`, `});`);
+  compiledCode.push('  });', ' });', '});');
   return compiledCode.join('\n');
   // return compiledCode;
 };
