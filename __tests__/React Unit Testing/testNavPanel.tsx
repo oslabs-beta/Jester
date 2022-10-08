@@ -18,6 +18,9 @@ const initialState = {
       { project_id: 1, project_name: 'Project One', showAccessClipboard: true },
     ],
   },
+  clipboard: {
+    codeSnippets: [],
+  }
 };
 const mockStore: any = configureStore();
 const navPanel = () => {
@@ -93,6 +96,12 @@ const defaultStore = {
   navPanel: {
     showAddProject: true,
   },
+  userInfo: {
+    showLogin: false,
+  },
+  clipboard: {
+    codeSnippets: [],
+  }
 };
 
 const addProjectDialog = () => {
@@ -110,7 +119,7 @@ describe('Unit testing AddProjectDialog when add new project is clicked', () => 
     addProjectDialog();
   });
   test('it should render a dialog box with instructions if a user is not logged in', () => {
-    expect(screen.getByRole('dialog', { name: '' })).toBeInTheDocument();
+    expect(screen.getByRole('dialog', { name: 'To add a project, you must be logged in!' })).toBeInTheDocument();
     expect(
       screen.getByText('To add a project, you must be logged in!')
     ).toBeInTheDocument();

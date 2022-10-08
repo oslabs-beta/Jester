@@ -1,5 +1,5 @@
 import React, { useState, ChangeEvent } from 'react';
-import { Dialog, TextField, Button, Typography, Box, DialogTitle } from '@mui/material';
+import { Dialog, TextField, Button, Box, DialogTitle } from '@mui/material';
 import { setShowAddProject } from '../redux/reducers/navPanelSlice';
 import { useAppDispatch, useAppSelector } from '../redux/hooks';
 import { setProjectsInfo, setShowLogin } from '../redux/reducers/userInfoSlice';
