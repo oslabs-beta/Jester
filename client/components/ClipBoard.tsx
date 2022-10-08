@@ -1,6 +1,6 @@
 import React, { ChangeEvent, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
-import { TextField, Box, Button, Paper } from '@mui/material';
+import { TextField, Box, Button } from '@mui/material';
 import DeleteForeverIcon from '@mui/icons-material/DeleteForever';
 
 import { useAppDispatch, useAppSelector } from '../redux/hooks';
