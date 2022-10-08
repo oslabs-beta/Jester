@@ -6,6 +6,12 @@ import { setShowAddProject } from '../redux/reducers/navPanelSlice';
 import { AddProjectDialog } from '../components/AddProjectDialog';
 import { Project } from '../components/Project';
 
+/*
+This component displays the second column of the nav panel that provides a user with navigation
+to each of their project's clipboards, as well as with the ability to delete any project,
+and the ability to add a project.
+*/
+
 export const ProjectPanelContainer = () => {
   const dispatch = useAppDispatch();
   const showProjectPanel = useAppSelector(
@@ -38,7 +44,7 @@ export const ProjectPanelContainer = () => {
   if (showProjectPanel)
     return (
       <Box
-      className="panel project-panel-container"
+        className="panel project-panel-container"
         sx={{
           width: '100px',
           display: 'flex',

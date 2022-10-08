@@ -2,8 +2,7 @@ import React from 'react';
 import { TestInputForm } from '../components/TestInputForm';
 import CodeContainer from '../containers/CodeContainer';
 import SaveDataContainer from '../containers/SaveDataContainer';
-import { useAppDispatch, useAppSelector } from '../redux/hooks';
-import { setShowSave } from '../redux/reducers/userInfoSlice';
+import { useAppSelector } from '../redux/hooks';
 
 export const CodeGenerator = () => {
   const showSave = useAppSelector((state) => state.userInfo.showSave);
@@ -12,7 +11,7 @@ export const CodeGenerator = () => {
     <div className='page-body'>
       <TestInputForm />
       <CodeContainer />
-      <SaveDataContainer open={ showSave } />
+      <SaveDataContainer open={showSave} />
     </div>
   );
 };

@@ -1,14 +1,14 @@
 import React, { useState, ChangeEvent } from 'react';
-import {
-  Dialog,
-  TextField,
-  Button,
-  Typography,
-} from '@mui/material';
+import { Dialog, TextField, Button, Typography } from '@mui/material';
 import { setShowAddProject } from '../redux/reducers/navPanelSlice';
 import { useAppDispatch, useAppSelector } from '../redux/hooks';
 import { setProjectsInfo } from '../redux/reducers/userInfoSlice';
 import axios from 'axios';
+
+/* 
+This component will allow a user to create a new project in the database
+where generated test code snippets will be stored
+*/
 
 export const AddProjectDialog = () => {
   const [projectName, setProjectName] = useState('');
@@ -19,7 +19,7 @@ export const AddProjectDialog = () => {
   const handleClose = () => {
     dispatch(setShowAddProject());
   };
-  const handleAddProject = async () => {
+  const handleAddProject = async () => { 
     const response = await axios.post('api/project/', {
       project_name: projectName,
     });

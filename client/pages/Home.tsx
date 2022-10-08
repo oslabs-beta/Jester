@@ -9,8 +9,7 @@ const Home = () => {
 
 
   useEffect(() => {
-    if(sessionStorage.getItem('isLoggedIn')) {
-      // SA - TEMPORARY COMMENT-OUT
+    if (sessionStorage.getItem('isLoggedIn')) {
       axios.get('/api/project').then((res) => {
         dispatch(setProjectsInfo(res.data));
       });

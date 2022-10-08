@@ -7,22 +7,19 @@ import userEvent from '@testing-library/user-event';
 
 import { TestInputForm } from '../../client/components/TestInputForm';
 import { ProjectDropdown } from '../../client/components/ProjectDropdown';
-import { setRequestType } from '../../client/redux/reducers/testFormSlice';
-
 
 import { RequestBody } from '../../client/components/RequestBody';
 import { DEFAULT_PROJECT } from '../../client/constants';
 
-
 describe('Unit testing "TestInputForm" component', () => {
-  const initialState = { 
+  const initialState = {
     testForm: {
       requestType: 'Get',
       assertionList: {},
       i: 0,
       userInput: '',
     },
-    userInfo: { 
+    userInfo: {
       projectsInfo: [
         {
           project_id: 0,
@@ -31,7 +28,8 @@ describe('Unit testing "TestInputForm" component', () => {
           showAccessClipboard: false,
         },
       ],
-      currentProject: DEFAULT_PROJECT }
+      currentProject: DEFAULT_PROJECT,
+    },
   };
 
   const mockStore = configureStore();
@@ -56,11 +54,6 @@ describe('Unit testing "TestInputForm" component', () => {
   });
 
   xtest('Dropdown menu for request type renders successfully', async () => {
-    // const dropdown = screen.getByDisplayValue('Get');
-    // console.log(dropdown)
-    // expect(dropdown.type).toEqual('text');
-    // const dropdown = document.querySelector('#request-selector')
-
     userEvent.click(screen.getByRole('button', { name: 'Get' }));
     await (() => userEvent.click(screen.getByText(/Post/i)));
     expect(await screen.getByText('Post')).toBeInTheDocument();
@@ -68,12 +61,16 @@ describe('Unit testing "TestInputForm" component', () => {
 
   test('Add assertion button renders successfully', () => {
     expect(screen.getByText('+')).toBeInTheDocument();
-    expect(screen.getByRole('button', { name : '+' })).toBeInTheDocument();
+    expect(screen.getByRole('button', { name: '+' })).toBeInTheDocument();
   });
 
   test('Endpoint textbox renders successfully', () => {
-    expect(screen.getByRole('textbox', { name: 'Endpoint' })).toBeInTheDocument();
-    expect(screen.getByRole('textbox', { name: 'Endpoint' }).id).toEqual('endpoint');
+    expect(
+      screen.getByRole('textbox', { name: 'Endpoint' })
+    ).toBeInTheDocument();
+    expect(screen.getByRole('textbox', { name: 'Endpoint' }).id).toEqual(
+      'endpoint'
+    );
   });
 
   xtest('Add button renders middle component', () => {
@@ -82,13 +79,13 @@ describe('Unit testing "TestInputForm" component', () => {
     expect(dropdown).toBeInTheDocument();
     const textbox = screen.getByLabelText('User Input');
     expect(textbox).toBeInTheDocument();
-    expect(screen.getByRole('textbox', { name: 'User Input' })).toBeInTheDocument();
+    expect(
+      screen.getByRole('textbox', { name: 'User Input' })
+    ).toBeInTheDocument();
     const button = screen.getByText('-');
     expect(button).toBeInTheDocument();
     expect(screen.getByRole('textbox', { name: '-' })).toBeInTheDocument();
   });
-
-  // add button renders middle component
 
   test('Dropdown menu for project renders successfully', async () => {
     render(
@@ -99,19 +96,17 @@ describe('Unit testing "TestInputForm" component', () => {
     const dropdown = screen.getByRole('button', { name: 'Project One' });
     expect(dropdown).toBeInTheDocument();
   });
-
-  xtest('Generate Test Code button renders successfully', () => {
-    // Is that for Lilah?
-  });
 });
 
 describe('Unit testing "RequestBody" component', () => {
-  const initialState = { testForm: {
-    requestType: 'Post',
-    assertionList: {},
-    i: 0,
-    userInput: '',
-  } };
+  const initialState = {
+    testForm: {
+      requestType: 'Post',
+      assertionList: {},
+      i: 0,
+      userInput: '',
+    },
+  };
 
   const mockStore = configureStore();
   let store;
@@ -121,7 +116,9 @@ describe('Unit testing "RequestBody" component', () => {
     const state = store.getState();
     render(
       <Provider store={store}>
-        <RequestBody showField = {state.testForm.requestType === 'Get' ? false : true} />
+        <RequestBody
+          showField={state.testForm.requestType === 'Get' ? false : true}
+        />
       </Provider>
     );
   });
@@ -129,5 +126,4 @@ describe('Unit testing "RequestBody" component', () => {
   test('Request body textbox renders successfully when requestType is Post, Patch, or Delete', () => {
     expect(screen.getByTestId('Request-Body')).toBeInTheDocument();
   });
-
 });

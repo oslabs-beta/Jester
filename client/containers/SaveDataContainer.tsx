@@ -25,11 +25,16 @@ type saveDataPropsType = {
   open: boolean;
 };
 
+/*
+This component allows a user to reconcile the clipboard test data that they made 
+while not logged in with a project stored in the database once they do login.
+*/
+
 const SaveDataContainer = (props: saveDataPropsType) => {
-  const newProject = useAppSelector((state) => state.userInfo.newProject); // project from input
+  const newProject = useAppSelector((state) => state.userInfo.newProject);
   const selectedProject = useAppSelector(
     (state) => state.userInfo.currentProject
-  ); // project from dropdown
+  );
   const projects = useAppSelector((state) => state.userInfo.projectsInfo);
   const disableDropdown = Boolean(newProject.length);
 
@@ -50,7 +55,8 @@ const SaveDataContainer = (props: saveDataPropsType) => {
       const storedSnippets = sessionStorage.getItem('clipboardData');
       if (storedSnippets) snippets = JSON.parse(storedSnippets);
     }
-    if (newProject !== '') { // add saved code snippets to a new project
+    if (newProject !== '') { 
+      // add saved code snippets to a new project
       const response = await axios.post('api/project/', {
         project_name: newProject,
       });
@@ -64,7 +70,8 @@ const SaveDataContainer = (props: saveDataPropsType) => {
           })
         );
       });
-    } else { // add saved code snippets to a pre-existing project
+    } else { 
+      // add saved code snippets to a pre-existing project
       let projectId: number;
       for (const project of projects) {
         if (project.project_name === selectedProject)
@@ -81,7 +88,6 @@ const SaveDataContainer = (props: saveDataPropsType) => {
 
   return (
     <Dialog
-      // onClose={ handleClose }
       open={props.open}
     >
       <Box

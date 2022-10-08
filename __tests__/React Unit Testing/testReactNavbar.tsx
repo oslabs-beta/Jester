@@ -1,8 +1,7 @@
 import React from 'React';
 import { Provider } from 'react-redux';
 import configureStore from 'redux-mock-store';
-import { fireEvent, render, screen } from '@testing-library/react';
-import userEvent from '@testing-library/user-event';
+import { render, screen } from '@testing-library/react';
 import { BrowserRouter } from 'react-router-dom';
 
 import Navbar from '../../client/components/Navbar';
@@ -10,35 +9,28 @@ import Navbar from '../../client/components/Navbar';
 import '@testing-library/jest-dom';
 
 type sliceType = {
-  codeOutput: string
+  codeOutput: string;
 };
 
 type userInfoType = {
-  showLogin: false,
-}
+  showLogin: false;
+};
 
 type initialStateType = {
-  slice: sliceType,
-  userInfo: userInfoType,
-}
+  slice: sliceType;
+  userInfo: userInfoType;
+};
 
-const initialState: initialStateType = {slice: {
-  codeOutput: `describe('Sample description')`,
-}, userInfo: {
-  showLogin: false,
-}};
+const initialState: initialStateType = {
+  slice: {
+    codeOutput: 'describe(\'Sample description\')',
+  },
+  userInfo: {
+    showLogin: false,
+  },
+};
 
 const mockStore: any = configureStore();
-// const initialState = {
-//   slice: {
-//     codeOutput: `describe('Sample description')`
-//   },
-//   userInfo: {
-//     showLogin: false
-//   }
-// };
-
-// const mockStore = configureStore();
 
 const navbar = () => {
   render(
@@ -49,8 +41,6 @@ const navbar = () => {
     </Provider>
   );
 };
-
-// Not rending in beforeEach yet in case we need t
 describe('Unit testing Navbar components', () => {
   beforeEach(() => {
     navbar();
