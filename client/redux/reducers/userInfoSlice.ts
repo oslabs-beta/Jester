@@ -3,6 +3,7 @@ import { DEFAULT_PROJECT } from '../../constants';
 import { userInfoStateType, projectsType } from '../../types';
 import axios from 'axios';
 
+
 // const showSave =  (sessionStorage.getItem('clipboardData')) ? true : false;
 // For testing only, delete later
 const showSave = true;
@@ -11,7 +12,6 @@ const initialState: userInfoStateType = {
   showLogin: false,
   // MLCK what is the name of the property in sessionStorage with clipboard data?
   showSave: showSave,
-  isLoggedIn: false,
   userId: 0,
   projectsInfo: [
     {
@@ -57,14 +57,22 @@ export const userInfoSlice = createSlice({
     ) => {
       state.newProject = action.payload;
     },
-    setIsLoggedIn: (state: userInfoStateType) => {
-      state.isLoggedIn = state.isLoggedIn ? false : true;
-    },
     setUserId: (state: userInfoStateType, action: PayloadAction<number>) => {
       state.userId = action.payload;
     },
     logout: (state: userInfoStateType) => {
-      state = initialState;
+      state.projectsInfo = [
+        {
+          project_id: 0,
+          project_name: DEFAULT_PROJECT,
+          user_id: 0,
+          showAccessClipboard: false,
+        },
+      ];
+      state.userId = 0;
+      state.currentProject = DEFAULT_PROJECT;
+      state.newProject = '';
+
     },
     setClipboardData: (
       state: userInfoStateType,

@@ -9,6 +9,7 @@ export const RequestBody = (props: requestBodyPropsType) => {
   if (props.showField) {
     return (
       <TextField
+        className="text-display"
         label="Request Body"
         id="req_body"
         data-testid="Request-Body"
