@@ -12,7 +12,11 @@ type navProjectMenuProps = {
   projectId: number;
 };
 
-// This component enables navigation to each projects clipboard and gives user the ability to delete project from db.
+/* 
+This component enables navigation to each project's unique clipboard 
+and gives a user the ability to delete any of their projects from the database.
+*/
+
 export const NavProjectMenu = (props: navProjectMenuProps) => {
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
@@ -27,14 +31,15 @@ export const NavProjectMenu = (props: navProjectMenuProps) => {
 
   const handleClipboardClick = () => {
     if (isLoggedIn) navigate(`/clipboard/${props.projectId}`);
-    else navigate('/clipboard/0'); // if not logged in, navigates to default clipboard in state
+    // if not logged in, navigates to default clipboard in state
+    else navigate('/clipboard/0'); 
   };
 
-  const handleDeleteClick = async () => { // deletes project from DB and updates state if user logged in
+  const handleDeleteClick = async () => { 
     if (isLoggedIn) {
       const projects = await axios.delete(`/api/project/${props.projectId}`); 
       dispatch(setProjectsInfo(projects.data));
-    } else { // deleted clipboard data in state if user not logged in
+    } else { 
       dispatch(clearClipboardState());
     }
   };
