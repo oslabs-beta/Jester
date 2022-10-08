@@ -15,7 +15,7 @@ const initialState = {
     codeOutput: 'describe(\'Sample description\')',
   },
   userInfo: {
-    isLoggedIn: false,
+    currentProjectId: 0, 
   },
 };
 
@@ -24,8 +24,9 @@ const clickedState = {
     doneIcon: true,
   },
   userInfo: {
-    isLoggedIn: false,
+    currentProjectId: 0, 
   },
+
 };
 
 const mockStore = configureStore();

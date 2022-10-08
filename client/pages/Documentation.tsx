@@ -4,6 +4,7 @@ import { Typography } from '@mui/material';
 const Documentation = () => {
   return (
     <div className='page-body'>
+      <div className='documentation-container'>
       <Typography variant='h4' component='h2'>
         <ol>
           <li>
@@ -35,6 +36,8 @@ const Documentation = () => {
           </li>
         </ol>
       </Typography>
+      </div>
+      
     </div>
   );
 };

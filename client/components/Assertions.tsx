@@ -133,6 +133,7 @@ export const Assertions = (props: assertionsPropsType) => {
         <FormControl>
           <InputLabel></InputLabel>
           <Select
+            className="text-display"
             name="more-test-options"
             id={props.id}
             value={currValue}
@@ -153,6 +154,7 @@ export const Assertions = (props: assertionsPropsType) => {
           </Select>
         </FormControl>
         <TextField
+          className="text-display"
           label={currValue}
           id={currValue}
           name={currValue}

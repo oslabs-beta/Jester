@@ -18,6 +18,7 @@ const CodeText = () => {
   return (
     <TextField
       id="code-output"
+      className="text-display"
       label="Testing Code"
       multiline
       rows={10}

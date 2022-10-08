@@ -4,7 +4,12 @@ import Box from '@mui/material/Box';
 import Toolbar from '@mui/material/Toolbar';
 import Typography from '@mui/material/Typography';
 import Button from '@mui/material/Button';
-import { setShowLogin, logout } from '../redux/reducers/userInfoSlice';
+import LoginIcon from '@mui/icons-material/Login';
+import LogoutIcon from '@mui/icons-material/Logout';
+import {
+  setShowLogin,
+  logout
+} from '../redux/reducers/userInfoSlice';
 import { useAppDispatch, useAppSelector } from '../redux/hooks';
 import { Login } from './Login';
 import { Link, useNavigate } from 'react-router-dom';
@@ -14,11 +19,13 @@ import Cookies from 'js-cookie';
 const NavBar = () => {
   const navigate = useNavigate();
   const open: boolean = useAppSelector((state) => state.userInfo.showLogin);
+  const clipboardData: string[] = useAppSelector((state) => state.clipboard.codeSnippets);
   const displayLoginButton = 'auto';
   const displayLogoutButton = 'auto';
 
   const dispatch = useAppDispatch();
   const handleLoginOpen = () => {
+    sessionStorage.setItem('clipboardData', JSON.stringify(clipboardData));
     dispatch(setShowLogin());
   };
   const handleLogout = async () => {
@@ -55,18 +62,13 @@ const NavBar = () => {
               Welcome, Guest!
             </Button>
           )}
-          <Button color="inherit">
-            <Link className="nav-link" to="/documentation">
-              Documentation
-            </Link>
-          </Button>
           {sessionStorage.getItem('isLoggedIn') ? (
             <Button
               color="inherit"
               onClick={handleLogout}
               sx={{ display: displayLogoutButton }}
             >
-              Logout
+              <LogoutIcon sx={{ marginRight: '5px', marginLeft: '5px' }} /> Logout
             </Button>
           ) : (
             <Button
@@ -74,7 +76,7 @@ const NavBar = () => {
               onClick={handleLoginOpen}
               sx={{ display: displayLoginButton }}
             >
-              Login
+              <LoginIcon sx={{ marginRight: '5px', marginLeft: '5px' }} />Login
             </Button>
           )}
 

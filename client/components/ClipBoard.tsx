@@ -6,11 +6,11 @@ import DeleteForeverIcon from '@mui/icons-material/DeleteForever';
 import { useAppDispatch, useAppSelector } from '../redux/hooks';
 import {
   setServer,
-  deleteSnippets,
   getSnippets,
   clearClipboardState,
 } from '../redux/reducers/ClipBoardReducers';
 import ClipboardButton from './ClipboardButton';
+import { deleteProject } from '../redux/reducers/userInfoSlice';
 
 const ClipBoard = () => {
   const navigate = useNavigate();
@@ -30,7 +30,7 @@ const ClipBoard = () => {
 
   const handleClear = () => {
     if (isLoggedIn) {
-      dispatch(deleteSnippets(projectId));
+      dispatch(deleteProject(projectId));
       navigate('/');
     } else {
       dispatch(clearClipboardState());
@@ -56,6 +56,7 @@ const ClipBoard = () => {
         className="code-container"
       >
         <TextField
+          className="text-display"
           label="Server URL"
           sx={{ width: '300px' }}
           value={server}
@@ -63,6 +64,7 @@ const ClipBoard = () => {
           onChange={updateServer}
         ></TextField>
         <TextField
+          className="text-display"
           id="main-clipboard"
           multiline
           rows={30}
