@@ -3,7 +3,7 @@ import { Button, Box } from '@mui/material';
 import CreditCardIcon from '@mui/icons-material/CreditCard';
 import { useAppDispatch } from '../redux/hooks';
 import { setShowAccessClipboard } from '../redux/reducers/userInfoSlice';
-import { AccessClipboardDisplay } from './AccessClipboardDisplay';
+import { NavProjectMenu } from './NavProjectMenu';
 
 type projectProps = {
   name: string;
@@ -20,7 +20,7 @@ export const Project = (props: projectProps) => {
       <Button onClick={handleClick} sx={{ display: 'flex', flexDirection: 'column', wordWrap: 'anywhere', width: '100%' }}><CreditCardIcon />
         {props.name}
       </Button>
-      <AccessClipboardDisplay projectId={props.projectId} />
+      <NavProjectMenu projectId={props.projectId} />
     </Box>
   );
 };

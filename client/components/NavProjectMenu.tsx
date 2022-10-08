@@ -8,10 +8,10 @@ import IntegrationInstructionsIcon from '@mui/icons-material/IntegrationInstruct
 import DeleteForeverIcon from '@mui/icons-material/DeleteForever';
 import { clearClipboardState } from '../redux/reducers/ClipBoardReducers';
 
-type accessClipboardDisplayProps = {
+type navProjectMenuProps = {
   projectId: number;
 };
-export const AccessClipboardDisplay = (props: accessClipboardDisplayProps) => {
+export const NavProjectMenu = (props: navProjectMenuProps) => {
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
   const isLoggedIn = sessionStorage.getItem('isLoggedIn');
