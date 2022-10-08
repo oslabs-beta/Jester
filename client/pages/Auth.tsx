@@ -3,6 +3,11 @@ import { useNavigate } from 'react-router-dom';
 import Typography from '@mui/material/Typography';
 import Cookies from 'js-cookie';
 
+/*
+This component will provide a loading page for the user upon github verification in order to 
+gather user information from cookies and set values in sessionStorage.
+*/
+
 const Auth = () => {
   const navigate = useNavigate();
   const [username, setUsername] = useState('');
