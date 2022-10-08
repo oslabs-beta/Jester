@@ -3,7 +3,7 @@ import React from 'react';
 import { Button, Box, Dialog, DialogTitle, Typography } from '@mui/material';
 import GitHubIcon from '@mui/icons-material/GitHub';
 import { useAppDispatch } from '../redux/hooks';
-import { setShowLogin, setIsLoggedIn, setUserId, setProjectsInfo } from '../redux/reducers/userInfoSlice';
+import { setShowLogin } from '../redux/reducers/userInfoSlice';
 
 type loginProps = {
   open: boolean;
@@ -25,38 +25,41 @@ export const Login = (props: loginProps) => {
     }
   };
   return (
-    <Dialog 
-      onClose={ handleClose } 
-      open={props.open}
-    >
-      <Box sx={{
-        display: 'flex',
-        flexDirection: 'column', 
-        alignItems: 'center',
-        height: 230
-      }}>
-        <Box sx={{
-          width: 400,
+    <Dialog onClose={handleClose} open={props.open}>
+      <Box
+        sx={{
           display: 'flex',
-          flexDirection: 'row', 
-          backgroundColor: '#5E17EB',
-          justifyContent: 'center'
-        }}>
+          flexDirection: 'column',
+          alignItems: 'center',
+          height: 230,
+        }}
+      >
+        <Box
+          sx={{
+            width: 400,
+            display: 'flex',
+            flexDirection: 'row',
+            backgroundColor: '#5E17EB',
+            justifyContent: 'center',
+          }}
+        >
           <img alt="logo" src="../assets/logo-jester.png" />
         </Box>
         <DialogTitle>Log in to your account</DialogTitle>
-        <Button 
-          variant="outlined" 
+        <Button
+          variant="outlined"
           href="/auth/github"
           size="large"
           sx={{
             margin: 2,
           }}
         >
-          <GitHubIcon onClick={ handleClick } />
-            GitHub
+          <GitHubIcon onClick={handleClick} />
+          GitHub
         </Button>
-        <Typography id="error-message" sx={{display: 'none', color: 'red'}}>Error</Typography>
+        <Typography id="error-message" sx={{ display: 'none', color: 'red' }}>
+          Error
+        </Typography>
       </Box>
     </Dialog>
   );

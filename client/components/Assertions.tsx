@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import {
   FormControl,
   MenuItem,
@@ -64,13 +64,13 @@ export const Assertions = (props: assertionsPropsType) => {
             newMsg: 'please enter a number',
           })
         );
-      } else if (userInput < 100 || userInput > 511){
+      } else if (userInput < 100 || userInput > 511) {
         dispatch(
           changeErrorMsg({
             propsId: props.id,
-            newMsg: 'enter a number between 100 and 511'
+            newMsg: 'enter a number between 100 and 511',
           })
-        )
+        );
       } else {
         dispatch(
           changeErrorMsg({
@@ -80,11 +80,13 @@ export const Assertions = (props: assertionsPropsType) => {
         );
       }
     } else {
-      if (e.target.id === 'Content Type'){
-        if (Number(userInput) || 
-        !userInput.includes('/') || 
-        userInput[0] === '/' || 
-        userInput[userInput.length - 1] === '/') {
+      if (e.target.id === 'Content Type') {
+        if (
+          Number(userInput) ||
+          !userInput.includes('/') ||
+          userInput[0] === '/' ||
+          userInput[userInput.length - 1] === '/'
+        ) {
           dispatch(
             changeErrorMsg({
               propsId: props.id,
@@ -155,8 +157,6 @@ export const Assertions = (props: assertionsPropsType) => {
           id={currValue}
           name={currValue}
           error={!errorMsgs[props.id] ? false : true}
-          //   id="outlined-error-helper-text"
-          //   label="Error"
           helperText={errorMsgs[props.id]}
           onChange={handleType}
           required

@@ -1,4 +1,3 @@
-import axios from 'axios'; // to be used by handleClear
 import React, { ChangeEvent, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { TextField, Box, Button } from '@mui/material';
@@ -9,7 +8,7 @@ import {
   setServer,
   deleteSnippets,
   getSnippets,
-  clearClipboardState
+  clearClipboardState,
 } from '../redux/reducers/ClipBoardReducers';
 import ClipboardButton from './ClipboardButton';
 
@@ -18,11 +17,13 @@ const ClipBoard = () => {
   const dispatch = useAppDispatch();
   const projectId = Number(useParams().projectId);
   const isLoggedIn = sessionStorage.getItem('isLoggedIn');
-  const buttonText = (isLoggedIn) ? 'Delete Project' : 'Clear Clipboard'
+  const buttonText = isLoggedIn ? 'Delete Project' : 'Clear Clipboard';
 
   const server: string = useAppSelector((state) => state.clipboard.server);
-  const codeDisplay: string = useAppSelector((state) => state.clipboard.codeDisplay);
-  
+  const codeDisplay: string = useAppSelector(
+    (state) => state.clipboard.codeDisplay
+  );
+
   const updateServer = (e: ChangeEvent<HTMLInputElement>) => {
     dispatch(setServer(e.target.value));
   };
@@ -35,12 +36,12 @@ const ClipBoard = () => {
       dispatch(clearClipboardState());
     }
   };
-  // need to discuss how to implement handleClear to match the back-end
 
   useEffect(() => {
     if (isLoggedIn) {
-      dispatch(getSnippets(projectId))}
-    });
+      dispatch(getSnippets(projectId));
+    }
+  });
 
   return (
     <div className="page-body">
@@ -50,35 +51,35 @@ const ClipBoard = () => {
           flexDirection: 'column',
           alignItems: 'center',
           gap: '10px',
-          width: 800
+          width: 800,
         }}
         className="code-container"
       >
         <TextField
           label="Server URL"
           sx={{ width: '300px' }}
-          value={ server }
-          error={ server === '' }
-          onChange={ updateServer }
+          value={server}
+          error={server === ''}
+          onChange={updateServer}
         ></TextField>
         <TextField
           id="main-clipboard"
           multiline
-          rows={ 30 }
-          value={ codeDisplay }
+          rows={30}
+          value={codeDisplay}
           sx={{
             width: 0.95,
-            fontFamily: 'Source Code Pro'
+            fontFamily: 'Source Code Pro',
           }}
         />
         <ClipboardButton />
         <Button
-          onClick={ handleClear }
+          onClick={handleClear}
           sx={{
-            flexDirection: 'column'
+            flexDirection: 'column',
           }}
         >
-          <DeleteForeverIcon /> { buttonText }
+          <DeleteForeverIcon /> {buttonText}
         </Button>
       </Box>
     </div>
