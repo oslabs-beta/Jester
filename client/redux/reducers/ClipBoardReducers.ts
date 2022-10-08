@@ -60,9 +60,6 @@ export const clipboardSlice = createSlice({
   },
   extraReducers: (builder) => {
     builder
-      .addCase(postSnippet.fulfilled, (state: clipboardStateType) => {
-        // nothing to be done here, delete if that's true?
-      })
       .addCase(
         getSnippets.fulfilled,
         (state: clipboardStateType, action: any) => {

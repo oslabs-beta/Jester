@@ -8,6 +8,11 @@ type propsType = {
   testId: string;
 };
 
+/*
+This component holds functionality for a button to change icons on user selection
+This functionality is used for both the copy to clipboard button, and the add to project button
+*/
+
 const AppButton = (props: propsType) => {
   const { start, end, onClick, testId } = props;
   const [icon, setIcon] = useState(start);
