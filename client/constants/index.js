@@ -4,9 +4,9 @@ export const DEFAULT_PROJECT = 'Project One';
 
 export const boilerplate_start = (server) => {
   return [
-    "const request = require('supertest');\n",
+    'const request = require(\'supertest\');\n',
     `const server = '${server}';\n\n`,
-    "describe('Route Integration Testing', ( ) => {\n",
+    'describe(\'Route Integration Testing\', ( ) => {\n',
   ];
 };
 

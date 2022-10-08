@@ -86,11 +86,11 @@ describe('testsController middleware unit tests', () => {
     };
     const assertions = [];
     const expectedResult = [
-      "describe('/', () => {",
-      " describe('GET', () => {",
+      'describe(\'/\', () => {',
+      ' describe(\'GET\', () => {',
       '  it(\'makes a GET request to "/"\', async () => {',
       '   const response = await request(server)',
-      "   .get('/');",
+      '   .get(\'/\');',
     ];
 
     it('empty assertions array should return default header', () => {
@@ -100,7 +100,7 @@ describe('testsController middleware unit tests', () => {
 
     it('assertions array with status assertion should return header with status description', () => {
       assertions.push({ status: 200 });
-      expectedResult[2] = "  it('responds with status 200', async () => {";
+      expectedResult[2] = '  it(\'responds with status 200\', async () => {';
       const result = helperFunctions.headerGenerator(header, assertions);
       expect(result).toEqual(expectedResult);
     });
@@ -108,7 +108,7 @@ describe('testsController middleware unit tests', () => {
     it('assertions array with status and content assertion should return header with full description', () => {
       assertions.push({ content: '/text/html/' });
       expectedResult[2] =
-        "  it('responds with status 200 and content-type /text/html/', async () => {";
+        '  it(\'responds with status 200 and content-type /text/html/\', async () => {';
       const result = helperFunctions.headerGenerator(header, assertions);
       expect(result).toEqual(expectedResult);
     });
@@ -116,10 +116,10 @@ describe('testsController middleware unit tests', () => {
 
   describe('generateMiddle', () => {
     let assertions;
-    let expectedResult = [
+    const expectedResult = [
       '    expect(response.statusCode).toBe(200);',
-      "    expect(response.type).toBe('/text/html/');",
-      "    expect(response.body).toEqual( { a: 'b' });",
+      '    expect(response.type).toBe(\'/text/html/\');',
+      '    expect(response.body).toEqual( { a: \'b\' });',
     ];
 
     beforeEach(() => {
@@ -139,17 +139,17 @@ describe('testsController middleware unit tests', () => {
     });
 
     it('should return proper expect for a body', () => {
-      assertions.push({ res_body: " { a: 'b' }" });
+      assertions.push({ res_body: ' { a: \'b\' }' });
       const result = helperFunctions.middleGenerator(assertions);
       expect(result).toEqual([expectedResult[2]]);
     });
-    (" { a: 'b' }");
+    (' { a: \'b\' }');
 
     it('assertion of status: 200, content type text/html, and body should return the relevant array', () => {
       assertions.push(
         { status: 200 },
         { content: '/text/html/' },
-        { res_body: " { a: 'b' }" }
+        { res_body: ' { a: \'b\' }' }
       );
       const result = helperFunctions.middleGenerator(assertions);
       expect(result).toEqual(expectedResult);

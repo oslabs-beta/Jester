@@ -8,7 +8,7 @@ type sliceType = {
 
 const initialState: sliceType = {
   // this property of state will get updated by the POST request
-  codeOutput: "describe('Sample description', (arg1) => { code.. }",
+  codeOutput: 'describe(\'Sample description\', (arg1) => { code.. }',
   // this value will be saved into the database
   codeOutputEdited: undefined,
   doneIcon: false,

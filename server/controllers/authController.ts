@@ -1,8 +1,7 @@
 import passport from 'passport';
 import { Strategy as GitHubStrategy } from 'passport-github2';
-import { Express, Request, Response, NextFunction } from 'express';
+import { Request, Response, NextFunction } from 'express';
 import db from '../models/userModel';
-import { nextTick } from 'process';
 
 type GitHubSettingsType = {
   clientID: string;

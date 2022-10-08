@@ -23,7 +23,7 @@ type initialStateType = {
 
 const initialState: initialStateType = {
   slice: {
-    codeOutput: "describe('Sample description')",
+    codeOutput: 'describe(\'Sample description\')',
   },
   userInfo: {
     showLogin: false,
