@@ -12,7 +12,10 @@ import {
 import ClipboardButton from './ClipboardButton';
 import { deleteProject } from '../redux/reducers/userInfoSlice';
 
-// This component will display code snippets from the database if a user is logged in, or from state if a user is not logged in
+/*
+This component will display code snippets from a given project in the database if a 
+user is logged in, or from state if a user is not logged in
+*/
 
 const ClipBoard = () => {
   const navigate = useNavigate();
@@ -31,16 +34,17 @@ const ClipBoard = () => {
   };
 
   const handleClear = () => { 
-    if (isLoggedIn) { // delete the project from the database if user logged in
+    if (isLoggedIn) {
       dispatch(deleteProject(projectId));
       navigate('/');
-    } else { // delete clipboard data from state if user not logged in
+    } else {
       dispatch(clearClipboardState());
     }
   };
 
   useEffect(() => {
-    if (isLoggedIn) { // fetch code snippets from db if user logged in
+    if (isLoggedIn) { 
+      // fetch code snippets from db if user logged in
       dispatch(getSnippets(projectId));
     }
   });
