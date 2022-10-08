@@ -7,29 +7,31 @@ import DeleteForeverIcon from '@mui/icons-material/DeleteForever';
 import { useAppDispatch, useAppSelector } from '../redux/hooks';
 import {
   setServer,
-  deleteSnippets,
   getSnippets,
-  clearClipboardState
+  clearClipboardState,
 } from '../redux/reducers/ClipBoardReducers';
 import ClipboardButton from './ClipboardButton';
+import { deleteProject } from '../redux/reducers/userInfoSlice';
 
 const ClipBoard = () => {
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
   const projectId = Number(useParams().projectId);
   const isLoggedIn = sessionStorage.getItem('isLoggedIn');
-  const buttonText = (isLoggedIn) ? 'Delete Project' : 'Clear Clipboard'
+  const buttonText = isLoggedIn ? 'Delete Project' : 'Clear Clipboard';
 
   const server: string = useAppSelector((state) => state.clipboard.server);
-  const codeDisplay: string = useAppSelector((state) => state.clipboard.codeDisplay);
-  
+  const codeDisplay: string = useAppSelector(
+    (state) => state.clipboard.codeDisplay
+  );
+
   const updateServer = (e: ChangeEvent<HTMLInputElement>) => {
     dispatch(setServer(e.target.value));
   };
 
   const handleClear = () => {
     if (isLoggedIn) {
-      dispatch(deleteSnippets(projectId));
+      dispatch(deleteProject(projectId));
       navigate('/');
     } else {
       dispatch(clearClipboardState());
@@ -39,8 +41,9 @@ const ClipBoard = () => {
 
   useEffect(() => {
     if (isLoggedIn) {
-      dispatch(getSnippets(projectId))}
-    });
+      dispatch(getSnippets(projectId));
+    }
+  });
 
   return (
     <div className="page-body">
@@ -50,7 +53,7 @@ const ClipBoard = () => {
           flexDirection: 'column',
           alignItems: 'center',
           gap: '10px',
-          width: 800
+          width: 800,
         }}
         className="code-container"
       >
@@ -58,29 +61,29 @@ const ClipBoard = () => {
           className="text-display"
           label="Server URL"
           sx={{ width: '300px' }}
-          value={ server }
-          error={ server === '' }
-          onChange={ updateServer }
+          value={server}
+          error={server === ''}
+          onChange={updateServer}
         ></TextField>
         <TextField
           className="text-display"
           id="main-clipboard"
           multiline
-          rows={ 30 }
-          value={ codeDisplay }
+          rows={30}
+          value={codeDisplay}
           sx={{
             width: 0.95,
-            fontFamily: 'Source Code Pro'
+            fontFamily: 'Source Code Pro',
           }}
         />
         <ClipboardButton />
         <Button
-          onClick={ handleClear }
+          onClick={handleClear}
           sx={{
-            flexDirection: 'column'
+            flexDirection: 'column',
           }}
         >
-          <DeleteForeverIcon /> { buttonText }
+          <DeleteForeverIcon /> {buttonText}
         </Button>
       </Box>
     </div>

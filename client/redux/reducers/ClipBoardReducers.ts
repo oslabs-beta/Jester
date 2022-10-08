@@ -20,7 +20,7 @@ const updateCodeDisplay = (state: clipboardStateType) => {
       BOILERPLATE_END
     ];
     state.codeDisplay = codeArr.join('');
-  }
+  } else if (state.codeSnippets.length === 0) state.codeDisplay = DEFAULT_CLIPBOARD;
 };
 
 export const clipboardSlice = createSlice({
@@ -51,13 +51,9 @@ export const clipboardSlice = createSlice({
       })
       .addCase(getSnippets.fulfilled, (state: clipboardStateType, action: any) => {
         state.codeSnippets = action.payload.data;
+
         updateCodeDisplay(state);
       })
-      .addCase(deleteSnippets.fulfilled, (state: clipboardStateType) => {
-        state.server = '';
-        state.codeSnippets = [];
-        state.codeDisplay = DEFAULT_CLIPBOARD;
-      });
   }
 });
 
@@ -93,20 +89,7 @@ const thunks = {
       return response;
     }
   ),
-  deleteSnippets: createAsyncThunk(
-    'clipboardSlice/deleteSnippets', 
-    async (projectId: number) => {
-      console.log('THUNK: deleteSnippets', 'trying');
-      let response;
-      try {
-        response = await axios.delete(`/api/clipboard/${ projectId }`);
-      } catch (error) {
-        console.log('clipboardSlice/deleteSnippets', error);
-      }
-      console.log('THUNK: deleteSnippets', response);
-      return response;
-    }
-  )
+
 };
 
 export const {
@@ -116,6 +99,6 @@ export const {
   clearClipboardState,
 } = clipboardSlice.actions;
 
-export const { postSnippet, getSnippets, deleteSnippets } = thunks;
+export const { postSnippet, getSnippets } = thunks;
 
 export default clipboardSlice.reducer;
