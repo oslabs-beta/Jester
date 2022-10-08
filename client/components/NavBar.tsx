@@ -8,8 +8,7 @@ import LoginIcon from '@mui/icons-material/Login';
 import LogoutIcon from '@mui/icons-material/Logout';
 import {
   setShowLogin,
-  logout,
-  setIsLoggedIn
+  logout
 } from '../redux/reducers/userInfoSlice';
 import { useAppDispatch, useAppSelector } from '../redux/hooks';
 import { Login } from './Login';

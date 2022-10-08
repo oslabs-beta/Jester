@@ -3,7 +3,7 @@ import React from 'react';
 import { Button, Box, Dialog, DialogTitle, Typography } from '@mui/material';
 import GitHubIcon from '@mui/icons-material/GitHub';
 import { useAppDispatch } from '../redux/hooks';
-import { setShowLogin, setIsLoggedIn, setUserId, setProjectsInfo } from '../redux/reducers/userInfoSlice';
+import { setShowLogin, setUserId, setProjectsInfo } from '../redux/reducers/userInfoSlice';
 
 type loginProps = {
   open: boolean;
