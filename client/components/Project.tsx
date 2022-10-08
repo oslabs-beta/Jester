@@ -10,7 +10,10 @@ type projectProps = {
   projectId: number;
 };
 
-// This component wraps each project and it's corresponding navigation menu to enable the project menu dropdown for each project tied to the user
+/*
+This component wraps each project with the corresponding project navigation
+menu to enable the project menu dropdown for each individual project
+*/
 
 export const Project = (props: projectProps) => {
   const dispatch = useAppDispatch();
