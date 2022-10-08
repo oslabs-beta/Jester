@@ -19,6 +19,11 @@ import { RequestBody } from './RequestBody';
 import axios from 'axios';
 import { ProjectDropdown } from './ProjectDropdown';
 
+/*
+This component will allow a user to generate test code according to their inputs. This component is
+where users will indicate the request type, endpoint, and response body, as well as add their assertions.
+*/
+
 export const TestInputForm = () => {
   const isLoggedIn = sessionStorage.getItem('isLoggedIn');
   const requestType = useAppSelector((state) => state.testForm.requestType);
@@ -40,6 +45,10 @@ export const TestInputForm = () => {
   const handleSubmit = async (
     e: React.FormEvent<EventTarget>
   ): Promise<unknown> => {
+    // checks to ensure proper user input
+    
+    // gathers the appropriate values needed to generate test code
+    // in the format expected on the backend
     e.preventDefault();
     let statusCount = 0;
     let contentCount = 0;

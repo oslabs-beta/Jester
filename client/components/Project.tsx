@@ -3,12 +3,17 @@ import { Button, Box } from '@mui/material';
 import CreditCardIcon from '@mui/icons-material/CreditCard';
 import { useAppDispatch } from '../redux/hooks';
 import { setShowAccessClipboard } from '../redux/reducers/userInfoSlice';
-import { AccessClipboardDisplay } from './AccessClipboardDisplay';
+import { NavProjectMenu } from './NavProjectMenu';
 
 type projectProps = {
   name: string;
   projectId: number;
 };
+
+/*
+This component wraps each project with the corresponding project navigation
+menu to enable the project menu dropdown for each individual project
+*/
 
 export const Project = (props: projectProps) => {
   const dispatch = useAppDispatch();
@@ -20,7 +25,7 @@ export const Project = (props: projectProps) => {
       <Button onClick={handleClick} sx={{ display: 'flex', flexDirection: 'column', wordWrap: 'anywhere', width: '100%' }}><CreditCardIcon />
         {props.name}
       </Button>
-      <AccessClipboardDisplay projectId={props.projectId} />
+      <NavProjectMenu projectId={props.projectId} />
     </Box>
   );
 };
