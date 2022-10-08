@@ -37,7 +37,7 @@ const NavBar = () => {
     Cookies.remove('isLoggedIn');
     sessionStorage.clear();
     await axios.post('/auth/logout');
-    dispatch(logout());
+    dispatch(logout()); // clear projects and user information in state
     navigate('/');
   };
 
