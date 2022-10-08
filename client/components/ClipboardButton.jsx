@@ -7,8 +7,7 @@ import { useDispatch } from 'react-redux';
 import { copyClipboard } from '../redux/reducers/ClipBoardReducers';
 import AppButton from '../components/AppButton';
 
-// This container wraps:
-// 1) the button that copies the app clipboard to the navigator clipboard
+// This container wraps the button that copies the app clipboard to the navigator clipboard
 
 const ClipboardButton = () => {
   const dispatch = useDispatch();
