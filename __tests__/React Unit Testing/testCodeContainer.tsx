@@ -12,7 +12,7 @@ import AppButton from '../../client/components/AppButton';
 
 const initialState = {
   slice: {
-    codeOutput: "describe('Sample description')",
+    codeOutput: 'describe(\'Sample description\')',
   },
   userInfo: {
     isLoggedIn: false,
@@ -69,7 +69,7 @@ describe('Unit testing output Code Container components', () => {
   test('Renders placeholder code output in Code Container', () => {
     code();
     const codeOutput = screen.getByLabelText('Testing Code');
-    expect(codeOutput.innerHTML).toEqual("describe('Sample description')");
+    expect(codeOutput.innerHTML).toEqual('describe(\'Sample description\')');
   });
 
   test('Renders two buttons', () => {

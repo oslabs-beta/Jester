@@ -32,7 +32,7 @@ describe('Route integration tests', () => {
           });
 
         const expectedResponse =
-          "describe('/api/tests', () => {\n describe('GET', () => {\n  it('responds with content-type application/json and status 200', async () => {\n   const response = await request(server)\n   .get('/api/tests');\n    expect(response.type).toBe('application/json');\n    expect(response.statusCode).toBe(200);\n  });\n });\n});";
+          'describe(\'/api/tests\', () => {\n describe(\'GET\', () => {\n  it(\'responds with content-type application/json and status 200\', async () => {\n   const response = await request(server)\n   .get(\'/api/tests\');\n    expect(response.type).toBe(\'application/json\');\n    expect(response.statusCode).toBe(200);\n  });\n });\n});';
 
         expect(response.type).toBe('application/json');
         expect(response.statusCode).toBe(200);
