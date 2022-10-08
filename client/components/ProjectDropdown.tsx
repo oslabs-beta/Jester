@@ -13,7 +13,11 @@ type projectDropdownPropsType = {
   disabled?: boolean;
 };
 
-// This component allows users to select which project they want to add a code snippet to.
+/*
+This component creates a dropdown menu with all of the project names that are tied to a user so that
+  1) a user can indicate which project they want the generated test code snippet to be added to
+  2) a user can select which project they want their clipboard data reconciled to
+*/
 
 const ProjectDropdown = (props: projectDropdownPropsType) => {
   const dispatch = useAppDispatch();
