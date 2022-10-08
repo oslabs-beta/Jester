@@ -15,8 +15,8 @@ function Footer(props: footerPropsType) {
     }}>
       <Typography variant="body2" color="text.secondary" align="center" {...props}>
         {'Copyright © '}
-        <Link color="inherit" href="https://mui.com/">
-          jester-app.dev
+        <Link color="inherit" href="https://jester.software/">
+          jester.software
         </Link>{' '}
         {new Date().getFullYear()}
         {'.'}
