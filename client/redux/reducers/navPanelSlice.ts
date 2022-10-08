@@ -23,6 +23,5 @@ export const navPanelSlice = createSlice({
   },
 });
 
-export const { setShowProjectPanel, setShowAddProject } =
-  navPanelSlice.actions;
+export const { setShowProjectPanel, setShowAddProject } = navPanelSlice.actions;
 export default navPanelSlice.reducer;
