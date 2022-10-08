@@ -1,5 +1,5 @@
 // routes for front-end to get generated test code on submit
-import express, { Express, Request, Response, Router } from 'express';
+import express, { Request, Response, Router } from 'express';
 import testsController from '../controllers/testsController';
 const router: Router = express.Router();
 

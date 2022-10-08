@@ -83,7 +83,6 @@ testsController.createHeaderText = (req, res, next) => {
 //Write a MiddleWare to examine the res object from the front-end and produce lines of code depending on what is coming in from the middleware.
 testsController.createMiddleText = (req, res, next) => {
   const assertions = res.locals.assertions;
-  const middle = res.locals.middle;
 
   res.locals.middleOutput = helperFunctions.middleGenerator(assertions);
   return next();
