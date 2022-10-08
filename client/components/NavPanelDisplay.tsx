@@ -2,10 +2,8 @@ import React from 'react';
 import CollectionsBookmarkIcon from '@mui/icons-material/CollectionsBookmark';
 import ArticleIcon from '@mui/icons-material/Article';
 import { Button, Typography, Box } from '@mui/material';
-import { useAppDispatch} from '../redux/hooks';
-import {
-  setShowProjectPanel,
-} from '../redux/reducers/navPanelSlice';
+import { useAppDispatch } from '../redux/hooks';
+import { setShowProjectPanel } from '../redux/reducers/navPanelSlice';
 import HomeIcon from '@mui/icons-material/Home';
 import { useNavigate } from 'react-router-dom';
 
@@ -24,7 +22,7 @@ export const NavPanelDisplay = () => {
   };
   return (
     <Box
-    className="panel nav-panel-container"
+      className="panel nav-panel-container"
       sx={{
         width: '100px',
         display: 'flex',
@@ -32,7 +30,7 @@ export const NavPanelDisplay = () => {
 
       }}
     >
-      <Button onClick={handleHomeClick} sx={{display: 'flex', flexDirection:'column', marginBottom:2}}><HomeIcon />Home</Button>
+      <Button onClick={handleHomeClick} sx={{ display: 'flex', flexDirection:'column', marginBottom:2 }}><HomeIcon />Home</Button>
       <Button
         sx={{ display: 'flex', flexDirection: 'column', marginBottom:2 }}
         onClick={handleProjectsClick}
@@ -40,10 +38,10 @@ export const NavPanelDisplay = () => {
         <CollectionsBookmarkIcon />
         <Typography sx={{ fontSize: '12px' }}>Projects</Typography>
       </Button>
-      <Button onClick={handleDocumentationClick} sx={{display: 'flex', flexDirection:'column', marginBottom:2}}>
+      <Button onClick={handleDocumentationClick} sx={{ display: 'flex', flexDirection:'column', marginBottom:2 }}>
         <ArticleIcon />
         <Typography sx={{ fontSize: '10px' }}>Documentation</Typography>
-        </Button>
+      </Button>
     </Box>
   );
 };

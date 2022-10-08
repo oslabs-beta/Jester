@@ -38,7 +38,7 @@ export const ProjectPanelContainer = () => {
   if (showProjectPanel)
     return (
       <Box
-      className="panel project-panel-container"
+        className="panel project-panel-container"
         sx={{
           width: '100px',
           display: 'flex',

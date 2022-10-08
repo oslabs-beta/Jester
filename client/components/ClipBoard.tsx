@@ -1,4 +1,3 @@
-import axios from 'axios'; // to be used by handleClear
 import React, { ChangeEvent, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { TextField, Box, Button } from '@mui/material';
@@ -37,7 +36,6 @@ const ClipBoard = () => {
       dispatch(clearClipboardState());
     }
   };
-  // need to discuss how to implement handleClear to match the back-end
 
   useEffect(() => {
     if (isLoggedIn) {

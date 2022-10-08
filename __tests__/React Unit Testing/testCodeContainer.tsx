@@ -10,7 +10,6 @@ import CodeContainer from '../../client/containers/CodeContainer';
 import ButtonContainer from '../../client/containers/ButtonContainer';
 import AppButton from '../../client/components/AppButton';
 
-
 const initialState = {
   slice: {
     codeOutput: 'describe(\'Sample description\')',
@@ -34,7 +33,7 @@ const mockStore = configureStore();
 
 const code = () => {
   render(
-    <Provider store={ mockStore(initialState) }>
+    <Provider store={mockStore(initialState)}>
       <CodeContainer />
     </Provider>
   );
@@ -42,47 +41,38 @@ const code = () => {
 
 const button = () => {
   render(
-    <Provider store={ mockStore(initialState) }>
+    <Provider store={mockStore(initialState)}>
       <ButtonContainer />
     </Provider>
   );
 };
 
 const props = {
-  start: <AddBoxIcon/>,
-  end : <DoneAllIcon/>,
+  start: <AddBoxIcon />,
+  end: <DoneAllIcon />,
   onClick: jest.fn(),
   testId: 'bttn-append',
 };
 
 const appButton = () => {
-  render(
-    <AppButton 
-      { ...props }
-    />
-  );
+  render(<AppButton {...props} />);
 };
 
 const buttonDone = () => {
   render(
-    <Provider store={ mockStore(clickedState) }>
-      <ButtonContainer/>
-    </Provider>,
+    <Provider store={mockStore(clickedState)}>
+      <ButtonContainer />
+    </Provider>
   );
 };
 
 describe('Unit testing output Code Container components', () => {
-  beforeAll(() => {
-    // button();
-    // const buttons = screen.getAllByRole('button');
-  });
-
   test('Renders placeholder code output in Code Container', () => {
     code();
     const codeOutput = screen.getByLabelText('Testing Code');
     expect(codeOutput.innerHTML).toEqual('describe(\'Sample description\')');
   });
-  
+
   test('Renders two buttons', () => {
     button();
     expect(screen.getAllByRole('button')).toHaveLength(2);
@@ -118,7 +108,7 @@ describe('Unit testing output Code Container components', () => {
     const icon = bttn.innerHTML.includes('data-testid="AddBoxIcon"');
     expect(icon).toBeTruthy();
   });
-  
+
   test('Append clipboard button OnClick renders DoneAllIcon and fires onClick function', () => {
     appButton();
     let bttn = screen.getByRole('button', { name: '' });

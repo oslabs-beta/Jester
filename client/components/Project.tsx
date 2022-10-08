@@ -17,8 +17,8 @@ export const Project = (props: projectProps) => {
   };
   return (
     <Box sx={{ alignItems: 'center', justifyContent: 'center' }}>
-      <Button onClick={handleClick} sx={{ display: 'flex', flexDirection: 'column', wordWrap: 'anywhere', width: '100%'}}><CreditCardIcon />
-      {props.name}
+      <Button onClick={handleClick} sx={{ display: 'flex', flexDirection: 'column', wordWrap: 'anywhere', width: '100%' }}><CreditCardIcon />
+        {props.name}
       </Button>
       <AccessClipboardDisplay projectId={props.projectId} />
     </Box>

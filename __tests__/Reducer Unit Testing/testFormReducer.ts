@@ -40,7 +40,6 @@ describe('TestForm Reducer', () => {
     it('should update assertionList in state', () => {
       store.dispatch(addAssertion());
       const newState = store.getState();
-      // console.log(newState.testForm.assertionList);
       expect(newState.testForm.assertionList['0']).toEqual('Status Code');
     });
   });

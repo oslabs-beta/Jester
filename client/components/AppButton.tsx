@@ -2,10 +2,10 @@ import React, { useState } from 'react';
 import Button from '@mui/material/Button';
 
 type propsType = {
-  start: string | JSX.Element ,
-  end: string | JSX.Element ,
-  onClick: () => void,
-  testId: string,
+  start: string | JSX.Element;
+  end: string | JSX.Element;
+  onClick: () => void;
+  testId: string;
 };
 
 const AppButton = (props: propsType) => {
@@ -19,13 +19,13 @@ const AppButton = (props: propsType) => {
   };
 
   return (
-    <Button 
-      data-testid={ testId }
-      variant='outlined' 
-      onClick = { handleClick }
+    <Button
+      data-testid={testId}
+      variant="outlined"
+      onClick={handleClick}
       sx={{ marginBottom: 1 }}
     >
-      { icon }
+      {icon}
     </Button>
   );
 };

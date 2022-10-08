@@ -18,18 +18,18 @@ const ClipboardButton = () => {
 
   return (
     <Box
-      className='clipboard-button-container'
+      className="clipboard-button-container"
       sx={{
         marginLeft: 5,
         marginTop: 2,
         justifyContent: 'flex-end',
-        alignItems: 'flex-end'
+        alignItems: 'flex-end',
       }}
     >
       <AppButton
-        start={ <ContentCopyIcon /> }
-        end={ <DoneAllIcon /> }
-        onClick={ handleClick }
+        start={<ContentCopyIcon />}
+        end={<DoneAllIcon />}
+        onClick={handleClick}
         testId="bttn-copy"
       />
     </Box>

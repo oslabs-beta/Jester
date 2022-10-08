@@ -37,7 +37,6 @@ export const userInfoSlice = createSlice({
       state: userInfoStateType,
       action: PayloadAction<projectsType[]>
     ) => {
-      console.log(action.payload);
       state.projectsInfo = action.payload;
     },
     setCurrentProject: (
@@ -110,14 +109,12 @@ const thunks = {
   deleteProject: createAsyncThunk(
     'userInfoSlice/deleteProject',
     async (projectId: number) => {
-      console.log('THUNK: deleteProject', 'trying');
       let response;
       try {
         response = await axios.delete(`/api/project/${projectId}`);
       } catch (error) {
         console.log('userInfoSlice/deleteProject', error);
       }
-      console.log('THUNK: deleteProject', response);
       return response;
     }
   ),
