@@ -1,4 +1,4 @@
-import express, { Express, Request, Response, NextFunction } from 'express';
+import { Request, Response, NextFunction } from 'express';
 import db from '../models/userModel';
 
 type Project = {
