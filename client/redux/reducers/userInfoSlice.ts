@@ -130,7 +130,6 @@ export const {
   setShowSave,
   setProjectsInfo,
   setCurrentProject,
-  setIsLoggedIn,
   logout,
   setClipboardData,
   setShowAccessClipboard,
