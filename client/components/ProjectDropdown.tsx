@@ -13,6 +13,8 @@ type projectDropdownPropsType = {
   disabled?: boolean;
 };
 
+// This component allows users to select which project they want to add a code snippet to.
+
 const ProjectDropdown = (props: projectDropdownPropsType) => {
   const dispatch = useAppDispatch();
   const projectName = useAppSelector((state) => state.userInfo.currentProject);
