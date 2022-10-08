@@ -5,7 +5,7 @@ import { ChangeEvent } from 'react';
 
 import { userEditText } from '../redux/reducers/reducer';
 
-// This component will render the code received from the fetch request to the server
+// This component will render the generated test code received from the fetch request to the server
 const CodeText = () => {
   const codeOutput = useAppSelector((state) => state.slice.codeOutput);
   const codeOutputEdited = useAppSelector(

@@ -9,6 +9,8 @@ type loginProps = {
   open: boolean;
 };
 
+// This component will allow user to login with github
+
 export const Login = (props: loginProps) => {
   const dispatch = useAppDispatch();
   const handleClose = (): void => {
