@@ -31,7 +31,6 @@ const ClipBoard = () => {
 
   const elementArr: JSX.Element[] = [];
   codeDisplay.split('\n').forEach((el) => {
-    console.log(el);
     elementArr.push(
       <pre>
         { el }
