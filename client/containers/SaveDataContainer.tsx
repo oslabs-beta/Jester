@@ -15,7 +15,7 @@ const SaveDataContainer = (props: saveDataPropsType) => {
   const newProject = useAppSelector((state) => state.userInfo.newProject); // project from input
   const selectedProject = useAppSelector((state) => state.userInfo.currentProject); // project from dropdown
   const disableDropdown = Boolean(newProject.length);
-  
+
   const dispatch = useAppDispatch();
   const handleChange = (e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     dispatch(setNewProject(e.target.value));
@@ -31,20 +31,20 @@ const SaveDataContainer = (props: saveDataPropsType) => {
   };
 
   return (
-    <Dialog 
+    <Dialog
       // onClose={ handleClose } 
-      open={ props.open }
+      open={props.open}
     >
       <Box sx={{
         display: 'flex',
-        flexDirection: 'column', 
+        flexDirection: 'column',
         alignItems: 'center',
         height: 325
       }}>
         <Box sx={{
           width: 500,
           display: 'flex',
-          flexDirection: 'row', 
+          flexDirection: 'row',
           backgroundColor: '#5E17EB',
           justifyContent: 'center'
         }}>
@@ -52,29 +52,29 @@ const SaveDataContainer = (props: saveDataPropsType) => {
         </Box>
         <DialogTitle>Would you like to save your current clipboard?</DialogTitle>
         <Box>
-          <ProjectDropdown disabled={ disableDropdown } />
+          <ProjectDropdown disabled={disableDropdown} />
           <TextField
             label="New Project Name"
             data-testid="new-project"
             id="new-project"
             size="small"
             sx={{ width: 200, minWidth: 200, marginBottom: 2 }}
-            onChange={ handleChange }
+            onChange={handleChange}
           />
-          <Stack direction="row" spacing={ 2 }>
-            <Button 
-              variant="outlined" 
-              startIcon={ <DeleteIcon /> } 
+          <Stack direction="row" spacing={2}>
+            <Button
+              variant="outlined"
+              startIcon={<DeleteIcon />}
               sx={{ width: 120 }}
-              onClick = { handleDiscard }
+              onClick={handleDiscard}
             >
               Discard
             </Button>
-            <Button 
-              variant="outlined" 
-              startIcon={ <SaveIcon /> } 
+            <Button
+              variant="outlined"
+              startIcon={<SaveIcon />}
               sx={{ width: 120 }}
-              onClick = { handleSave }
+              onClick={handleSave}
             >
               Save
             </Button>
