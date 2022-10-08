@@ -11,6 +11,8 @@ import { clearClipboardState } from '../redux/reducers/ClipBoardReducers';
 type navProjectMenuProps = {
   projectId: number;
 };
+
+// This component enables navigation to each projects clipboard and gives user the ability to delete project from db.
 export const NavProjectMenu = (props: navProjectMenuProps) => {
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
@@ -25,14 +27,14 @@ export const NavProjectMenu = (props: navProjectMenuProps) => {
 
   const handleClipboardClick = () => {
     if (isLoggedIn) navigate(`/clipboard/${props.projectId}`);
-    else navigate('/clipboard/0');
+    else navigate('/clipboard/0'); // if not logged in, navigates to default clipboard in state
   };
 
-  const handleDeleteClick = async () => {
+  const handleDeleteClick = async () => { // deletes project from DB and updates state if user logged in
     if (isLoggedIn) {
-      const projects = await axios.delete(`/api/project/${props.projectId}`);
+      const projects = await axios.delete(`/api/project/${props.projectId}`); 
       dispatch(setProjectsInfo(projects.data));
-    } else {
+    } else { // deleted clipboard data in state if user not logged in
       dispatch(clearClipboardState());
     }
   };
