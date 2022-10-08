@@ -5,6 +5,8 @@ import { useAppDispatch, useAppSelector } from '../redux/hooks';
 import { setProjectsInfo } from '../redux/reducers/userInfoSlice';
 import axios from 'axios';
 
+// This component will allow a user to create a new project in the database
+
 export const AddProjectDialog = () => {
   const [projectName, setProjectName] = useState('');
   const showAddProject = useAppSelector(
@@ -14,7 +16,7 @@ export const AddProjectDialog = () => {
   const handleClose = () => {
     dispatch(setShowAddProject());
   };
-  const handleAddProject = async () => {
+  const handleAddProject = async () => { // creates project in database and updates projects held in state
     const response = await axios.post('api/project/', {
       project_name: projectName,
     });
