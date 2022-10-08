@@ -7,7 +7,10 @@ import { setShowProjectPanel } from '../redux/reducers/navPanelSlice';
 import HomeIcon from '@mui/icons-material/Home';
 import { useNavigate } from 'react-router-dom';
 
-// This component holds navigation to the home page, documentation page, and projects panel
+/*
+This component wraps buttons for user to navigate to home page, to documentation page,
+and to view their projects in the nav panel
+*/
 
 export const NavPanelDisplay = () => {
   const dispatch = useAppDispatch();
