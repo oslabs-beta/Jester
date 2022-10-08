@@ -1,47 +1,38 @@
 import React from 'React';
 import { Provider } from 'react-redux';
-import { fireEvent, render, screen } from '@testing-library/react';
+import { render, screen } from '@testing-library/react';
 import configureStore from 'redux-mock-store';
-
-
 import '@testing-library/jest-dom';
-
 import ClipBoard from '../../client/components/ClipBoard';
 import ClipboardButton from '../../client/components/ClipboardButton';
 import { BrowserRouter } from 'react-router-dom';
 
-
 const initialState = {
-  // //should this be slice1 instead of base slice?
-  slice1: {
-    codeOutput1: 'describe(\'Sample description\')',
-  },
-  slice: {
-    doneIcon1: 'describe()'
+  // create this state to be a copy of the default state you expect for your component/s
+  clipboard:{
+    server: '',
   }
 };
+
 const mockStore = configureStore();
 
-/* What do we want CB to ideally do?
-
-- First it should render.
-- Second it should display default text: 'Your Clipboard is currently empty!\nPlease generate a test before we can display your testing code here.'
-- Display copy button on hover.
-- 
-
-*/
-
-/* So how to do React Unit testing?
-
+/* A poor man's guide on how to do React Unit testing:
 - Step 1: create initial state.
 - Step 2: create a mock store
 - Step 3: create component to test on!
-- Step 4: check that component does what we want.
-
+- Step 3.5: If necessary, create a secondary state if the button is reliant on some change in state
+- Step 4: check that component does what we want. (obviously it's not this simple)
 */
 
 
+// the board is going to represent the main clipboard where the code snippet will be displayed.
+// to test this, I just need to render a board and check if there is a text-field with the role/id matching.
 
+// the server url text box is being rendered as a textfield in the Clipboard component.
+// How do I access this box by itself to see if it's in the document?
+
+// the delete button is rendered inside of the Clipboard component as a button with no id (but has the delete button icon).
+// let's render the board, and examine it to see if there is a button in the document - this should be the simplest test of the four.
 const board = () => {
   render(
     <Provider store={mockStore(initialState)}>
@@ -52,42 +43,49 @@ const board = () => {
   );
 };
 
-const dButton = () => {
-    render(
-      <Provider store={mockStore(initialState)}>
-        <BrowserRouter>
-          <? />
-        </BrowserRouter>
-      </Provider>  
-    );
-  };
-  
-
-
+// the copy to clipboard button is its own component that I can just import to check if it exists in the document.
+// problem here is that due to css styling, it only appears on a hover. So to test it appears on hover, I need to somehow convince this test file that the CSS hover property is true.
+const cbButton = () => {
+  render(
+    <Provider store={mockStore(initialState)}>
+      <BrowserRouter>
+        <ClipboardButton />
+      </BrowserRouter>
+    </Provider>  
+  );
+};
 
 describe('Unit testing Clipboard component', () => {
-//   beforeAll(() => {
-//   });
-  //So now our text block. We should use a .toBeInTheDocument() to test if it is rendering.
-  //could get element by role instead since it is test field. textbox, {name: name of textbox}
-  test(`Renders a Clipboard with the role of ${'textbox'}`, () => {
+  // It's important to understand the difference betweem beforeAll and beforeEach when writing multiple tests that rely on a single component being rendered!
+  beforeEach(() => {
     board();
-    expect(screen.getByRole('textbox', {name:''})).toBeInTheDocument();
+  /* Nothing else to do here as no changes in state are necessary. If a component is introduced that requires a
+  change in state then to test properly, you will need to reset the state before wach test to ensure that the
+  components being rendered in the test have the expected default state.
+  
+  A similar feature could be achievd through the use of a fireEvent.click method (in this case) being run before all events
+  where we want to change state based on a button being clicked!
+  */
   });
-  // Three more things we could unit test for: server url textbox, delete button, copy button.
+
+  // clipboard that displays snippets
+  test(`Renders a Clipboard with the role of ${'textbox'}`, () => {
+    expect(screen.getByRole('textbox', { name:'' })).toBeInTheDocument();
+  });
   //delete button:
-  test(`Renders the delete button with an identity of ${'main-clipboard'}`, () => {
-    dButton();
-    expect(screen.getByRole('textbox', {name:''})).toBeInTheDocument();
+  test('Renders the delete button with an anonymous identity', () => {
+    expect(screen.getByRole('button', { name:'' })).toBeInTheDocument();
   });
   // copy button.
-  test(`Renders the copy button with an identity of ${'main-clipboard'}`, () => {
-    dButton();
-    expect(screen.getByRole('textbox', {name:''})).toBeInTheDocument();
+  test(`Renders the copy button with a class name of ${'clipboard-button-container'}`, () => {
+    cbButton();
+    // how to test as if the css hover property is true? --> this is actually unnecessary as it is being rendered, just not visible until hovered over.
+    expect(screen.getByRole('button', { name:'clipboard-button-container' })).toBeInTheDocument();
   });
   // server url textbox
-  test(`Renders the server url textbox ${'main-clipboard'}`, () => {
-    dButton();
-    expect(screen.getByRole('textbox', {name:''})).toBeInTheDocument();
+  test(`Renders the server url textbox with a label of ${'Server URL'}`, () => {
+    expect(screen.getByRole('textbox', { name:'Server URL' })).toBeInTheDocument();
   });
 });
+
+// npm test __tests__/React\ Unit\ Testing/CB.tsx
