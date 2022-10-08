@@ -4,13 +4,10 @@ import { userInfoStateType, projectsType } from '../../types';
 import axios from 'axios';
 
 
-// const showSave =  (sessionStorage.getItem('clipboardData')) ? true : false;
-// For testing only, delete later
-const showSave = true;
+const showSave =  (sessionStorage.getItem('clipboardData')) ? true : false;
 
 const initialState: userInfoStateType = {
   showLogin: false,
-  // MLCK what is the name of the property in sessionStorage with clipboard data?
   showSave: showSave,
   userId: 0,
   projectsInfo: [
@@ -40,6 +37,7 @@ export const userInfoSlice = createSlice({
       state: userInfoStateType,
       action: PayloadAction<projectsType[]>
     ) => {
+      console.log(action.payload);
       state.projectsInfo = action.payload;
     },
     setCurrentProject: (

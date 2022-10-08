@@ -19,11 +19,13 @@ import Cookies from 'js-cookie';
 const NavBar = () => {
   const navigate = useNavigate();
   const open: boolean = useAppSelector((state) => state.userInfo.showLogin);
+  const clipboardData: string[] = useAppSelector((state) => state.clipboard.codeSnippets);
   const displayLoginButton = 'auto';
   const displayLogoutButton = 'auto';
 
   const dispatch = useAppDispatch();
   const handleLoginOpen = () => {
+    sessionStorage.setItem('clipboardData', JSON.stringify(clipboardData));
     dispatch(setShowLogin());
   };
   const handleLogout = async () => {
