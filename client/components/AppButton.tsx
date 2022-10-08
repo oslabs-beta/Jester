@@ -21,7 +21,8 @@ const AppButton = (props: propsType) => {
   return (
     <Button 
       data-testid={ testId }
-      variant='outlined' 
+      variant='outlined'
+      color="info" 
       onClick = { handleClick }
       sx={{ marginBottom: 1 }}
     >
