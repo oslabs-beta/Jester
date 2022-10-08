@@ -37,6 +37,10 @@
             "error",
             "always"
         ],
+        "object-curly-spacing": [
+            "warn", 
+            "always"
+        ],
         "react/prop-types": "off",
         "prefer-const": "warn"
     }

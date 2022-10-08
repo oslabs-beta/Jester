@@ -15,7 +15,6 @@ export const AddProjectDialog = () => {
   const showAddProject = useAppSelector(
     (state) => state.navPanel.showAddProject
   );
-  const isLoggedIn = useAppSelector((state) => state.userInfo.isLoggedIn);
   const dispatch = useAppDispatch();
   const handleClose = () => {
     dispatch(setShowAddProject());
@@ -25,7 +24,6 @@ export const AddProjectDialog = () => {
     const response = await axios.post('/api/project/', {
       project_name: projectName,
     });
-    console.log(response.data);
     dispatch(setProjectsInfo(response.data));
     handleClose();
   };

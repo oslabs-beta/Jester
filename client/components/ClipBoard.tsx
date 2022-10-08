@@ -1,59 +1,49 @@
-import React from 'react';
-import { TextField, Box, Button } from '@mui/material';
-import { useAppDispatch, useAppSelector } from '../redux/hooks';
-import { userEditText } from '../redux/reducers/ClipBoardReducers';
-import { ChangeEvent, useEffect } from 'react';
-import ClipboardButton from './ClipboardButton';
+import axios from 'axios'; // to be used by handleClear
+import React, { ChangeEvent, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
-import {
-  setCodeOutput1,
-  setServer,
-  clearCodeSnippets
-} from '../redux/reducers/ClipBoardReducers';
+import { TextField, Box, Button } from '@mui/material';
 import DeleteForeverIcon from '@mui/icons-material/DeleteForever';
-import axios from 'axios';
+
+import { useAppDispatch, useAppSelector } from '../redux/hooks';
+import {
+  setServer,
+  deleteSnippets,
+  getSnippets,
+  clearClipboardState
+} from '../redux/reducers/ClipBoardReducers';
+import ClipboardButton from './ClipboardButton';
 
 const ClipBoard = () => {
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
-  const codeOutput1 = useAppSelector((state) => state.slice1.codeOutput1);
-  const server: string = useAppSelector((state) => state.slice1.server);
-  const codeOutputEdited1 = useAppSelector(
-    (state) => state.slice1.codeOutputEdited1
-  );
+  const projectId = Number(useParams().projectId);
+  const isLoggedIn = sessionStorage.getItem('isLoggedIn');
+  const buttonText = (isLoggedIn) ? 'Delete Project' : 'Clear Clipboard'
 
-  const editCode = (e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) =>
-    dispatch(userEditText(e.target.value));
-  const { projectId } = useParams();
-
+  const server: string = useAppSelector((state) => state.clipboard.server);
+  const codeDisplay: string = useAppSelector((state) => state.clipboard.codeDisplay);
+  
   const updateServer = (e: ChangeEvent<HTMLInputElement>) => {
     dispatch(setServer(e.target.value));
   };
 
   const handleClear = () => {
-    if (sessionStorage.getItem('isLoggedIn')) {
-      axios.delete(`/api/project/${projectId}`);
+    if (isLoggedIn) {
+      dispatch(deleteSnippets(projectId));
       navigate('/');
     } else {
-      dispatch(clearCodeSnippets());
+      dispatch(clearClipboardState());
     }
   };
-  // need to discuss how to implement handleClear
+  // need to discuss how to implement handleClear to match the back-end
 
   useEffect(() => {
-    // BH: commented out to fix styling
-    axios.get(`/api/clipboard/${projectId}`)
-      .then((response) => dispatch(setCodeOutput1(response.data)))
-      .catch((err) => console.log(err));
-
-    // fetch(`/api/clipboard/${projectId}`)
-    //   .then((response) => response.json())
-    //   .then((response) => dispatch(setCodeOutput1(response)))
-    //   .catch((err) => console.log(err));
-  });
+    if (isLoggedIn) {
+      dispatch(getSnippets(projectId))}
+    });
 
   return (
-    <div className='page-body'>
+    <div className="page-body">
       <Box
         sx={{ 
           display: 'flex',
@@ -62,44 +52,35 @@ const ClipBoard = () => {
           gap: '10px',
           width: 800
         }}
-        className='code-container'
+        className="code-container"
       >
         <TextField
-          label='Server URL'
+          className="text-display"
+          label="Server URL"
           sx={{ width: '300px' }}
-          value={server}
-          error={server === ''}
-          onChange={updateServer}
+          value={ server }
+          error={ server === '' }
+          onChange={ updateServer }
         ></TextField>
         <TextField
-          id='main-clipboard'
+          className="text-display"
+          id="main-clipboard"
           multiline
-          rows={10}
-          value={codeOutputEdited1 || codeOutput1}
+          rows={ 30 }
+          value={ codeDisplay }
           sx={{
             width: 0.95,
             fontFamily: 'Source Code Pro'
           }}
-          onChange={editCode}
         />
         <ClipboardButton />
         <Button
-          onClick={handleClear}
+          onClick={ handleClear }
           sx={{
-            display: sessionStorage.getItem('isLoggedIn') ? 'none' : 'flex',
             flexDirection: 'column'
           }}
         >
-          <DeleteForeverIcon /> Clear Clipboard
-        </Button>
-        <Button
-          onClick={handleClear}
-          sx={{
-            display: sessionStorage.getItem('isLoggedIn') ? 'flex' : 'none',
-            flexDirection: 'column'
-          }}
-        >
-          <DeleteForeverIcon /> Delete Project
+          <DeleteForeverIcon /> { buttonText }
         </Button>
       </Box>
     </div>

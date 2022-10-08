@@ -16,15 +16,16 @@ const CodeText = () => {
   return (
     <TextField
       id="code-output"
+      className="text-display"
       label="Testing Code"
       multiline
-      rows={10}
+      rows={ 10 }
       value={ codeOutputEdited || codeOutput }
       sx={{ 
         width: 0.95,
         fontFamily: 'Source Code Pro',
       }}
-      onChange = { editCode }
+      onChange={ editCode }
     />
   );
 };

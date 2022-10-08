@@ -1,5 +1,6 @@
 import { Box, Button } from '@mui/material';
 import React from 'react';
+import AddCardIcon from '@mui/icons-material/AddCard';
 import { useAppSelector, useAppDispatch } from '../redux/hooks';
 import { setShowAddProject } from '../redux/reducers/navPanelSlice';
 import { AddProjectDialog } from '../components/AddProjectDialog';
@@ -19,7 +20,6 @@ export const ProjectPanelContainer = () => {
   const projectName: projectsType[] = useAppSelector(
     (state) => state.userInfo.projectsInfo
   );
-  console.log(projectName);
   const projects: JSX.Element[] = [];
   projectName.forEach((project) => {
     projects.push(
@@ -29,23 +29,26 @@ export const ProjectPanelContainer = () => {
         projectId={project['project_id']}
       />
     );
+    projects.push(<hr className="divider"/>);
   });
+  projects.pop();
   const handleAddProject = () => {
     dispatch(setShowAddProject());
   };
   if (showProjectPanel)
     return (
       <Box
+      className="panel project-panel-container"
         sx={{
-          border: '1px dashed lightgrey',
           width: '100px',
           display: 'flex',
-          flexDirection: 'column',
-          justifyContent: 'space-between',
+          flexDirection: 'column'
         }}
       >
-        <Box sx={{ display: 'flex', flexDirection: 'column' }}>{projects}</Box>
-        <Button onClick={handleAddProject}>Add New Project</Button>
+        <Button onClick={handleAddProject} sx={{ display: 'flex', flexDirection: 'column' }}><AddCardIcon />Add New Project</Button>
+        <hr className="divider"/>
+        {projects}
+        
         <AddProjectDialog />
       </Box>
     );
