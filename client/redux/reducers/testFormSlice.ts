@@ -34,7 +34,6 @@ export const testFormSlice = createSlice({
     },
     addAssertion: (state: testFormStateType) => {
       if (state.i === 3) state.i = 0;
-      console.log(state.i);
       state.assertionList[state.i] = state.assertionTypes[state.i];
       state.i += 1;
     },

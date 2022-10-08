@@ -43,7 +43,6 @@ const thunks = {
     const timeout = (ms: number): Promise<unknown> =>
       new Promise((resolve) => setTimeout(resolve, ms));
     const response = await timeout(1000);
-    console.log('THUNK: asyncChangeIcon', response);
     return response;
   }),
 };

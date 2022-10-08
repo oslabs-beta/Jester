@@ -56,7 +56,6 @@ describe('testsController middleware unit tests', () => {
         mockResponse,
         nextFunction
       );
-      console.log(typeof result.message.err);
       expect(result.message.err).toBeInstanceOf(Error);
       expect(result).not.toEqual(nextFunction());
     });
