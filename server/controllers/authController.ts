@@ -19,7 +19,7 @@ type AuthType = {
 const gitHubSettings: GitHubSettingsType = {
   clientID: 'bc3cf928850a92c03d5b',
   clientSecret: 'fea420829222c6882750bc0da33ea383c6780956',
-  callbackURL: 'https://jester-osp.herokuapp.com/auth/github/callback',
+  callbackURL: 'https://jester.software/auth/github/callback',
   scope: ['user:email']
 };
 
