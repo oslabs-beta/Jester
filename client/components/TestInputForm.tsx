@@ -16,7 +16,6 @@ import { setCodeOutput } from '../redux/reducers/reducer';
 import { setErrorMsg } from '../redux/reducers/userInputSlice';
 import { Assertions } from './Assertions';
 import { RequestBody } from './RequestBody';
-import { ChangeEvent } from 'react';
 import axios from 'axios';
 import { ProjectDropdown } from './ProjectDropdown';
 
@@ -96,9 +95,6 @@ export const TestInputForm = () => {
     dispatch(setRequestType(e.target.value));
   };
 
-  const handleChange = (
-    e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
-  ) => dispatch(setRequestType(e.target.value));
   const handleAdd = () => {
     dispatch(addAssertion());
     dispatch(setErrorMsg());
@@ -114,10 +110,6 @@ export const TestInputForm = () => {
     );
   }
 
-  // const getContentTypes = () => {
-  //   axios.get('https://www.geeksforgeeks.org/http-headers-content-type/')
-  //   .then(res => console.log(res))
-  // }
 
   return (
     <form id='test-generator-form' onSubmit={handleSubmit}>
@@ -192,14 +184,6 @@ export const TestInputForm = () => {
         Generate Test Code
       </Button>
       { (isLoggedIn) && <ProjectDropdown /> }
-      {/* <Button 
-      type='submit'
-      variant='contained'
-      sx={{ marginTop: '30px', height: 40 }}
-      disableElevation
-      onClick={getContentTypes}>
-        Get all content types
-      </Button> */}
     </form>
   );
 };

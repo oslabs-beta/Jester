@@ -1,10 +1,5 @@
 import React, { useState, ChangeEvent } from 'react';
-import {
-  Dialog,
-  TextField,
-  Button,
-  Typography,
-} from '@mui/material';
+import { Dialog, TextField, Button, Typography } from '@mui/material';
 import { setShowAddProject } from '../redux/reducers/navPanelSlice';
 import { useAppDispatch, useAppSelector } from '../redux/hooks';
 import { setProjectsInfo } from '../redux/reducers/userInfoSlice';
@@ -20,8 +15,7 @@ export const AddProjectDialog = () => {
     dispatch(setShowAddProject());
   };
   const handleAddProject = async () => {
-    // SA - TEMPORARY COMMENT-OUT
-    const response = await axios.post('/api/project/', {
+    const response = await axios.post('api/project/', {
       project_name: projectName,
     });
     dispatch(setProjectsInfo(response.data));
