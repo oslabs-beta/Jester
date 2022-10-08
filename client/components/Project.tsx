@@ -1,5 +1,6 @@
 import React from 'react';
 import { Button, Box } from '@mui/material';
+import CreditCardIcon from '@mui/icons-material/CreditCard';
 import { useAppDispatch } from '../redux/hooks';
 import { setShowAccessClipboard } from '../redux/reducers/userInfoSlice';
 import { AccessClipboardDisplay } from './AccessClipboardDisplay';
@@ -15,8 +16,10 @@ export const Project = (props: projectProps) => {
     dispatch(setShowAccessClipboard(props.projectId));
   };
   return (
-    <Box>
-      <Button onClick={handleClick}>{props.name}</Button>
+    <Box sx={{ alignItems: 'center', justifyContent: 'center' }}>
+      <Button onClick={handleClick} sx={{ display: 'flex', flexDirection: 'column', wordWrap: 'anywhere', width: '100%'}}><CreditCardIcon />
+      {props.name}
+      </Button>
       <AccessClipboardDisplay projectId={props.projectId} />
     </Box>
   );

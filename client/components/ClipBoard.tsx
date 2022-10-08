@@ -55,6 +55,7 @@ const ClipBoard = () => {
         className="code-container"
       >
         <TextField
+          className="text-display"
           label="Server URL"
           sx={{ width: '300px' }}
           value={ server }
@@ -62,6 +63,7 @@ const ClipBoard = () => {
           onChange={ updateServer }
         ></TextField>
         <TextField
+          className="text-display"
           id="main-clipboard"
           multiline
           rows={ 30 }

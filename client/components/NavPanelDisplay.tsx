@@ -1,5 +1,6 @@
 import React from 'react';
 import CollectionsBookmarkIcon from '@mui/icons-material/CollectionsBookmark';
+import ArticleIcon from '@mui/icons-material/Article';
 import { Button, Typography, Box } from '@mui/material';
 import { useAppDispatch} from '../redux/hooks';
 import {
@@ -18,22 +19,31 @@ export const NavPanelDisplay = () => {
   const handleHomeClick = () => {
     navigate('/');
   };
+  const handleDocumentationClick = () => {
+    navigate('/documentation');
+  };
   return (
     <Box
+    className="panel nav-panel-container"
       sx={{
+        width: '100px',
         display: 'flex',
         flexDirection: 'column',
-        border: '1px dashed lightgrey',
+
       }}
     >
-      <Button onClick={handleHomeClick} sx={{display: 'flex', flexDirection:'column'}}><HomeIcon />Home</Button>
+      <Button onClick={handleHomeClick} sx={{display: 'flex', flexDirection:'column', marginBottom:2}}><HomeIcon />Home</Button>
       <Button
-        sx={{ display: 'flex', flexDirection: 'column' }}
+        sx={{ display: 'flex', flexDirection: 'column', marginBottom:2 }}
         onClick={handleProjectsClick}
       >
         <CollectionsBookmarkIcon />
-        <Typography sx={{ fontSize: '10px' }}>Projects</Typography>
+        <Typography sx={{ fontSize: '12px' }}>Projects</Typography>
       </Button>
+      <Button onClick={handleDocumentationClick} sx={{display: 'flex', flexDirection:'column', marginBottom:2}}>
+        <ArticleIcon />
+        <Typography sx={{ fontSize: '10px' }}>Documentation</Typography>
+        </Button>
     </Box>
   );
 };

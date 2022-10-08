@@ -132,6 +132,7 @@ export const TestInputForm = () => {
         <FormControl>
           <InputLabel id='requestSelector'>Request Type</InputLabel>
           <Select
+            className="text-display"
             name='request-selector'
             id='request-selector'
             data-testid='request-selector'
@@ -144,6 +145,7 @@ export const TestInputForm = () => {
           </Select>
         </FormControl>
         <TextField
+          className="text-display"
           label='Endpoint'
           data-testid={requestType}
           id='endpoint'
