@@ -20,8 +20,7 @@ export const AddProjectDialog = () => {
     dispatch(setShowAddProject());
   };
   const handleAddProject = async () => {
-    // SA - TEMPORARY COMMENT-OUT
-    const response = await axios.post('/api/project/', {
+    const response = await axios.post('api/project/', {
       project_name: projectName,
     });
     dispatch(setProjectsInfo(response.data));

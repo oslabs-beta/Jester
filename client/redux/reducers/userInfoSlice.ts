@@ -1,14 +1,13 @@
-import { createSlice, PayloadAction } from '@reduxjs/toolkit';
+import { createSlice, PayloadAction, createAsyncThunk } from '@reduxjs/toolkit';
 import { DEFAULT_PROJECT } from '../../constants';
 import { userInfoStateType, projectsType } from '../../types';
+import axios from 'axios';
 
-// const showSave =  (sessionStorage.getItem('clipboardData')) ? true : false;
-// For testing only, delete later
-const showSave = true;
+
+const showSave =  (sessionStorage.getItem('clipboardData')) ? true : false;
 
 const initialState: userInfoStateType = {
   showLogin: false,
-  // MLCK what is the name of the property in sessionStorage with clipboard data?
   showSave: showSave,
   userId: 0,
   projectsInfo: [
@@ -38,6 +37,7 @@ export const userInfoSlice = createSlice({
       state: userInfoStateType,
       action: PayloadAction<projectsType[]>
     ) => {
+      console.log(action.payload);
       state.projectsInfo = action.payload;
     },
     setCurrentProject: (
@@ -99,18 +99,41 @@ export const userInfoSlice = createSlice({
       }
     },
   },
+  extraReducers: (builder) => {
+    builder.addCase(deleteProject.fulfilled, (state: userInfoStateType, action: any) => {
+      state.projectsInfo = action.payload.data;
+    });
+  },
 });
+
+const thunks = {
+  deleteProject: createAsyncThunk(
+    'userInfoSlice/deleteProject',
+    async (projectId: number) => {
+      console.log('THUNK: deleteProject', 'trying');
+      let response;
+      try {
+        response = await axios.delete(`/api/project/${projectId}`);
+      } catch (error) {
+        console.log('userInfoSlice/deleteProject', error);
+      }
+      console.log('THUNK: deleteProject', response);
+      return response;
+    }
+  ),
+};
 
 export const {
   setShowLogin,
   setShowSave,
   setProjectsInfo,
   setCurrentProject,
-  setIsLoggedIn,
   logout,
   setClipboardData,
   setShowAccessClipboard,
   setUserId,
   setNewProject,
 } = userInfoSlice.actions;
+
+export const { deleteProject } = thunks;
 export default userInfoSlice.reducer;
