@@ -123,6 +123,7 @@ describe('Unit testing AddProjectDialog when add new project is clicked', () => 
     expect(
       screen.getByText('To add a project, you must be logged in!')
     ).toBeInTheDocument();
+    expect(screen.getByRole('button', { name: 'Login' })).toBeInTheDocument();
   });
   test('it should render a dialog box for user to add project if they are logged in', () => {
     sessionStorage.setItem('isLoggedIn', 'true');
