@@ -41,7 +41,7 @@ export const Login = (props: loginProps) => {
             width: 400,
             display: 'flex',
             flexDirection: 'row',
-            backgroundColor: '#5E17EB',
+            backgroundColor: '#6e00bb',
             justifyContent: 'center',
           }}
         >
