@@ -1,4 +1,3 @@
-// backend tests
 const request = require('supertest');
 const server = 'http://localhost:3000';
 const fs = require('fs');
@@ -12,7 +11,7 @@ describe('Route integration tests', () => {
         const response = await request(server)
           .post('/api/tests')
           .send({
-            header: { endpoint: '/', method: 'GET' }
+            header: { endpoint: '/', method: 'GET' },
           });
 
         expect(response.statusCode).toBe(400);
@@ -29,7 +28,7 @@ describe('Route integration tests', () => {
           .post('/api/tests')
           .send({
             header: { endpoint: '/api/tests', method: 'GET' },
-            assertions: [{ content: 'application/json' }, { status: 200 }]
+            assertions: [{ content: 'application/json' }, { status: 200 }],
           });
 
         const expectedResponse =

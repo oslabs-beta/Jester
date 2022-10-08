@@ -29,8 +29,8 @@ describe('testsController middleware unit tests', () => {
       mockRequest.body = {
         header: {
           input: '/',
-          method: 'GET'
-        }
+          method: 'GET',
+        },
         // missing assertions array
       };
       nextFunction = (err) => err;
@@ -46,9 +46,9 @@ describe('testsController middleware unit tests', () => {
       mockRequest.body = {
         header: {
           input: '/',
-          method: 'fakemethod'
+          method: 'fakemethod',
         },
-        assertions: []
+        assertions: [],
       };
       nextFunction = (err) => err;
       const result = testsController.verifyInput(
@@ -65,9 +65,9 @@ describe('testsController middleware unit tests', () => {
       mockRequest.body = {
         header: {
           input: '/',
-          method: 'GET'
+          method: 'GET',
         },
-        assertions: []
+        assertions: [],
       };
       const result = testsController.verifyInput(
         mockRequest,
@@ -82,15 +82,15 @@ describe('testsController middleware unit tests', () => {
   describe('generateHeader', () => {
     const header = {
       endpoint: '/',
-      method: 'GET'
+      method: 'GET',
     };
     const assertions = [];
     const expectedResult = [
-      `describe('/', () => {`,
-      ` describe('GET', () => {`,
-      `  it('makes a GET request to \"/\"', async () => {`,
-      `   const response = await request(server)`,
-      `   .get('/');`
+      "describe('/', () => {",
+      " describe('GET', () => {",
+      '  it(\'makes a GET request to "/"\', async () => {',
+      '   const response = await request(server)',
+      "   .get('/');",
     ];
 
     it('empty assertions array should return default header', () => {
@@ -100,33 +100,26 @@ describe('testsController middleware unit tests', () => {
 
     it('assertions array with status assertion should return header with status description', () => {
       assertions.push({ status: 200 });
-      expectedResult[2] = `  it('responds with status 200', async () => {`;
+      expectedResult[2] = "  it('responds with status 200', async () => {";
       const result = helperFunctions.headerGenerator(header, assertions);
       expect(result).toEqual(expectedResult);
     });
 
     it('assertions array with status and content assertion should return header with full description', () => {
       assertions.push({ content: '/text/html/' });
-      expectedResult[2] = `  it('responds with status 200 and content-type /text/html/', async () => {`;
+      expectedResult[2] =
+        "  it('responds with status 200 and content-type /text/html/', async () => {";
       const result = helperFunctions.headerGenerator(header, assertions);
       expect(result).toEqual(expectedResult);
     });
   });
 
-  //How to test middlewares properly? Middlewares return the next function, not an object/array/data structure we can examine
-
-  // check if the middleware createMiddleText is working.
-  /* Steping back a sec, let's think about what exactly we want this test to do:
-  It needs to check that the result will be equal to an array.
-  -> so I can create an array with the results that I want, and when run on that specific array we can see if it is the exact same or not.
-  */
   describe('generateMiddle', () => {
-    //We want to test that the response being sent from this middleware is in the same positioning as the array we are feeding into it?
     let assertions;
     let expectedResult = [
       '    expect(response.statusCode).toBe(200);',
-      `    expect(response.type).toBe('/text/html/');`,
-      `    expect(response.body).toEqual( { a: 'b' });`
+      "    expect(response.type).toBe('/text/html/');",
+      "    expect(response.body).toEqual( { a: 'b' });",
     ];
 
     beforeEach(() => {
@@ -145,7 +138,6 @@ describe('testsController middleware unit tests', () => {
       expect(result).toEqual([expectedResult[1]]);
     });
 
-    // // Test for body
     it('should return proper expect for a body', () => {
       assertions.push({ res_body: " { a: 'b' }" });
       const result = helperFunctions.middleGenerator(assertions);
@@ -160,7 +152,6 @@ describe('testsController middleware unit tests', () => {
         { res_body: " { a: 'b' }" }
       );
       const result = helperFunctions.middleGenerator(assertions);
-      // console.log({ result }, { expectedResult });
       expect(result).toEqual(expectedResult);
     });
   });
