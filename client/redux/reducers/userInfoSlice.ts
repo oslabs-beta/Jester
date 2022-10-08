@@ -1,16 +1,14 @@
-import { createSlice, PayloadAction} from '@reduxjs/toolkit';
+import { createSlice, PayloadAction, createAsyncThunk } from '@reduxjs/toolkit';
 import { DEFAULT_PROJECT } from '../../constants';
-import {
-  userInfoStateType,
-  projectsType,
-} from '../../types';
+import { userInfoStateType, projectsType } from '../../types';
+import axios from 'axios';
 
-const showSave = sessionStorage.getItem('clipboardData') ? true : false;
+
+const showSave =  (sessionStorage.getItem('clipboardData')) ? true : false;
 
 const initialState: userInfoStateType = {
   showLogin: false,
   showSave: showSave,
-  isLoggedIn: false,
   userId: 0,
   projectsInfo: [
     {
@@ -57,14 +55,22 @@ export const userInfoSlice = createSlice({
     ) => {
       state.newProject = action.payload;
     },
-    setIsLoggedIn: (state: userInfoStateType) => {
-      state.isLoggedIn = state.isLoggedIn ? false : true;
-    },
     setUserId: (state: userInfoStateType, action: PayloadAction<number>) => {
       state.userId = action.payload;
     },
     logout: (state: userInfoStateType) => {
-      state = initialState;
+      state.projectsInfo = [
+        {
+          project_id: 0,
+          project_name: DEFAULT_PROJECT,
+          user_id: 0,
+          showAccessClipboard: false,
+        },
+      ];
+      state.userId = 0;
+      state.currentProject = DEFAULT_PROJECT;
+      state.newProject = '';
+
     },
     setClipboardData: (
       state: userInfoStateType,
@@ -93,18 +99,41 @@ export const userInfoSlice = createSlice({
       }
     },
   },
+  extraReducers: (builder) => {
+    builder.addCase(deleteProject.fulfilled, (state: userInfoStateType, action: any) => {
+      state.projectsInfo = action.payload.data;
+    });
+  },
 });
+
+const thunks = {
+  deleteProject: createAsyncThunk(
+    'userInfoSlice/deleteProject',
+    async (projectId: number) => {
+      console.log('THUNK: deleteProject', 'trying');
+      let response;
+      try {
+        response = await axios.delete(`/api/project/${projectId}`);
+      } catch (error) {
+        console.log('userInfoSlice/deleteProject', error);
+      }
+      console.log('THUNK: deleteProject', response);
+      return response;
+    }
+  ),
+};
 
 export const {
   setShowLogin,
   setShowSave,
   setProjectsInfo,
   setCurrentProject,
-  setIsLoggedIn,
   logout,
   setClipboardData,
   setShowAccessClipboard,
   setUserId,
   setNewProject,
 } = userInfoSlice.actions;
+
+export const { deleteProject } = thunks;
 export default userInfoSlice.reducer;
