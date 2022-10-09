@@ -5,7 +5,6 @@ import navPanelSlice from './reducers/navPanelSlice';
 import slice from './reducers/reducer';
 import userInfoReducer from './reducers/userInfoSlice';
 import clipbardReducer from './reducers/ClipBoardReducers';
-import contributorsReducer from './reducers/ContributorsSlice';
 
 export const store = configureStore({
   reducer: {
@@ -14,8 +13,7 @@ export const store = configureStore({
     slice: slice,
     clipboard: clipbardReducer,
     userInfo: userInfoReducer,
-    navPanel: navPanelSlice,
-    contributors: contributorsReducer
+    navPanel: navPanelSlice
   },
 });
 
