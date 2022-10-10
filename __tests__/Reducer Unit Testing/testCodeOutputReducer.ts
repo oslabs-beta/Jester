@@ -17,14 +17,14 @@ describe('Code Output Reducer', () => {
   
   it('should return a default state', () => {
     const state = store.getState();
-    expect(state.codeSlice).toEqual(defaultState);
+    expect(state.code).toEqual(defaultState);
   });
 
   it('should update codeOutputEdited in state', () => {
     const TYPED_TEXT = 'new user typed text';
     store.dispatch(userEditText(TYPED_TEXT));
     const newState = store.getState();
-    expect(newState.codeSlice.codeOutputEdited).toEqual(TYPED_TEXT);
+    expect(newState.code.codeOutputEdited).toEqual(TYPED_TEXT);
   });
   
 });

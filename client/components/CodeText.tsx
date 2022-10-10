@@ -7,9 +7,9 @@ import { userEditText } from '../redux/reducers/codeSlice';
 
 // This component will render the generated test code received from the fetch request to the server
 const CodeText = () => {
-  const codeOutput = useAppSelector((state) => state.codeSlice.codeOutput);
+  const codeOutput = useAppSelector((state) => state.code.codeOutput);
   const codeOutputEdited = useAppSelector(
-    (state) => state.codeSlice.codeOutputEdited
+    (state) => state.code.codeOutputEdited
   );
   const dispatch = useAppDispatch();
   const editCode = (e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) =>

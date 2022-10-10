@@ -4,14 +4,14 @@ import userInputReducer from './reducers/userInputSlice';
 import navPanelReducer from './reducers/navPanelSlice';
 import codeSliceReducer from './reducers/codeSlice';
 import userInfoReducer from './reducers/userInfoSlice';
-import clipbardReducer from './reducers/ClipBoardReducers';
+import clipboardReducer from './reducers/clipboardSlice';
 
 export const store = configureStore({
   reducer: {
     testForm: testFormReducer,
     userInput: userInputReducer,
-    codeSlice: codeSliceReducer,
-    clipboard: clipbardReducer,
+    code: codeSliceReducer,
+    clipboard: clipboardReducer,
     userInfo: userInfoReducer,
     navPanel: navPanelReducer,
   },

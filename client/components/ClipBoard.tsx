@@ -8,7 +8,7 @@ import {
   setServer,
   getSnippets,
   clearClipboardState,
-} from '../redux/reducers/ClipBoardReducers';
+} from '../redux/reducers/clipboardSlice';
 import ClipboardButton from './ClipboardButton';
 import { deleteProject } from '../redux/reducers/userInfoSlice';
 

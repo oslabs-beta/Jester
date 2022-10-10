@@ -9,7 +9,7 @@ import {
   appendToClipboard,
   postSnippet,
   getSnippets,
-} from '../redux/reducers/ClipBoardReducers';
+} from '../redux/reducers/clipboardSlice';
 import AppButton from '../components/AppButton';
 
 import { copyText } from '../redux/reducers/codeSlice';
@@ -20,7 +20,7 @@ import { copyText } from '../redux/reducers/codeSlice';
 
 const ButtonContainer = () => {
   const codeOutput = useAppSelector(
-    (state) => state.codeSlice.codeOutputEdited || state.codeSlice.codeOutput
+    (state) => state.code.codeOutputEdited || state.code.codeOutput
   );
   const isLoggedIn = sessionStorage.getItem('isLoggedIn');
   const projectId = useAppSelector((state) => state.userInfo.currentProjectId);
