@@ -22,15 +22,16 @@ const CodeText = () => {
       label="Testing Code"
       variant="filled"
       multiline
-      rows={10}
-      value={codeOutputEdited || codeOutput}
+      minRows={ 10 }
+      value={ codeOutputEdited || codeOutput }
       sx={{
         width: 0.95,
         backgroundColor: '#011E3C',
         color: 'white',
-        pl: 2
+        pl: 2,
+        borderRadius: 2,
       }}
-      onChange={editCode}
+      onChange={ editCode }
     />
   );
 };

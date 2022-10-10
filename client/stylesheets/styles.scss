@@ -15,16 +15,14 @@ body {
   display: flex;
   flex-direction: column;
   align-items: center;
-  margin-top: 50px;
+  margin-top: 35px;
 }
 
 #code-output {
   font-family: 'Inconsolata', monospace;
   font-size: medium;
   background-color: '#011E3C';
-  color: white;
-  // border-radius: 5px;
-  // padding: 10px;
+  color: white;;
 }
 
 #code-output-label {
@@ -34,6 +32,7 @@ body {
 #main-clipboard {
   font-family: 'Inconsolata', monospace;
   font-size: medium;
+  border-radius: '2px'
 }
 
 img[alt~='logo'] {
@@ -86,8 +85,8 @@ img[alt~='logo'] {
 .clipboard-button-container {
   position: absolute;
   display: inline-block;
-  top: 79px;
-  right: 36px;
+  top: 86px;
+  right: 9px;
   opacity: 0;
   overflow: hidden;
   z-index: 10;

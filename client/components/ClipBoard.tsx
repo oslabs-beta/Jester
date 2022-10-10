@@ -17,7 +17,7 @@ This component will display code snippets from a given project in the database i
 user is logged in, or from state if a user is not logged in
 */
 
-const ClipBoard = () => {
+const Clipboard = () => {
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
   const projectId = Number(useParams().projectId);
@@ -74,15 +74,15 @@ const ClipBoard = () => {
         <TextField
           className="text-display"
           label="Server URL"
-          sx={{ width: '300px' }}
-          value={server}
-          error={server === ''}
-          onChange={updateServer}
+          sx={{ width: 300 }}
+          value={ server }
+          error={ server === '' }
+          onChange={ updateServer }
         ></TextField>
         <Box 
           sx={{ 
             width: 800, 
-            minHeight: 400, 
+            height: 500,
             overflow: 'auto',
             color: 'white',
             backgroundColor: '#011E3C',
@@ -95,16 +95,15 @@ const ClipBoard = () => {
         </Box> 
         <ClipboardButton />
         <Button
-          onClick={handleClear}
-          sx={{
-            flexDirection: 'column',
-          }}
+          onClick={ handleClear }
+          sx={{ flexDirection: 'column' }}
         >
-          <DeleteForeverIcon /> {buttonText}
+          <DeleteForeverIcon /> 
+          { buttonText }
         </Button>
       </Box>
     </div>
   );
 };
 
-export default ClipBoard;
+export default Clipboard;

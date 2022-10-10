@@ -9,7 +9,7 @@ import NotFound from './pages/NotFound';
 import { NavPanelContainer } from './containers/NavPanelContainer';
 import { Box } from '@mui/material';
 import { CodeGenerator } from './pages/CodeGenerator';
-import ClipBoard from './components/ClipBoard';
+import Clipboard from './components/Clipboard';
 import Auth from './pages/Auth';
 
 const theme = createTheme({
@@ -51,7 +51,7 @@ const App = () => {
         <div className="page-container">
           <Routes>
             <Route path="/" element={<Home />} />
-            <Route path="/clipboard/:projectId" element={<ClipBoard />} />
+            <Route path="/clipboard/:projectId" element={<Clipboard />} />
             <Route path="/documentation" element={<Documentation />} />
             <Route path='/authenticate' element={<Auth />} />
             <Route

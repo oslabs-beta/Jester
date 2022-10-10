@@ -19,8 +19,6 @@ const ClipboardButton = () => {
     <Box
       className="clipboard-button-container"
       sx={{
-        marginLeft: 5,
-        marginTop: 2,
         justifyContent: 'flex-end',
         alignItems: 'flex-end',
       }}
