@@ -20,16 +20,16 @@ body {
 
 #code-output {
   font-family: 'Inconsolata', monospace;
-  font-size: small;
-  // background-color: rgba(255,255,255, 1);
+  font-size: medium;
+  background-color: '#011E3C';
+  color: white;
   // border-radius: 5px;
   // padding: 10px;
 }
 
 #main-clipboard {
   font-family: 'Inconsolata', monospace;
-  font-size: small;
-  height: 500px !important;
+  font-size: medium;
 }
 
 img[alt~='logo'] {
@@ -150,4 +150,9 @@ img[alt~='logo'] {
 
 .text-display {
   background-color: rgba(255,255,255,0.4);
+}
+
+pre {
+  margin: 2;
+  font-family: 'Inconsolata', monospace;
 }

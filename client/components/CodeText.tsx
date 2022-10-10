@@ -20,12 +20,14 @@ const CodeText = () => {
       id="code-output"
       className="text-display"
       label="Testing Code"
+      variant="filled"
       multiline
       rows={10}
       value={codeOutputEdited || codeOutput}
       sx={{
         width: 0.95,
-        fontFamily: 'Source Code Pro',
+        backgroundColor: '#011E3C',
+        color: 'white',
       }}
       onChange={editCode}
     />
