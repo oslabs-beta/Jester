@@ -39,7 +39,7 @@ export const clipboardController: Clipboard = {
     }
   },
 
-  // Middleware to add a code snippet to the clipboard of a specified project
+  // Middleware to add code snippets to the clipboard of a specified project
   appendClipboard: async (req: Request, res: Response, next: NextFunction) => {
     const { project_id } = req.params;
     const { code_snippets } = req.body;
@@ -57,16 +57,12 @@ export const clipboardController: Clipboard = {
     let addClipQuery = `INSERT INTO code_snippets_table (code_snippet, created_at, user_id, project_id) 
     VALUES`;
     const params1 = [date, user_id, project_id];
-      
-    // INSERT INTO code_snippets_table (code_snippet, created_at, user_id, project_id) 
-    // VALUES ($4, $1, $2, $3), ($5, $1, $2, $3), ($6, $1, $2, $3);
-      
+
     code_snippets.forEach(async (code_snippet: string, idx: number) => {
       params1.push(code_snippet);
       addClipQuery += ` ($${counter++}, $1, $2, $3)`;
       addClipQuery += idx === code_snippets.length-1 ? ';' : ',';
     });
-    console.log(addClipQuery);
     const getClipsQuery = `
     SELECT * FROM code_snippets_table
     WHERE project_id = $1

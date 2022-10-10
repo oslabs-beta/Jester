@@ -75,9 +75,7 @@ const SaveDataContainer = (props: saveDataPropsType) => {
           dispatch(postSnippet({ projectId: project.project_id, codeOutput: snippets }));
           break;
         }
-
       }
-      
     }
     sessionStorage.removeItem('clipboardData');
 
