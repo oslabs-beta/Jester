@@ -1,8 +1,10 @@
 body {
   margin: 0;
-  background: rgb(63,94,251);
-  background: radial-gradient(circle, rgba(63,94,251,0.14051558123249297) 3%, rgba(130,86,200,0.27777048319327735) 71%, rgba(252,70,107,0.1237088585434174) 96%, rgba(184,79,159,0.32258841036414565) 100%);
+  //background: rgb(63,94,251);
+  // background: radial-gradient(circle, rgba(63,94,251,0.14051558123249297) 3%, rgba(130,86,200,0.27777048319327735) 71%, rgba(252,70,107,0.1237088585434174) 96%, rgba(184,79,159,0.32258841036414565) 100%);
   background-color: #fff;
+  background: rgb(63,94,251);
+  background: radial-gradient(circle, rgba(63,94,251,0.13911502100840334) 0%, rgba(252,70,107,0.0746892507002801) 100%);
 }
 
 .page-container {

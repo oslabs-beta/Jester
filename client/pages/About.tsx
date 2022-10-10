@@ -30,13 +30,13 @@ export const About = () => {
     {
       name: 'Brian Hao',
       githubLink: 'https://www.github.com/BrianHao',
-      linkedInLink: 'https://www.linkedin.com/brianhao/',
+      linkedInLink: 'https://www.linkedin.com/in/brianhao/',
       imageUrl: photosObj.brian
     },
     {
       name: 'Serena Amos',
-      githubLink: 'https://www.github.com/brianhao/',
-      linkedInLink: 'https://www.linkedin.com/brianhao/',
+      githubLink: 'https://github.com/samos17',
+      linkedInLink: 'https://www.linkedin.com/in/serena-amos/',
       imageUrl: photosObj.serena
     },
     {

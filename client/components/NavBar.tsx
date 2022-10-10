@@ -65,12 +65,7 @@ const NavBar = () => {
           )}
           <Button color='inherit'>
             <Link className='nav-link' to='/about'>
-              About
-            </Link>
-          </Button>
-          <Button color='inherit'>
-            <Link className='nav-link' to='/documentation'>
-              Documentation
+              Contributors
             </Link>
           </Button>
           {sessionStorage.getItem('isLoggedIn') ? (
