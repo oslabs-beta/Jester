@@ -51,23 +51,31 @@ export const clipboardController: Clipboard = {
         message: 'an error occurred in appendClipboard middleware function',
       });
 
-    const values: (string | number)[][] = [];
-    code_snippets.forEach(async (code_snippet: string) => {
-      const date = Date.now();
-      values.push([code_snippet, date, user_id, project_id]);
-
+    const date = Date.now();
+    let counter = 4;
+    
+    let addClipQuery = `INSERT INTO code_snippets_table (code_snippet, created_at, user_id, project_id) 
+    VALUES`;
+    const params1 = [date, user_id, project_id];
+      
+    // INSERT INTO code_snippets_table (code_snippet, created_at, user_id, project_id) 
+    // VALUES ($4, $1, $2, $3), ($5, $1, $2, $3), ($6, $1, $2, $3);
+      
+    code_snippets.forEach(async (code_snippet: string, idx: number) => {
+      params1.push(code_snippet);
+      addClipQuery += ` ($${counter++}, $1, $2, $3)`;
+      addClipQuery += idx === code_snippets.length-1 ? ';' : ',';
     });
-    const addClipQuery = `INSERT INTO code_snippets_table (code_snippet, created_at, user_id, project_id) 
-    VALUES :params`;
-
+    console.log(addClipQuery);
     const getClipsQuery = `
     SELECT * FROM code_snippets_table
     WHERE project_id = $1
     AND user_id = $2
     `;
+    
     const params2 = [project_id, user_id];
     try {
-      await db.query(addClipQuery, { params: values });
+      await db.query(addClipQuery, params1);
       const result = await db.query(getClipsQuery, params2);
       res.locals.clipboard = result.rows;
       return next();
