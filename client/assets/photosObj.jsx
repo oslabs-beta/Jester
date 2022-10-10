@@ -9,4 +9,5 @@ export const photosObj = {
   anshu: './assets/photos/anshu.png',
   lilah: './assets/photos/lilah.png',
   michael: './assets/photos/michael.jpg',
+  buttons: './assets/photos/buttons.png'
 };
