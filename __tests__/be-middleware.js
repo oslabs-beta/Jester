@@ -1,5 +1,6 @@
 import testsController from '../server/controllers/testsController.js';
 import helperFunctions from '../server/helpers/functions.js';
+import { INDENT } from '../client/constants/index';
 
 describe('testsController middleware unit tests', () => {
   let mockRequest;
@@ -86,10 +87,10 @@ describe('testsController middleware unit tests', () => {
     const assertions = [];
     const expectedResult = [
       'describe(\'/\', () => {',
-      ' describe(\'GET\', () => {',
-      '  it(\'makes a GET request to "/"\', async () => {',
-      '   const response = await request(server)',
-      '   .get(\'/\');',
+      `${INDENT}describe('GET', () => {`,
+      `${INDENT}${INDENT}it('makes a GET request to "/"', async () => {`,
+      `${INDENT}${INDENT}${INDENT}const response = await request(server)`,
+      `${INDENT}${INDENT}${INDENT}${INDENT}.get('/');`,
     ];
 
     it('empty assertions array should return default header', () => {
@@ -99,7 +100,7 @@ describe('testsController middleware unit tests', () => {
 
     it('assertions array with status assertion should return header with status description', () => {
       assertions.push({ status: 200 });
-      expectedResult[2] = '  it(\'responds with status 200\', async () => {';
+      expectedResult[2] = `${INDENT}${INDENT}it('responds with status 200', async () => {`;
       const result = helperFunctions.headerGenerator(header, assertions);
       expect(result).toEqual(expectedResult);
     });
@@ -107,7 +108,7 @@ describe('testsController middleware unit tests', () => {
     it('assertions array with status and content assertion should return header with full description', () => {
       assertions.push({ content: '/text/html/' });
       expectedResult[2] =
-        '  it(\'responds with status 200 and content-type /text/html/\', async () => {';
+        `${INDENT}${INDENT}it('responds with status 200 and content-type /text/html/', async () => {`;
       const result = helperFunctions.headerGenerator(header, assertions);
       expect(result).toEqual(expectedResult);
     });
@@ -116,9 +117,9 @@ describe('testsController middleware unit tests', () => {
   describe('generateAssertions', () => {
     let assertions;
     const expectedResult = [
-      '    expect(response.statusCode).toBe(200);',
-      '    expect(response.type).toBe(\'/text/html/\');',
-      '    expect(response.body).toEqual( { a: \'b\' });',
+      `${INDENT}${INDENT}${INDENT}expect(response.statusCode).toBe(200);`,
+      `${INDENT}${INDENT}${INDENT}expect(response.type).toBe('/text/html/');`,
+      `${INDENT}${INDENT}${INDENT}expect(response.body).toEqual( { a: 'b' });`,
     ];
 
     beforeEach(() => {
@@ -158,8 +159,10 @@ describe('testsController middleware unit tests', () => {
   // check if the middleware helper function compiledCodeGenerator is working.
   describe('compiledCodeGenerator', () => {
     const headerOutput = ['line1', 'line2'];
+
     const assertionsOutput = ['line3', 'line4'];
-    const expectedResult = 'line1\nline2\nline3\nline4\n  });\n });\n});';
+    const expectedResult = `line1\nline2\nline3\nline4\n${INDENT}${INDENT}});\n${INDENT}});\n});`;
+
 
     it('should compile both headerOutput and AssertionsOutput into a final array', () => {
       const result = helperFunctions.compiledCodeGenerator(

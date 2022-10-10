@@ -2,11 +2,15 @@
   This file contains helper functions to help with the generation
   of test code that will be returned to the client making the request.
  */
-const helperFunctions = {};
-
 /* 
   This function generates the header portion of the test code
  */
+
+import { INDENT } from '../../client/constants/index';
+
+const helperFunctions = {};
+
+
 helperFunctions.headerGenerator = (header, assertions) => {
   const headerOutput = [];
   let description = '';
@@ -30,10 +34,10 @@ helperFunctions.headerGenerator = (header, assertions) => {
 
   // Generates the full header
   headerOutput.push(`describe('${header.endpoint}', () => {`);
-  headerOutput.push(` describe('${header.method}', () => {`);
-  headerOutput.push(`  it('${description}', async () => {`);
-  headerOutput.push('   const response = await request(server)');
-  headerOutput.push(`   .${header.method.toLowerCase()}('${header.endpoint}')`);
+  headerOutput.push(`${INDENT}describe('${header.method}', () => {`);
+  headerOutput.push(`${INDENT}${INDENT}it('${description}', async () => {`);
+  headerOutput.push(`${INDENT}${INDENT}${INDENT}const response = await request(server)`);
+  headerOutput.push(`${INDENT}${INDENT}${INDENT}${INDENT}.${header.method.toLowerCase()}('${header.endpoint}')`);
 
   // If header is not GET and a req.body is provided, include it in the test code
   if (
@@ -42,7 +46,7 @@ helperFunctions.headerGenerator = (header, assertions) => {
       header.method === 'DELETE') &&
     header.req_body
   ) {
-    headerOutput.push(`   .send(${header.req_body})`);
+    headerOutput.push(`${INDENT}${INDENT}${INDENT}${INDENT}.send(${header.req_body})`);
   }
 
   headerOutput[headerOutput.length - 1] += ';';
@@ -60,18 +64,20 @@ helperFunctions.assertionsGenerator = (assertions) => {
   for (const assertion of assertions) {
     const keys = Object.keys(assertion);
     if (keys[0] === 'status') {
+      //add our status description to the it(string) we want to return
       assertionsOutput.push(
-        `    expect(response.statusCode).toBe(${assertion.status});`
+        `${INDENT}${INDENT}${INDENT}expect(response.statusCode).toBe(${assertion.status});`
       );
     }
     if (keys[0] === 'content') {
       assertionsOutput.push(
-        `    expect(response.type).toBe('${assertion.content}');`
+        `${INDENT}${INDENT}${INDENT}expect(response.type).toBe('${assertion.content}');`
       );
     }
     if (keys[0] === 'res_body') {
+      // console.log(assertion.res_body, typeof assertion.res_body);
       assertionsOutput.push(
-        `    expect(response.body).toEqual(${assertion.res_body});`
+        `${INDENT}${INDENT}${INDENT}expect(response.body).toEqual(${assertion.res_body});`
       );
     }
   }
@@ -82,9 +88,11 @@ helperFunctions.assertionsGenerator = (assertions) => {
   This function compiles the output from both generators and
   the complete generated test code
  */
+
 helperFunctions.compiledCodeGenerator = (headerOutput, assertionsOutput) => {
   const compiledCode = headerOutput.concat(assertionsOutput);
-  compiledCode.push('  });', ' });', '});');
+  compiledCode.push(`${INDENT}${INDENT}` + '});', `${INDENT}` + '});', '});');
+
   return compiledCode.join('\n');
 };
 
