@@ -1,9 +1,8 @@
-import { createSlice, createAsyncThunk, PayloadAction } from '@reduxjs/toolkit';
+import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
 type codeSliceType = {
   codeOutput: string;
   codeOutputEdited: string | undefined;
-  doneIcon: boolean;
 };
 
 const initialState: codeSliceType = {
@@ -11,7 +10,6 @@ const initialState: codeSliceType = {
   codeOutput: 'describe(\'Sample description\', (arg1) => { code.. }',
   // this value will be saved into the database
   codeOutputEdited: undefined,
-  doneIcon: false,
 };
 
 export const codeSlice = createSlice({
@@ -21,9 +19,6 @@ export const codeSlice = createSlice({
     copyText: (state: codeSliceType) => {
       navigator.clipboard.writeText(state.codeOutputEdited || state.codeOutput);
     },
-    changeIcon: (state: codeSliceType) => {
-      state.doneIcon = true;
-    },
     userEditText: (state: codeSliceType, action: PayloadAction<string>) => {
       state.codeOutputEdited = action.payload;
     },
@@ -31,24 +26,8 @@ export const codeSlice = createSlice({
       state.codeOutput = action.payload;
     },
   },
-  extraReducers: (builder) => {
-    builder.addCase(asyncChangeIcon.fulfilled, (state: codeSliceType) => {
-      state.doneIcon = false;
-    });
-  },
 });
 
-const thunks = {
-  asyncChangeIcon: createAsyncThunk('slice/asyncChangeIcon', async () => {
-    const timeout = (ms: number): Promise<unknown> =>
-      new Promise((resolve) => setTimeout(resolve, ms));
-    const response = await timeout(1000);
-    return response;
-  }),
-};
-
-export const { copyText, changeIcon, userEditText, setCodeOutput } = codeSlice.actions;
-
-export const { asyncChangeIcon } = thunks;
+export const { copyText, userEditText, setCodeOutput } = codeSlice.actions;
 
 export default codeSlice.reducer;

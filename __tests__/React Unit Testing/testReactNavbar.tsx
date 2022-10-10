@@ -9,7 +9,7 @@ import Navbar from '../../client/components/Navbar';
 import '@testing-library/jest-dom';
 import { clipboardStateType } from '../../client/types';
 
-type sliceType = {
+type codeType = {
   codeOutput: string;
 };
 
@@ -22,13 +22,13 @@ type clipboardType = {
 }
 
 type initialStateType = {
-  slice: sliceType,
+  codeSlice: codeType,
   userInfo: userInfoType,
   clipboard: clipboardType,
 };
 
 const initialState: initialStateType = {
-  slice: {
+  codeSlice: {
     codeOutput: 'describe(\'Sample description\')',
   },
   userInfo: {

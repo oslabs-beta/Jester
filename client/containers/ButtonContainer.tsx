@@ -1,6 +1,5 @@
 import React from 'react';
 import Box from '@mui/material/Box';
-import Button from '@mui/material/Button';
 import AddBoxIcon from '@mui/icons-material/AddBox';
 import ContentCopyIcon from '@mui/icons-material/ContentCopy';
 import DoneAllIcon from '@mui/icons-material/DoneAll';
@@ -13,11 +12,7 @@ import {
 } from '../redux/reducers/ClipBoardReducers';
 import AppButton from '../components/AppButton';
 
-import {
-  copyText,
-  changeIcon,
-  asyncChangeIcon,
-} from '../redux/reducers/codeSlice';
+import { copyText } from '../redux/reducers/codeSlice';
 
 // This container wraps:
 // 1) the button that copies the code to the navigator clipboard
@@ -25,17 +20,13 @@ import {
 
 const ButtonContainer = () => {
   const codeOutput = useAppSelector(
-    (state) => state.slice.codeOutputEdited || state.slice.codeOutput
+    (state) => state.codeSlice.codeOutputEdited || state.codeSlice.codeOutput
   );
   const isLoggedIn = sessionStorage.getItem('isLoggedIn');
   const projectId = useAppSelector((state) => state.userInfo.currentProjectId);
 
   const dispatch = useAppDispatch();
-  const copyClipboard = () => {
-    dispatch(copyText());
-    dispatch(changeIcon());
-    dispatch(asyncChangeIcon());
-  };
+  const copyClipboard = () => dispatch(copyText());
 
   const appendClipboard = () => {
     if (isLoggedIn) {
