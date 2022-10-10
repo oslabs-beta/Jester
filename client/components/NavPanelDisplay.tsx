@@ -35,17 +35,17 @@ export const NavPanelDisplay = () => {
 
       }}
     >
-      <Button onClick={handleHomeClick} sx={{ fontSize: '10px', display: 'flex', flexDirection:'column', marginBottom:2 }}><HomeIcon />Home</Button>
+      <Button onClick={handleHomeClick} sx={{ fontSize: '12px', display: 'flex', flexDirection:'column', marginBottom:2 }}><HomeIcon />Home</Button>
       <Button
         sx={{ display: 'flex', flexDirection: 'column', marginBottom:2 }}
         onClick={handleProjectsClick}
       >
         <CollectionsBookmarkIcon />
-        <Typography sx={{ fontSize: '10px' }}>Projects</Typography>
+        <Typography sx={{ fontSize: '12px' }}>Projects</Typography>
       </Button>
       <Button onClick={handleDocumentationClick} sx={{ display: 'flex', flexDirection:'column', marginBottom:2 }}>
         <ArticleIcon />
-        <Typography sx={{ fontSize: '10px' }}>Documentation</Typography>
+        <Typography sx={{ fontSize: '12px' }}>Docs</Typography>
       </Button>
     </Box>
   );
