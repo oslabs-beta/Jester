@@ -7,6 +7,7 @@ import { BrowserRouter } from 'react-router-dom';
 import Navbar from '../../client/components/Navbar';
 
 import '@testing-library/jest-dom';
+import { clipboardStateType } from '../../client/types';
 
 type sliceType = {
   codeOutput: string;
@@ -16,9 +17,14 @@ type userInfoType = {
   showLogin: false;
 };
 
+type clipboardType = {
+  codeSnippets: string[];
+}
+
 type initialStateType = {
-  slice: sliceType;
-  userInfo: userInfoType;
+  slice: sliceType,
+  userInfo: userInfoType,
+  clipboard: clipboardType,
 };
 
 const initialState: initialStateType = {
@@ -28,6 +34,9 @@ const initialState: initialStateType = {
   userInfo: {
     showLogin: false,
   },
+  clipboard: {
+    codeSnippets: [],
+  }
 };
 
 const mockStore: any = configureStore();
