@@ -1,5 +1,5 @@
 import React from 'react';
-import { buttons } from '../assets/buttons.png';
+// import { buttons } from '../assets/buttons.png';
 // import { Typography } from '@mui/material';
 
 const Documentation = () => {
@@ -24,41 +24,44 @@ const Documentation = () => {
         <p className="documentation-p"> You are allowed a maximum of one of each assertion type. Once all of your specifications are in place, click ‘Generate Test Code’ and your new test will appear in the code block below!</p>
         <p className="documentation-headers">Saving your work</p>
         <p className="documentation-p">The code block where your tests are displayed also has 2 buttons in the top right corner.</p>
-        <img className="docs-display" src={buttons}></img>
+        {/* <img className="docs-display" src={buttons}></img> */}
+        <p className="documentation-p">The first is a copy-to-clipboard button which will enable you to copy the entire block of code to paste wherever you wish. The second is the ‘add to project’ button available to logged-in users.</p>
+        <p className="documentation-p">
+          There is an option to login with Github. If you are logged in, then you will be able to create saved projects 
+          under ‘Projects’ and add your generated test code snippets to whatever project you specify. An ‘Add to Project’ 
+          dropdown will appear underneath the ‘Generate Test Code’ button for logged in users. To add a test code snippet to 
+          a project, select your desired project from this drop-down menu and then click the second button in the upper right 
+          corner of the code block. You can view your saved projects in the 'Projects' tab.</p>
         <p className="documentation-headers">Integrating tests into your codebase</p>
-        <p className="documentation-p"></p>
-        <p className="documentation-p"></p>
-          
-        {/* <ol>
-            <li>
+        <ol className="documentation-p">
+          <li>
             Create a __tests__ folder in your project with a file called
             supertest.js
-            </li>
-            <li>
+          </li>
+          <li>
             Add jest and supertest as dependencies in your package.json file
-            </li>
-            <li>
+          </li>
+          <li>
             Add the following to your supertest.js file:
-              <ul>
-                <li>
-                  <code>const &#123; response &#125; = require('express')</code>
-                </li>
-                <li>
-                  <code>const request = require('supertest')</code>
-                </li>
-                <li>
-                  <code>
+            <ul>
+              <li>
+                <code>const &#123; response &#125; = require('express')</code>
+              </li>
+              <li>
+                <code>const request = require('supertest')</code>
+              </li>
+              <li>
+                <code>
                   const server = '
-                    <em>
-                      <u>Place server information here</u>
-                    </em>
+                  <em>
+                    <u>Place server information here</u>
+                  </em>
                   '
-                  </code>
-                </li>
-              </ul>
-            </li>
-          </ol> */}
-        {/* </Typography> */}
+                </code>
+              </li>
+            </ul>
+          </li>
+        </ol>
       </div>
       
     </div>
