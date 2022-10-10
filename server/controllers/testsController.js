@@ -3,7 +3,7 @@ import helperFunctions from '../helpers/functions.js';
 const testsController = {};
 
 /*
-  EXPECTED INPUT:
+  EXAMPLE REQUEST BODY FORMAT:
     {
       header: {
                 endpoint : '/',
@@ -17,11 +17,12 @@ const testsController = {};
                     ...
       ]
     }
-    EXPECTED OUTPUT: res.locals.header, res.locals.assertions
 */
 
-/* Middleware to verify that we have the properties we are looking for in our input object. If it fails, return 400 error code.
-  verify the reqest body has all the relevant properties and save them to res.locals.header and res.locals.assertions */
+/* Middleware to verify that we have the properties we are looking for in our input object. 
+  If it fails, return 400 error code.
+  Verify the reqest body has all the relevant properties and save them to res.locals.header and res.locals.assertions 
+*/
 testsController.verifyInput = (req, res, next) => {
   try {
     const { header, assertions } = req.body;
@@ -61,10 +62,11 @@ testsController.verifyInput = (req, res, next) => {
   }
 };
 
-/* Converts header part of input object into header of test code
+/* 
+  Converts header part of input object into header of test code
   EXPECTED INPUT: res.locals.header, res.locals.assertions
-  EXPECTED OUTPUT: res.locals.headerOutput = Array of Strings
-    [
+  EXPECTED OUTPUT: res.locals.headerOutput
+  EXAMPLE OUTPUT: [
       `describe('/', () => {`,
         `describe('GET', () => {`,
           `it('responds with status 200 and content type text/html', () => request(server)`,
@@ -80,22 +82,22 @@ testsController.createHeaderText = (req, res, next) => {
   return next();
 };
 
-//Write a MiddleWare to examine the res object from the front-end and produce lines of code depending on what is coming in from the middleware.
-testsController.createMiddleText = (req, res, next) => {
+// Converts assertions part of input object into assertions part of test code
+testsController.createAssertionsText = (req, res, next) => {
   const assertions = res.locals.assertions;
 
-  res.locals.middleOutput = helperFunctions.middleGenerator(assertions);
+  res.locals.assertionsOutput = helperFunctions.assertionsGenerator(assertions);
   return next();
 };
 
 /* This middleware will take the output from the previous two middleware functions in res.locals and compile them into a final test code to return to the front-end */
 testsController.compileTestCode = (req, res, next) => {
   const headerOutput = res.locals.headerOutput;
-  const middleOutput = res.locals.middleOutput;
+  const assertionsOutput = res.locals.assertionsOutput;
 
   res.locals.compiledTestCode = helperFunctions.compiledCodeGenerator(
     headerOutput,
-    middleOutput
+    assertionsOutput
   );
   return next();
 };

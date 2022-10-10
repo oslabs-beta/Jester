@@ -15,7 +15,7 @@ const PORT = process.env.PORT || 3000;
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
-// passport and cookie-seesion methods for OAuth 2
+// Passport and cookie-session methods for OAuth 2
 app.use(
   cookieSession({
     name: 'github-auth-session',

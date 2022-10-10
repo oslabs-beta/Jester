@@ -1,12 +1,9 @@
-const request = require('supertest');
+import { request } from 'supertest';
 const server = 'http://localhost:3000';
-const fs = require('fs');
-const path = require('path');
 
-describe('Clipboard editor route integration tests', () => {
+xdescribe('Clipboard editor route integration tests', () => {
   describe('/api/clipboard', () => {
-    // BH: skipped this test for now as it needs user_id from req.user
-    xdescribe('GET', () => {
+    describe('GET', () => {
       it('responds with array of JSON objects and status code of 200', async () => {
         const response = await request(server)
           .get('/api/clipboard/1')
