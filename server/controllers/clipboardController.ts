@@ -42,25 +42,23 @@ export const clipboardController: Clipboard = {
   // Middleware to add a code snippet to the clipboard of a specified project
   appendClipboard: async (req: Request, res: Response, next: NextFunction) => {
     const { project_id } = req.params;
-    const { code_snippet } = req.body;
+    const { code_snippets } = req.body;
     const { user_id } = res.locals;
-
-    if (!code_snippet)
+    if (!code_snippets || !code_snippets.length)
       return next({
         log: 'code snippet not fond on request body',
         status: 400,
         message: 'an error occurred in appendClipboard middleware function',
       });
 
-    // this controller should insert a new record in the Clipboard table
-    // and save the updated clipboard to res.locals.clipboard
-    const date = Date.now();
+    const values: (string | number)[][] = [];
+    code_snippets.forEach(async (code_snippet: string) => {
+      const date = Date.now();
+      values.push([code_snippet, date, user_id, project_id]);
 
-    const addClipQuery = `
-    INSERT INTO code_snippets_table(code_snippet, created_at, user_id, project_id)
-    VALUES ($1, $2, $3, $4)
-    `;
-    const params1 = [code_snippet, date, user_id, project_id];
+    });
+    const addClipQuery = `INSERT INTO code_snippets_table (code_snippet, created_at, user_id, project_id) 
+    VALUES ($1, $2, $3, $4);`;
 
     const getClipsQuery = `
     SELECT * FROM code_snippets_table
@@ -69,7 +67,7 @@ export const clipboardController: Clipboard = {
     `;
     const params2 = [project_id, user_id];
     try {
-      await db.query(addClipQuery, params1);
+      await db.query(addClipQuery, values[0]);
       const result = await db.query(getClipsQuery, params2);
       res.locals.clipboard = result.rows;
       return next();

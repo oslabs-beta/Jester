@@ -62,24 +62,22 @@ const SaveDataContainer = (props: saveDataPropsType) => {
       });
       const projects = response.data;
       dispatch(setProjectsInfo(response.data));
-      snippets.forEach((snippet) => {
-        dispatch(
-          postSnippet({
-            projectId: projects[projects.length - 1]['project_id'],
-            codeOutput: snippet,
-          })
-        );
-      });
+      dispatch(
+        postSnippet({
+          projectId: projects[projects.length - 1]['project_id'],
+          codeOutput: snippets,
+        })
+      );
     } else { 
       // add saved code snippets to a pre-existing project
-      let projectId: number;
       for (const project of projects) {
-        if (project.project_name === selectedProject)
-          projectId = project.project_id;
+        if (project.project_name === selectedProject) {
+          dispatch(postSnippet({ projectId: project.project_id, codeOutput: snippets }));
+          break;
+        }
+
       }
-      snippets.forEach((snippet) => {
-        dispatch(postSnippet({ projectId: projectId, codeOutput: snippet }));
-      });
+      
     }
     sessionStorage.removeItem('clipboardData');
 
@@ -103,7 +101,7 @@ const SaveDataContainer = (props: saveDataPropsType) => {
             width: 500,
             display: 'flex',
             flexDirection: 'row',
-            backgroundColor: '#6e00bb',
+            backgroundColor: '#5E17EB',
             justifyContent: 'center',
           }}
         >
