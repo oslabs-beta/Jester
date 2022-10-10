@@ -113,7 +113,7 @@ describe('testsController middleware unit tests', () => {
     });
   });
 
-  describe('generateMiddle', () => {
+  describe('generateAssertions', () => {
     let assertions;
     const expectedResult = [
       '    expect(response.statusCode).toBe(200);',
@@ -127,19 +127,19 @@ describe('testsController middleware unit tests', () => {
 
     it('should return proper expect for a status of 200', () => {
       assertions.push({ status: 200 });
-      const result = helperFunctions.middleGenerator(assertions);
+      const result = helperFunctions.assertionsGenerator(assertions);
       expect(result).toEqual([expectedResult[0]]);
     });
 
     it('should return proper expect for a content of text/html', () => {
       assertions.push({ content: '/text/html/' });
-      const result = helperFunctions.middleGenerator(assertions);
+      const result = helperFunctions.assertionsGenerator(assertions);
       expect(result).toEqual([expectedResult[1]]);
     });
 
     it('should return proper expect for a body', () => {
       assertions.push({ res_body: ' { a: \'b\' }' });
-      const result = helperFunctions.middleGenerator(assertions);
+      const result = helperFunctions.assertionsGenerator(assertions);
       expect(result).toEqual([expectedResult[2]]);
     });
     (' { a: \'b\' }');
@@ -150,7 +150,7 @@ describe('testsController middleware unit tests', () => {
         { content: '/text/html/' },
         { res_body: ' { a: \'b\' }' }
       );
-      const result = helperFunctions.middleGenerator(assertions);
+      const result = helperFunctions.assertionsGenerator(assertions);
       expect(result).toEqual(expectedResult);
     });
   });
@@ -158,13 +158,13 @@ describe('testsController middleware unit tests', () => {
   // check if the middleware helper function compiledCodeGenerator is working.
   describe('compiledCodeGenerator', () => {
     const headerOutput = ['line1', 'line2'];
-    const middleOutput = ['line3', 'line4'];
+    const assertionsOutput = ['line3', 'line4'];
     const expectedResult = 'line1\nline2\nline3\nline4\n  });\n });\n});';
 
-    it('should compile both headerOutput and middleOutput into a final array', () => {
+    it('should compile both headerOutput and AssertionsOutput into a final array', () => {
       const result = helperFunctions.compiledCodeGenerator(
         headerOutput,
-        middleOutput
+        assertionsOutput
       );
       expect(result).toEqual(expectedResult);
     });
