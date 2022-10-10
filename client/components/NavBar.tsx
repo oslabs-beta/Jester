@@ -15,7 +15,7 @@ import { Login } from './Login';
 import { Link, useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import Cookies from 'js-cookie';
-import ThemeToggle from './ThemeToggle';
+
 
 
 const NavBar = () => {
@@ -56,7 +56,6 @@ const NavBar = () => {
             component="div"
             sx={{ flexGrow: 1, marginLeft: '15px' }}
           ></Typography>
-          <ThemeToggle />
           {sessionStorage.getItem('isLoggedIn') ? (
             <Button className='welcome-text' color='inherit'>
               Welcome, {sessionStorage.getItem('username')}!

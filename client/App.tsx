@@ -36,7 +36,6 @@ const App = () => {
   return (
     <ThemeProvider theme={theme}>
       <NavBar />
-
       <Box
         className="contents"
         sx={{
