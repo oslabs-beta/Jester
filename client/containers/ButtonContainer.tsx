@@ -30,7 +30,7 @@ const ButtonContainer = () => {
 
   const appendClipboard = () => {
     if (isLoggedIn) {
-      dispatch(postSnippet({ projectId, codeOutput }));
+      dispatch(postSnippet({ projectId, codeOutput: [codeOutput] }));
       dispatch(getSnippets(projectId));
     } else {
       dispatch(appendToClipboard(codeOutput));
