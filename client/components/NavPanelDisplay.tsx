@@ -35,7 +35,7 @@ export const NavPanelDisplay = () => {
 
       }}
     >
-      <Button onClick={handleHomeClick} sx={{ fontSize: '12px', display: 'flex', flexDirection:'column', marginBottom:2 }}><HomeIcon />Home</Button>
+      <Button onClick={handleHomeClick} sx={{ fontSize: '13px', display: 'flex', flexDirection:'column', marginBottom:2 }}><HomeIcon />Home</Button>
       <Button
         sx={{ display: 'flex', flexDirection: 'column', marginBottom:2 }}
         onClick={handleProjectsClick}
