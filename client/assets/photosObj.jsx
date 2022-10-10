@@ -8,5 +8,5 @@ export const photosObj = {
   brian: './assets/photos/brian-headshot.jpg',
   anshu: './assets/photos/anshu.png',
   lilah: './assets/photos/lilah.png',
-  michael: './assets/photos/michael.jpg'
+  michael: './assets/photos/michael.jpg',
 };
