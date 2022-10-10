@@ -90,7 +90,7 @@ describe('testsController middleware unit tests', () => {
       `${INDENT}describe('GET', () => {`,
       `${INDENT}${INDENT}it('makes a GET request to "/"', async () => {`,
       `${INDENT}${INDENT}${INDENT}const response = await request(server)`,
-      `${INDENT}${INDENT}${INDENT}.get('/');`,
+      `${INDENT}${INDENT}${INDENT}${INDENT}.get('/');`,
     ];
 
     it('empty assertions array should return default header', () => {

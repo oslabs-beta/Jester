@@ -26,7 +26,7 @@ helperFunctions.headerGenerator = (header, assertions) => {
   headerOutput.push(`${INDENT}describe('${header.method}', () => {`);
   headerOutput.push(`${INDENT}${INDENT}it('${description}', async () => {`);
   headerOutput.push(`${INDENT}${INDENT}${INDENT}const response = await request(server)`);
-  headerOutput.push(`${INDENT}${INDENT}${INDENT}.${header.method.toLowerCase()}('${header.endpoint}')`);
+  headerOutput.push(`${INDENT}${INDENT}${INDENT}${INDENT}.${header.method.toLowerCase()}('${header.endpoint}')`);
 
   if (
     (header.method === 'POST' ||
@@ -34,7 +34,7 @@ helperFunctions.headerGenerator = (header, assertions) => {
       header.method === 'DELETE') &&
     header.req_body
   ) {
-    headerOutput.push(`${INDENT}${INDENT}${INDENT}.send(${header.req_body})`);
+    headerOutput.push(`${INDENT}${INDENT}${INDENT}${INDENT}.send(${header.req_body})`);
   }
   headerOutput[headerOutput.length - 1] += ';';
   return headerOutput;

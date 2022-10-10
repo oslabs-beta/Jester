@@ -31,17 +31,7 @@ describe('Route integration tests', () => {
           });
 
         const expectedResponse =
-          `describe('/api/tests', () => {\n
-            ${INDENT}describe('GET', () => {\n
-            ${INDENT}${INDENT}it('responds with content-type application/json and status 200', async () => {\n
-            ${INDENT}${INDENT}${INDENT}const response = await request(server)\n
-            ${INDENT}${INDENT}${INDENT}.get('/api/tests');\n
-            ${INDENT}${INDENT}${INDENT}expect(response.type).toBe('application/json');\n
-            ${INDENT}${INDENT}${INDENT}expect(response.statusCode).toBe(200);\n
-            ${INDENT}${INDENT}});\n
-            ${INDENT}});\n
-            });
-          `;
+          `describe('/api/tests', () => {\n${INDENT}describe('GET', () => {\n${INDENT}${INDENT}it('responds with content-type application/json and status 200', async () => {\n${INDENT}${INDENT}${INDENT}const response = await request(server)\n${INDENT}${INDENT}${INDENT}${INDENT}.get('/api/tests');\n${INDENT}${INDENT}${INDENT}expect(response.type).toBe('application/json');\n${INDENT}${INDENT}${INDENT}expect(response.statusCode).toBe(200);\n${INDENT}${INDENT}});\n${INDENT}});\n});`;
 
         expect(response.type).toBe('application/json');
         expect(response.statusCode).toBe(200);
