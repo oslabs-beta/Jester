@@ -64,7 +64,7 @@ const NavBar = () => {
             </Button>
           )}
           <Button color='inherit'>
-            <Link className='nav-link' to='/about'>
+            <Link className='nav-link' to='/contributors'>
               Contributors
             </Link>
           </Button>

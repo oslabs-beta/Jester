@@ -2,10 +2,9 @@ import { ContributorCard } from '../components/ContributorCard';
 import React from 'react';
 import { photosObj } from '../assets/photosObj';
 import { Typography } from '@mui/material';
-import { spacing } from '@mui/system';
 
 
-export const About = () => {
+export const Contributors = () => {
 
     type userObjType = {
       name: string,
