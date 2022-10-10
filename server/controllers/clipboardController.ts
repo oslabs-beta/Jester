@@ -58,7 +58,7 @@ export const clipboardController: Clipboard = {
 
     });
     const addClipQuery = `INSERT INTO code_snippets_table (code_snippet, created_at, user_id, project_id) 
-    VALUES ($1, $2, $3, $4);`;
+    VALUES :params`;
 
     const getClipsQuery = `
     SELECT * FROM code_snippets_table
@@ -67,7 +67,7 @@ export const clipboardController: Clipboard = {
     `;
     const params2 = [project_id, user_id];
     try {
-      await db.query(addClipQuery, values[0]);
+      await db.query(addClipQuery, { params: values });
       const result = await db.query(getClipsQuery, params2);
       res.locals.clipboard = result.rows;
       return next();
