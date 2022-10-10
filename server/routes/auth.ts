@@ -1,9 +1,12 @@
+// Authorization routes
 import express, { Request, Response, NextFunction, Router } from 'express';
 import passport, { authController } from '../controllers/authController';
 
 const router: Router = express.Router();
 
-// route checking if user is authorized
+/* 
+  This route will check if user is authorized and return their user_id if so
+ */
 router.get(
   '/',
   authController.isLoggedIn,
@@ -13,35 +16,41 @@ router.get(
   }
 );
 
-// route for user being unable to sign in with GitHub
+/* 
+  This route will handle user being unable to sign in with GitHub
+ */
 router.get('/error', (req: Request, res: Response): Response => {
   return res.send('Unknown Error');
 });
 
-// route for dialog box to GitHub authorization (i.e. login with Github)
+/* 
+  This route will handle the dialog box to GitHub authorization (i.e. login with Github)
+ */
 router.get(
   '/github',
   passport.authenticate('github', { scope: ['user:email'] })
 );
 
-// route that gets called once the user is authenticated by GitHub
+/* 
+  This route will be called called once the user is authenticated by GitHub.
+  Once authenticated, it will save relevant user information to cookies
+ */
 router.get(
   '/github/callback',
   passport.authenticate('github', { failureRedirect: '/error' }),
   authController.getUserId,
-  // Can add middleware to query DB for user id here!
-  // Can add middleware to store auth code+username in sessions table that expires
   (req: any, res: Response): void => {
-    // /github/callback/?code=4234324324 <= user authorization code
     res.cookie('code', req.query.code);
     res.cookie('email', req.user?.emails[0].value);
     res.cookie('username', req.user?.username);
     res.cookie('isLoggedIn', true);
-    // res.cookie('userId', res.locals.userId) // return userID here
     return res.redirect('../../authenticate');
   }
 );
 
+/* 
+  This route will handle user logout
+ */
 router.post('/logout', (req: any, res: Response, next: NextFunction): void => {
   req.logout();
   return res.redirect('../../');

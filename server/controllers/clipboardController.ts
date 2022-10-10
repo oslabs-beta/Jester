@@ -8,13 +8,14 @@ type Clipboard = {
 };
 
 export const clipboardController: Clipboard = {
-  // Middleware to fetch clipboard for a specified project
+  /*
+    Middleware to fetch clipboard for a specified project
+    This controller should query the Snippets table for all snippets belonging
+    to a project and save an array of code snippets to res.locals.clipboard
+  */
   getClipboard: async (req: Request, res: Response, next: NextFunction) => {
     const { project_id } = req.params;
     const { user_id } = res.locals;
-
-    // this controller should query the Snippets table for all snippets belonging
-    // to a project and save an array of code snippets to res.locals.clipboard
 
     const queryString = `
       SELECT * FROM code_snippets_table
@@ -25,7 +26,7 @@ export const clipboardController: Clipboard = {
 
     try {
       const result = await db.query(queryString, params);
-      const snippet: [] = result.rows.map(
+      const snippet: string[] = result.rows.map(
         (snippets: any) => snippets.code_snippet
       );
       res.locals.clipboard = snippet;
@@ -84,7 +85,11 @@ export const clipboardController: Clipboard = {
     }
   },
 
-  // Middleware to delete a specific code snippet in a project's clipboard
+  /*
+    Middleware to delete a specific code snippet in a project's clipboard
+    This controller should delete one specific code snippet
+    and save the updated clipboard to res.locals.clipboard
+  */
   deleteSnippet: async (req: Request, res: Response, next: NextFunction) => {
     const { snippet_id } = req.params;
     const { project_id } = req.body;
@@ -97,8 +102,7 @@ export const clipboardController: Clipboard = {
         message: 'an error occurred in appendClipboard middleware function',
       });
 
-    // this controller should delete one specific code snippet
-    // and save the updated clipboard to res.locals.clipboard
+    
     const params1 = [snippet_id, user_id];
     const params2 = [project_id, user_id];
 
