@@ -20,6 +20,7 @@ describe('TestForm Reducer', () => {
       assertionList: {},
       i: 0,
       userInput: '',
+      assertionTypes: ['Status Code', 'Content Type', 'Response Body']
     };
   });
   describe('default state', () => {
@@ -39,7 +40,6 @@ describe('TestForm Reducer', () => {
     it('should update assertionList in state', () => {
       store.dispatch(addAssertion());
       const newState = store.getState();
-      // console.log(newState.testForm.assertionList);
       expect(newState.testForm.assertionList['0']).toEqual('Status Code');
     });
   });

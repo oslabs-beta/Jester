@@ -4,10 +4,11 @@ import Box from '@mui/material/Box';
 import Toolbar from '@mui/material/Toolbar';
 import Typography from '@mui/material/Typography';
 import Button from '@mui/material/Button';
+import LoginIcon from '@mui/icons-material/Login';
+import LogoutIcon from '@mui/icons-material/Logout';
 import {
   setShowLogin,
-  logout,
-  setIsLoggedIn
+  logout
 } from '../redux/reducers/userInfoSlice';
 import { useAppDispatch, useAppSelector } from '../redux/hooks';
 import { Login } from './Login';
@@ -17,14 +18,14 @@ import Cookies from 'js-cookie';
 
 const NavBar = () => {
   const navigate = useNavigate();
-  // const [showLogin, setShowLogin] = useState(false)
   const open: boolean = useAppSelector((state) => state.userInfo.showLogin);
-  // const isLoggedIn: boolean = useAppSelector((state) => state.userInfo.isLoggedIn);
+  const clipboardData: string[] = useAppSelector((state) => state.clipboard.codeSnippets);
   const displayLoginButton = 'auto';
   const displayLogoutButton = 'auto';
 
   const dispatch = useAppDispatch();
   const handleLoginOpen = () => {
+    if (clipboardData.length) sessionStorage.setItem('clipboardData', JSON.stringify(clipboardData));
     dispatch(setShowLogin());
   };
   const handleLogout = async () => {
@@ -36,8 +37,8 @@ const NavBar = () => {
     Cookies.remove('isLoggedIn');
     sessionStorage.clear();
     await axios.post('/auth/logout');
-    // why use 'post' here with no body? is this just a get request?
-    dispatch(logout());
+    // clear projects and user information in state
+    dispatch(logout()); 
     navigate('/');
   };
 
@@ -54,11 +55,11 @@ const NavBar = () => {
             sx={{ flexGrow: 1, marginLeft: '15px' }}
           ></Typography>
           {sessionStorage.getItem('isLoggedIn') ? (
-            <Button className='welcome-text' color='inherit'>
+            <Button className="welcome-text" color="inherit">
               Welcome, {sessionStorage.getItem('username')}!
             </Button>
           ) : (
-            <Button className='welcome-text' color='inherit'>
+            <Button className="welcome-text" color="inherit">
               Welcome, Guest!
             </Button>
           )}
@@ -74,19 +75,19 @@ const NavBar = () => {
           </Button>
           {sessionStorage.getItem('isLoggedIn') ? (
             <Button
-              color='inherit'
+              color="inherit"
               onClick={handleLogout}
               sx={{ display: displayLogoutButton }}
             >
-              Logout
+              <LogoutIcon sx={{ marginRight: '5px', marginLeft: '5px' }} /> Logout
             </Button>
           ) : (
             <Button
-              color='inherit'
+              color="inherit"
               onClick={handleLoginOpen}
               sx={{ display: displayLoginButton }}
             >
-              Login
+              <LoginIcon sx={{ marginRight: '5px', marginLeft: '5px' }} />Login
             </Button>
           )}
 

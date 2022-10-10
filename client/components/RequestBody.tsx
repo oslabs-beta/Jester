@@ -5,10 +5,16 @@ type requestBodyPropsType = {
   showField: boolean;
 };
 
+/*
+This component will allow a user to input a request body if the selected request type is 
+'Post,' 'Patch,' or 'Delete'
+*/
+
 export const RequestBody = (props: requestBodyPropsType) => {
   if (props.showField) {
     return (
       <TextField
+        className="text-display"
         label="Request Body"
         id="req_body"
         data-testid="Request-Body"

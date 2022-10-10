@@ -1,4 +1,3 @@
-import axios from 'axios'; // to be used by handleClear
 import React, { ChangeEvent, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { TextField, Box, Button } from '@mui/material';
@@ -7,40 +6,58 @@ import DeleteForeverIcon from '@mui/icons-material/DeleteForever';
 import { useAppDispatch, useAppSelector } from '../redux/hooks';
 import {
   setServer,
-  deleteSnippets,
   getSnippets,
-  clearClipboardState
+  clearClipboardState,
 } from '../redux/reducers/ClipBoardReducers';
 import ClipboardButton from './ClipboardButton';
+import { deleteProject } from '../redux/reducers/userInfoSlice';
+
+/*
+This component will display code snippets from a given project in the database if a 
+user is logged in, or from state if a user is not logged in
+*/
 
 const ClipBoard = () => {
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
   const projectId = Number(useParams().projectId);
   const isLoggedIn = sessionStorage.getItem('isLoggedIn');
-  const buttonText = (isLoggedIn) ? 'Delete Project' : 'Clear Clipboard'
+  const buttonText = isLoggedIn ? 'Delete Project' : 'Clear Clipboard';
 
   const server: string = useAppSelector((state) => state.clipboard.server);
-  const codeDisplay: string = useAppSelector((state) => state.clipboard.codeDisplay);
+  const codeDisplay: string = useAppSelector(
+    (state) => state.clipboard.codeDisplay
+  );
+
+  const elementArr: JSX.Element[] = [];
+  codeDisplay.split('\n').forEach((el) => {
+    elementArr.push(
+      <pre>
+        { el }
+      </pre>
+    );
+  });
   
+
   const updateServer = (e: ChangeEvent<HTMLInputElement>) => {
     dispatch(setServer(e.target.value));
   };
 
-  const handleClear = () => {
+  const handleClear = () => { 
     if (isLoggedIn) {
-      dispatch(deleteSnippets(projectId));
+      dispatch(deleteProject(projectId));
       navigate('/');
     } else {
       dispatch(clearClipboardState());
     }
   };
-  // need to discuss how to implement handleClear to match the back-end
 
   useEffect(() => {
-    if (isLoggedIn) {
-      dispatch(getSnippets(projectId))}
-    });
+    if (isLoggedIn) { 
+      // fetch code snippets from db if user logged in
+      dispatch(getSnippets(projectId));
+    }
+  });
 
   return (
     <div className="page-body">
@@ -50,35 +67,40 @@ const ClipBoard = () => {
           flexDirection: 'column',
           alignItems: 'center',
           gap: '10px',
-          width: 800
+          width: 800,
         }}
         className="code-container"
       >
         <TextField
+          className="text-display"
           label="Server URL"
           sx={{ width: '300px' }}
-          value={ server }
-          error={ server === '' }
-          onChange={ updateServer }
+          value={server}
+          error={server === ''}
+          onChange={updateServer}
         ></TextField>
-        <TextField
-          id="main-clipboard"
-          multiline
-          rows={ 30 }
-          value={ codeDisplay }
-          sx={{
-            width: 0.95,
-            fontFamily: 'Source Code Pro'
-          }}
-        />
-        <ClipboardButton />
-        <Button
-          onClick={ handleClear }
-          sx={{
-            flexDirection: 'column'
+        <Box 
+          sx={{ 
+            width: 800, 
+            minHeight: 400, 
+            overflow: 'auto',
+            color: 'white',
+            backgroundColor: '#011E3C',
+            p: 3,
           }}
         >
-          <DeleteForeverIcon /> { buttonText }
+          <div id="main-clipboard">
+            { elementArr }
+          </div>
+        </Box> 
+        <ClipboardButton />
+        <Button
+          onClick={handleClear}
+          sx={{
+            flexDirection: 'column',
+          }}
+        >
+          <DeleteForeverIcon /> {buttonText}
         </Button>
       </Box>
     </div>

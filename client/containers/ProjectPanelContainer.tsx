@@ -1,9 +1,16 @@
 import { Box, Button } from '@mui/material';
 import React from 'react';
+import AddCardIcon from '@mui/icons-material/AddCard';
 import { useAppSelector, useAppDispatch } from '../redux/hooks';
 import { setShowAddProject } from '../redux/reducers/navPanelSlice';
 import { AddProjectDialog } from '../components/AddProjectDialog';
 import { Project } from '../components/Project';
+
+/*
+This component displays the second column of the nav panel that provides a user with navigation
+to each of their project's clipboards, as well as with the ability to delete any project,
+and the ability to add a project.
+*/
 
 export const ProjectPanelContainer = () => {
   const dispatch = useAppDispatch();
@@ -28,23 +35,26 @@ export const ProjectPanelContainer = () => {
         projectId={project['project_id']}
       />
     );
+    projects.push(<hr className="divider"/>);
   });
+  projects.pop();
   const handleAddProject = () => {
     dispatch(setShowAddProject());
   };
   if (showProjectPanel)
     return (
       <Box
+        className="panel project-panel-container"
         sx={{
-          border: '1px dashed lightgrey',
           width: '100px',
           display: 'flex',
-          flexDirection: 'column',
-          justifyContent: 'space-between',
+          flexDirection: 'column'
         }}
       >
-        <Box sx={{ display: 'flex', flexDirection: 'column' }}>{projects}</Box>
-        <Button onClick={handleAddProject}>Add New Project</Button>
+        <Button onClick={handleAddProject} sx={{ display: 'flex', flexDirection: 'column' }}><AddCardIcon />Add New Project</Button>
+        <hr className="divider"/>
+        {projects}
+        
         <AddProjectDialog />
       </Box>
     );

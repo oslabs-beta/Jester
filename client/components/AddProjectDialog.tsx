@@ -1,27 +1,31 @@
 import React, { useState, ChangeEvent } from 'react';
-import {
-  Dialog,
-  TextField,
-  Button,
-  Typography,
-} from '@mui/material';
+import { Dialog, TextField, Button, Box, DialogTitle } from '@mui/material';
 import { setShowAddProject } from '../redux/reducers/navPanelSlice';
 import { useAppDispatch, useAppSelector } from '../redux/hooks';
-import { setProjectsInfo } from '../redux/reducers/userInfoSlice';
+import { setProjectsInfo, setShowLogin } from '../redux/reducers/userInfoSlice';
 import axios from 'axios';
+import LoginIcon from '@mui/icons-material/Login';
+import { Login } from './Login';
+
+/* 
+This component will allow a user to create a new project in the database
+where generated test code snippets will be stored.
+If a user is not logged in, they will be prompted to login before they can create a project.
+*/
 
 export const AddProjectDialog = () => {
   const [projectName, setProjectName] = useState('');
   const showAddProject = useAppSelector(
     (state) => state.navPanel.showAddProject
   );
+  const open: boolean = useAppSelector((state) => state.userInfo.showLogin);
+  const clipboardData = useAppSelector((state) => state.clipboard.codeSnippets);
   const dispatch = useAppDispatch();
   const handleClose = () => {
     dispatch(setShowAddProject());
   };
-  const handleAddProject = async () => {
-    // SA - TEMPORARY COMMENT-OUT
-    const response = await axios.post('/api/project/', {
+  const handleAddProject = async () => { 
+    const response = await axios.post('api/project/', {
       project_name: projectName,
     });
     dispatch(setProjectsInfo(response.data));
@@ -34,20 +38,63 @@ export const AddProjectDialog = () => {
     setProjectName(e.target.value);
   };
 
+  const handleLoginOpen = async () => {
+    handleClose();
+    if (clipboardData.length) sessionStorage.setItem('clipboardData', JSON.stringify(clipboardData));
+    dispatch(setShowLogin());
+  };
+
   if (sessionStorage.getItem('isLoggedIn'))
     return (
-      <Dialog onClose={handleClose} open={showAddProject}>
+      <Dialog onClose={handleClose} open={showAddProject} sx={{ display: 'flex', flexDirection: 'column', textAlign: 'center' }}>
+        <Box
+          sx={{
+            width: 400,
+            display: 'flex',
+            flexDirection: 'row',
+            backgroundColor: '#6e00bb',
+            justifyContent: 'center',
+          }}
+        >
+          <img alt="logo" src="../assets/logo-jester.png" />
+        </Box>
+        <DialogTitle>Add a Project</DialogTitle>
         <TextField
           label="Project Name:"
           onChange={updateProjectName}
+          sx={{ width: '250px', alignSelf: 'center', marginBottom: '10px' }}
         ></TextField>
         <Button onClick={handleAddProject}>Create Project</Button>
       </Dialog>
     );
   else
     return (
-      <Dialog onClose={handleClose} open={showAddProject}>
-        <Typography> To add a project, you must be logged in!</Typography>
+      <Dialog onClose={handleClose} open={showAddProject} sx={{ display: 'flex', flexDirection: 'column', textAlign: 'center' }}>
+        <Box
+          sx={{
+            width: 410,
+            display: 'flex',
+            flexDirection: 'row',
+            backgroundColor: '#6e00bb',
+            justifyContent: 'center',
+          }}
+        >
+          <img alt="logo" src="../assets/logo-jester.png" />
+        </Box>
+        <DialogTitle>To add a project, you must be logged in!</DialogTitle>
+        <Button
+          onClick={handleLoginOpen}
+          variant="outlined"
+          size="large"
+          sx={{
+            margin: 2,
+            width: '250px',
+            alignSelf: 'center',
+          }}
+        >
+          <LoginIcon sx={{ marginRight: '5px', marginLeft: '5px' }} />Login
+        </Button>
+        <Login open={open} />
       </Dialog>
     );
 };

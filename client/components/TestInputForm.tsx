@@ -16,9 +16,13 @@ import { setCodeOutput } from '../redux/reducers/reducer';
 import { setErrorMsg } from '../redux/reducers/userInputSlice';
 import { Assertions } from './Assertions';
 import { RequestBody } from './RequestBody';
-import { ChangeEvent } from 'react';
 import axios from 'axios';
 import { ProjectDropdown } from './ProjectDropdown';
+
+/*
+This component will allow a user to generate test code according to their inputs. This component is
+where users will indicate the request type, endpoint, and response body, as well as add their assertions.
+*/
 
 export const TestInputForm = () => {
   const isLoggedIn = sessionStorage.getItem('isLoggedIn');
@@ -41,6 +45,10 @@ export const TestInputForm = () => {
   const handleSubmit = async (
     e: React.FormEvent<EventTarget>
   ): Promise<unknown> => {
+    // checks to ensure proper user input
+    
+    // gathers the appropriate values needed to generate test code
+    // in the format expected on the backend
     e.preventDefault();
     let statusCount = 0;
     let contentCount = 0;
@@ -96,9 +104,6 @@ export const TestInputForm = () => {
     dispatch(setRequestType(e.target.value));
   };
 
-  const handleChange = (
-    e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
-  ) => dispatch(setRequestType(e.target.value));
   const handleAdd = () => {
     dispatch(addAssertion());
     dispatch(setErrorMsg());
@@ -114,10 +119,6 @@ export const TestInputForm = () => {
     );
   }
 
-  // const getContentTypes = () => {
-  //   axios.get('https://www.geeksforgeeks.org/http-headers-content-type/')
-  //   .then(res => console.log(res))
-  // }
 
   return (
     <form id='test-generator-form' onSubmit={handleSubmit}>
@@ -132,6 +133,7 @@ export const TestInputForm = () => {
         <FormControl>
           <InputLabel id='requestSelector'>Request Type</InputLabel>
           <Select
+            className="text-display"
             name='request-selector'
             id='request-selector'
             data-testid='request-selector'
@@ -144,6 +146,7 @@ export const TestInputForm = () => {
           </Select>
         </FormControl>
         <TextField
+          className="text-display"
           label='Endpoint'
           data-testid={requestType}
           id='endpoint'
@@ -190,14 +193,6 @@ export const TestInputForm = () => {
         Generate Test Code
       </Button>
       { (isLoggedIn) && <ProjectDropdown /> }
-      {/* <Button 
-      type='submit'
-      variant='contained'
-      sx={{ marginTop: '30px', height: 40 }}
-      disableElevation
-      onClick={getContentTypes}>
-        Get all content types
-      </Button> */}
     </form>
   );
 };

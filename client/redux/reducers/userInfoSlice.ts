@@ -1,17 +1,14 @@
-import { createSlice, PayloadAction } from '@reduxjs/toolkit';
+import { createSlice, PayloadAction, createAsyncThunk } from '@reduxjs/toolkit';
 import { DEFAULT_PROJECT } from '../../constants';
 import { userInfoStateType, projectsType } from '../../types';
+import axios from 'axios';
 
 
-// const showSave =  (sessionStorage.getItem('clipboardData')) ? true : false;
-// For testing only, delete later
-const showSave =  true;
+const showSave =  (sessionStorage.getItem('clipboardData')) ? true : false;
 
 const initialState: userInfoStateType = {
   showLogin: false,
-  // MLCK what is the name of the property in sessionStorage with clipboard data?
   showSave: showSave,
-  isLoggedIn: false,
   userId: 0,
   projectsInfo: [
     {
@@ -23,7 +20,7 @@ const initialState: userInfoStateType = {
   ],
   currentProject: DEFAULT_PROJECT,
   currentProjectId: 0,
-  newProject: ''
+  newProject: '',
 };
 
 export const userInfoSlice = createSlice({
@@ -47,21 +44,32 @@ export const userInfoSlice = createSlice({
       action: PayloadAction<string>
     ) => {
       state.currentProject = action.payload;
-      const projects = state.projectsInfo.map(el => el.project_name);
-      const projectIds = state.projectsInfo.map(el => el.project_id);
+      const projects = state.projectsInfo.map((el) => el.project_name);
+      const projectIds = state.projectsInfo.map((el) => el.project_id);
       state.currentProjectId = projectIds[projects.indexOf(action.payload)];
     },
-    setNewProject: (state: userInfoStateType, action: PayloadAction<string>) => {
+    setNewProject: (
+      state: userInfoStateType,
+      action: PayloadAction<string>
+    ) => {
       state.newProject = action.payload;
-    },
-    setIsLoggedIn: (state: userInfoStateType) => {
-      state.isLoggedIn = state.isLoggedIn ? false : true;
     },
     setUserId: (state: userInfoStateType, action: PayloadAction<number>) => {
       state.userId = action.payload;
     },
     logout: (state: userInfoStateType) => {
-      state = initialState;
+      state.projectsInfo = [
+        {
+          project_id: 0,
+          project_name: DEFAULT_PROJECT,
+          user_id: 0,
+          showAccessClipboard: false,
+        },
+      ];
+      state.userId = 0;
+      state.currentProject = DEFAULT_PROJECT;
+      state.newProject = '';
+
     },
     setClipboardData: (
       state: userInfoStateType,
@@ -90,18 +98,39 @@ export const userInfoSlice = createSlice({
       }
     },
   },
+  extraReducers: (builder) => {
+    builder.addCase(deleteProject.fulfilled, (state: userInfoStateType, action: any) => {
+      state.projectsInfo = action.payload.data;
+    });
+  },
 });
+
+const thunks = {
+  deleteProject: createAsyncThunk(
+    'userInfoSlice/deleteProject',
+    async (projectId: number) => {
+      let response;
+      try {
+        response = await axios.delete(`/api/project/${projectId}`);
+      } catch (error) {
+        console.log('userInfoSlice/deleteProject', error);
+      }
+      return response;
+    }
+  ),
+};
 
 export const {
   setShowLogin,
   setShowSave,
   setProjectsInfo,
   setCurrentProject,
-  setIsLoggedIn,
   logout,
   setClipboardData,
   setShowAccessClipboard,
   setUserId,
   setNewProject,
 } = userInfoSlice.actions;
+
+export const { deleteProject } = thunks;
 export default userInfoSlice.reducer;

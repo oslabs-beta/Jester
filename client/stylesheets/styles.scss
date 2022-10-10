@@ -2,6 +2,13 @@ body {
   margin: 0;
   background: rgb(63,94,251);
   background: radial-gradient(circle, rgba(63,94,251,0.14051558123249297) 3%, rgba(130,86,200,0.27777048319327735) 71%, rgba(252,70,107,0.1237088585434174) 96%, rgba(184,79,159,0.32258841036414565) 100%);
+  background-color: #fff;
+}
+
+.page-container {
+    margin-left:-120px;
+    min-width: 1050px;
+    // max-height: 600px;
 }
 
 .page-body {
@@ -13,13 +20,16 @@ body {
 
 #code-output {
   font-family: 'Inconsolata', monospace;
-  font-size: small;
+  font-size: medium;
+  background-color: '#011E3C';
+  color: white;
+  // border-radius: 5px;
+  // padding: 10px;
 }
 
 #main-clipboard {
   font-family: 'Inconsolata', monospace;
-  font-size: small;
-  height: 500px !important;
+  font-size: medium;
 }
 
 img[alt~='logo'] {
@@ -86,10 +96,11 @@ img[alt~='logo'] {
 }
 
 #navbar {
-  // position: fixed; // Sticky Navbar
-  top: 0;
+  position: relative;
   width: 100%;
   z-index: 99;
+  // box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+  box-shadow: rgba(0, 0, 0, 0.12) 0px 1px 3px, rgba(0, 0, 0, 0.24) 0px 1px 2px;
 }
 
 // Uncomment this section if changing Navbar to sticky
@@ -128,4 +139,48 @@ img[alt~='logo'] {
 
 contributors-header {
   color: #6600ff
+}
+.contents {
+  z-index: 10;
+}
+
+.panel {
+  position: relative;
+  height: 100%;
+  z-index: 10;
+  background: rgba(249, 246, 255, 0.5);
+  padding-top: 25px;
+  box-shadow: rgba(60, 64, 67, 0.2) 1px 0px 1px 0px, rgba(60, 64, 67, 0.15) 1px 0px 1px 0px;
+  border-right: 1px solid rgba(74, 74, 74, 0.7);
+  backdrop-filter: blur(8px);
+  // box-shadow: 5px 1px 5px 0px rgba(0,0,0,0.75);
+
+}
+
+.nav-panel-container {
+  z-index: 10;
+}
+
+.project-panel-container {
+  z-index: 9;
+}
+
+.divider {
+  width: 80px;
+  background-color: rgba(110, 0, 187, 0.5);
+  height: 2px;
+  border: none;
+}
+
+.documentation-container {
+  width: 800px;
+}
+
+.text-display {
+  background-color: rgba(255,255,255,0.4);
+}
+
+pre {
+  margin: 2;
+  font-family: 'Inconsolata', monospace;
 }
