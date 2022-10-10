@@ -55,7 +55,7 @@ const App = () => {
             <Route path="/" element={<Home />} />
             <Route path="/clipboard/:projectId" element={<ClipBoard />} />
             <Route path="/documentation" element={<Documentation />} />
-            <Route path='/about' element={<About />} />
+            <Route path='/contributors' element={<About />} />
             <Route path='/authenticate' element={<Auth />} />
             <Route
               path="/CodeGenerator/:projectId"
