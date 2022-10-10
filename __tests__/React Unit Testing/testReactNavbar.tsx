@@ -22,13 +22,13 @@ type clipboardType = {
 }
 
 type initialStateType = {
-  codeSlice: codeType,
+  code: codeType,
   userInfo: userInfoType,
   clipboard: clipboardType,
 };
 
 const initialState: initialStateType = {
-  codeSlice: {
+  code: {
     codeOutput: 'describe(\'Sample description\')',
   },
   userInfo: {

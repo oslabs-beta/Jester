@@ -12,7 +12,7 @@ import ButtonContainer from '../../client/containers/ButtonContainer';
 import AppButton from '../../client/components/AppButton';
 
 const initialState = {
-  codeSlice: {
+  code: {
     codeOutput: 'describe(\'Sample description\')',
   },
   userInfo: {
