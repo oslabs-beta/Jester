@@ -3,7 +3,7 @@ import TextField from '@mui/material/TextField';
 import { useAppDispatch, useAppSelector } from '../redux/hooks';
 import { ChangeEvent } from 'react';
 
-import { userEditText } from '../redux/reducers/reducer';
+import { userEditText } from '../redux/reducers/codeSlice';
 
 // This component will render the generated test code received from the fetch request to the server
 const CodeText = () => {
@@ -28,6 +28,7 @@ const CodeText = () => {
         width: 0.95,
         backgroundColor: '#011E3C',
         color: 'white',
+        pl: 2
       }}
       onChange={editCode}
     />

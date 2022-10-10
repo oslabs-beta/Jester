@@ -19,20 +19,20 @@ describe('Code Output Reducer', () => {
   
   it('should return a default state', () => {
     const state = store.getState();
-    expect(state.slice).toEqual(defaultState);
+    expect(state.codeSlice).toEqual(defaultState);
   });
 
   it('doneIcon should update doneIcon in state', () => {
     store.dispatch(changeIcon());
     const newState = store.getState();
-    expect(newState.slice.doneIcon).toEqual(true);
+    expect(newState.codeSlice.doneIcon).toEqual(true);
   });
 
   it('should update codeOutputEdited in state', () => {
     const TYPED_TEXT = 'new user typed text';
     store.dispatch(userEditText(TYPED_TEXT));
     const newState = store.getState();
-    expect(newState.slice.codeOutputEdited).toEqual(TYPED_TEXT);
+    expect(newState.codeSlice.codeOutputEdited).toEqual(TYPED_TEXT);
   });
   
 });

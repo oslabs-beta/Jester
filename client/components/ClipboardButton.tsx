@@ -5,13 +5,13 @@ import DoneAllIcon from '@mui/icons-material/DoneAll';
 import { useDispatch } from 'react-redux';
 
 import { copyClipboard } from '../redux/reducers/ClipBoardReducers';
-import AppButton from '../components/AppButton';
+import AppButton from './AppButton';
 
 // This container wraps the button that copies the app clipboard to the navigator clipboard
 
 const ClipboardButton = () => {
   const dispatch = useDispatch();
-  const handleClick = () => {
+  const handleClick = (): void => {
     dispatch(copyClipboard());
   };
 
@@ -26,9 +26,9 @@ const ClipboardButton = () => {
       }}
     >
       <AppButton
-        start={<ContentCopyIcon />}
-        end={<DoneAllIcon />}
-        onClick={handleClick}
+        start={ <ContentCopyIcon /> }
+        end={ <DoneAllIcon /> }
+        onClick={ handleClick }
         testId="bttn-copy"
       />
     </Box>

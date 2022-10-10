@@ -1,12 +1,12 @@
 import { createSlice, createAsyncThunk, PayloadAction } from '@reduxjs/toolkit';
 
-type sliceType = {
+type codeSliceType = {
   codeOutput: string;
   codeOutputEdited: string | undefined;
   doneIcon: boolean;
 };
 
-const initialState: sliceType = {
+const initialState: codeSliceType = {
   // this property of state will get updated by the POST request
   codeOutput: 'describe(\'Sample description\', (arg1) => { code.. }',
   // this value will be saved into the database
@@ -14,25 +14,25 @@ const initialState: sliceType = {
   doneIcon: false,
 };
 
-export const slice = createSlice({
-  name: 'slice',
+export const codeSlice = createSlice({
+  name: 'code',
   initialState,
   reducers: {
-    copyText: (state: sliceType) => {
+    copyText: (state: codeSliceType) => {
       navigator.clipboard.writeText(state.codeOutputEdited || state.codeOutput);
     },
-    changeIcon: (state: sliceType) => {
+    changeIcon: (state: codeSliceType) => {
       state.doneIcon = true;
     },
-    userEditText: (state: sliceType, action: PayloadAction<string>) => {
+    userEditText: (state: codeSliceType, action: PayloadAction<string>) => {
       state.codeOutputEdited = action.payload;
     },
-    setCodeOutput: (state: sliceType, action: PayloadAction<string>) => {
+    setCodeOutput: (state: codeSliceType, action: PayloadAction<string>) => {
       state.codeOutput = action.payload;
     },
   },
   extraReducers: (builder) => {
-    builder.addCase(asyncChangeIcon.fulfilled, (state: sliceType) => {
+    builder.addCase(asyncChangeIcon.fulfilled, (state: codeSliceType) => {
       state.doneIcon = false;
     });
   },
@@ -47,9 +47,8 @@ const thunks = {
   }),
 };
 
-export const { copyText, changeIcon, userEditText, setCodeOutput } =
-  slice.actions;
+export const { copyText, changeIcon, userEditText, setCodeOutput } = codeSlice.actions;
 
 export const { asyncChangeIcon } = thunks;
 
-export default slice.reducer;
+export default codeSlice.reducer;
