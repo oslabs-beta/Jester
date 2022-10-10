@@ -15,6 +15,8 @@ import { Login } from './Login';
 import { Link, useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import Cookies from 'js-cookie';
+import ThemeToggle from './ThemeToggle';
+
 
 const NavBar = () => {
   const navigate = useNavigate();
@@ -54,6 +56,7 @@ const NavBar = () => {
             component="div"
             sx={{ flexGrow: 1, marginLeft: '15px' }}
           ></Typography>
+          <ThemeToggle />
           {sessionStorage.getItem('isLoggedIn') ? (
             <Button className='welcome-text' color='inherit'>
               Welcome, {sessionStorage.getItem('username')}!
@@ -69,7 +72,7 @@ const NavBar = () => {
               onClick={handleLogout}
               sx={{ display: displayLogoutButton }}
             >
-              <LogoutIcon sx={{marginRight: '5px', marginLeft: '5px'}} /> Logout
+              <LogoutIcon sx={{ marginRight: '5px', marginLeft: '5px' }} /> Logout
             </Button>
           ) : (
             <Button
@@ -77,7 +80,7 @@ const NavBar = () => {
               onClick={handleLoginOpen}
               sx={{ display: displayLoginButton }}
             >
-              <LoginIcon sx={{marginRight: '5px', marginLeft: '5px'}} />Login
+              <LoginIcon sx={{ marginRight: '5px', marginLeft: '5px' }} />Login
             </Button>
           )}
 
