@@ -25,7 +25,7 @@ const NavBar = () => {
 
   const dispatch = useAppDispatch();
   const handleLoginOpen = () => {
-    sessionStorage.setItem('clipboardData', JSON.stringify(clipboardData));
+    if (clipboardData.length) sessionStorage.setItem('clipboardData', JSON.stringify(clipboardData));
     dispatch(setShowLogin());
   };
   const handleLogout = async () => {
