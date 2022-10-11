@@ -9,8 +9,8 @@ body {
 
 .page-container {
     // margin-left:-120px;
-    min-width: 700px;
-    background-color: #6600ff;
+    min-width: 300px;
+    // background-color: #6600ff;
     // max-height: 600px;
 }
 
@@ -19,6 +19,13 @@ body {
   flex-direction: column;
   align-items: center;
   margin-top: 35px;
+}
+
+.test-gen-header {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 10px;
 }
 
 #code-output {
@@ -198,4 +205,11 @@ pre {
 .docs-display {
   width: 800px;
   height: auto;
+}
+
+
+@media (max-width: 650px) {
+  .test-gen-header {
+    flex-direction: column;
+  }
 }

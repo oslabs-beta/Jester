@@ -11,8 +11,7 @@ const CodeContainer = () => {
     <div className="code-container">
       <Box
         sx={{
-          minWidth: 600,
-          maxWidth: 800,
+          width: 800,
           marginTop: 5,
           marginLeft: 5,
           marginBotton: 1,
