@@ -79,7 +79,6 @@ const Clipboard = () => {
             height: 500,
             overflow: 'auto',
             backgroundColor: '#282C34',
-            p: 3,
           }}
         >
           <div id="main-clipboard">
