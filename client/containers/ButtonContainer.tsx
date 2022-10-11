@@ -1,6 +1,5 @@
 import React from 'react';
 import Box from '@mui/material/Box';
-import Button from '@mui/material/Button';
 import AddBoxIcon from '@mui/icons-material/AddBox';
 import ContentCopyIcon from '@mui/icons-material/ContentCopy';
 import DoneAllIcon from '@mui/icons-material/DoneAll';
@@ -10,33 +9,24 @@ import {
   appendToClipboard,
   postSnippet,
   getSnippets,
-} from '../redux/reducers/ClipBoardReducers';
+} from '../redux/reducers/clipboardSlice';
 import AppButton from '../components/AppButton';
 
-import {
-  copyText,
-  changeIcon,
-  asyncChangeIcon,
-} from '../redux/reducers/reducer';
+import { copyText } from '../redux/reducers/codeSlice';
 
 // This container wraps:
 // 1) the button that copies the code to the navigator clipboard
 // 2) the button that perform a post request to the consolidated app clipboard SQL DB with the code
 
 const ButtonContainer = () => {
-  const doneIcon = useAppSelector((state) => state.slice.doneIcon);
   const codeOutput = useAppSelector(
-    (state) => state.slice.codeOutputEdited || state.slice.codeOutput
+    (state) => state.code.codeOutputEdited || state.code.codeOutput
   );
   const isLoggedIn = sessionStorage.getItem('isLoggedIn');
   const projectId = useAppSelector((state) => state.userInfo.currentProjectId);
 
   const dispatch = useAppDispatch();
-  const copyClipboard = () => {
-    dispatch(copyText());
-    dispatch(changeIcon());
-    dispatch(asyncChangeIcon());
-  };
+  const copyClipboard = () => dispatch(copyText());
 
   const appendClipboard = () => {
     if (isLoggedIn) {
@@ -57,19 +47,16 @@ const ButtonContainer = () => {
         flexDirection: 'column',
       }}
     >
-      <Button
-        data-testid="bttn-copy"
-        variant="outlined"
-        onClick={copyClipboard}
-        sx={{ marginBottom: 1 }}
-      >
-        {doneIcon ? <DoneAllIcon /> : <ContentCopyIcon />}
-      </Button>
-
+      <AppButton
+        start={<ContentCopyIcon />}
+        end={<DoneAllIcon />}
+        onClick= { copyClipboard }
+        testId="bttn-copy"
+      />
       <AppButton
         start={<AddBoxIcon />}
         end={<DoneAllIcon />}
-        onClick={appendClipboard}
+        onClick={ appendClipboard }
         testId="bttn-append"
       />
     </Box>

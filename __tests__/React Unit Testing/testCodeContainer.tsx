@@ -4,6 +4,7 @@ import { Provider } from 'react-redux';
 import configureStore from 'redux-mock-store';
 import { fireEvent, render, screen } from '@testing-library/react';
 import AddBoxIcon from '@mui/icons-material/AddBox';
+import ContentCopyIcon from '@mui/icons-material/ContentCopy';
 import DoneAllIcon from '@mui/icons-material/DoneAll';
 
 import CodeContainer from '../../client/containers/CodeContainer';
@@ -11,22 +12,12 @@ import ButtonContainer from '../../client/containers/ButtonContainer';
 import AppButton from '../../client/components/AppButton';
 
 const initialState = {
-  slice: {
+  code: {
     codeOutput: 'describe(\'Sample description\')',
   },
   userInfo: {
     currentProjectId: 0, 
   },
-};
-
-const clickedState = {
-  slice: {
-    doneIcon: true,
-  },
-  userInfo: {
-    currentProjectId: 0, 
-  },
-
 };
 
 const mockStore = configureStore();
@@ -42,25 +33,6 @@ const code = () => {
 const button = () => {
   render(
     <Provider store={mockStore(initialState)}>
-      <ButtonContainer />
-    </Provider>
-  );
-};
-
-const props = {
-  start: <AddBoxIcon />,
-  end: <DoneAllIcon />,
-  onClick: jest.fn(),
-  testId: 'bttn-append',
-};
-
-const appButton = () => {
-  render(<AppButton {...props} />);
-};
-
-const buttonDone = () => {
-  render(
-    <Provider store={mockStore(clickedState)}>
       <ButtonContainer />
     </Provider>
   );
@@ -90,9 +62,18 @@ describe('Unit testing output Code Container components', () => {
     expect(icon).toBeTruthy();
   });
 
-  test('Renders DoneAllIcon on state change', () => {
-    buttonDone();
-    const bttn = screen.getByTestId('bttn-copy');
+  test('Renders DoneAllIcon on button click', () => {
+    const props = {
+      start: <ContentCopyIcon />,
+      end: <DoneAllIcon />,
+      onClick: jest.fn(),
+      testId: 'bttn-copy',
+    };
+    render(<AppButton {...props} />);
+
+    let bttn = screen.getByTestId('bttn-copy');
+    fireEvent.click(bttn);
+    bttn = screen.getByTestId('bttn-copy');
     const icon = bttn.innerHTML.includes('data-testid="DoneAllIcon"');
     expect(icon).toBeTruthy();
   });
@@ -109,8 +90,15 @@ describe('Unit testing output Code Container components', () => {
     expect(icon).toBeTruthy();
   });
 
-  test('Append clipboard button OnClick renders DoneAllIcon and fires onClick function', () => {
-    appButton();
+  test('Append clipboard button onClick renders DoneAllIcon and fires onClick function', () => {
+    const props = {
+      start: <AddBoxIcon />,
+      end: <DoneAllIcon />,
+      onClick: jest.fn(),
+      testId: 'bttn-append',
+    };
+    render(<AppButton {...props} />);
+
     let bttn = screen.getByRole('button', { name: '' });
     fireEvent.click(bttn);
     bttn = screen.getByRole('button', { name: '' });

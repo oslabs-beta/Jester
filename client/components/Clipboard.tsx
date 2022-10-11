@@ -8,7 +8,7 @@ import {
   setServer,
   getSnippets,
   clearClipboardState,
-} from '../redux/reducers/ClipBoardReducers';
+} from '../redux/reducers/clipboardSlice';
 import ClipboardButton from './ClipboardButton';
 import { deleteProject } from '../redux/reducers/userInfoSlice';
 
@@ -17,7 +17,7 @@ This component will display code snippets from a given project in the database i
 user is logged in, or from state if a user is not logged in
 */
 
-const ClipBoard = () => {
+const Clipboard = () => {
   hljs.configure({
     ignoreUnescapedHTML: true
   });
@@ -68,7 +68,7 @@ const ClipBoard = () => {
         <TextField
           className="text-display"
           label="Server URL"
-          sx={{ width: '300px' }}
+          sx={{ width: 300 }}
           value={server}
           error={server === ''}
           onChange={updateServer}
@@ -76,7 +76,7 @@ const ClipBoard = () => {
         <Box 
           sx={{ 
             width: 800, 
-            minHeight: 400, 
+            height: 500,
             overflow: 'auto',
             backgroundColor: '#282C34',
             p: 3,
@@ -93,15 +93,14 @@ const ClipBoard = () => {
         <ClipboardButton />
         <Button
           onClick={handleClear}
-          sx={{
-            flexDirection: 'column',
-          }}
+          sx={{ flexDirection: 'column' }}
         >
-          <DeleteForeverIcon /> {buttonText}
+          <DeleteForeverIcon /> 
+          {buttonText}
         </Button>
       </Box>
     </div>
   );
 };
 
-export default ClipBoard;
+export default Clipboard;

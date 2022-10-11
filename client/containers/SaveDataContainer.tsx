@@ -18,7 +18,7 @@ import {
   setNewProject,
   setProjectsInfo,
 } from '../redux/reducers/userInfoSlice';
-import { postSnippet } from '../redux/reducers/ClipBoardReducers';
+import { postSnippet } from '../redux/reducers/clipboardSlice';
 import axios from 'axios';
 
 type saveDataPropsType = {

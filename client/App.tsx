@@ -9,15 +9,14 @@ import NotFound from './pages/NotFound';
 import { NavPanelContainer } from './containers/NavPanelContainer';
 import { Box } from '@mui/material';
 import { CodeGenerator } from './pages/CodeGenerator';
-import ClipBoard from './components/ClipBoard';
+import Clipboard from './components/Clipboard';
 import Auth from './pages/Auth';
 import { Contributors } from './pages/Contributors';
 
 const theme = createTheme({
   palette: {
     primary: {
-      // main: '#5E17EB',
-      main: '#6e00bb',
+      main: '#6E00BB',
       contrastText: '#fff'
     },
     secondary: {
@@ -53,7 +52,7 @@ const App = () => {
         <div className="page-container">
           <Routes>
             <Route path="/" element={<Home />} />
-            <Route path="/clipboard/:projectId" element={<ClipBoard />} />
+            <Route path="/clipboard/:projectId" element={<Clipboard />} />
             <Route path="/documentation" element={<Documentation />} />
             <Route path='/contributors' element={<Contributors />} />
             <Route path='/authenticate' element={<Auth />} />
