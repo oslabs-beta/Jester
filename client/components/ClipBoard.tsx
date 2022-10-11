@@ -28,13 +28,15 @@ const ClipBoard = () => {
   const codeDisplay: string = useAppSelector(
     (state) => state.clipboard.codeDisplay
   );
-
+  const str = 'const brianhao = \'awesome\'\n const a = 5';
+  const codeClipboard: Element | null = document.querySelector('#code-clipboard');
+  const codeDisplay2 = [`const super = require('super')\n`, `const super = require('super')\n`].join('\n')
   const elementArr: JSX.Element[] = [];
   codeDisplay.split('\n').forEach((el) => {
     elementArr.push(
-      <pre>
+      <code className="javascript">
         { el }
-      </pre>
+      </code>
     );
   });
   
@@ -56,7 +58,12 @@ const ClipBoard = () => {
     if (isLoggedIn) { 
       // fetch code snippets from db if user logged in
       dispatch(getSnippets(projectId));
+      console.log(typeof codeDisplay);
     }
+    if (codeClipboard) {
+      codeClipboard.innerHTML = codeDisplay;
+    }
+    
   });
 
   return (
@@ -84,13 +91,23 @@ const ClipBoard = () => {
             width: 800, 
             minHeight: 400, 
             overflow: 'auto',
-            color: 'white',
             backgroundColor: '#011E3C',
             p: 3,
           }}
         >
           <div id="main-clipboard">
-            { elementArr }
+            {/* <pre>
+              { elementArr }
+            </pre> */}
+            <pre>
+              <code className='javascript'>
+                { codeDisplay2 }
+              </code>
+            </pre>
+            <pre>
+              <code className='javascript' id='code-clipboard'>
+              </code>
+            </pre>
           </div>
         </Box> 
         <ClipboardButton />
