@@ -2,7 +2,7 @@ import React, { ChangeEvent, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { TextField, Box, Button } from '@mui/material';
 import DeleteForeverIcon from '@mui/icons-material/DeleteForever';
-import  hljs  from 'highlight.js';
+import  hljs  from 'highlight.js/lib/common';
 import { useAppDispatch, useAppSelector } from '../redux/hooks';
 import {
   setServer,
@@ -18,6 +18,9 @@ user is logged in, or from state if a user is not logged in
 */
 
 const ClipBoard = () => {
+  hljs.configure({
+    ignoreUnescapedHTML: true
+  });
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
   const projectId = Number(useParams().projectId);
@@ -28,20 +31,6 @@ const ClipBoard = () => {
   const codeDisplay: string = useAppSelector(
     (state) => state.clipboard.codeDisplay
   );
-
-  const testStr = 'const request = require(\'supertest\');\nconst server = \'\';\n  \ndescribe(\'Route Integration Testing\', ( ) => {\n  describe(\'/colorizeme\', () => {\n    describe(\'GET\', () => {\n      it(\'responds with status 111\', async () => {\n        const response = await request(server)\n          .get(\'/colorizeme\');\n        expect(response.statusCode).toBe(111);\n      });\n    });\n  });\n  describe(\'/login\', () => {\n   describe(\'GET\', () => {\n    it(\'responds with status 444\', async () => {\n     const response = await request(server)\n     .get(\'/login\');\n      expect(response.statusCode).toBe(444);\n    });\n   });\n  });\n  describe(\'/login\', () => {\n   describe(\'GET\', () => {\n    it(\'responds with status 333\', async () => {\n     const response = await request(server)\n     .get(\'/login\');\n      expect(response.statusCode).toBe(333);\n    });\n   });\n  });\n  describe(\'/login\', () => {\n   describe(\'GET\', () => {\n    it(\'responds with status 222\', async () => {\n     const response = await request(server)\n     .get(\'/login\');\n      expect(response.statusCode).toBe(222);\n    });\n   });\n  });\n});';
-  
-  console.log('color', testStr);
-  const testStrStringify = JSON.stringify(testStr);
-  console.log('color stringify', testStrStringify);
-
-  console.log('nocolor', codeDisplay);
-  const codeDisplayStringify = JSON.stringify(codeDisplay);
-  console.log('nocolor stringify', codeDisplayStringify);
-
-  console.log(testStr === codeDisplay);
-  console.log(testStrStringify === codeDisplayStringify);
-  
 
   const updateServer = (e: ChangeEvent<HTMLInputElement>) => {
     dispatch(setServer(e.target.value));
@@ -83,22 +72,17 @@ const ClipBoard = () => {
           value={server}
           error={server === ''}
           onChange={updateServer}
-        ></TextField>
+        />
         <Box 
           sx={{ 
             width: 800, 
             minHeight: 400, 
             overflow: 'auto',
-            backgroundColor: '#011E3C',
+            backgroundColor: '#282C34',
             p: 3,
           }}
         >
           <div id="main-clipboard">
-            <pre>
-              <code className='javascript' id="code-display">
-                {testStr}
-              </code> 
-            </pre>
             <pre>
               <code className='javascript'>
                 {codeDisplay}
