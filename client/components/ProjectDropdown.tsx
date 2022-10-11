@@ -24,7 +24,7 @@ const ProjectDropdown = (props: projectDropdownPropsType) => {
   const projectName = useAppSelector((state) => state.userInfo.currentProject);
   const projectsInfo = useAppSelector((state) => state.userInfo.projectsInfo);
   const projects = projectsInfo.map((el) => el.project_name);
-
+  dispatch(setCurrentProject(projects[projects.length - 1]));
   const handleChange = (e: SelectChangeEvent<string>) => {
     dispatch(setCurrentProject(e.target.value));
   };
