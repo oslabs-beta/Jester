@@ -1,9 +1,13 @@
+// Clipboard routes
 import express, { Request, Response, Router } from 'express';
 const router: Router = express.Router();
 import { authController } from '../controllers/authController';
 import { clipboardController } from '../controllers/clipboardController';
 
-// route for fetching clipboard for a specified project
+/* 
+  This route will return the clipoard (saved test snippets)
+  for a specified project_id
+ */
 router.get(
   '/:project_id',
   authController.isLoggedIn,
@@ -14,8 +18,9 @@ router.get(
   }
 );
 
-// route for adding a code snippet to the clipboard of a specified project
-// expected body: { code_snippet: string }
+/* 
+  This route will add a code snippet to the clipoard of a specified project
+ */
 router.post(
   '/:project_id',
   authController.isLoggedIn,
@@ -26,8 +31,9 @@ router.post(
   }
 );
 
-// route for deleting a specific code snippet
-// expected body: none
+/* 
+  This route will delete a code snippet based on snippet_id
+ */
 router.delete(
   '/:snippet_id',
   authController.isLoggedIn,

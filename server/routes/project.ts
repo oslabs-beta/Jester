@@ -1,9 +1,12 @@
+// Projects routes
 import express, { Request, Response, Router } from 'express';
 const router: Router = express.Router();
 import { authController } from '../controllers/authController';
 import { projectController } from '../controllers/projectController';
 
-// route for fetching user's list of Projects based on userId
+/* 
+  This route will return a list of Projects based on userId
+ */
 router.get(
   '/',
   authController.isLoggedIn,
@@ -14,8 +17,9 @@ router.get(
   }
 );
 
-// route for adding a new Project associated with a userId
-// expected body: { project_id: int, user_id: int}
+/* 
+  This route will add a new Project associated with a userId
+ */
 router.post(
   '/',
   authController.isLoggedIn,
@@ -26,8 +30,9 @@ router.post(
   }
 );
 
-// route for deleting a specific project associated with a userId
-// expected body: { project_id: int, user_id: int}
+/* 
+  This route will delete a specific project associated with a userId
+ */
 router.delete(
   '/:project_id',
   authController.isLoggedIn,

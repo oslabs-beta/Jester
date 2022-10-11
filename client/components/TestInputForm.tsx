@@ -12,7 +12,7 @@ import {
 import React from 'react';
 import { useAppDispatch, useAppSelector } from '../redux/hooks';
 import { setRequestType, addAssertion } from '../redux/reducers/testFormSlice';
-import { setCodeOutput } from '../redux/reducers/reducer';
+import { setCodeOutput } from '../redux/reducers/codeSlice';
 import { setErrorMsg } from '../redux/reducers/userInputSlice';
 import { Assertions } from './Assertions';
 import { RequestBody } from './RequestBody';

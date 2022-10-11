@@ -93,7 +93,7 @@ describe('Unit testing "TestInputForm" component', () => {
         <ProjectDropdown />
       </Provider>
     );
-    const dropdown = screen.getByRole('button', { name: 'Project One' });
+    const dropdown = screen.getByRole('button', { name: 'Guest Project' });
     expect(dropdown).toBeInTheDocument();
   });
 });

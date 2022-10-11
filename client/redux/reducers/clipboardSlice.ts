@@ -85,7 +85,7 @@ const thunks = {
       let response;
       try {
         response = await axios.post(`/api/clipboard/${projectId}`, {
-          code_snippet: codeOutput,
+          code_snippets: codeOutput,
         });
       } catch (error) {
         console.log('clipboardSlice/postSnippet', error);

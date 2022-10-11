@@ -15,7 +15,7 @@ const initialState = {
   },
   userInfo: {
     projectsInfo: [
-      { project_id: 1, project_name: 'Project One', showAccessClipboard: true },
+      { project_id: 1, project_name: 'Guest Project', showAccessClipboard: true },
     ],
   },
   clipboard: {
@@ -57,18 +57,18 @@ describe('Unit testing navPanel', () => {
     });
     test('it should render a button for each project', () => {
       expect(
-        screen.getByRole('button', { name: 'Project One' })
+        screen.getByRole('button', { name: 'Guest Project' })
       ).toBeInTheDocument();
     });
 
     describe('Unit testing AccessClipboardDisplay when a project is clicked', () => {
       let button;
       beforeEach(() => {
-        button = screen.getByRole('button', { name: 'Project One' });
+        button = screen.getByRole('button', { name: 'Guest Project' });
         fireEvent.click(button);
       });
       test('it should render clipboard button', () => {
-        const button = screen.getByRole('button', { name: 'Project One' });
+        const button = screen.getByRole('button', { name: 'Guest Project' });
         fireEvent.click(button);
         expect(
           screen.getByRole('button', { name: 'Clipboard' })

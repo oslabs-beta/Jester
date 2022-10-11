@@ -7,7 +7,8 @@
     "test": "jest --verbose",
     "build": "NODE_ENV=production webpack",
     "start": "NODE_ENV=production npx ts-node server/server.ts",
-    "dev": "NODE_ENV=development webpack-dev-server & NODE_ENV=development nodemon server/server.ts"
+    "dev": "NODE_ENV=development webpack-dev-server & NODE_ENV=development nodemon server/server.ts",
+    ".": "npm run build && npm run start"
   },
   "repository": {
     "type": "git",
@@ -85,6 +86,8 @@
     "cookie-session": "^2.0.0",
     "dotenv": "^16.0.2",
     "express": "^4.18.1",
+    "file-loader": "^6.2.0",
+    "highlight.js": "^11.6.0",
     "js-cookie": "^3.0.1",
     "node-fetch": "2.6.7",
     "passport": "^0.5.0",

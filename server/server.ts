@@ -3,7 +3,6 @@ import cookieSession from 'cookie-session';
 import express, { Request, Response, NextFunction } from 'express';
 import passport from 'passport';
 import path from 'path';
-
 import authRoutes from './routes/auth';
 import testsRoutes from './routes/tests';
 import projectRoutes from './routes/project';
@@ -16,7 +15,7 @@ const PORT = 3000;
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
-// passport and cookie-seesion methods for OAuth 2
+// Passport and cookie-session methods for OAuth 2
 app.use(
   cookieSession({
     name: 'github-auth-session',

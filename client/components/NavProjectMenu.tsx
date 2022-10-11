@@ -6,7 +6,7 @@ import { setProjectsInfo } from '../redux/reducers/userInfoSlice';
 import axios from 'axios';
 import IntegrationInstructionsIcon from '@mui/icons-material/IntegrationInstructions';
 import DeleteForeverIcon from '@mui/icons-material/DeleteForever';
-import { clearClipboardState } from '../redux/reducers/ClipBoardReducers';
+import { clearClipboardState } from '../redux/reducers/clipboardSlice';
 
 type navProjectMenuProps = {
   projectId: number;

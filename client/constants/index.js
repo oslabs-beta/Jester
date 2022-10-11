@@ -1,6 +1,6 @@
 export const INDENT = '  ';
 
-export const DEFAULT_PROJECT = 'Project One';
+export const DEFAULT_PROJECT = 'Guest Project';
 
 export const boilerplate_start = (server) => {
   return [
@@ -14,4 +14,4 @@ export const boilerplate_start = (server) => {
 export const BOILERPLATE_END = '});';
 
 export const DEFAULT_CLIPBOARD =
-  'Your Clipboard is currently empty! Please generate a test before we can display your testing code here.';
+  'Your Clipboard is currently empty!\nPlease generate a test before we can display your testing code here.';
