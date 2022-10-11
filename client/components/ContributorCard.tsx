@@ -41,10 +41,10 @@ export const ContributorCard = (props: ContributorCardProps) => {
         </CardContent>
       </CardActionArea>
       <CardActions>
-        <Button size="small" color="primary" href={props.linkedInLink}>
+        <Button size="small" color="primary" href={props.linkedInLink} target="_blank">
           LinkedIn
         </Button>
-        <Button size="small" color="primary" href={props.githubLink}>
+        <Button size="small" color="primary" href={props.githubLink} target="_blank">
           GitHub
         </Button>
       </CardActions>
