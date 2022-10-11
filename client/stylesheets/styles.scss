@@ -73,7 +73,7 @@ img[alt~='logo'] {
 }
 
 .test-code-box {
-  width: 800;
+  width: 750;
   display: flex;
   justify-content: center;
 }
@@ -218,26 +218,32 @@ pre {
 
 @media (max-width: 950px) and (min-width: 851px) {
   .test-code-box {
-    width: 700;
+    width: 650;
+  }
+  .contributors-page {
+    grid-template: auto / repeat(2, 1fr);
+    gap: 50px;
   }
 }
 
 @media (max-width: 850px) and (min-width: 751px) {
   .test-code-box {
-    width: 600;
+    width: 550;
   }
   .contributors-page {
     grid-template: auto / repeat(2, 1fr);
+    gap: 50px;
   }
 }
 
 
 @media (max-width: 750px) and (min-width: 651px) {
   .test-code-box {
-    width: 500;
+    width: 450;
   }
   .contributors-page {
     grid-template: auto / repeat(2, 1fr);
+    gap: 50px;
   }
 }
 
@@ -246,7 +252,7 @@ pre {
     flex-direction: column;
   }
   .test-code-box {
-    width: 400;
+    width: 300;
   }
   .contributors-page {
     grid-template: auto / repeat(1, 1fr);
