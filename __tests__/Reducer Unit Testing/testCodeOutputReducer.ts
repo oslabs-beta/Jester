@@ -1,5 +1,5 @@
 import { store } from '../../client/redux/store';
-import { setCodeOutput, userEditText } from '../../client/redux/reducers/codeSlice';
+import { setCodeOutput } from '../../client/redux/reducers/codeSlice';
 
 type defaultStateType = {
   codeOutput: string,
