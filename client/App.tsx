@@ -11,6 +11,7 @@ import { Box } from '@mui/material';
 import { CodeGenerator } from './pages/CodeGenerator';
 import Clipboard from './components/Clipboard';
 import Auth from './pages/Auth';
+import { Contributors } from './pages/Contributors';
 
 const theme = createTheme({
   palette: {
@@ -53,6 +54,7 @@ const App = () => {
             <Route path="/" element={<Home />} />
             <Route path="/clipboard/:projectId" element={<Clipboard />} />
             <Route path="/documentation" element={<Documentation />} />
+            <Route path='/contributors' element={<Contributors />} />
             <Route path='/authenticate' element={<Auth />} />
             <Route
               path="/CodeGenerator/:projectId"
