@@ -73,7 +73,7 @@ img[alt~='logo'] {
 }
 
 .test-code-box {
-  max-width: 80%;
+  width: 800;
   display: flex;
   justify-content: center;
 }
@@ -184,7 +184,9 @@ contributors-header {
 }
 
 .documentation-container {
-  width: 800px;
+  max-width: 800px;
+  padding-left: 20px;
+  padding-right: 20px;
 }
 
 .text-display {
@@ -209,13 +211,36 @@ pre {
 }
 
 .docs-display {
-  width: 800px;
+  max-width: 100%;
   height: auto;
 }
 
 
+
+@media (max-width: 950px) and (min-width: 851px) {
+  .test-code-box {
+    width: 700;
+  }
+}
+
+@media (max-width: 850px) and (min-width: 751px) {
+  .test-code-box {
+    width: 600;
+  }
+}
+
+
+@media (max-width: 750px) and (min-width: 651px) {
+  .test-code-box {
+    width: 500;
+  }
+}
+
 @media (max-width: 650px) {
   .test-gen-header {
     flex-direction: column;
+  }
+  .test-code-box {
+    width: 400;
   }
 }
