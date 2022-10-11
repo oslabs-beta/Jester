@@ -8,6 +8,7 @@ import {
   setServer,
   getSnippets,
   clearClipboardState,
+  setSnippets
 } from '../redux/reducers/ClipBoardReducers';
 import ClipboardButton from './ClipboardButton';
 import { deleteProject } from '../redux/reducers/userInfoSlice';
@@ -56,6 +57,10 @@ const ClipBoard = () => {
     if (isLoggedIn) { 
       // fetch code snippets from db if user logged in
       dispatch(getSnippets(projectId));
+    }
+    else {
+      const clipboardData = sessionStorage.getItem('clipboardData');
+      if (clipboardData) dispatch(setSnippets(JSON.parse(clipboardData)));
     }
   });
 

@@ -4,7 +4,7 @@ import { userInfoStateType, projectsType } from '../../types';
 import axios from 'axios';
 
 
-const showSave =  (sessionStorage.getItem('clipboardData')) ? true : false;
+const showSave =  (sessionStorage.getItem('clipboardData') && sessionStorage.getItem('isLoggedIn')) ? true : false;
 
 const initialState: userInfoStateType = {
   showLogin: false,
