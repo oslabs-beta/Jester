@@ -73,7 +73,7 @@ const Clipboard = () => {
         <TextField
           className="text-display"
           label="Server URL"
-          sx={{ width: 300 }}
+          sx={{ minWidth: 200 }}
           value={server}
           error={server === ''}
           onChange={updateServer}
