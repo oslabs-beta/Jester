@@ -50,6 +50,10 @@ const Clipboard = () => {
       // fetch code snippets from db if user logged in
       dispatch(getSnippets(projectId));
     }
+    else {
+      const clipboardData = sessionStorage.getItem('codeSnippets');
+      if (clipboardData) dispatch(setSnippets(JSON.parse(clipboardData)));
+    }
     hljs.highlightAll();
   });
 
