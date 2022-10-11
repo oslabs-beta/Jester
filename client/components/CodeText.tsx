@@ -25,7 +25,7 @@ const CodeText = () => {
       minRows={ 10 }
       value={ codeOutputEdited || codeOutput }
       sx={{
-        width: 0.95,
+        width: 1,
         backgroundColor: '#011E3C',
         color: 'white',
         pl: 2,

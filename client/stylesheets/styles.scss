@@ -72,6 +72,12 @@ img[alt~='logo'] {
   position: relative;
 }
 
+.test-code-box {
+  max-width: 80%;
+  display: flex;
+  justify-content: center;
+}
+
 .code-container:hover > .button-container {
   transition: all 0.5s ease-in;
   opacity: 100;
