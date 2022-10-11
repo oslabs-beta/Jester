@@ -44,6 +44,7 @@ export const clipboardSlice = createSlice({
     ) => {
       state.codeSnippets.push(action.payload);
       updateCodeDisplay(state);
+      sessionStorage.setItem('codeSnippets', JSON.stringify(state.codeSnippets));
     },
     copyClipboard: (state: clipboardStateType) => {
       navigator.clipboard.writeText(state.codeDisplay);
@@ -56,7 +57,12 @@ export const clipboardSlice = createSlice({
       state.server = '';
       state.codeSnippets = [];
       state.codeDisplay = DEFAULT_CLIPBOARD;
+      sessionStorage.removeItem('codeSnippets');
     },
+    setSnippets: (state: clipboardStateType, action: PayloadAction<string[]>) => {
+      state.codeSnippets = action.payload;
+      updateCodeDisplay(state);
+    }
   },
   extraReducers: (builder) => {
     builder
@@ -105,6 +111,7 @@ export const {
   copyClipboard,
   setServer,
   clearClipboardState,
+  setSnippets,
 } = clipboardSlice.actions;
 
 export const { postSnippet, getSnippets } = thunks;

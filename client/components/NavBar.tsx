@@ -25,8 +25,8 @@ const NavBar = () => {
 
   const dispatch = useAppDispatch();
   const handleLoginOpen = () => {
-    if (clipboardData.length) sessionStorage.setItem('clipboardData', JSON.stringify(clipboardData));
     dispatch(setShowLogin());
+    if (clipboardData.length) sessionStorage.setItem('clipboardData', JSON.stringify(clipboardData));
   };
   const handleLogout = async () => {
     Cookies.remove('username');
@@ -63,6 +63,11 @@ const NavBar = () => {
               Welcome, Guest!
             </Button>
           )}
+          <Button color='inherit'>
+            <Link className='nav-link' to='/contributors'>
+              Contributors
+            </Link>
+          </Button>
           {sessionStorage.getItem('isLoggedIn') ? (
             <Button
               color="inherit"

@@ -3,9 +3,7 @@ import { DEFAULT_PROJECT } from '../../constants';
 import { userInfoStateType, projectsType } from '../../types';
 import axios from 'axios';
 
-
-const showSave =  (sessionStorage.getItem('clipboardData')) ? true : false;
-
+const showSave = (sessionStorage.getItem('clipboardData')) ? true : false;
 const initialState: userInfoStateType = {
   showLogin: false,
   showSave: showSave,

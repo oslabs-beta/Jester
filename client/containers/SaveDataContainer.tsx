@@ -18,7 +18,7 @@ import {
   setNewProject,
   setProjectsInfo,
 } from '../redux/reducers/userInfoSlice';
-import { postSnippet } from '../redux/reducers/ClipBoardReducers';
+import { postSnippet } from '../redux/reducers/clipboardSlice';
 import axios from 'axios';
 
 type saveDataPropsType = {
@@ -99,7 +99,7 @@ const SaveDataContainer = (props: saveDataPropsType) => {
             width: 500,
             display: 'flex',
             flexDirection: 'row',
-            backgroundColor: '#5E17EB',
+            backgroundColor: '#6e00bb',
             justifyContent: 'center',
           }}
         >
@@ -108,35 +108,33 @@ const SaveDataContainer = (props: saveDataPropsType) => {
         <DialogTitle>
           Would you like to save your current clipboard?
         </DialogTitle>
-        <Box>
-          <ProjectDropdown disabled={disableDropdown} />
-          <TextField
-            label="New Project Name"
-            data-testid="new-project"
-            id="new-project"
-            size="small"
-            sx={{ width: 200, minWidth: 200, marginBottom: 2 }}
-            onChange={handleChange}
-          />
-          <Stack direction="row" spacing={2}>
-            <Button
-              variant="outlined"
-              startIcon={<DeleteIcon />}
-              sx={{ width: 120 }}
-              onClick={handleDiscard}
-            >
+        <ProjectDropdown disabled={disableDropdown} />
+        <TextField
+          label="New Project Name"
+          data-testid="new-project"
+          id="new-project"
+          size="small"
+          sx={{ width: 200, minWidth: 200, marginBottom: 2 }}
+          onChange={handleChange}
+        />
+        <Stack direction="row" spacing={2}>
+          <Button
+            variant="outlined"
+            startIcon={<DeleteIcon />}
+            sx={{ width: 120 }}
+            onClick={handleDiscard}
+          >
               Discard
-            </Button>
-            <Button
-              variant="outlined"
-              startIcon={<SaveIcon />}
-              sx={{ width: 120 }}
-              onClick={handleSave}
-            >
+          </Button>
+          <Button
+            variant="outlined"
+            startIcon={<SaveIcon />}
+            sx={{ width: 120 }}
+            onClick={handleSave}
+          >
               Save
-            </Button>
-          </Stack>
-        </Box>
+          </Button>
+        </Stack>
       </Box>
     </Dialog>
   );

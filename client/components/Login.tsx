@@ -1,4 +1,3 @@
-import axios from 'axios';
 import React from 'react';
 import { Button, Box, Dialog, DialogTitle, Typography } from '@mui/material';
 import GitHubIcon from '@mui/icons-material/GitHub';
@@ -15,16 +14,7 @@ export const Login = (props: loginProps) => {
   const dispatch = useAppDispatch();
   const handleClose = (): void => {
     dispatch(setShowLogin());
-  };
-  const handleClick = async (): Promise<void> => {
-    const response: string | any = await axios.get('/auth/github');
-    if (response === 'Unknown Error') {
-      const errorElement = document.getElementById('error-message');
-      if (errorElement) errorElement.style.display = 'auto';
-    } else {
-      await axios.get('/auth');
-      handleClose();
-    }
+    sessionStorage.removeItem('clipboardData');
   };
   return (
     <Dialog onClose={handleClose} open={props.open}>
@@ -56,7 +46,7 @@ export const Login = (props: loginProps) => {
             margin: 2,
           }}
         >
-          <GitHubIcon onClick={handleClick} />
+          <GitHubIcon />
           GitHub
         </Button>
         <Typography id="error-message" sx={{ display: 'none', color: 'red' }}>
