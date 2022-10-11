@@ -19,9 +19,7 @@ import { copyText } from '../redux/reducers/codeSlice';
 // 2) the button that perform a post request to the consolidated app clipboard SQL DB with the code
 
 const ButtonContainer = () => {
-  const codeOutput = useAppSelector(
-    (state) => state.code.codeOutputEdited || state.code.codeOutput
-  );
+  const codeOutput = useAppSelector((state) => state.code.codeOutput);
   const isLoggedIn = sessionStorage.getItem('isLoggedIn');
   const projectId = useAppSelector((state) => state.userInfo.currentProjectId);
 

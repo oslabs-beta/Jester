@@ -1,9 +1,8 @@
 import { store } from '../../client/redux/store';
-import { userEditText } from '../../client/redux/reducers/codeSlice';
+import { setCodeOutput, userEditText } from '../../client/redux/reducers/codeSlice';
 
 type defaultStateType = {
   codeOutput: string,
-  codeOutputEdited: string | undefined,
 }
 
 describe('Code Output Reducer', () => {
@@ -11,7 +10,6 @@ describe('Code Output Reducer', () => {
   beforeEach(() => {
     defaultState = {
       codeOutput: 'describe(\'Sample description\', (arg1) => { code.. }',
-      codeOutputEdited: undefined,
     };
   });
   
@@ -22,9 +20,9 @@ describe('Code Output Reducer', () => {
 
   it('should update codeOutputEdited in state', () => {
     const TYPED_TEXT = 'new user typed text';
-    store.dispatch(userEditText(TYPED_TEXT));
+    store.dispatch(setCodeOutput(TYPED_TEXT));
     const newState = store.getState();
-    expect(newState.code.codeOutputEdited).toEqual(TYPED_TEXT);
+    expect(newState.code.codeOutput).toEqual(TYPED_TEXT);
   });
   
 });
