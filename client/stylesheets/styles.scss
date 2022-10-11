@@ -22,7 +22,7 @@ body {
 
 #code-output {
   font-family: 'Inconsolata', monospace;
-  font-size: medium;
+  font-size: 13px;
   background-color: '#011E3C';
   color: white;;
 }
@@ -88,7 +88,7 @@ img[alt~='logo'] {
   position: absolute;
   display: inline-block;
   top: 86px;
-  right: 9px;
+  right: 32px;
   opacity: 0;
   overflow: hidden;
   z-index: 10;

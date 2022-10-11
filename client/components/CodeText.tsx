@@ -26,7 +26,7 @@ const CodeText = () => {
       value={ codeOutputEdited || codeOutput }
       sx={{
         width: 0.95,
-        backgroundColor: '#011E3C',
+        backgroundColor: '#282C34',
         color: 'white',
         pl: 2,
         borderRadius: 2,
