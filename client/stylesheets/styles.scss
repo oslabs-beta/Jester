@@ -128,7 +128,8 @@ img[alt~='logo'] {
   display: grid;
   grid-template: auto / repeat(3, 1fr);
   gap: 80px;
-  padding-right: 100px
+  padding-left: 20px;
+  padding-right: 20px;
 }
 
 .contributorLink {
@@ -215,8 +216,6 @@ pre {
   height: auto;
 }
 
-
-
 @media (max-width: 950px) and (min-width: 851px) {
   .test-code-box {
     width: 700;
@@ -227,12 +226,18 @@ pre {
   .test-code-box {
     width: 600;
   }
+  .contributors-page {
+    grid-template: auto / repeat(2, 1fr);
+  }
 }
 
 
 @media (max-width: 750px) and (min-width: 651px) {
   .test-code-box {
     width: 500;
+  }
+  .contributors-page {
+    grid-template: auto / repeat(2, 1fr);
   }
 }
 
@@ -242,5 +247,8 @@ pre {
   }
   .test-code-box {
     width: 400;
+  }
+  .contributors-page {
+    grid-template: auto / repeat(1, 1fr);
   }
 }
