@@ -30,7 +30,7 @@ export const RequestBody = (props: requestBodyPropsType) => {
         data-testid="Request-Body"
         name="Request-Body"
         disabled={true}
-        sx={{ backgroundColor: 'lightgrey' }}
+        sx={{ backgroundColor: '#E8E8E8' }}
         size="small"
       />
     );
