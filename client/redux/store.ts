@@ -13,7 +13,7 @@ export const store = configureStore({
     slice: slice,
     clipboard: clipbardReducer,
     userInfo: userInfoReducer,
-    navPanel: navPanelSlice,
+    navPanel: navPanelSlice
   },
 });
 
