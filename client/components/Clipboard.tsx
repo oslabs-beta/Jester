@@ -67,7 +67,7 @@ const Clipboard = () => {
           flexDirection: 'column',
           alignItems: 'center',
           gap: '10px',
-          width: 800,
+          width: .8,
         }}
         className="code-container"
       >
@@ -81,7 +81,7 @@ const Clipboard = () => {
         ></TextField>
         <Box 
           sx={{ 
-            width: 800, 
+            width: 1,
             height: 500,
             overflow: 'auto',
             color: 'white',
