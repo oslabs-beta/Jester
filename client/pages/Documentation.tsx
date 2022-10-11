@@ -40,24 +40,7 @@ const Documentation = () => {
             Add jest and supertest as dependencies in your package.json file
           </li>
           <li>
-            Add the following to your supertest.js file:
-            <ul>
-              <li>
-                <code>const &#123; response &#125; = require('express')</code>
-              </li>
-              <li>
-                <code>const request = require('supertest')</code>
-              </li>
-              <li>
-                <code>
-                  const server = '
-                  <em>
-                    <u>Place server information here</u>
-                  </em>
-                  '
-                </code>
-              </li>
-            </ul>
+            Paste generated code into the file supertest.js
           </li>
         </ol>
       </div>

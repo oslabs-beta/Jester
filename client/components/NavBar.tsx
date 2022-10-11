@@ -25,8 +25,8 @@ const NavBar = () => {
 
   const dispatch = useAppDispatch();
   const handleLoginOpen = () => {
-    if (clipboardData.length) sessionStorage.setItem('clipboardData', JSON.stringify(clipboardData));
     dispatch(setShowLogin());
+    if (clipboardData.length) sessionStorage.setItem('clipboardData', JSON.stringify(clipboardData));
   };
   const handleLogout = async () => {
     Cookies.remove('username');

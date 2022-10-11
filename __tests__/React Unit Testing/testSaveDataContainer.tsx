@@ -55,7 +55,7 @@ describe('Unit testing output Save Clipboard Data Container components', () => {
   });
 
   test('Renders a dropdown menu for project', () => {
-    const dropdown = screen.getByRole('button', { name: 'Project One' });
+    const dropdown = screen.getByRole('button', { name: 'Guest Project' });
     expect(dropdown).toBeInTheDocument();
   });
 

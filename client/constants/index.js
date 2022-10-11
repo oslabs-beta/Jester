@@ -1,6 +1,6 @@
 export const INDENT = '  ';
 
-export const DEFAULT_PROJECT = 'Project One';
+export const DEFAULT_PROJECT = 'Guest Project';
 
 export const boilerplate_start = (server) => {
   return [

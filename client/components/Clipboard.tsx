@@ -2,11 +2,12 @@ import React, { ChangeEvent, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { TextField, Box, Button } from '@mui/material';
 import DeleteForeverIcon from '@mui/icons-material/DeleteForever';
-
+import  hljs  from 'highlight.js/lib/common';
 import { useAppDispatch, useAppSelector } from '../redux/hooks';
 import {
   setServer,
   getSnippets,
+  setSnippets,
   clearClipboardState,
 } from '../redux/reducers/clipboardSlice';
 import ClipboardButton from './ClipboardButton';
@@ -18,6 +19,9 @@ user is logged in, or from state if a user is not logged in
 */
 
 const Clipboard = () => {
+  hljs.configure({
+    ignoreUnescapedHTML: true
+  });
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
   const projectId = Number(useParams().projectId);
@@ -28,16 +32,6 @@ const Clipboard = () => {
   const codeDisplay: string = useAppSelector(
     (state) => state.clipboard.codeDisplay
   );
-
-  const elementArr: JSX.Element[] = [];
-  codeDisplay.split('\n').forEach((el) => {
-    elementArr.push(
-      <pre>
-        { el }
-      </pre>
-    );
-  });
-  
 
   const updateServer = (e: ChangeEvent<HTMLInputElement>) => {
     dispatch(setServer(e.target.value));
@@ -57,6 +51,11 @@ const Clipboard = () => {
       // fetch code snippets from db if user logged in
       dispatch(getSnippets(projectId));
     }
+    else {
+      const clipboardData = sessionStorage.getItem('codeSnippets');
+      if (clipboardData) dispatch(setSnippets(JSON.parse(clipboardData)));
+    }
+    hljs.highlightAll();
   });
 
   return (
@@ -75,31 +74,33 @@ const Clipboard = () => {
           className="text-display"
           label="Server URL"
           sx={{ width: 300 }}
-          value={ server }
-          error={ server === '' }
-          onChange={ updateServer }
-        ></TextField>
+          value={server}
+          error={server === ''}
+          onChange={updateServer}
+        />
         <Box 
           sx={{ 
             width: 1,
             height: 500,
             overflow: 'auto',
-            color: 'white',
-            backgroundColor: '#011E3C',
-            p: 3,
+            backgroundColor: '#282C34',
           }}
         >
           <div id="main-clipboard">
-            { elementArr }
+            <pre>
+              <code className='javascript'>
+                {codeDisplay}
+              </code> 
+            </pre>
           </div>
         </Box> 
         <ClipboardButton />
         <Button
-          onClick={ handleClear }
+          onClick={handleClear}
           sx={{ flexDirection: 'column' }}
         >
           <DeleteForeverIcon /> 
-          { buttonText }
+          {buttonText}
         </Button>
       </Box>
     </div>

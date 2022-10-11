@@ -13,8 +13,8 @@ function Footer() {
     >
       <Typography variant="body2" color="text.secondary" align="center">
         {'Copyright © '}
-        <Link color="inherit" href="https://mui.com/">
-          jester-app.dev
+        <Link color="inherit" href="https://jester.software">
+          jester.software
         </Link>{' '}
         {new Date().getFullYear()}
         {'.'}
