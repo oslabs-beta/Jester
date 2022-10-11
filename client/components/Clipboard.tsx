@@ -7,6 +7,7 @@ import { useAppDispatch, useAppSelector } from '../redux/hooks';
 import {
   setServer,
   getSnippets,
+  setSnippets,
   clearClipboardState,
 } from '../redux/reducers/clipboardSlice';
 import ClipboardButton from './ClipboardButton';
