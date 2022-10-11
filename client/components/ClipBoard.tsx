@@ -2,7 +2,7 @@ import React, { ChangeEvent, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { TextField, Box, Button } from '@mui/material';
 import DeleteForeverIcon from '@mui/icons-material/DeleteForever';
-
+import  hljs  from 'highlight.js';
 import { useAppDispatch, useAppSelector } from '../redux/hooks';
 import {
   setServer,
@@ -28,17 +28,19 @@ const ClipBoard = () => {
   const codeDisplay: string = useAppSelector(
     (state) => state.clipboard.codeDisplay
   );
-  const str = 'const brianhao = \'awesome\'\n const a = 5';
-  const codeClipboard: Element | null = document.querySelector('#code-clipboard');
-  const codeDisplay2 = [`const super = require('super')\n`, `const super = require('super')\n`].join('\n')
-  const elementArr: JSX.Element[] = [];
-  codeDisplay.split('\n').forEach((el) => {
-    elementArr.push(
-      <code className="javascript">
-        { el }
-      </code>
-    );
-  });
+
+  const testStr = 'const request = require(\'supertest\');\nconst server = \'\';\n  \ndescribe(\'Route Integration Testing\', ( ) => {\n  describe(\'/colorizeme\', () => {\n    describe(\'GET\', () => {\n      it(\'responds with status 111\', async () => {\n        const response = await request(server)\n          .get(\'/colorizeme\');\n        expect(response.statusCode).toBe(111);\n      });\n    });\n  });\n  describe(\'/login\', () => {\n   describe(\'GET\', () => {\n    it(\'responds with status 444\', async () => {\n     const response = await request(server)\n     .get(\'/login\');\n      expect(response.statusCode).toBe(444);\n    });\n   });\n  });\n  describe(\'/login\', () => {\n   describe(\'GET\', () => {\n    it(\'responds with status 333\', async () => {\n     const response = await request(server)\n     .get(\'/login\');\n      expect(response.statusCode).toBe(333);\n    });\n   });\n  });\n  describe(\'/login\', () => {\n   describe(\'GET\', () => {\n    it(\'responds with status 222\', async () => {\n     const response = await request(server)\n     .get(\'/login\');\n      expect(response.statusCode).toBe(222);\n    });\n   });\n  });\n});';
+  
+  console.log('color', testStr);
+  const testStrStringify = JSON.stringify(testStr);
+  console.log('color stringify', testStrStringify);
+
+  console.log('nocolor', codeDisplay);
+  const codeDisplayStringify = JSON.stringify(codeDisplay);
+  console.log('nocolor stringify', codeDisplayStringify);
+
+  console.log(testStr === codeDisplay);
+  console.log(testStrStringify === codeDisplayStringify);
   
 
   const updateServer = (e: ChangeEvent<HTMLInputElement>) => {
@@ -58,12 +60,8 @@ const ClipBoard = () => {
     if (isLoggedIn) { 
       // fetch code snippets from db if user logged in
       dispatch(getSnippets(projectId));
-      console.log(typeof codeDisplay);
     }
-    if (codeClipboard) {
-      codeClipboard.innerHTML = codeDisplay;
-    }
-    
+    hljs.highlightAll();
   });
 
   return (
@@ -96,17 +94,15 @@ const ClipBoard = () => {
           }}
         >
           <div id="main-clipboard">
-            {/* <pre>
-              { elementArr }
-            </pre> */}
             <pre>
-              <code className='javascript'>
-                { codeDisplay2 }
-              </code>
+              <code className='javascript' id="code-display">
+                {testStr}
+              </code> 
             </pre>
             <pre>
-              <code className='javascript' id='code-clipboard'>
-              </code>
+              <code className='javascript'>
+                {codeDisplay}
+              </code> 
             </pre>
           </div>
         </Box> 
