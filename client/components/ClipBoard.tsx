@@ -59,7 +59,7 @@ const ClipBoard = () => {
       dispatch(getSnippets(projectId));
     }
     else {
-      const clipboardData = sessionStorage.getItem('clipboardData');
+      const clipboardData = sessionStorage.getItem('codeSnippets');
       if (clipboardData) dispatch(setSnippets(JSON.parse(clipboardData)));
     }
   });

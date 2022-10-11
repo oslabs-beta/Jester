@@ -21,6 +21,7 @@ const Auth = () => {
       const cookie_username = Cookies.get('username') || '';
       const cookie_email = Cookies.get('email') || '';
       setUsername(cookie_username);
+      sessionStorage.removeItem('codeSnippets');
       sessionStorage.setItem('username', cookie_username);
       sessionStorage.setItem('email', cookie_email);
       sessionStorage.setItem('code', cookie_code);

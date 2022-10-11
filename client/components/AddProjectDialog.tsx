@@ -40,8 +40,8 @@ export const AddProjectDialog = () => {
 
   const handleLoginOpen = async () => {
     handleClose();
-    if (clipboardData.length) sessionStorage.setItem('clipboardData', JSON.stringify(clipboardData));
     dispatch(setShowLogin());
+    if (clipboardData.length) sessionStorage.setItem('clipboardData', JSON.stringify(clipboardData));
   };
 
   if (sessionStorage.getItem('isLoggedIn'))
