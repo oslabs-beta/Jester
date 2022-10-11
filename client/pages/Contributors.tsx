@@ -1,7 +1,7 @@
 import { ContributorCard } from '../components/ContributorCard';
 import React from 'react';
 import { photosObj } from '../assets/photosObj';
-import { Typography } from '@mui/material';
+import { Box, Typography } from '@mui/material';
 
 
 export const Contributors = () => {
@@ -50,7 +50,7 @@ export const Contributors = () => {
 
 
     return (
-      <div>
+      <Box sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
         <div>
           <Typography variant="h3" align="center" gutterBottom  sx={{ mb: 7, mt: 5, ml: -13, color:'primary.main' }} className="contributors-header">Contributors</Typography>
         </div>
@@ -65,6 +65,6 @@ export const Contributors = () => {
             />;
           })}
         </div>
-      </div>
+      </Box>
     );     
 };
