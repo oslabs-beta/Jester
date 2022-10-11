@@ -237,7 +237,20 @@ pre {
 }
 
 
-@media (max-width: 750px) and (min-width: 651px) {
+@media (max-width: 750px) and (min-width: 701px) {
+  .test-code-box {
+    width: 450;
+  }
+  .contributors-page {
+    grid-template: auto / repeat(2, 1fr);
+    gap: 50px;
+  }
+}
+
+@media (max-width: 700px) and (min-width: 651px) {
+  .test-gen-header {
+    flex-direction: column;
+  }
   .test-code-box {
     width: 450;
   }
