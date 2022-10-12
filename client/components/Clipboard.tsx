@@ -33,7 +33,7 @@ const Clipboard = () => {
     (state) => state.clipboard.codeDisplay
   );
 
-  let projectName: string;
+  let projectName = '';
   for (const project of projects) {
     if (project.project_id === projectId) {
       projectName = project.project_name;
@@ -73,12 +73,13 @@ const Clipboard = () => {
           display: 'flex',
           flexDirection: 'column',
           alignItems: 'center',
+          textAlign: 'center',
           gap: '10px',
           width: .8,
         }}
         className="code-container"
       >
-        <Typography>Clipboard for {projectName}</Typography>
+        <Typography variant="h2" sx={{ color: '#6E00BB' }}>Clipboard for {projectName}</Typography>
         <TextField
           className="text-display"
           label="Server URL"
