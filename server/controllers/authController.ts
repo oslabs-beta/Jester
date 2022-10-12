@@ -18,9 +18,9 @@ type AuthType = {
 type DoneType = (err: Error | null, user: Express.User) => void
 
 const gitHubSettings: GitHubSettingsType = {
-  clientID: process.env.clientIDLocal || '',
-  clientSecret: process.env.clientSecretLocal || '',
-  callbackURL: `${process.env.root_url}/auth/github/callback`,
+  clientID: process.env.clientIDHeroku || '',
+  clientSecret: process.env.clientSecretHeroku || '',
+  callbackURL: 'https://jester.software/auth/github/callback',
   scope: ['user:email']
 };
 
