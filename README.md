@@ -56,7 +56,7 @@ This will help engineers stay organized while developing test suites for multipl
 To view all of the projects you have created, please utilize our vertical tool bar on the left side of the page. When you select 'Projects', a pop-out menu will display all the projects on your account. From here, you can select any of your projects to view the saved code snippets inside. If you haven't created a project, please create one from here or generate test code and append it to a project in order to begin.
 
 ## Contributing
-As an open source project, we are always open to contributors wanting to improve the library. For more information, please visit our [contributing documentation](https://github.com/oslabs-beta/d3no-data/blob/main/CONTRIBUTING.md). 
+As an open source project, we are always open to contributors wanting to improve the library. 
 
 ## Contributors
 <ul>
