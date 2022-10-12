@@ -99,9 +99,9 @@ describe('Unit testing output Code Container components', () => {
     };
     render(<AppButton {...props} />);
 
-    let bttn = screen.getByRole('button', { name: '' });
+    let bttn = screen.getByRole('button', { name: 'Add to Project' });
     fireEvent.click(bttn);
-    bttn = screen.getByRole('button', { name: '' });
+    bttn = screen.getByRole('button', { name: 'Add to Project' });
     const icon = bttn.innerHTML.includes('data-testid="DoneAllIcon"');
     expect(icon).toBeTruthy();
     expect(props.onClick).toHaveBeenCalled();
