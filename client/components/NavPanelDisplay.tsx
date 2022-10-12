@@ -66,6 +66,7 @@ export const NavPanelDisplay = () => {
         <ArticleIcon />
         <Typography sx={{ fontSize: '12px' }}>Docs</Typography>
       </Button>
+      <ThemeToggle/>
     </Box>
   );
 };

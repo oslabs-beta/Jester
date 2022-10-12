@@ -13,6 +13,8 @@ import Clipboard from './components/Clipboard';
 import Auth from './pages/Auth';
 import { Contributors } from './pages/Contributors';
 import { useAppSelector } from './redux/hooks';
+import ThemeToggle from './components/ThemeToggle';
+
 
 const theme = createTheme({
   palette: {
@@ -41,6 +43,8 @@ const App = () => {
   const showProjectPanel = useAppSelector((state) => state.navPanel.showProjectPanel);
   return (
     <ThemeProvider theme={theme}>
+
+      {/* <ThemeProvider theme={darkTheme}> */}
       <NavBar />
       <Box
         className="contents"
@@ -67,6 +71,7 @@ const App = () => {
           <Footer />
         </div>
       </Box>
+      {/* </ThemeProvider> */}
     </ThemeProvider>
   );
 };

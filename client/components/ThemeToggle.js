@@ -5,16 +5,26 @@ function ThemeToggle() {
   return (
     <>
       <div id="darkmode">
-        <input type="checkbox" className="checkbox" id="checkbox" />
+        <input type="checkbox" onChange={switchDarkMode} className="checkbox" id="checkbox" />
         <label htmlFor="checkbox" className="label">
           <BsMoonStarsFill color="white" />
           <BsFillSunFill color="yellow" />
           <div className="ball"></div>
+          {/* set  */}
         </label>
       </div>
     </>
   );
 }
+
+const switchDarkMode = () => {
+  //set sessionStorage dark mode to true when this function is called.
+  if (localStorage.getItem('theme') != 'darkMode'){
+    localStorage.setItem('theme','darkMode');
+  }
+  //set it to false if called when it is already true.
+  else localStorage.setItem('theme','lightMode');
+};
 
 export default ThemeToggle;
 
@@ -23,4 +33,6 @@ export default ThemeToggle;
 // To toggle the theme, we have this button which when clicked will hopefully change the theme.
 // Let's use localStorage set and get methods to save our theme.
 // the set method just sets if we are in light or dark mode depenging on our ThemeToggle component.
-// the get method just gets the currently set 
+// the get method just gets the currently set.
+
+// Issue here is on re-render? How to reload state on a re-render.
