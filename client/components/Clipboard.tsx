@@ -68,7 +68,8 @@ const Clipboard = () => {
           gap: '10px',
           width: .8,
         }}
-        className="code-container"
+        className='code-container'
+        data-testid='code-container'
       >
         <TextField
           className="text-display"
@@ -98,6 +99,7 @@ const Clipboard = () => {
         <Button
           onClick={handleClear}
           sx={{ flexDirection: 'column' }}
+          className='delete'
         >
           <DeleteForeverIcon /> 
           {buttonText}

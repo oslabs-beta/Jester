@@ -28,6 +28,7 @@ const ClipboardButton = () => {
         end={ <DoneAllIcon /> }
         onClick={ handleClick }
         testId="bttn-copy"
+        data-testId='bttn-copy'
       />
     </Box>
   );

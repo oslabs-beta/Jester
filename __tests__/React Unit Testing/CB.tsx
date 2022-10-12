@@ -47,7 +47,7 @@ const board = () => {
 // problem here is that due to css styling, it only appears on a hover. So to test it appears on hover, I need to somehow convince this test file that the CSS hover property is true.
 const cbButton = () => {
   render(
-    <Provider store={mockStore(initialState)}>
+    <Provider store={mockStore()}>
       <BrowserRouter>
         <ClipboardButton />
       </BrowserRouter>
@@ -63,24 +63,24 @@ describe('Unit testing Clipboard component', () => {
   change in state then to test properly, you will need to reset the state before wach test to ensure that the
   components being rendered in the test have the expected default state.
   
-  A similar feature could be achievd through the use of a fireEvent.click method (in this case) being run before all events
+  A similar feature could be achievd through the use of a fireEvent.click method (in this case) being run before each event
   where we want to change state based on a button being clicked!
   */
   });
 
   // clipboard that displays snippets
-  test(`Renders a Clipboard with the role of ${'textbox'}`, () => {
-    expect(screen.getByRole('textbox', { name:'' })).toBeInTheDocument();
+  test(`Renders a Clipboard with the classname of ${'code-container'}`, () => {
+    expect(screen.getByTestId('code-container')).toBeInTheDocument();
   });
   //delete button:
-  test('Renders the delete button with an anonymous identity', () => {
-    expect(screen.getByRole('button', { name:'' })).toBeInTheDocument();
+  test(`Renders the delete button with the classname of ${'delete'}` , () => {
+    expect(screen.getByRole('button', { name:'Clear Clipboard' })).toBeInTheDocument();
   });
   // copy button.
   test(`Renders the copy button with a class name of ${'clipboard-button-container'}`, () => {
     cbButton();
     // how to test as if the css hover property is true? --> this is actually unnecessary as it is being rendered, just not visible until hovered over.
-    expect(screen.getByRole('button', { name:'clipboard-button-container' })).toBeInTheDocument();
+    expect(screen.getByRole('button', { name: 'something-weird' })).toBeInTheDocument();
   });
   // server url textbox
   test(`Renders the server url textbox with a label of ${'Server URL'}`, () => {
