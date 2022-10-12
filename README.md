@@ -44,9 +44,11 @@ You can use the application with limited functionality without creating an accou
 To create a test, begin by selecting the type of HTTP method you would like to write test code for as well as the endpoint of your request. To begin adding assertions, click the purple '+' icon and add up to three assertions as needed for any Status Code, Content Type, or Response Body. Once all relevant information has been input, click on 'Generate Test code' and Jester will generate a functional integration test.
 
 **Creating a Project**
-Logges in users are able to create a project inside of which generated test code snippets can be saved. You can generate test code using Jester and save it into a specific project utilizing the 'append to project' button.
+Logged in users are able to create a project inside of which generated test code snippets can be saved. You can generate test code using Jester and save it into a specific project utilizing the 'append to project' button.
 
----SCREEN RECORDING---
+<p align="center">
+  <img src="client/assets/append-clipboard.gif" width="600px" margin="auto"/>
+</p>
 
 This will help engineers stay organized while developing test suites for multiple projects.
 
