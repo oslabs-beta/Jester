@@ -1,5 +1,5 @@
+import { deleteAssertion, setInputType } from '../../client/redux/reducers/testFormSlice';
 import { store } from '../../client/redux/store';
-import { setInputType, deleteAssertion } from '../../client/redux/reducers/testFormSlice';
 
 //WORK IN PROGRESS
 type assertionListType = {
@@ -9,7 +9,8 @@ type defaultStateType = {
   requestType: 'Get' | 'Post' | 'Patch' | 'Delete',
   assertionList: assertionListType,
   i: number,
-  userInput: string
+  userInput: string,
+  assertionTypes: Array<string>
 }
 
 describe('Test Middle Reducer', () => {

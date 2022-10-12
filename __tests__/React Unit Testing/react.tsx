@@ -1,14 +1,15 @@
 import '@testing-library/jest-dom';
+
 import React from 'React';
 import { Provider } from 'react-redux';
 import configureStore from 'redux-mock-store';
+
 import { fireEvent, render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 
-import { TestInputForm } from '../../client/components/TestInputForm';
 import { ProjectDropdown } from '../../client/components/ProjectDropdown';
-
 import { RequestBody } from '../../client/components/RequestBody';
+import { TestInputForm } from '../../client/components/TestInputForm';
 import { DEFAULT_PROJECT } from '../../client/constants';
 
 describe('Unit testing "TestInputForm" component', () => {

@@ -1,7 +1,7 @@
 import React from 'react';
 import { photosObj } from '../assets/photosObj';
 
-const Documentation = () => {
+export const Documentation = () => {
   return (
     <div className='page-body'>
       <div className='documentation-container'>
@@ -49,4 +49,3 @@ const Documentation = () => {
   );
 };
 
-export default Documentation;

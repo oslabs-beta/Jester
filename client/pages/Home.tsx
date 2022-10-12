@@ -4,7 +4,7 @@ import axios from 'axios';
 import { useAppDispatch } from '../redux/hooks';
 import { setProjectsInfo } from '../redux/reducers/userInfoSlice';
 
-const Home = () => {
+export const Home = () => {
   const dispatch = useAppDispatch();
 
 
@@ -18,4 +18,3 @@ const Home = () => {
   return <CodeGenerator />;
 };
 
-export default Home;

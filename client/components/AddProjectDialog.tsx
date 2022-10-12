@@ -1,10 +1,16 @@
-import React, { useState, ChangeEvent } from 'react';
-import { Dialog, TextField, Button, Box, DialogTitle } from '@mui/material';
-import { setShowAddProject } from '../redux/reducers/navPanelSlice';
-import { useAppDispatch, useAppSelector } from '../redux/hooks';
-import { setProjectsInfo, setShowLogin } from '../redux/reducers/userInfoSlice';
 import axios from 'axios';
+import React, { ChangeEvent, useState } from 'react';
+
 import LoginIcon from '@mui/icons-material/Login';
+import Box from '@mui/material/Box';
+import Button from '@mui/material/Button';
+import Dialog from '@mui/material/Dialog';
+import DialogTitle from '@mui/material/DialogTitle';
+import TextField from '@mui/material/TextField';
+
+import { useAppDispatch, useAppSelector } from '../redux/hooks';
+import { setShowAddProject } from '../redux/reducers/navPanelSlice';
+import { setProjectsInfo, setShowLogin } from '../redux/reducers/userInfoSlice';
 import { Login } from './Login';
 
 /* 

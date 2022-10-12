@@ -1,12 +1,13 @@
+import '@testing-library/jest-dom';
+
 import React from 'React';
 import { Provider } from 'react-redux';
-import configureStore from 'redux-mock-store';
-import { render, screen } from '@testing-library/react';
 import { BrowserRouter } from 'react-router-dom';
+import configureStore from 'redux-mock-store';
 
-import Navbar from '../../client/components/Navbar';
+import { render, screen } from '@testing-library/react';
 
-import '@testing-library/jest-dom';
+import { Navbar } from '../../client/components/Navbar';
 
 type codeType = {
   codeOutput: string;

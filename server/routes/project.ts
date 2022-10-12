@@ -1,9 +1,10 @@
 // Projects routes
 import express, { Request, Response, Router } from 'express';
-const router: Router = express.Router();
+
 import { authController } from '../controllers/authController';
 import { projectController } from '../controllers/projectController';
 
+const router: Router = express.Router();
 /* 
   This route will return a list of Projects based on userId
  */
