@@ -2,7 +2,7 @@ export const INDENT = '  ';
 
 export const DEFAULT_PROJECT = 'Guest Project';
 
-export const boilerplate_start = (server) => {
+export const boilerplate_start = (server: string) => {
   return [
     'const request = require(\'supertest\');\n',
     `const server = '${server}';\n`,

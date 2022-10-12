@@ -1,5 +1,5 @@
 import passport from 'passport';
-import { Strategy as GitHubStrategy } from 'passport-github2';
+import { Strategy as GitHubStrategy, Profile } from 'passport-github2';
 import { Request, Response, NextFunction } from 'express';
 import db from '../models/userModel';
 
@@ -15,6 +15,8 @@ type AuthType = {
   getUserId: (req: Request, res: Response, next: NextFunction) => void;
 };
 
+type DoneType = (err: Error | null, user: Express.User) => void
+
 const gitHubSettings: GitHubSettingsType = {
   clientID: 'bc3cf928850a92c03d5b',
   clientSecret: 'fea420829222c6882750bc0da33ea383c6780956',
@@ -22,22 +24,23 @@ const gitHubSettings: GitHubSettingsType = {
   scope: ['user:email']
 };
 
-passport.serializeUser(function (user: Express.User, done: any) {
+passport.serializeUser(function (user: Express.User, done: DoneType) {
   done(null, user);
 });
 
-passport.deserializeUser(function (user: any, done: any) {
+passport.deserializeUser(function (user: Express.User, done: DoneType) {
   done(null, user);
 });
 
 passport.use(
   new GitHubStrategy(gitHubSettings, function (
-    accessToken: any,
-    refreshToken: any,
-    profile: any,
-    done: any
+    accessToken: string,
+    refreshToken: string,
+    profile: Profile,
+    done: DoneType,
   ) {
     return done(null, profile);
+    
   })
 );
 

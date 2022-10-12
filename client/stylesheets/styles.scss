@@ -8,8 +8,9 @@ body {
 }
 
 .page-container {
-    margin-left:-120px;
-    min-width: 1050px;
+    // margin-left:-120px;
+    min-width: 300px;
+    // background-color: #6600ff;
     // max-height: 600px;
 }
 
@@ -18,6 +19,13 @@ body {
   flex-direction: column;
   align-items: center;
   margin-top: 35px;
+}
+
+.test-gen-header {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 10px;
 }
 
 #code-output {
@@ -64,6 +72,12 @@ img[alt~='logo'] {
   position: relative;
 }
 
+.test-code-box {
+  width: 750;
+  display: flex;
+  justify-content: center;
+}
+
 .code-container:hover > .button-container {
   transition: all 0.5s ease-in;
   opacity: 100;
@@ -77,8 +91,8 @@ img[alt~='logo'] {
 .button-container {
   position: absolute;
   display: inline-block;
-  top: 42px;
-  right: 42px;
+  top: 8px;
+  right: 38px;
   opacity: 0;
   overflow: hidden;
   z-index: 10;
@@ -101,10 +115,6 @@ img[alt~='logo'] {
   box-shadow: rgba(0, 0, 0, 0.12) 0px 1px 3px, rgba(0, 0, 0, 0.24) 0px 1px 2px;
 }
 
-// Uncomment this section if changing Navbar to sticky
-// .page-body {
-//   margin-top: 120px;
-// }
 
 .welcome-text {
   pointer-events: none;
@@ -114,7 +124,8 @@ img[alt~='logo'] {
   display: grid;
   grid-template: auto / repeat(3, 1fr);
   gap: 80px;
-  padding-right: 100px
+  padding-left: 20px;
+  padding-right: 20px;
 }
 
 .contributorLink {
@@ -170,7 +181,9 @@ contributors-header {
 }
 
 .documentation-container {
-  width: 800px;
+  max-width: 800px;
+  padding-left: 20px;
+  padding-right: 20px;
 }
 
 .text-display {
@@ -183,18 +196,73 @@ pre {
 }
 
 .documentation-headers {
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: 'Roboto', sans-serif;
   font-weight: bolder;
   color: #5c2696;
   font-size: 25px;
 }
 
 .documentation-p {
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: 'Roboto', sans-serif;
   font-size: 15px;
 }
 
 .docs-display {
-  width: 800px;
+  max-width: 100%;
   height: auto;
+}
+
+@media (max-width: 950px) and (min-width: 851px) {
+  .test-code-box {
+    width: 650;
+  }
+  .contributors-page {
+    grid-template: auto / repeat(2, 1fr);
+    gap: 50px;
+  }
+}
+
+@media (max-width: 850px) and (min-width: 751px) {
+  .test-code-box {
+    width: 550;
+  }
+  .contributors-page {
+    grid-template: auto / repeat(2, 1fr);
+    gap: 50px;
+  }
+}
+
+@media (max-width: 750px) and (min-width: 701px) {
+  .test-code-box {
+    width: 450;
+  }
+  .contributors-page {
+    grid-template: auto / repeat(2, 1fr);
+    gap: 50px;
+  }
+}
+
+@media (max-width: 700px) and (min-width: 651px) {
+  .test-gen-header {
+    flex-direction: column;
+  }
+  .test-code-box {
+    width: 450;
+  }
+  .contributors-page {
+    grid-template: auto / repeat(2, 1fr);
+    gap: 50px;
+  }
+}
+
+@media (max-width: 650px) {
+  .test-gen-header {
+    flex-direction: column;
+  }
+  .test-code-box {
+    width: 300;
+  }
+  .contributors-page {
+    grid-template: auto / repeat(1, 1fr);
+  }
 }
