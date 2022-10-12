@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import Typography from '@mui/material/Typography';
+import { Typography } from '@mui/material';
 import Cookies from 'js-cookie';
 
 /*

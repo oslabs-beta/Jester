@@ -6,7 +6,7 @@ import DoneAllIcon from '@mui/icons-material/DoneAll';
 import Box from '@mui/material/Box';
 
 import { copyClipboard } from '../redux/reducers/clipboardSlice';
-import {AppButton} from './AppButton';
+import { AppButton } from './AppButton';
 
 // This container wraps the button that copies the app clipboard to the navigator clipboard
 
