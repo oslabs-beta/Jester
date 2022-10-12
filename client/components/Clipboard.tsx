@@ -1,6 +1,6 @@
 import React, { ChangeEvent, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
-import { TextField, Box, Button } from '@mui/material';
+import { TextField, Box, Button, Typography } from '@mui/material';
 import DeleteForeverIcon from '@mui/icons-material/DeleteForever';
 import  hljs  from 'highlight.js/lib/common';
 import { useAppDispatch, useAppSelector } from '../redux/hooks';
@@ -27,11 +27,19 @@ const Clipboard = () => {
   const projectId = Number(useParams().projectId);
   const isLoggedIn = sessionStorage.getItem('isLoggedIn');
   const buttonText = isLoggedIn ? 'Delete Project' : 'Clear Clipboard';
-
+  const projects = useAppSelector((state) => state.userInfo.projectsInfo);
   const server: string = useAppSelector((state) => state.clipboard.server);
   const codeDisplay: string = useAppSelector(
     (state) => state.clipboard.codeDisplay
   );
+
+  let projectName: string;
+  for (const project of projects) {
+    if (project.project_id === projectId) {
+      projectName = project.project_name;
+      break;
+    }
+  }
 
   const updateServer = (e: ChangeEvent<HTMLInputElement>) => {
     dispatch(setServer(e.target.value));
@@ -70,6 +78,7 @@ const Clipboard = () => {
         }}
         className="code-container"
       >
+        <Typography>Clipboard for {projectName}</Typography>
         <TextField
           className="text-display"
           label="Server URL"
