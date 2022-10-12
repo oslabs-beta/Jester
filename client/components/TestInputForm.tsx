@@ -18,7 +18,7 @@ import { Assertions } from './Assertions';
 import { RequestBody } from './RequestBody';
 import axios from 'axios';
 import { ProjectDropdown } from './ProjectDropdown';
-
+import { setCurrentProject } from '../redux/reducers/userInfoSlice';
 /*
 This component will allow a user to generate test code according to their inputs. This component is
 where users will indicate the request type, endpoint, and response body, as well as add their assertions.
@@ -27,15 +27,17 @@ where users will indicate the request type, endpoint, and response body, as well
 export const TestInputForm = () => {
   const isLoggedIn = sessionStorage.getItem('isLoggedIn');
   const requestType = useAppSelector((state) => state.testForm.requestType);
-  const assertionObject = useAppSelector(
-    (state) => state.testForm.assertionList
-  );
+  const assertionObject = useAppSelector((state) => state.testForm.assertionList);
   const assertionList: JSX.Element[] = [];
   const assertionIds = Object.keys(assertionObject);
   for (const id of assertionIds) {
     assertionList.push(<Assertions id={id} key={id} />);
   }
   const dispatch = useAppDispatch();
+  
+  const projectsInfo = useAppSelector((state) => state.userInfo.projectsInfo);
+  const projects = projectsInfo.map((el) => el.project_name);
+  dispatch(setCurrentProject(projects[projects.length - 1]));
 
   const getData = (form: any) => {
     const formData = new FormData(form);
