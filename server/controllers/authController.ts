@@ -2,11 +2,10 @@ import passport from 'passport';
 import { Strategy as GitHubStrategy } from 'passport-github2';
 import { Request, Response, NextFunction } from 'express';
 import db from '../models/userModel';
-import { keys } from '../keys';
 
 type GitHubSettingsType = {
-  clientID: string;
-  clientSecret: string;
+  clientID: string | undefined;
+  clientSecret: string | undefined;
   callbackURL: string;
   scope: Array<string>;
 };
@@ -16,13 +15,10 @@ type AuthType = {
   getUserId: (req: Request, res: Response, next: NextFunction) => void;
 };
 
-// const root = 'http://localhost:3000';
-const root = 'http://jester.software';
-
 const gitHubSettings: GitHubSettingsType = {
-  clientID: keys.clientID,
-  clientSecret: keys.clientSecret,
-  callbackURL: `${root}/auth/github/callback`,
+  clientID: process.env.clientIDLocal,
+  clientSecret: process.env.clientSecretLocal,
+  callbackURL: `${process.env.root}/auth/github/callback`,
   scope: ['user:email']
 };
 

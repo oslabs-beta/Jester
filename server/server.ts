@@ -8,7 +8,6 @@ import testsRoutes from './routes/tests';
 import projectRoutes from './routes/project';
 import clipboardRoutes from './routes/clipboard';
 import { GlobalError } from './serverTypes';
-import { keys } from './keys';
 
 const app = express();
 const PORT = 3000;
@@ -20,7 +19,7 @@ app.use(express.urlencoded({ extended: true }));
 app.use(
   cookieSession({
     name: 'github-auth-session',
-    keys: keys.cookies,
+    keys: [process.env.key1 || '', process.env.key2 || '']
   })
 );
 app.use(passport.initialize());
