@@ -7,7 +7,6 @@ import { BrowserRouter } from 'react-router-dom';
 import Navbar from '../../client/components/Navbar';
 
 import '@testing-library/jest-dom';
-import { clipboardStateType } from '../../client/types';
 
 type codeType = {
   codeOutput: string;
@@ -62,11 +61,6 @@ describe('Unit testing Navbar components', () => {
   test('Renders Logo', () => {
     const logo = screen.getByAltText(/logo/i);
     expect(logo).toBeInTheDocument();
-  });
-
-  xtest('Renders the link to the tutorial', () => {
-    const button = screen.getByRole('button', { name: /documentation/i });
-    expect(button).toBeInTheDocument();
   });
 
   test('Renders the login button', () => {
