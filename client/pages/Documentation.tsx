@@ -5,7 +5,7 @@ import Typography from '@mui/material/Typography';
 const Documentation = () => {
   return (
     <div className='page-body'>
-      <Typography variant="h3" sx={{ color: '#6E00BB' }} >Documentation</Typography>
+      <Typography variant="h3" gutterBottom align='center' sx={{ color: '#6E00BB', mb: 4, mt: 5 }}>Documentation</Typography>
       <div className='documentation-container'>
         <p className="documentation-headers">Getting started</p>
         <p className="documentation-p">To start generating a test, simply navigate to our home page, where you will first be prompted to specify the endpoint for your request. </p>

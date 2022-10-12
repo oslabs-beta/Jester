@@ -78,7 +78,7 @@ const Clipboard = () => {
         }}
         className="code-container"
       >
-        <Typography variant="h3" sx={{ color: '#6E00BB' }}>{projectName}</Typography>
+        <Typography variant="h3" align="center" gutterBottom sx={{ color: '#6E00BB', mb: 1, mt: 5 }}>{projectName}</Typography>
         <TextField
           className="text-display"
           label="Server URL"
@@ -89,7 +89,7 @@ const Clipboard = () => {
         />
         <Box 
           sx={{ 
-            width: .8,
+            width: .85,
             height: 500,
             overflow: 'auto',
             backgroundColor: '#282C34',
