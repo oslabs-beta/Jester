@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import Typography from '@mui/material/Typography';
+import { Typography } from '@mui/material';
 
 const NotFound = () => {
   return (

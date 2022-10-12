@@ -24,8 +24,13 @@ module.exports = {
       },
       {
         test: /\.(ts|tsx)$/,
-        exclude: /node_modules/,
-        use: ['ts-loader']
+        use: {
+          loader: 'babel-loader',
+          options: {
+            presets: ['@babel/preset-typescript'],
+          }
+        },
+        exclude: /node_modules/
       },
       {
         test: /\.scss$/,
