@@ -1,9 +1,11 @@
 import React from 'react';
 import { photosObj } from '../assets/photosObj';
+import Typography from '@mui/material/Typography';
 
 const Documentation = () => {
   return (
     <div className='page-body'>
+      <Typography variant="h3" sx={{ color: '#6E00BB' }} >Documentation</Typography>
       <div className='documentation-container'>
         <p className="documentation-headers">Getting started</p>
         <p className="documentation-p">To start generating a test, simply navigate to our home page, where you will first be prompted to specify the endpoint for your request. </p>

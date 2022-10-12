@@ -73,13 +73,12 @@ const Clipboard = () => {
           display: 'flex',
           flexDirection: 'column',
           alignItems: 'center',
-          textAlign: 'center',
-          gap: '10px',
+          gap: '30px',
           width: .8,
         }}
         className="code-container"
       >
-        <Typography variant="h2" sx={{ color: '#6E00BB' }}>Clipboard for {projectName}</Typography>
+        <Typography variant="h3" sx={{ color: '#6E00BB' }}>{projectName}</Typography>
         <TextField
           className="text-display"
           label="Server URL"
@@ -90,7 +89,7 @@ const Clipboard = () => {
         />
         <Box 
           sx={{ 
-            width: 1,
+            width: .8,
             height: 500,
             overflow: 'auto',
             backgroundColor: '#282C34',
