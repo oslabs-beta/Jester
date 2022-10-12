@@ -1,10 +1,12 @@
 import '@testing-library/jest-dom';
+
 import React from 'React';
 import { Provider } from 'react-redux';
 import configureStore from 'redux-mock-store';
-import { render, screen } from '@testing-library/react';
-import { DEFAULT_PROJECT } from '../../client/constants';
 
+import { render, screen } from '@testing-library/react';
+
+import { DEFAULT_PROJECT } from '../../client/constants';
 import SaveDataContainer from '../../client/containers/SaveDataContainer';
 
 const initialState = {

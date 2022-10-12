@@ -1,5 +1,5 @@
+import { addAssertion, setRequestType } from '../../client/redux/reducers/testFormSlice';
 import { store } from '../../client/redux/store';
-import { setRequestType, addAssertion } from '../../client/redux/reducers/testFormSlice';
 
 type assertionListType = {
   [index: string]: string,

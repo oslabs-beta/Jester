@@ -1,8 +1,9 @@
 import React from 'react';
-import Box from '@mui/material/Box';
+import { useDispatch } from 'react-redux';
+
 import ContentCopyIcon from '@mui/icons-material/ContentCopy';
 import DoneAllIcon from '@mui/icons-material/DoneAll';
-import { useDispatch } from 'react-redux';
+import Box from '@mui/material/Box';
 
 import { copyClipboard } from '../redux/reducers/clipboardSlice';
 import AppButton from './AppButton';

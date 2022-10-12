@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
+
 import Button from '@mui/material/Button';
-import { Tooltip } from '@mui/material';
+import Tooltip from '@mui/material/Tooltip';
 
 type propsType = {
   start: string | JSX.Element;

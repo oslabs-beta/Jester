@@ -1,7 +1,9 @@
-import { createSlice, PayloadAction, createAsyncThunk } from '@reduxjs/toolkit';
-import { DEFAULT_PROJECT } from '../../constants';
-import { userInfoStateType, projectsType } from '../../types';
 import axios from 'axios';
+
+import { createAsyncThunk, createSlice, PayloadAction } from '@reduxjs/toolkit';
+
+import { DEFAULT_PROJECT } from '../../constants';
+import { projectsType, userInfoStateType } from '../../types';
 
 const showSave = (sessionStorage.getItem('clipboardData')) ? true : false;
 const initialState: userInfoStateType = {

@@ -1,6 +1,12 @@
 import React from 'react';
-import { Button, Box, Dialog, DialogTitle, Typography } from '@mui/material';
+
 import GitHubIcon from '@mui/icons-material/GitHub';
+import Box from '@mui/material/Box';
+import Button from '@mui/material/Button';
+import Dialog from '@mui/material/Dialog';
+import DialogTitle from '@mui/material/DialogTitle';
+import Typography from '@mui/material/Typography';
+
 import { useAppDispatch } from '../redux/hooks';
 import { setShowLogin } from '../redux/reducers/userInfoSlice';
 

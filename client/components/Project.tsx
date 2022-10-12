@@ -1,6 +1,9 @@
 import React from 'react';
-import { Button, Box } from '@mui/material';
+
 import CreditCardIcon from '@mui/icons-material/CreditCard';
+import Box from '@mui/material/Box';
+import Button from '@mui/material/Button';
+
 import { useAppDispatch } from '../redux/hooks';
 import { setShowAccessClipboard } from '../redux/reducers/userInfoSlice';
 import { NavProjectMenu } from './NavProjectMenu';

@@ -1,17 +1,13 @@
 import React from 'react';
-import Box from '@mui/material/Box';
+
 import AddBoxIcon from '@mui/icons-material/AddBox';
 import ContentCopyIcon from '@mui/icons-material/ContentCopy';
 import DoneAllIcon from '@mui/icons-material/DoneAll';
+import Box from '@mui/material/Box';
 
-import { useAppDispatch, useAppSelector } from '../redux/hooks';
-import {
-  appendToClipboard,
-  postSnippet,
-  getSnippets,
-} from '../redux/reducers/clipboardSlice';
 import AppButton from '../components/AppButton';
-
+import { useAppDispatch, useAppSelector } from '../redux/hooks';
+import { appendToClipboard, getSnippets, postSnippet } from '../redux/reducers/clipboardSlice';
 import { copyText } from '../redux/reducers/codeSlice';
 
 // This container wraps:

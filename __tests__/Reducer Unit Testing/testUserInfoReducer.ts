@@ -1,8 +1,7 @@
-import { store } from '../../client/redux/store';
-import { setShowLogin } from '../../client/redux/reducers/userInfoSlice';
 import { DEFAULT_PROJECT } from '../../client/constants';
+import { setShowLogin } from '../../client/redux/reducers/userInfoSlice';
+import { store } from '../../client/redux/store';
 import { userInfoStateType } from '../../client/types';
-
 
 describe('UserInfo Reducer', () => {
   let defaultState: userInfoStateType;

@@ -1,11 +1,8 @@
 import axios from 'axios';
-import { createSlice, createAsyncThunk, PayloadAction } from '@reduxjs/toolkit';
-import {
-  boilerplate_start,
-  BOILERPLATE_END,
-  DEFAULT_CLIPBOARD,
-  INDENT,
-} from '../../constants';
+
+import { createAsyncThunk, createSlice, PayloadAction } from '@reduxjs/toolkit';
+
+import { BOILERPLATE_END, boilerplate_start, DEFAULT_CLIPBOARD, INDENT } from '../../constants';
 import { clipboardStateType, postSnippetPayload } from '../../types';
 
 const initialState: clipboardStateType = {

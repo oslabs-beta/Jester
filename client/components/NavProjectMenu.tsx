@@ -1,12 +1,15 @@
-import React from 'react';
-import { Box, Button } from '@mui/material';
-import { useAppSelector, useAppDispatch } from '../redux/hooks';
-import { useNavigate } from 'react-router-dom';
-import { setProjectsInfo } from '../redux/reducers/userInfoSlice';
 import axios from 'axios';
-import IntegrationInstructionsIcon from '@mui/icons-material/IntegrationInstructions';
+import React from 'react';
+import { useNavigate } from 'react-router-dom';
+
 import DeleteForeverIcon from '@mui/icons-material/DeleteForever';
+import IntegrationInstructionsIcon from '@mui/icons-material/IntegrationInstructions';
+import Box from '@mui/material/Box';
+import Button from '@mui/material/Button';
+
+import { useAppDispatch, useAppSelector } from '../redux/hooks';
 import { clearClipboardState } from '../redux/reducers/clipboardSlice';
+import { setProjectsInfo } from '../redux/reducers/userInfoSlice';
 
 type navProjectMenuProps = {
   projectId: number;

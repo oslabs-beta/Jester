@@ -1,8 +1,10 @@
+import '@testing-library/jest-dom';
+
 import React from 'React';
 import { Provider } from 'react-redux';
 import configureStore from 'redux-mock-store';
+
 import { render, screen } from '@testing-library/react';
-import '@testing-library/jest-dom';
 
 import { Login } from '../../client/components/Login';
 

@@ -1,12 +1,13 @@
 import React from 'react';
+
 import Box from '@mui/material/Box';
+import FormControl from '@mui/material/FormControl';
 import InputLabel from '@mui/material/InputLabel';
 import MenuItem from '@mui/material/MenuItem';
-import FormControl from '@mui/material/FormControl';
 import Select, { SelectChangeEvent } from '@mui/material/Select';
 
-import { setCurrentProject } from '../redux/reducers/userInfoSlice';
 import { useAppDispatch, useAppSelector } from '../redux/hooks';
+import { setCurrentProject } from '../redux/reducers/userInfoSlice';
 
 type projectDropdownPropsType = {
   allowNew?: boolean;
