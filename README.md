@@ -1,5 +1,5 @@
 <h1 align="center" style="background-color: #5E17EB;">
-  <a href="https://lapce.dev" target="_blank">
+  <a href="https://jester.software" target="_blank">
     <img 
         style="display: block; 
               margin-left: auto;
@@ -15,7 +15,7 @@
 <h3 align="center">Code Generator for Integration Tests</h3>
 
 <div align="center">
-  <a href="https://jester-app.dev" target="_blank">
+  <a href="https://jester.software" target="_blank">
     <img src="https://img.shields.io/badge/website-jester-purple.svg" />
   </a>
   <img alt="license" src="https://img.shields.io/badge/License-MIT-green.svg">
