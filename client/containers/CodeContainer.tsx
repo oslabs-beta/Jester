@@ -1,12 +1,12 @@
 import React from 'react';
 import Box from '@mui/material/Box';
-import ButtonContainer from './ButtonContainer';
+import {ButtonContainer} from './ButtonContainer';
 
-import CodeText from '../components/CodeText';
+import {CodeText} from '../components/CodeText';
 
 // This container wraps the text box containing the code from server
 
-const CodeContainer = () => {
+export const CodeContainer = () => {
   return (
     <div className="code-container">
       <Box className='test-code-box'>
@@ -17,4 +17,3 @@ const CodeContainer = () => {
   );
 };
 
-export default CodeContainer;

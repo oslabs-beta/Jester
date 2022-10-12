@@ -7,7 +7,7 @@ import configureStore from 'redux-mock-store';
 
 import { render, screen } from '@testing-library/react';
 
-import Navbar from '../../client/components/Navbar';
+import { Navbar } from '../../client/components/Navbar';
 
 type codeType = {
   codeOutput: string;

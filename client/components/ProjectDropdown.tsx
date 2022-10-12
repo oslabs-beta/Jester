@@ -20,7 +20,7 @@ This component creates a dropdown menu with all of the project names that are ti
   2) a user can select which project they want their clipboard data reconciled to
 */
 
-const ProjectDropdown = (props: projectDropdownPropsType) => {
+export const ProjectDropdown = (props: projectDropdownPropsType) => {
   const dispatch = useAppDispatch();
   const projectName = useAppSelector((state) => state.userInfo.currentProject);
   const projectsInfo = useAppSelector((state) => state.userInfo.projectsInfo);
@@ -67,5 +67,3 @@ const ProjectDropdown = (props: projectDropdownPropsType) => {
     </Box>
   );
 };
-
-export { ProjectDropdown };

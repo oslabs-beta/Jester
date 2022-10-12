@@ -133,4 +133,5 @@ export const {
 } = userInfoSlice.actions;
 
 export const { deleteProject } = thunks;
+
 export default userInfoSlice.reducer;

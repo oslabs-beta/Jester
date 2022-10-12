@@ -7,7 +7,7 @@ import configureStore from 'redux-mock-store';
 import { render, screen } from '@testing-library/react';
 
 import { DEFAULT_PROJECT } from '../../client/constants';
-import SaveDataContainer from '../../client/containers/SaveDataContainer';
+import { SaveDataContainer } from '../../client/containers/SaveDataContainer';
 
 const initialState = {
   userInfo: {

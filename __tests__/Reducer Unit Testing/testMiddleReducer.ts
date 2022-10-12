@@ -9,7 +9,8 @@ type defaultStateType = {
   requestType: 'Get' | 'Post' | 'Patch' | 'Delete',
   assertionList: assertionListType,
   i: number,
-  userInput: string
+  userInput: string,
+  assertionTypes: Array<string>
 }
 
 describe('Test Middle Reducer', () => {

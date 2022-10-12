@@ -26,7 +26,7 @@ This component allows a user to reconcile the clipboard test data that they made
 while not logged in with a project stored in the database once they do login.
 */
 
-const SaveDataContainer = (props: saveDataPropsType) => {
+export const SaveDataContainer = (props: saveDataPropsType) => {
   const newProject = useAppSelector((state) => state.userInfo.newProject);
   const selectedProject = useAppSelector(
     (state) => state.userInfo.currentProject
@@ -135,5 +135,3 @@ const SaveDataContainer = (props: saveDataPropsType) => {
     </Dialog>
   );
 };
-
-export default SaveDataContainer;

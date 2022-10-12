@@ -9,9 +9,9 @@ import ContentCopyIcon from '@mui/icons-material/ContentCopy';
 import DoneAllIcon from '@mui/icons-material/DoneAll';
 import { fireEvent, render, screen } from '@testing-library/react';
 
-import AppButton from '../../client/components/AppButton';
-import ButtonContainer from '../../client/containers/ButtonContainer';
-import CodeContainer from '../../client/containers/CodeContainer';
+import { AppButton } from '../../client/components/AppButton';
+import { ButtonContainer } from '../../client/containers/ButtonContainer';
+import { CodeContainer } from '../../client/containers/CodeContainer';
 
 const initialState = {
   code: {

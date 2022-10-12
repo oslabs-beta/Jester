@@ -15,7 +15,7 @@ import { useAppDispatch, useAppSelector } from '../redux/hooks';
 import { logout, setShowLogin } from '../redux/reducers/userInfoSlice';
 import { Login } from './Login';
 
-const NavBar = () => {
+export const Navbar = () => {
   const navigate = useNavigate();
   const open: boolean = useAppSelector((state) => state.userInfo.showLogin);
   const clipboardData: string[] = useAppSelector((state) => state.clipboard.codeSnippets);
@@ -91,5 +91,3 @@ const NavBar = () => {
     </Box>
   );
 };
-
-export default NavBar;

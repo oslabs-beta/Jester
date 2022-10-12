@@ -12,14 +12,14 @@ import {
   clearClipboardState, getSnippets, setServer, setSnippets
 } from '../redux/reducers/clipboardSlice';
 import { deleteProject } from '../redux/reducers/userInfoSlice';
-import ClipboardButton from './ClipboardButton';
+import { ClipboardButton } from './ClipboardButton';
 
 /*
 This component will display code snippets from a given project in the database if a 
 user is logged in, or from state if a user is not logged in
 */
 
-const Clipboard = () => {
+export const Clipboard = () => {
   hljs.configure({
     ignoreUnescapedHTML: true
   });
@@ -107,5 +107,3 @@ const Clipboard = () => {
     </div>
   );
 };
-
-export default Clipboard;
