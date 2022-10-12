@@ -12,6 +12,7 @@ import { CodeGenerator } from './pages/CodeGenerator';
 import Clipboard from './components/Clipboard';
 import Auth from './pages/Auth';
 import { Contributors } from './pages/Contributors';
+import { useAppSelector } from './redux/hooks';
 
 const theme = createTheme({
   palette: {
@@ -37,6 +38,7 @@ const theme = createTheme({
 });
 
 const App = () => {
+  const showProjectPanel = useAppSelector((state) => state.navPanel.showProjectPanel);
   return (
     <ThemeProvider theme={theme}>
       <NavBar />
@@ -44,8 +46,8 @@ const App = () => {
         className="contents"
         sx={{
           display: 'grid',
-          gridTemplateColumns: '1fr 5fr',
-          height: '100%'
+          gridTemplateColumns: showProjectPanel ? '1fr 5fr' : '1fr 11fr',
+          height: '100%',
         }}
       >
         <NavPanelContainer />

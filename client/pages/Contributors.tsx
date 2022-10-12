@@ -50,9 +50,9 @@ export const Contributors = () => {
 
 
     return (
-      <div>
+      <div className='page-body'>
         <div>
-          <Typography variant="h3" align="center" gutterBottom  sx={{ mb: 7, mt: 5, ml: -13, color:'primary.main' }} className="contributors-header">Contributors</Typography>
+          <Typography variant="h3" align="center" gutterBottom  sx={{ mb: 7, mt: 5, color:'primary.main' }} className="contributors-header">Contributors</Typography>
         </div>
         <div className="contributors-page">
           {users.map((devObj:userObjType, i) => {

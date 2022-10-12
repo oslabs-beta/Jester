@@ -66,21 +66,21 @@ const Clipboard = () => {
           flexDirection: 'column',
           alignItems: 'center',
           gap: '10px',
-          width: 800,
+          width: .8,
         }}
         className="code-container"
       >
         <TextField
           className="text-display"
           label="Server URL"
-          sx={{ width: 300 }}
+          sx={{ minWidth: 200 }}
           value={server}
           error={server === ''}
           onChange={updateServer}
         />
         <Box 
           sx={{ 
-            width: 800, 
+            width: 1,
             height: 500,
             overflow: 'auto',
             backgroundColor: '#282C34',
