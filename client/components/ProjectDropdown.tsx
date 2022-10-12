@@ -1,9 +1,6 @@
 import React from 'react';
-import Box from '@mui/material/Box';
-import InputLabel from '@mui/material/InputLabel';
-import MenuItem from '@mui/material/MenuItem';
-import FormControl from '@mui/material/FormControl';
-import Select, { SelectChangeEvent } from '@mui/material/Select';
+import {Box, InputLabel, MenuItem, FormControl, Select} from '@mui/material';
+import { SelectChangeEvent } from '@mui/material/Select';
 
 import { setCurrentProject } from '../redux/reducers/userInfoSlice';
 import { useAppDispatch, useAppSelector } from '../redux/hooks';

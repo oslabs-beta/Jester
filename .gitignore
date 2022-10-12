@@ -104,5 +104,3 @@ typings/
 
 dist/bundle.js*
 dist/index.html
-
-**/keys.ts

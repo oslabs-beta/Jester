@@ -1,14 +1,6 @@
 
 import React from 'react';
-import Card from '@mui/material/Card';
-import CardContent from '@mui/material/CardContent';
-import CardMedia from '@mui/material/CardMedia';
-import Typography from '@mui/material/Typography';
-import { Button, CardActionArea, CardActions } from '@mui/material';
-
-// import { useAppSelector } from '../redux/hooks';
-
-
+import { Button, CardActionArea, CardActions, Card, CardContent, CardMedia, Typography} from '@mui/material';
 
 type ContributorCardProps = {
   imageUrl: string,
