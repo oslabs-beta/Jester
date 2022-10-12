@@ -1,20 +1,17 @@
 import React from 'react';
-import {
-  FormControl,
-  MenuItem,
-  Select,
-  TextField,
-  Button,
-  InputLabel,
-  SelectChangeEvent,
-  Box,
-} from '@mui/material';
+
+import Box from '@mui/material/Box';
+import Button from '@mui/material/Button';
+import FormControl from '@mui/material/FormControl';
+import InputLabel from '@mui/material/InputLabel';
+import MenuItem from '@mui/material/MenuItem';
+import Select, { SelectChangeEvent } from '@mui/material/Select';
+import TextField from '@mui/material/TextField';
+
 import { useAppDispatch, useAppSelector } from '../redux/hooks';
-import { setInputType, deleteAssertion } from '../redux/reducers/testFormSlice';
+import { deleteAssertion, setInputType } from '../redux/reducers/testFormSlice';
 import {
-  setUserInputType,
-  changeErrorMsg,
-  setUserInputText,
+  changeErrorMsg, setUserInputText, setUserInputType
 } from '../redux/reducers/userInputSlice';
 
 type assertionsPropsType = {

@@ -1,8 +1,9 @@
 import { Typography } from '@mui/material';
 import React from 'react';
+
 import { TestInputForm } from '../components/TestInputForm';
-import CodeContainer from '../containers/CodeContainer';
-import SaveDataContainer from '../containers/SaveDataContainer';
+import { CodeContainer } from '../containers/CodeContainer';
+import { SaveDataContainer } from '../containers/SaveDataContainer';
 import { useAppSelector } from '../redux/hooks';
 
 export const CodeGenerator = () => {

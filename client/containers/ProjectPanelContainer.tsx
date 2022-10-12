@@ -1,10 +1,13 @@
-import { Box, Button } from '@mui/material';
 import React from 'react';
+
 import AddCardIcon from '@mui/icons-material/AddCard';
-import { useAppSelector, useAppDispatch } from '../redux/hooks';
-import { setShowAddProject } from '../redux/reducers/navPanelSlice';
+import Box from '@mui/material/Box';
+import Button from '@mui/material/Button';
+
 import { AddProjectDialog } from '../components/AddProjectDialog';
 import { Project } from '../components/Project';
+import { useAppDispatch, useAppSelector } from '../redux/hooks';
+import { setShowAddProject } from '../redux/reducers/navPanelSlice';
 
 /*
 This component displays the second column of the nav panel that provides a user with navigation

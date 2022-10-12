@@ -2,7 +2,7 @@ import React from 'react';
 import { photosObj } from '../assets/photosObj';
 import Typography from '@mui/material/Typography';
 
-const Documentation = () => {
+export const Documentation = () => {
   return (
     <div className='page-body'>
       <Typography variant="h3" gutterBottom align='center' sx={{ color: '#6E00BB', mb: 4, mt: 5 }}>Documentation</Typography>
@@ -51,4 +51,3 @@ const Documentation = () => {
   );
 };
 
-export default Documentation;

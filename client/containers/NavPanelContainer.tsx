@@ -1,9 +1,11 @@
 import React from 'react';
-import { Box } from '@mui/material';
-import { ProjectPanelContainer } from './ProjectPanelContainer';
-import { NavPanelDisplay } from '../components/NavPanelDisplay';
 
-export const NavPanelContainer: any = () => {
+import Box from '@mui/material/Box';
+
+import { NavPanelDisplay } from '../components/NavPanelDisplay';
+import { ProjectPanelContainer } from './ProjectPanelContainer';
+
+export const NavPanelContainer = () => {
 
   return (
     <Box sx={{ display: 'flex', flexDirection: 'row' }} >

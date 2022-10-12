@@ -1,22 +1,21 @@
-import * as React from 'react';
-import AppBar from '@mui/material/AppBar';
-import Box from '@mui/material/Box';
-import Toolbar from '@mui/material/Toolbar';
-import Typography from '@mui/material/Typography';
-import Button from '@mui/material/Button';
-import LoginIcon from '@mui/icons-material/Login';
-import LogoutIcon from '@mui/icons-material/Logout';
-import {
-  setShowLogin,
-  logout
-} from '../redux/reducers/userInfoSlice';
-import { useAppDispatch, useAppSelector } from '../redux/hooks';
-import { Login } from './Login';
-import { Link, useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import Cookies from 'js-cookie';
+import * as React from 'react';
+import { Link, useNavigate } from 'react-router-dom';
 
-const NavBar = () => {
+import LoginIcon from '@mui/icons-material/Login';
+import LogoutIcon from '@mui/icons-material/Logout';
+import AppBar from '@mui/material/AppBar';
+import Box from '@mui/material/Box';
+import Button from '@mui/material/Button';
+import Toolbar from '@mui/material/Toolbar';
+import Typography from '@mui/material/Typography';
+
+import { useAppDispatch, useAppSelector } from '../redux/hooks';
+import { logout, setShowLogin } from '../redux/reducers/userInfoSlice';
+import { Login } from './Login';
+
+export const Navbar = () => {
   const navigate = useNavigate();
   const open: boolean = useAppSelector((state) => state.userInfo.showLogin);
   const clipboardData: string[] = useAppSelector((state) => state.clipboard.codeSnippets);
@@ -92,5 +91,3 @@ const NavBar = () => {
     </Box>
   );
 };
-
-export default NavBar;

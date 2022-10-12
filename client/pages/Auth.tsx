@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import Typography from '@mui/material/Typography';
+import { Typography } from '@mui/material';
 import Cookies from 'js-cookie';
 import Box  from '@mui/material/Box';
 
@@ -9,7 +9,7 @@ This component will provide a loading page for the user upon github verification
 gather user information from cookies and set values in sessionStorage.
 */
 
-const Auth = () => {
+export const Auth = () => {
   const navigate = useNavigate();
   const [username, setUsername] = useState('');
   const [timer, updateTimer] = useState(3);
@@ -59,5 +59,3 @@ const Auth = () => {
     </div>
   );
 };
-
-export default Auth;
