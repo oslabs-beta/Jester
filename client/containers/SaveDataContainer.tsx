@@ -1,25 +1,21 @@
+import axios from 'axios';
 import React, { ChangeEvent } from 'react';
-import {
-  Button,
-  Box,
-  Dialog,
-  DialogTitle,
-  Stack,
-  TextField,
-} from '@mui/material';
+
 import DeleteIcon from '@mui/icons-material/Delete';
 import SaveIcon from '@mui/icons-material/Save';
+import Box from '@mui/material/Box';
+import Button from '@mui/material/Button';
+import Dialog from '@mui/material/Dialog';
+import DialogTitle from '@mui/material/DialogTitle';
+import Stack from '@mui/material/Stack';
+import TextField from '@mui/material/TextField';
 
-import { useAppDispatch, useAppSelector } from '../redux/hooks';
 import { ProjectDropdown } from '../components/ProjectDropdown';
-import {
-  setShowSave,
-  setCurrentProject,
-  setNewProject,
-  setProjectsInfo,
-} from '../redux/reducers/userInfoSlice';
+import { useAppDispatch, useAppSelector } from '../redux/hooks';
 import { postSnippet } from '../redux/reducers/clipboardSlice';
-import axios from 'axios';
+import {
+  setCurrentProject, setNewProject, setProjectsInfo, setShowSave
+} from '../redux/reducers/userInfoSlice';
 
 type saveDataPropsType = {
   open: boolean;
@@ -30,7 +26,7 @@ This component allows a user to reconcile the clipboard test data that they made
 while not logged in with a project stored in the database once they do login.
 */
 
-const SaveDataContainer = (props: saveDataPropsType) => {
+export const SaveDataContainer = (props: saveDataPropsType) => {
   const newProject = useAppSelector((state) => state.userInfo.newProject);
   const selectedProject = useAppSelector(
     (state) => state.userInfo.currentProject
@@ -139,5 +135,3 @@ const SaveDataContainer = (props: saveDataPropsType) => {
     </Dialog>
   );
 };
-
-export default SaveDataContainer;

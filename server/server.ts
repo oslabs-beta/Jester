@@ -1,12 +1,15 @@
 // Package Imports
+import 'dotenv/config';
+
 import cookieSession from 'cookie-session';
-import express, { Request, Response, NextFunction } from 'express';
+import express, { NextFunction, Request, Response } from 'express';
 import passport from 'passport';
 import path from 'path';
+
 import authRoutes from './routes/auth';
-import testsRoutes from './routes/tests';
-import projectRoutes from './routes/project';
 import clipboardRoutes from './routes/clipboard';
+import projectRoutes from './routes/project';
+import testsRoutes from './routes/tests';
 import { GlobalError } from './serverTypes';
 
 const app = express();
@@ -19,7 +22,7 @@ app.use(express.urlencoded({ extended: true }));
 app.use(
   cookieSession({
     name: 'github-auth-session',
-    keys: ['brianhaoisan@lgogod', 'nevertrust@anshuhelie$']
+    keys: [process.env.key1 || '', process.env.key2 || '']
   })
 );
 app.use(passport.initialize());

@@ -1,24 +1,25 @@
-import {
-  FormControl,
-  MenuItem,
-  Select,
-  TextField,
-  Button,
-  Box,
-  InputLabel,
-  SelectChangeEvent,
-  Typography
-} from '@mui/material';
+
+import axios from 'axios';
 import React from 'react';
+
+import Box from '@mui/material/Box';
+import Button from '@mui/material/Button';
+import FormControl from '@mui/material/FormControl';
+import InputLabel from '@mui/material/InputLabel';
+import MenuItem from '@mui/material/MenuItem';
+import Select, { SelectChangeEvent } from '@mui/material/Select';
+import TextField from '@mui/material/TextField';
+import Typography from '@mui/material/Typography';
+
 import { useAppDispatch, useAppSelector } from '../redux/hooks';
-import { setRequestType, addAssertion } from '../redux/reducers/testFormSlice';
 import { setCodeOutput } from '../redux/reducers/codeSlice';
+import { addAssertion, setRequestType } from '../redux/reducers/testFormSlice';
+import { setCurrentProject } from '../redux/reducers/userInfoSlice';
 import { setErrorMsg } from '../redux/reducers/userInputSlice';
 import { Assertions } from './Assertions';
-import { RequestBody } from './RequestBody';
-import axios from 'axios';
 import { ProjectDropdown } from './ProjectDropdown';
-import { setCurrentProject } from '../redux/reducers/userInfoSlice';
+import { RequestBody } from './RequestBody';
+
 /*
 This component will allow a user to generate test code according to their inputs. This component is
 where users will indicate the request type, endpoint, and response body, as well as add their assertions.

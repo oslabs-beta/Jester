@@ -1,10 +1,11 @@
 import { configureStore } from '@reduxjs/toolkit';
-import testFormReducer from './reducers/testFormSlice';
-import userInputReducer from './reducers/userInputSlice';
-import navPanelReducer from './reducers/navPanelSlice';
-import codeSliceReducer from './reducers/codeSlice';
-import userInfoReducer from './reducers/userInfoSlice';
+
 import clipboardReducer from './reducers/clipboardSlice';
+import codeSliceReducer from './reducers/codeSlice';
+import navPanelReducer from './reducers/navPanelSlice';
+import testFormReducer from './reducers/testFormSlice';
+import userInfoReducer from './reducers/userInfoSlice';
+import userInputReducer from './reducers/userInputSlice';
 
 export const store = configureStore({
   reducer: {

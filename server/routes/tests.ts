@@ -1,6 +1,8 @@
 // Tests Routes
 import express, { Request, Response, Router } from 'express';
+
 import testsController from '../controllers/testsController';
+
 const router: Router = express.Router();
 
 /* 

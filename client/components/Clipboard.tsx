@@ -1,24 +1,25 @@
+import hljs from 'highlight.js/lib/common';
 import React, { ChangeEvent, useEffect } from 'react';
-import { useParams, useNavigate } from 'react-router-dom';
-import { TextField, Box, Button } from '@mui/material';
+import { useNavigate, useParams } from 'react-router-dom';
+
 import DeleteForeverIcon from '@mui/icons-material/DeleteForever';
-import  hljs  from 'highlight.js/lib/common';
+import Box from '@mui/material/Box';
+import Button from '@mui/material/Button';
+import TextField from '@mui/material/TextField';
+
 import { useAppDispatch, useAppSelector } from '../redux/hooks';
 import {
-  setServer,
-  getSnippets,
-  setSnippets,
-  clearClipboardState,
+  clearClipboardState, getSnippets, setServer, setSnippets
 } from '../redux/reducers/clipboardSlice';
-import ClipboardButton from './ClipboardButton';
 import { deleteProject } from '../redux/reducers/userInfoSlice';
+import { ClipboardButton } from './ClipboardButton';
 
 /*
 This component will display code snippets from a given project in the database if a 
 user is logged in, or from state if a user is not logged in
 */
 
-const Clipboard = () => {
+export const Clipboard = () => {
   hljs.configure({
     ignoreUnescapedHTML: true
   });
@@ -108,5 +109,3 @@ const Clipboard = () => {
     </div>
   );
 };
-
-export default Clipboard;

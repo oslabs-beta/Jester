@@ -30,7 +30,7 @@ Welcome to **Jester**: An easy-to-use web application that helps you create and 
 Please visit https://jester.software to get started. 
 
 ## Licenses
-ISC
+MIT
 
 ## How it Works
 Jester will pass inputs from a Graphical User Interface to a server that will perform algorithmic logic to generate integration test code. From here, Jester can save your query into a database and feed back a functional test for your project if you want to take advantage of our account functionality, or it can simply return the functional test code without saving it to a database.
@@ -108,7 +108,7 @@ As an open source project, we are always open to contributors wanting to improve
 </ul>
 
 ## Documentation
-The Jester docs are available at https://jester.software/docs
+The Jester docs are available at https://jester.software/documentation
 
 ## Resources
 Built using React, Redux Toolkit, and Typescript
