@@ -9,11 +9,11 @@ import { ButtonContainer } from './ButtonContainer';
 
 export const CodeContainer = () => {
   return (
-    <div className="code-container">
-      <Box className='test-code-box'>
+    <div>
+      <Box className='test-code-box code-container'>
         <CodeText />
+        <ButtonContainer />
       </Box>
-      <ButtonContainer />
     </div>
   );
 };
