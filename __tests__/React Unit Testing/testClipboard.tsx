@@ -9,6 +9,9 @@ import { BrowserRouter } from 'react-router-dom';
 const initialState = {
   clipboard:{
     server: '',
+  },
+  userInfo: {
+    projectsInfo: [],
   }
 };
 
