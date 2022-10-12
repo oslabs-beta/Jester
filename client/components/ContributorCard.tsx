@@ -26,20 +26,18 @@ export const ContributorCard = (props: ContributorCardProps) => {
   // const imageUrl = useAppSelector((state) => state.contributors.imageUrls[i]);
   return (
     <Card sx={{ maxWidth: 345 }}>
-      <CardActionArea>
-        <CardMedia
-          component="img"
-          height="250"
-          width="250"
-          image={props.imageUrl}
-          alt="green iguana"
-        />
-        <CardContent>
-          <Typography className="contributorName" gutterBottom variant="h5" component="div">
-            {props.name}
-          </Typography>
-        </CardContent>
-      </CardActionArea>
+      <CardMedia
+        component="img"
+        height="250"
+        width="250"
+        image={props.imageUrl}
+        alt="green iguana"
+      />
+      <CardContent>
+        <Typography className="contributorName" gutterBottom variant="h5" component="div">
+          {props.name}
+        </Typography>
+      </CardContent>
       <CardActions>
         <Button size="small" color="primary" href={props.linkedInLink} target="_blank">
           LinkedIn
