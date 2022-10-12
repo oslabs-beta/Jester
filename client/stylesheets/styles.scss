@@ -91,8 +91,8 @@ img[alt~='logo'] {
 .button-container {
   position: absolute;
   display: inline-block;
-  top: 42px;
-  right: 42px;
+  top: 8px;
+  right: 38px;
   opacity: 0;
   overflow: hidden;
   z-index: 10;
@@ -115,10 +115,6 @@ img[alt~='logo'] {
   box-shadow: rgba(0, 0, 0, 0.12) 0px 1px 3px, rgba(0, 0, 0, 0.24) 0px 1px 2px;
 }
 
-// Uncomment this section if changing Navbar to sticky
-// .page-body {
-//   margin-top: 120px;
-// }
 
 .welcome-text {
   pointer-events: none;
@@ -200,14 +196,14 @@ pre {
 }
 
 .documentation-headers {
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: 'Roboto', sans-serif;
   font-weight: bolder;
   color: #5c2696;
   font-size: 25px;
 }
 
 .documentation-p {
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: 'Roboto', sans-serif;
   font-size: 15px;
 }
 
