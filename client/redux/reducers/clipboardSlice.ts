@@ -44,6 +44,7 @@ export const clipboardSlice = createSlice({
     ) => {
       state.codeSnippets.push(action.payload);
       updateCodeDisplay(state);
+      sessionStorage.setItem('codeSnippets', JSON.stringify(state.codeSnippets));
     },
     copyClipboard: (state: clipboardStateType) => {
       navigator.clipboard.writeText(state.codeDisplay);
@@ -56,13 +57,15 @@ export const clipboardSlice = createSlice({
       state.server = '';
       state.codeSnippets = [];
       state.codeDisplay = DEFAULT_CLIPBOARD;
+      sessionStorage.removeItem('codeSnippets');
     },
+    setSnippets: (state: clipboardStateType, action: PayloadAction<string[]>) => {
+      state.codeSnippets = action.payload;
+      updateCodeDisplay(state);
+    }
   },
   extraReducers: (builder) => {
     builder
-      .addCase(postSnippet.fulfilled, (state: clipboardStateType) => {
-        // nothing to be done here, delete if that's true?
-      })
       .addCase(
         getSnippets.fulfilled,
         (state: clipboardStateType, action: any) => {
@@ -79,29 +82,25 @@ const thunks = {
     'clipboardSlice/postSnippet',
     async (payload: postSnippetPayload) => {
       const { projectId, codeOutput } = payload;
-      console.log('THUNK: postSnippet', 'trying');
       let response;
       try {
         response = await axios.post(`/api/clipboard/${projectId}`, {
-          code_snippet: codeOutput,
+          code_snippets: codeOutput,
         });
       } catch (error) {
         console.log('clipboardSlice/postSnippet', error);
       }
-      console.log('THUNK: postSnippet', response);
     }
   ),
   getSnippets: createAsyncThunk(
     'clipboardSlice/getSnippets',
     async (projectId: number) => {
-      console.log('THUNK: getSnippets', 'trying');
       let response;
       try {
         response = await axios.get(`/api/clipboard/${projectId}`);
       } catch (error) {
         console.log('clipboardSlice/getSnippets', error);
       }
-      console.log('THUNK: getSnippets', response);
       return response;
     }
   ),
@@ -112,6 +111,7 @@ export const {
   copyClipboard,
   setServer,
   clearClipboardState,
+  setSnippets,
 } = clipboardSlice.actions;
 
 export const { postSnippet, getSnippets } = thunks;

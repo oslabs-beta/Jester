@@ -1,12 +1,7 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-import { KeyObject } from 'crypto';
 
 type assertionListType = {
   [index: string]: string;
-};
-
-type individualAssertionObject = {
-  [key: string]: string;
 };
 
 type assertionTypesType = string[];
@@ -24,7 +19,7 @@ const initialState: testFormStateType = {
   assertionList: {},
   i: 0,
   userInput: '',
-  assertionTypes: ['Status Code', 'Content Type', 'Response Body']
+  assertionTypes: ['Status Code', 'Content Type', 'Response Body'],
 };
 
 export const testFormSlice = createSlice({
@@ -39,7 +34,6 @@ export const testFormSlice = createSlice({
     },
     addAssertion: (state: testFormStateType) => {
       if (state.i === 3) state.i = 0;
-      console.log(state.i);
       state.assertionList[state.i] = state.assertionTypes[state.i];
       state.i += 1;
     },

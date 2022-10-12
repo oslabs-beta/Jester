@@ -2,11 +2,10 @@ import '@testing-library/jest-dom';
 import React from 'React';
 import { Provider } from 'react-redux';
 import configureStore from 'redux-mock-store';
-import { fireEvent, render, screen } from '@testing-library/react';
+import { render, screen } from '@testing-library/react';
 import { DEFAULT_PROJECT } from '../../client/constants';
 
 import SaveDataContainer from '../../client/containers/SaveDataContainer';
-
 
 const initialState = {
   userInfo: {
@@ -21,21 +20,20 @@ const initialState = {
         showAccessClipboard: false,
       },
     ],
-  }
+  },
 };
 
 const mockStore = configureStore();
 
 const container = () => {
   render(
-    <Provider store={ mockStore(initialState) }>
-      <SaveDataContainer open={ true } />
+    <Provider store={mockStore(initialState)}>
+      <SaveDataContainer open={true} />
     </Provider>
   );
 };
 
 describe('Unit testing output Save Clipboard Data Container components', () => {
-
   test('Save Clipboard Data Container renders successfully', () => {
     container();
   });
@@ -45,7 +43,9 @@ describe('Unit testing output Save Clipboard Data Container components', () => {
   });
 
   test('Renders a title', () => {
-    const title = screen.getByText('Would you like to save your current clipboard?');
+    const title = screen.getByText(
+      'Would you like to save your current clipboard?'
+    );
     expect(title).toBeInTheDocument();
   });
 
@@ -55,13 +55,15 @@ describe('Unit testing output Save Clipboard Data Container components', () => {
   });
 
   test('Renders a dropdown menu for project', () => {
-    const dropdown = screen.getByRole('button', { name: 'Project One' });
+    const dropdown = screen.getByRole('button', { name: 'Guest Project' });
     expect(dropdown).toBeInTheDocument();
   });
 
   test('Renders a new project input text box', () => {
     expect(screen.getByTestId('new-project')).toBeInTheDocument();
-    expect(screen.getByRole('textbox', { name: 'New Project Name' })).toBeInTheDocument();
+    expect(
+      screen.getByRole('textbox', { name: 'New Project Name' })
+    ).toBeInTheDocument();
   });
 
   test('Renders a discard button', () => {

@@ -1,8 +1,6 @@
-// backend tests
-const request = require('supertest');
+import request from 'supertest';
+import { INDENT } from '../../client/constants/index';
 const server = 'http://localhost:3000';
-const fs = require('fs');
-const path = require('path');
 
 describe('Route integration tests', () => {
   // Test for POST request to /api/tests
@@ -12,7 +10,7 @@ describe('Route integration tests', () => {
         const response = await request(server)
           .post('/api/tests')
           .send({
-            header: { endpoint: '/', method: 'GET' }
+            header: { endpoint: '/', method: 'GET' },
           });
 
         expect(response.statusCode).toBe(400);
@@ -29,11 +27,11 @@ describe('Route integration tests', () => {
           .post('/api/tests')
           .send({
             header: { endpoint: '/api/tests', method: 'GET' },
-            assertions: [{ content: 'application/json' }, { status: 200 }]
+            assertions: [{ content: 'application/json' }, { status: 200 }],
           });
 
         const expectedResponse =
-          "describe('/api/tests', () => {\n describe('GET', () => {\n  it('responds with content-type application/json and status 200', async () => {\n   const response = await request(server)\n   .get('/api/tests');\n    expect(response.type).toBe('application/json');\n    expect(response.statusCode).toBe(200);\n  });\n });\n});";
+          `describe('/api/tests', () => {\n${INDENT}describe('GET', () => {\n${INDENT}${INDENT}it('responds with content-type application/json and status 200', async () => {\n${INDENT}${INDENT}${INDENT}const response = await request(server)\n${INDENT}${INDENT}${INDENT}${INDENT}.get('/api/tests');\n${INDENT}${INDENT}${INDENT}expect(response.type).toBe('application/json');\n${INDENT}${INDENT}${INDENT}expect(response.statusCode).toBe(200);\n${INDENT}${INDENT}});\n${INDENT}});\n});`;
 
         expect(response.type).toBe('application/json');
         expect(response.statusCode).toBe(200);

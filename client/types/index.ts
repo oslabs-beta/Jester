@@ -6,7 +6,7 @@ export type clipboardStateType = {
 
 export type postSnippetPayload = {
   projectId: number,
-  codeOutput: string,
+  codeOutput: string[],
 }
 
 export type projectsType = {

@@ -18,18 +18,23 @@ import {
   setNewProject,
   setProjectsInfo,
 } from '../redux/reducers/userInfoSlice';
-import { postSnippet } from '../redux/reducers/ClipBoardReducers';
+import { postSnippet } from '../redux/reducers/clipboardSlice';
 import axios from 'axios';
 
 type saveDataPropsType = {
   open: boolean;
 };
 
+/*
+This component allows a user to reconcile the clipboard test data that they made 
+while not logged in with a project stored in the database once they do login.
+*/
+
 const SaveDataContainer = (props: saveDataPropsType) => {
-  const newProject = useAppSelector((state) => state.userInfo.newProject); // project from input
+  const newProject = useAppSelector((state) => state.userInfo.newProject);
   const selectedProject = useAppSelector(
     (state) => state.userInfo.currentProject
-  ); // project from dropdown
+  );
   const projects = useAppSelector((state) => state.userInfo.projectsInfo);
   const disableDropdown = Boolean(newProject.length);
 
@@ -50,29 +55,27 @@ const SaveDataContainer = (props: saveDataPropsType) => {
       const storedSnippets = sessionStorage.getItem('clipboardData');
       if (storedSnippets) snippets = JSON.parse(storedSnippets);
     }
-    if (newProject !== '') { // add saved code snippets to a new project
+    if (newProject !== '') { 
+      // add saved code snippets to a new project
       const response = await axios.post('api/project/', {
         project_name: newProject,
       });
       const projects = response.data;
       dispatch(setProjectsInfo(response.data));
-      snippets.forEach((snippet) => {
-        dispatch(
-          postSnippet({
-            projectId: projects[projects.length - 1]['project_id'],
-            codeOutput: snippet,
-          })
-        );
-      });
-    } else { // add saved code snippets to a pre-existing project
-      let projectId: number;
+      dispatch(
+        postSnippet({
+          projectId: projects[projects.length - 1]['project_id'],
+          codeOutput: snippets,
+        })
+      );
+    } else { 
+      // add saved code snippets to a pre-existing project
       for (const project of projects) {
-        if (project.project_name === selectedProject)
-          projectId = project.project_id;
+        if (project.project_name === selectedProject) {
+          dispatch(postSnippet({ projectId: project.project_id, codeOutput: snippets }));
+          break;
+        }
       }
-      snippets.forEach((snippet) => {
-        dispatch(postSnippet({ projectId: projectId, codeOutput: snippet }));
-      });
     }
     sessionStorage.removeItem('clipboardData');
 
@@ -81,7 +84,6 @@ const SaveDataContainer = (props: saveDataPropsType) => {
 
   return (
     <Dialog
-      // onClose={ handleClose }
       open={props.open}
     >
       <Box
@@ -97,7 +99,7 @@ const SaveDataContainer = (props: saveDataPropsType) => {
             width: 500,
             display: 'flex',
             flexDirection: 'row',
-            backgroundColor: '#5E17EB',
+            backgroundColor: '#6e00bb',
             justifyContent: 'center',
           }}
         >
@@ -106,35 +108,33 @@ const SaveDataContainer = (props: saveDataPropsType) => {
         <DialogTitle>
           Would you like to save your current clipboard?
         </DialogTitle>
-        <Box>
-          <ProjectDropdown disabled={disableDropdown} />
-          <TextField
-            label="New Project Name"
-            data-testid="new-project"
-            id="new-project"
-            size="small"
-            sx={{ width: 200, minWidth: 200, marginBottom: 2 }}
-            onChange={handleChange}
-          />
-          <Stack direction="row" spacing={2}>
-            <Button
-              variant="outlined"
-              startIcon={<DeleteIcon />}
-              sx={{ width: 120 }}
-              onClick={handleDiscard}
-            >
+        <ProjectDropdown disabled={disableDropdown} />
+        <TextField
+          label="New Project Name"
+          data-testid="new-project"
+          id="new-project"
+          size="small"
+          sx={{ width: 200, minWidth: 200, marginBottom: 2 }}
+          onChange={handleChange}
+        />
+        <Stack direction="row" spacing={2}>
+          <Button
+            variant="outlined"
+            startIcon={<DeleteIcon />}
+            sx={{ width: 120 }}
+            onClick={handleDiscard}
+          >
               Discard
-            </Button>
-            <Button
-              variant="outlined"
-              startIcon={<SaveIcon />}
-              sx={{ width: 120 }}
-              onClick={handleSave}
-            >
+          </Button>
+          <Button
+            variant="outlined"
+            startIcon={<SaveIcon />}
+            sx={{ width: 120 }}
+            onClick={handleSave}
+          >
               Save
-            </Button>
-          </Stack>
-        </Box>
+          </Button>
+        </Stack>
       </Box>
     </Dialog>
   );
