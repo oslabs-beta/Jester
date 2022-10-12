@@ -25,8 +25,8 @@ const NavBar = () => {
 
   const dispatch = useAppDispatch();
   const handleLoginOpen = () => {
-    sessionStorage.setItem('clipboardData', JSON.stringify(clipboardData));
     dispatch(setShowLogin());
+    if (clipboardData.length) sessionStorage.setItem('clipboardData', JSON.stringify(clipboardData));
   };
   const handleLogout = async () => {
     Cookies.remove('username');
@@ -37,8 +37,8 @@ const NavBar = () => {
     Cookies.remove('isLoggedIn');
     sessionStorage.clear();
     await axios.post('/auth/logout');
-    // why use 'post' here with no body? is this just a get request?
-    dispatch(logout());
+    // clear projects and user information in state
+    dispatch(logout()); 
     navigate('/');
   };
 
@@ -55,29 +55,34 @@ const NavBar = () => {
             sx={{ flexGrow: 1, marginLeft: '15px' }}
           ></Typography>
           {sessionStorage.getItem('isLoggedIn') ? (
-            <Button className='welcome-text' color='inherit'>
+            <Button className="welcome-text" color="inherit">
               Welcome, {sessionStorage.getItem('username')}!
             </Button>
           ) : (
-            <Button className='welcome-text' color='inherit'>
+            <Button className="welcome-text" color="inherit">
               Welcome, Guest!
             </Button>
           )}
+          <Button color='inherit'>
+            <Link className='nav-link' to='/contributors'>
+              Contributors
+            </Link>
+          </Button>
           {sessionStorage.getItem('isLoggedIn') ? (
             <Button
-              color='inherit'
+              color="inherit"
               onClick={handleLogout}
               sx={{ display: displayLogoutButton }}
             >
-              <LogoutIcon sx={{marginRight: '5px', marginLeft: '5px'}} /> Logout
+              <LogoutIcon sx={{ marginRight: '5px', marginLeft: '5px' }} /> Logout
             </Button>
           ) : (
             <Button
-              color='inherit'
+              color="inherit"
               onClick={handleLoginOpen}
               sx={{ display: displayLoginButton }}
             >
-              <LoginIcon sx={{marginRight: '5px', marginLeft: '5px'}} />Login
+              <LoginIcon sx={{ marginRight: '5px', marginLeft: '5px' }} />Login
             </Button>
           )}
 

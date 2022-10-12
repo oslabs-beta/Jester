@@ -3,27 +3,30 @@ import TextField from '@mui/material/TextField';
 import { useAppDispatch, useAppSelector } from '../redux/hooks';
 import { ChangeEvent } from 'react';
 
-import { userEditText } from '../redux/reducers/reducer';
+import { setCodeOutput } from '../redux/reducers/codeSlice';
 
-// This component will render the code received from the fetch request to the server
-// Also, in the stretch feature, as the user edits the code, it will be saved to the database
+// This component will render the generated test code received from the fetch request to the server
 const CodeText = () => {
-  const codeOutput = useAppSelector(state => state.slice.codeOutput);
-  const codeOutputEdited = useAppSelector(state => state.slice.codeOutputEdited);
+  const codeOutput = useAppSelector((state) => state.code.codeOutput);
   const dispatch = useAppDispatch();
-  const editCode = (e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => dispatch(userEditText(e.target.value));
+  const editCode = (e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) =>
+    dispatch(setCodeOutput(e.target.value));
 
   return (
     <TextField
       id="code-output"
       className="text-display"
       label="Testing Code"
+      variant="filled"
       multiline
-      rows={ 10 }
-      value={ codeOutputEdited || codeOutput }
-      sx={{ 
+      minRows={ 10 }
+      value={ codeOutput }
+      sx={{
         width: 0.95,
-        fontFamily: 'Source Code Pro',
+        backgroundColor: '#282C34',
+        color: 'white',
+        pl: 2,
+        borderRadius: 2,
       }}
       onChange={ editCode }
     />

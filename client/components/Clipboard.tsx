@@ -1,19 +1,27 @@
-import axios from 'axios'; // to be used by handleClear
 import React, { ChangeEvent, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { TextField, Box, Button } from '@mui/material';
 import DeleteForeverIcon from '@mui/icons-material/DeleteForever';
-
+import  hljs  from 'highlight.js/lib/common';
 import { useAppDispatch, useAppSelector } from '../redux/hooks';
 import {
   setServer,
   getSnippets,
+  setSnippets,
   clearClipboardState,
-} from '../redux/reducers/ClipBoardReducers';
+} from '../redux/reducers/clipboardSlice';
 import ClipboardButton from './ClipboardButton';
 import { deleteProject } from '../redux/reducers/userInfoSlice';
 
-const ClipBoard = () => {
+/*
+This component will display code snippets from a given project in the database if a 
+user is logged in, or from state if a user is not logged in
+*/
+
+const Clipboard = () => {
+  hljs.configure({
+    ignoreUnescapedHTML: true
+  });
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
   const projectId = Number(useParams().projectId);
@@ -29,7 +37,7 @@ const ClipBoard = () => {
     dispatch(setServer(e.target.value));
   };
 
-  const handleClear = () => {
+  const handleClear = () => { 
     if (isLoggedIn) {
       dispatch(deleteProject(projectId));
       navigate('/');
@@ -37,12 +45,17 @@ const ClipBoard = () => {
       dispatch(clearClipboardState());
     }
   };
-  // need to discuss how to implement handleClear to match the back-end
 
   useEffect(() => {
-    if (isLoggedIn) {
+    if (isLoggedIn) { 
+      // fetch code snippets from db if user logged in
       dispatch(getSnippets(projectId));
     }
+    else {
+      const clipboardData = sessionStorage.getItem('codeSnippets');
+      if (clipboardData) dispatch(setSnippets(JSON.parse(clipboardData)));
+    }
+    hljs.highlightAll();
   });
 
   return (
@@ -53,41 +66,45 @@ const ClipBoard = () => {
           flexDirection: 'column',
           alignItems: 'center',
           gap: '10px',
-          width: 800,
+          width: .8,
         }}
         className="code-container"
       >
         <TextField
           className="text-display"
           label="Server URL"
-          sx={{ width: '300px' }}
+          sx={{ minWidth: 200 }}
           value={server}
           error={server === ''}
           onChange={updateServer}
-        ></TextField>
-        <TextField
-          className="text-display"
-          id="main-clipboard"
-          multiline
-          rows={30}
-          value={codeDisplay}
-          sx={{
-            width: 0.95,
-            fontFamily: 'Source Code Pro',
-          }}
         />
+        <Box 
+          sx={{ 
+            width: 1,
+            height: 500,
+            overflow: 'auto',
+            backgroundColor: '#282C34',
+          }}
+        >
+          <div id="main-clipboard">
+            <pre>
+              <code className='javascript'>
+                {codeDisplay}
+              </code> 
+            </pre>
+          </div>
+        </Box> 
         <ClipboardButton />
         <Button
           onClick={handleClear}
-          sx={{
-            flexDirection: 'column',
-          }}
+          sx={{ flexDirection: 'column' }}
         >
-          <DeleteForeverIcon /> {buttonText}
+          <DeleteForeverIcon /> 
+          {buttonText}
         </Button>
       </Box>
     </div>
   );
 };
 
-export default ClipBoard;
+export default Clipboard;

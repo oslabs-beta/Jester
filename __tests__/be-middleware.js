@@ -1,5 +1,6 @@
 import testsController from '../server/controllers/testsController.js';
 import helperFunctions from '../server/helpers/functions.js';
+import { INDENT } from '../client/constants/index';
 
 describe('testsController middleware unit tests', () => {
   let mockRequest;
@@ -29,8 +30,8 @@ describe('testsController middleware unit tests', () => {
       mockRequest.body = {
         header: {
           input: '/',
-          method: 'GET'
-        }
+          method: 'GET',
+        },
         // missing assertions array
       };
       nextFunction = (err) => err;
@@ -46,9 +47,9 @@ describe('testsController middleware unit tests', () => {
       mockRequest.body = {
         header: {
           input: '/',
-          method: 'fakemethod'
+          method: 'fakemethod',
         },
-        assertions: []
+        assertions: [],
       };
       nextFunction = (err) => err;
       const result = testsController.verifyInput(
@@ -56,7 +57,6 @@ describe('testsController middleware unit tests', () => {
         mockResponse,
         nextFunction
       );
-      console.log(typeof result.message.err);
       expect(result.message.err).toBeInstanceOf(Error);
       expect(result).not.toEqual(nextFunction());
     });
@@ -65,9 +65,9 @@ describe('testsController middleware unit tests', () => {
       mockRequest.body = {
         header: {
           input: '/',
-          method: 'GET'
+          method: 'GET',
         },
-        assertions: []
+        assertions: [],
       };
       const result = testsController.verifyInput(
         mockRequest,
@@ -82,15 +82,15 @@ describe('testsController middleware unit tests', () => {
   describe('generateHeader', () => {
     const header = {
       endpoint: '/',
-      method: 'GET'
+      method: 'GET',
     };
     const assertions = [];
     const expectedResult = [
-      `describe('/', () => {`,
-      ` describe('GET', () => {`,
-      `  it('makes a GET request to \"/\"', async () => {`,
-      `   const response = await request(server)`,
-      `   .get('/');`
+      'describe(\'/\', () => {',
+      `${INDENT}describe('GET', () => {`,
+      `${INDENT}${INDENT}it('makes a GET request to "/"', async () => {`,
+      `${INDENT}${INDENT}${INDENT}const response = await request(server)`,
+      `${INDENT}${INDENT}${INDENT}${INDENT}.get('/');`,
     ];
 
     it('empty assertions array should return default header', () => {
@@ -100,33 +100,26 @@ describe('testsController middleware unit tests', () => {
 
     it('assertions array with status assertion should return header with status description', () => {
       assertions.push({ status: 200 });
-      expectedResult[2] = `  it('responds with status 200', async () => {`;
+      expectedResult[2] = `${INDENT}${INDENT}it('responds with status 200', async () => {`;
       const result = helperFunctions.headerGenerator(header, assertions);
       expect(result).toEqual(expectedResult);
     });
 
     it('assertions array with status and content assertion should return header with full description', () => {
       assertions.push({ content: '/text/html/' });
-      expectedResult[2] = `  it('responds with status 200 and content-type /text/html/', async () => {`;
+      expectedResult[2] =
+        `${INDENT}${INDENT}it('responds with status 200 and content-type /text/html/', async () => {`;
       const result = helperFunctions.headerGenerator(header, assertions);
       expect(result).toEqual(expectedResult);
     });
   });
 
-  //How to test middlewares properly? Middlewares return the next function, not an object/array/data structure we can examine
-
-  // check if the middleware createMiddleText is working.
-  /* Steping back a sec, let's think about what exactly we want this test to do:
-  It needs to check that the result will be equal to an array.
-  -> so I can create an array with the results that I want, and when run on that specific array we can see if it is the exact same or not.
-  */
-  describe('generateMiddle', () => {
-    //We want to test that the response being sent from this middleware is in the same positioning as the array we are feeding into it?
+  describe('generateAssertions', () => {
     let assertions;
-    let expectedResult = [
-      '    expect(response.statusCode).toBe(200);',
-      `    expect(response.type).toBe('/text/html/');`,
-      `    expect(response.body).toEqual( { a: 'b' });`
+    const expectedResult = [
+      `${INDENT}${INDENT}${INDENT}expect(response.statusCode).toBe(200);`,
+      `${INDENT}${INDENT}${INDENT}expect(response.type).toBe('/text/html/');`,
+      `${INDENT}${INDENT}${INDENT}expect(response.body).toEqual( { a: 'b' });`,
     ];
 
     beforeEach(() => {
@@ -135,32 +128,30 @@ describe('testsController middleware unit tests', () => {
 
     it('should return proper expect for a status of 200', () => {
       assertions.push({ status: 200 });
-      const result = helperFunctions.middleGenerator(assertions);
+      const result = helperFunctions.assertionsGenerator(assertions);
       expect(result).toEqual([expectedResult[0]]);
     });
 
     it('should return proper expect for a content of text/html', () => {
       assertions.push({ content: '/text/html/' });
-      const result = helperFunctions.middleGenerator(assertions);
+      const result = helperFunctions.assertionsGenerator(assertions);
       expect(result).toEqual([expectedResult[1]]);
     });
 
-    // // Test for body
     it('should return proper expect for a body', () => {
-      assertions.push({ res_body: " { a: 'b' }" });
-      const result = helperFunctions.middleGenerator(assertions);
+      assertions.push({ res_body: ' { a: \'b\' }' });
+      const result = helperFunctions.assertionsGenerator(assertions);
       expect(result).toEqual([expectedResult[2]]);
     });
-    (" { a: 'b' }");
+    (' { a: \'b\' }');
 
     it('assertion of status: 200, content type text/html, and body should return the relevant array', () => {
       assertions.push(
         { status: 200 },
         { content: '/text/html/' },
-        { res_body: " { a: 'b' }" }
+        { res_body: ' { a: \'b\' }' }
       );
-      const result = helperFunctions.middleGenerator(assertions);
-      // console.log({ result }, { expectedResult });
+      const result = helperFunctions.assertionsGenerator(assertions);
       expect(result).toEqual(expectedResult);
     });
   });
@@ -168,13 +159,15 @@ describe('testsController middleware unit tests', () => {
   // check if the middleware helper function compiledCodeGenerator is working.
   describe('compiledCodeGenerator', () => {
     const headerOutput = ['line1', 'line2'];
-    const middleOutput = ['line3', 'line4'];
-    const expectedResult = 'line1\nline2\nline3\nline4\n  });\n });\n});';
 
-    it('should compile both headerOutput and middleOutput into a final array', () => {
+    const assertionsOutput = ['line3', 'line4'];
+    const expectedResult = `line1\nline2\nline3\nline4\n${INDENT}${INDENT}});\n${INDENT}});\n});`;
+
+
+    it('should compile both headerOutput and AssertionsOutput into a final array', () => {
       const result = helperFunctions.compiledCodeGenerator(
         headerOutput,
-        middleOutput
+        assertionsOutput
       );
       expect(result).toEqual(expectedResult);
     });

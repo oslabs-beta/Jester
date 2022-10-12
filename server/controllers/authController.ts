@@ -1,8 +1,7 @@
 import passport from 'passport';
-import { Strategy as GitHubStrategy } from 'passport-github2';
-import { Express, Request, Response, NextFunction } from 'express';
+import { Strategy as GitHubStrategy, Profile } from 'passport-github2';
+import { Request, Response, NextFunction } from 'express';
 import db from '../models/userModel';
-import { nextTick } from 'process';
 
 type GitHubSettingsType = {
   clientID: string;
@@ -16,6 +15,8 @@ type AuthType = {
   getUserId: (req: Request, res: Response, next: NextFunction) => void;
 };
 
+type DoneType = (err: Error | null, user: Express.User) => void
+
 const gitHubSettings: GitHubSettingsType = {
   clientID: 'fa73697734733fc09ac6',
   clientSecret: '00e08080239a284e4047e1342393f88dc3ada6ae',
@@ -23,54 +24,42 @@ const gitHubSettings: GitHubSettingsType = {
   scope: ['user:email']
 };
 
-// need to clean up the type declarations of user, done, profile and tokens
-// https://typescript.hotexamples.com/examples/passport/-/serializeUser/typescript-serializeuser-function-examples.html
-// https://stackoverflow.com/questions/65772869/how-do-i-type-hint-the-user-argument-when-calling-passport-serializeuser-in-type
-passport.serializeUser(function (user: Express.User, done: any) {
+passport.serializeUser(function (user: Express.User, done: DoneType) {
   done(null, user);
 });
 
-passport.deserializeUser(function (user: any, done: any) {
+passport.deserializeUser(function (user: Express.User, done: DoneType) {
   done(null, user);
 });
 
 passport.use(
   new GitHubStrategy(gitHubSettings, function (
-    accessToken: any,
-    refreshToken: any,
-    profile: any,
-    done: any
+    accessToken: string,
+    refreshToken: string,
+    profile: Profile,
+    done: DoneType,
   ) {
-    const email: string = profile.emails[0].value;
-    const params = [email];
-    // console.log(email);
-    // logic for creating a new record on the database for the user could go in here
     return done(null, profile);
+    
   })
 );
 
 export const authController: AuthType = {
   // Middleware to verify that user is logged in (typically used before database calls)
   isLoggedIn: (req: Request, res: Response, next: NextFunction) => {
-    // this controller should verify that the user is logged in
-    // do we do this via a cookie?
-    // console.log('REQ USER', req.user)
-    // if(!req.user){
-    //   return res.status(401).json("Error: User not authorized");
-    // }
-    // MLCK: Is this a security vulnerability?  Another option is to store session in database and make a db call
-    // if (!req.user || !req.isAuthenticated()) {
-    //   return res.status(401).json('Error: User not authorized');
-    // }
-    // console.log('authController.isLoggedIn');
+    if (!req.user || !req.isAuthenticated()) {
+      return res.status(401).json('Error: User not authorized');
+    }
     return next();
   },
 
+  /*
+    This controller queries the user table to insert a new user
+    using the email provided on the request object. If the user
+    already exists, it performs a mock-update so that regardless
+    of whether the user already existed or not, it returns the user ID.
+  */
   getUserId: async (req: any, res: Response, next: NextFunction) => {
-    // this controller queries the user table to insert a new user
-    // using the email provided on the request object. If the user
-    // already exists, it performs a mock-update so that regardless
-    // of whether the user already existed or not, it returns the user ID.
     const email = req.user.emails[0].value;
     if (!email) return next({
       log: 'email not fond on request body',

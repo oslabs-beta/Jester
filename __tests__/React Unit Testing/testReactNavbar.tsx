@@ -1,44 +1,45 @@
 import React from 'React';
 import { Provider } from 'react-redux';
 import configureStore from 'redux-mock-store';
-import { fireEvent, render, screen } from '@testing-library/react';
-import userEvent from '@testing-library/user-event';
+import { render, screen } from '@testing-library/react';
 import { BrowserRouter } from 'react-router-dom';
 
 import Navbar from '../../client/components/Navbar';
 
 import '@testing-library/jest-dom';
+import { clipboardStateType } from '../../client/types';
 
-type sliceType = {
-  codeOutput: string
+type codeType = {
+  codeOutput: string;
 };
 
 type userInfoType = {
-  showLogin: false,
+  showLogin: false;
+};
+
+type clipboardType = {
+  codeSnippets: string[];
 }
 
 type initialStateType = {
-  slice: sliceType,
+  code: codeType,
   userInfo: userInfoType,
-}
+  clipboard: clipboardType,
+};
 
-const initialState: initialStateType = {slice: {
-  codeOutput: `describe('Sample description')`,
-}, userInfo: {
-  showLogin: false,
-}};
+const initialState: initialStateType = {
+  code: {
+    codeOutput: 'describe(\'Sample description\')',
+  },
+  userInfo: {
+    showLogin: false,
+  },
+  clipboard: {
+    codeSnippets: [],
+  }
+};
 
 const mockStore: any = configureStore();
-// const initialState = {
-//   slice: {
-//     codeOutput: `describe('Sample description')`
-//   },
-//   userInfo: {
-//     showLogin: false
-//   }
-// };
-
-// const mockStore = configureStore();
 
 const navbar = () => {
   render(
@@ -49,8 +50,6 @@ const navbar = () => {
     </Provider>
   );
 };
-
-// Not rending in beforeEach yet in case we need t
 describe('Unit testing Navbar components', () => {
   beforeEach(() => {
     navbar();

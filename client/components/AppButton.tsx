@@ -2,11 +2,16 @@ import React, { useState } from 'react';
 import Button from '@mui/material/Button';
 
 type propsType = {
-  start: string | JSX.Element ,
-  end: string | JSX.Element ,
-  onClick: () => void,
-  testId: string,
+  start: string | JSX.Element;
+  end: string | JSX.Element;
+  onClick: () => void;
+  testId: string;
 };
+
+/*
+This component holds functionality for a button to change icons on user selection
+This functionality is used for both the copy to clipboard button, and the add to project button
+*/
 
 const AppButton = (props: propsType) => {
   const { start, end, onClick, testId } = props;
@@ -19,13 +24,14 @@ const AppButton = (props: propsType) => {
   };
 
   return (
-    <Button 
+    <Button
       data-testid={ testId }
-      variant='outlined' 
-      onClick = { handleClick }
+      variant="outlined"
+      color="info"
+      onClick={ handleClick }
       sx={{ marginBottom: 1 }}
     >
-      { icon }
+      {icon}
     </Button>
   );
 };

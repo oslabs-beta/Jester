@@ -9,18 +9,23 @@ import NotFound from './pages/NotFound';
 import { NavPanelContainer } from './containers/NavPanelContainer';
 import { Box } from '@mui/material';
 import { CodeGenerator } from './pages/CodeGenerator';
-import ClipBoard from './components/ClipBoard';
+import Clipboard from './components/Clipboard';
 import Auth from './pages/Auth';
+import { Contributors } from './pages/Contributors';
+import { useAppSelector } from './redux/hooks';
 
 const theme = createTheme({
   palette: {
     primary: {
-      // main: '#5E17EB',
-      main: '#6e00bb',
+      main: '#6E00BB',
       contrastText: '#fff'
     },
     secondary: {
       main: '#606F7B',
+      contrastText: '#fff'
+    },
+    info: {
+      main: '#8795A1',
       contrastText: '#fff'
     }
   },
@@ -33,6 +38,7 @@ const theme = createTheme({
 });
 
 const App = () => {
+  const showProjectPanel = useAppSelector((state) => state.navPanel.showProjectPanel);
   return (
     <ThemeProvider theme={theme}>
       <NavBar />
@@ -40,16 +46,17 @@ const App = () => {
         className="contents"
         sx={{
           display: 'grid',
-          gridTemplateColumns: '1fr 5fr',
-          height: '100%'
+          gridTemplateColumns: showProjectPanel ? '1fr 5fr' : '1fr 11fr',
+          height: '100%',
         }}
       >
         <NavPanelContainer />
         <div className="page-container">
           <Routes>
             <Route path="/" element={<Home />} />
-            <Route path="/clipboard/:projectId" element={<ClipBoard />} />
+            <Route path="/clipboard/:projectId" element={<Clipboard />} />
             <Route path="/documentation" element={<Documentation />} />
+            <Route path='/contributors' element={<Contributors />} />
             <Route path='/authenticate' element={<Auth />} />
             <Route
               path="/CodeGenerator/:projectId"

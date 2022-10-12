@@ -1,4 +1,4 @@
-import express, { Express, Request, Response, NextFunction } from 'express';
+import { Request, Response, NextFunction } from 'express';
 import db from '../models/userModel';
 
 type Project = {
@@ -8,8 +8,10 @@ type Project = {
 };
 
 export const projectController: Project = {
-  // this controller queries the projects table and returns all projects found
-  //whose user ID matches the user ID from the request body
+  /*
+    This controller queries the projects table and returns all projects found
+    whose user ID matches the user ID from the request body
+  */
   getProjects: async (req: Request, res: Response, next: NextFunction) => {
     const { user_id } = res.locals;
 
@@ -39,7 +41,12 @@ export const projectController: Project = {
     }
   },
 
-  // Middleware to add a new Project associated with a userId
+  /*
+    Middleware to add a new Project associated with a userId
+    This controller should insert a new record in the Projects table
+    with the name of project_name and a foreign key userId
+    and send back the updated project list
+  */
   addProject: async (req: Request, res: Response, next: NextFunction) => {
     const { user_id } = res.locals;
     const { project_name } = req.body;
@@ -55,9 +62,7 @@ export const projectController: Project = {
       status: 400,
       message: 'an error occurred in addProject middleware function'
     });
-    // this controller should insert a new record in the Projects table
-    // with the name of project_name and a foreign key userId
-    // and send back the updated project list
+    
     const queryString1 = `
       INSERT INTO projects_table(user_id, project_name)
       VALUES($1, $2)
@@ -86,7 +91,12 @@ export const projectController: Project = {
     }   
   },
 
-  // Middleware to delete a specific project
+  /*
+    Middleware to delete a specific project
+    This controller should delete the project in the Projects table
+    with the provided project_id, AND ALSO all code snippets under this project
+    and send back the updated project list
+  */
   deleteProject: async (req: Request, res: Response, next: NextFunction) => {
     const user_id = res.locals.user_id;
     const { project_id } = req.params;
@@ -102,9 +112,7 @@ export const projectController: Project = {
       status: 400,
       message: 'error occurred in deleteProject middleware function'
     });
-    // this controller should delete the project in the Projects table
-    // with the provided project_id, AND ALSO all code snippets under this project
-    // and send back the updated project list
+    
     const params1 = [project_id, user_id];
     const params2 = [user_id];
   

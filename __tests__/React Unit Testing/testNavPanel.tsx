@@ -15,9 +15,12 @@ const initialState = {
   },
   userInfo: {
     projectsInfo: [
-      { project_id: 1, project_name: 'Project One', showAccessClipboard: true },
+      { project_id: 1, project_name: 'Guest Project', showAccessClipboard: true },
     ],
   },
+  clipboard: {
+    codeSnippets: [],
+  }
 };
 const mockStore: any = configureStore();
 const navPanel = () => {
@@ -54,18 +57,18 @@ describe('Unit testing navPanel', () => {
     });
     test('it should render a button for each project', () => {
       expect(
-        screen.getByRole('button', { name: 'Project One' })
+        screen.getByRole('button', { name: 'Guest Project' })
       ).toBeInTheDocument();
     });
 
     describe('Unit testing AccessClipboardDisplay when a project is clicked', () => {
       let button;
       beforeEach(() => {
-        button = screen.getByRole('button', { name: 'Project One' });
+        button = screen.getByRole('button', { name: 'Guest Project' });
         fireEvent.click(button);
       });
       test('it should render clipboard button', () => {
-        const button = screen.getByRole('button', { name: 'Project One' });
+        const button = screen.getByRole('button', { name: 'Guest Project' });
         fireEvent.click(button);
         expect(
           screen.getByRole('button', { name: 'Clipboard' })
@@ -93,6 +96,12 @@ const defaultStore = {
   navPanel: {
     showAddProject: true,
   },
+  userInfo: {
+    showLogin: false,
+  },
+  clipboard: {
+    codeSnippets: [],
+  }
 };
 
 const addProjectDialog = () => {
@@ -110,10 +119,11 @@ describe('Unit testing AddProjectDialog when add new project is clicked', () => 
     addProjectDialog();
   });
   test('it should render a dialog box with instructions if a user is not logged in', () => {
-    expect(screen.getByRole('dialog', { name: '' })).toBeInTheDocument();
+    expect(screen.getByRole('dialog', { name: 'To add a project, you must be logged in!' })).toBeInTheDocument();
     expect(
       screen.getByText('To add a project, you must be logged in!')
     ).toBeInTheDocument();
+    expect(screen.getByRole('button', { name: 'Login' })).toBeInTheDocument();
   });
   test('it should render a dialog box for user to add project if they are logged in', () => {
     sessionStorage.setItem('isLoggedIn', 'true');

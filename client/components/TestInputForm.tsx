@@ -12,26 +12,32 @@ import {
 import React from 'react';
 import { useAppDispatch, useAppSelector } from '../redux/hooks';
 import { setRequestType, addAssertion } from '../redux/reducers/testFormSlice';
-import { setCodeOutput } from '../redux/reducers/reducer';
+import { setCodeOutput } from '../redux/reducers/codeSlice';
 import { setErrorMsg } from '../redux/reducers/userInputSlice';
 import { Assertions } from './Assertions';
 import { RequestBody } from './RequestBody';
-import { ChangeEvent } from 'react';
 import axios from 'axios';
 import { ProjectDropdown } from './ProjectDropdown';
+import { setCurrentProject } from '../redux/reducers/userInfoSlice';
+/*
+This component will allow a user to generate test code according to their inputs. This component is
+where users will indicate the request type, endpoint, and response body, as well as add their assertions.
+*/
 
 export const TestInputForm = () => {
   const isLoggedIn = sessionStorage.getItem('isLoggedIn');
   const requestType = useAppSelector((state) => state.testForm.requestType);
-  const assertionObject = useAppSelector(
-    (state) => state.testForm.assertionList
-  );
+  const assertionObject = useAppSelector((state) => state.testForm.assertionList);
   const assertionList: JSX.Element[] = [];
   const assertionIds = Object.keys(assertionObject);
   for (const id of assertionIds) {
     assertionList.push(<Assertions id={id} key={id} />);
   }
   const dispatch = useAppDispatch();
+  
+  const projectsInfo = useAppSelector((state) => state.userInfo.projectsInfo);
+  const projects = projectsInfo.map((el) => el.project_name);
+  dispatch(setCurrentProject(projects[projects.length - 1]));
 
   const getData = (form: any) => {
     const formData = new FormData(form);
@@ -41,6 +47,10 @@ export const TestInputForm = () => {
   const handleSubmit = async (
     e: React.FormEvent<EventTarget>
   ): Promise<unknown> => {
+    // checks to ensure proper user input
+    
+    // gathers the appropriate values needed to generate test code
+    // in the format expected on the backend
     e.preventDefault();
     let statusCount = 0;
     let contentCount = 0;
@@ -96,9 +106,6 @@ export const TestInputForm = () => {
     dispatch(setRequestType(e.target.value));
   };
 
-  const handleChange = (
-    e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
-  ) => dispatch(setRequestType(e.target.value));
   const handleAdd = () => {
     dispatch(addAssertion());
     dispatch(setErrorMsg());
@@ -114,20 +121,11 @@ export const TestInputForm = () => {
     );
   }
 
-  // const getContentTypes = () => {
-  //   axios.get('https://www.geeksforgeeks.org/http-headers-content-type/')
-  //   .then(res => console.log(res))
-  // }
 
   return (
     <form id='test-generator-form' onSubmit={handleSubmit}>
       <Box
-        sx={{
-          display: 'flex',
-          alignItems: 'center',
-          gap: '10px',
-          mb: 2,
-        }}
+        className='test-gen-header'
       >
         <FormControl>
           <InputLabel id='requestSelector'>Request Type</InputLabel>
@@ -192,14 +190,6 @@ export const TestInputForm = () => {
         Generate Test Code
       </Button>
       { (isLoggedIn) && <ProjectDropdown /> }
-      {/* <Button 
-      type='submit'
-      variant='contained'
-      sx={{ marginTop: '30px', height: 40 }}
-      disableElevation
-      onClick={getContentTypes}>
-        Get all content types
-      </Button> */}
     </form>
   );
 };

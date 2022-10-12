@@ -30,7 +30,14 @@ module.exports = {
       {
         test: /\.scss$/,
         use: ['style-loader', 'css-loader', 'sass-loader']
-      }
+      },
+      {
+        test: /\.(jpe?g|png|gif|svg)$/i,
+        loader: 'file-loader',
+        options: {
+          publicPath: 'client/assets/photos'
+        }
+      },
     ]
   },
   resolve: {

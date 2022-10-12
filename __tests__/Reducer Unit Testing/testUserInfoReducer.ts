@@ -1,7 +1,7 @@
 import { store } from '../../client/redux/store';
 import { setShowLogin } from '../../client/redux/reducers/userInfoSlice';
 import { DEFAULT_PROJECT } from '../../client/constants';
-import { userInfoStateType } from '../../client/types'
+import { userInfoStateType } from '../../client/types';
 
 
 describe('UserInfo Reducer', () => {
@@ -9,7 +9,7 @@ describe('UserInfo Reducer', () => {
 
   beforeEach(() => defaultState = {
     showLogin: false,
-    showSave: true,
+    showSave: false,
     userId: 0,
     projectsInfo: [
       {
