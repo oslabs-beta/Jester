@@ -76,7 +76,6 @@ const Clipboard = () => {
           gap: '30px',
           width: .8,
         }}
-        className="code-container"
       >
         <Typography variant="h3" align="center" gutterBottom sx={{ color: '#6E00BB', mb: 0, mt: 5 }}>{projectName}</Typography>
         <TextField
@@ -88,12 +87,14 @@ const Clipboard = () => {
           onChange={updateServer}
         />
         <Box 
+          className="clipboard-code-container"
           sx={{ 
             width: .85,
             height: 500,
             overflow: 'auto',
             backgroundColor: '#282C34',
             borderRadius: 2,
+            position: 'relative'
           }}
         >
           <div id="main-clipboard">
@@ -103,8 +104,9 @@ const Clipboard = () => {
               </code> 
             </pre>
           </div>
+          <ClipboardButton />
         </Box> 
-        <ClipboardButton />
+        
         <Button
           onClick={handleClear}
           sx={{ flexDirection: 'column' }}
