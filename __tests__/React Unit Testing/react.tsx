@@ -53,12 +53,6 @@ describe('Unit testing "TestInputForm" component', () => {
     );
   });
 
-  xtest('Dropdown menu for request type renders successfully', async () => {
-    userEvent.click(screen.getByRole('button', { name: 'Get' }));
-    await (() => userEvent.click(screen.getByText(/Post/i)));
-    expect(await screen.getByText('Post')).toBeInTheDocument();
-  });
-
   test('Add assertion button renders successfully', () => {
     expect(screen.getByText('+')).toBeInTheDocument();
     expect(screen.getByRole('button', { name: '+' })).toBeInTheDocument();
@@ -71,20 +65,6 @@ describe('Unit testing "TestInputForm" component', () => {
     expect(screen.getByRole('textbox', { name: 'Endpoint' }).id).toEqual(
       'endpoint'
     );
-  });
-
-  xtest('Add button renders middle component', () => {
-    fireEvent.click(screen.getByText('+'));
-    const dropdown = screen.getByLabelText('Test Option');
-    expect(dropdown).toBeInTheDocument();
-    const textbox = screen.getByLabelText('User Input');
-    expect(textbox).toBeInTheDocument();
-    expect(
-      screen.getByRole('textbox', { name: 'User Input' })
-    ).toBeInTheDocument();
-    const button = screen.getByText('-');
-    expect(button).toBeInTheDocument();
-    expect(screen.getByRole('textbox', { name: '-' })).toBeInTheDocument();
   });
 
   test('Dropdown menu for project renders successfully', async () => {
