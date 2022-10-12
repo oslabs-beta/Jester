@@ -4,8 +4,8 @@ import { Request, Response, NextFunction } from 'express';
 import db from '../models/userModel';
 
 type GitHubSettingsType = {
-  clientID: string | undefined;
-  clientSecret: string | undefined;
+  clientID: string ;
+  clientSecret: string ;
   callbackURL: string;
   scope: Array<string>;
 };
@@ -18,9 +18,9 @@ type AuthType = {
 type DoneType = (err: Error | null, user: Express.User) => void
 
 const gitHubSettings: GitHubSettingsType = {
-  clientID: process.env.clientIDLocal,
-  clientSecret: process.env.clientSecretLocal,
-  callbackURL: `${process.env.root}/auth/github/callback`,
+  clientID: process.env.clientIDLocal || '',
+  clientSecret: process.env.clientSecretLocal || '',
+  callbackURL: `${process.env.root_url}/auth/github/callback`,
   scope: ['user:email']
 };
 

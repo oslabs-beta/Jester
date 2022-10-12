@@ -1,4 +1,5 @@
 // Package Imports
+import 'dotenv/config';
 import cookieSession from 'cookie-session';
 import express, { Request, Response, NextFunction } from 'express';
 import passport from 'passport';
