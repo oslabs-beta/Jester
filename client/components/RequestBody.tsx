@@ -11,27 +11,16 @@ This component will allow a user to input a request body if the selected request
 */
 
 export const RequestBody = (props: requestBodyPropsType) => {
-  if (props.showField) {
-    return (
-      <TextField
-        className="text-display"
-        label="Request Body"
-        id="req_body"
-        data-testid="Request-Body"
-        name="Request-Body"
-        size="small"
-      />
-    );
-  } else
-    return (
-      <TextField
-        label="Request Body"
-        id="req_body"
-        data-testid="Request-Body"
-        name="Request-Body"
-        disabled={true}
-        sx={{ backgroundColor: 'lightgrey' }}
-        size="small"
-      />
-    );
+  return (
+    <TextField
+      className="text-display"
+      label="Request Body"
+      id="req_body"
+      data-testid="Request-Body"
+      name="Request-Body"
+      disabled={props.showField ? false : true}
+      sx={{ backgroundColor: props.showField ? 'none' : '#E8E8E8' }}
+      size="small"
+    />
+  );
 };

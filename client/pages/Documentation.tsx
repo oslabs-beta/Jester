@@ -11,12 +11,12 @@ const Documentation = () => {
         <p className="documentation-p">At this stage you will also have the option to input a request body to specify the nature of your request (available to all requests types except GET.</p>
         <p className="documentation-p">Once these initial parameters have been satisfied to the necessary extent for your project, you can add assertions to your test by clicking the ‘+’ button next to ‘Add Expected Response’. By default, Jester will populate assertion types in the following order: </p>
         <ol className="documentation-p">
-          <li>1. expected status code (100-511)         
+          <li>expected status code (100-511)         
             <li>
-          2. expected content type (text/html, application/json, etc.)   
+          expected content type (text/html, application/json, etc.)   
             </li>
             <li>
-          3. Expected response body (optional)</li>
+          expected response body (optional)</li>
           </li>
         </ol>
         <p className="documentation-p"> You are allowed a maximum of one of each assertion type. Once all of your specifications are in place, click ‘Generate Test Code’ and your new test will appear in the code block below!</p>
