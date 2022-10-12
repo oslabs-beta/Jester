@@ -2,6 +2,7 @@ import passport from 'passport';
 import { Strategy as GitHubStrategy } from 'passport-github2';
 import { Request, Response, NextFunction } from 'express';
 import db from '../models/userModel';
+import { keys } from '../keys';
 
 type GitHubSettingsType = {
   clientID: string;
@@ -15,10 +16,13 @@ type AuthType = {
   getUserId: (req: Request, res: Response, next: NextFunction) => void;
 };
 
+// const root = 'http://localhost:3000';
+const root = 'http://jester.software';
+
 const gitHubSettings: GitHubSettingsType = {
-  clientID: 'fa73697734733fc09ac6',
-  clientSecret: '00e08080239a284e4047e1342393f88dc3ada6ae',
-  callbackURL: 'http://localhost:3000/auth/github/callback',
+  clientID: keys.clientID,
+  clientSecret: keys.clientSecret,
+  callbackURL: `${root}/auth/github/callback`,
   scope: ['user:email']
 };
 
