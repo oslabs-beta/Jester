@@ -1,8 +1,5 @@
+import { setShowAddProject, setShowProjectPanel } from '../../client/redux/reducers/navPanelSlice';
 import { store } from '../../client/redux/store';
-import {
-  setShowProjectPanel,
-  setShowAddProject,
-} from '../../client/redux/reducers/navPanelSlice';
 
 type navPanelStateType = {
   showProjectPanel: boolean;

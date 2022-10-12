@@ -1,5 +1,5 @@
-import { store } from '../../client/redux/store';
 import { setCodeOutput } from '../../client/redux/reducers/codeSlice';
+import { store } from '../../client/redux/store';
 
 type defaultStateType = {
   codeOutput: string,

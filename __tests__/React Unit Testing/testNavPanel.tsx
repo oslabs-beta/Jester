@@ -1,12 +1,15 @@
+import '@testing-library/jest-dom';
+
+import Cookies from 'js-cookie';
 import React from 'React';
 import { Provider } from 'react-redux';
-import configureStore from 'redux-mock-store';
-import { fireEvent, render, screen } from '@testing-library/react';
-import '@testing-library/jest-dom';
-import { NavPanelContainer } from '../../client/containers/NavPanelContainer';
 import { BrowserRouter } from 'react-router-dom';
-import Cookies from 'js-cookie';
+import configureStore from 'redux-mock-store';
+
+import { fireEvent, render, screen } from '@testing-library/react';
+
 import { AddProjectDialog } from '../../client/components/AddProjectDialog';
+import { NavPanelContainer } from '../../client/containers/NavPanelContainer';
 
 const initialState = {
   navPanel: {

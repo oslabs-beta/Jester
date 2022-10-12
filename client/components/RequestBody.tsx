@@ -1,5 +1,6 @@
 import React from 'react';
-import { TextField } from '@mui/material';
+
+import TextField from '@mui/material/TextField';
 
 type requestBodyPropsType = {
   showField: boolean;

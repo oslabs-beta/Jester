@@ -1,15 +1,17 @@
 import '@testing-library/jest-dom';
+
 import React from 'React';
 import { Provider } from 'react-redux';
 import configureStore from 'redux-mock-store';
-import { fireEvent, render, screen } from '@testing-library/react';
+
 import AddBoxIcon from '@mui/icons-material/AddBox';
 import ContentCopyIcon from '@mui/icons-material/ContentCopy';
 import DoneAllIcon from '@mui/icons-material/DoneAll';
+import { fireEvent, render, screen } from '@testing-library/react';
 
-import CodeContainer from '../../client/containers/CodeContainer';
-import ButtonContainer from '../../client/containers/ButtonContainer';
-import AppButton from '../../client/components/AppButton';
+import { AppButton } from '../../client/components/AppButton';
+import { ButtonContainer } from '../../client/containers/ButtonContainer';
+import { CodeContainer } from '../../client/containers/CodeContainer';
 
 const initialState = {
   code: {

@@ -1,6 +1,7 @@
+import { NextFunction, Request, Response } from 'express';
 import passport from 'passport';
-import { Strategy as GitHubStrategy, Profile } from 'passport-github2';
-import { Request, Response, NextFunction } from 'express';
+import { Profile, Strategy as GitHubStrategy } from 'passport-github2';
+
 import db from '../models/userModel';
 
 type GitHubSettingsType = {

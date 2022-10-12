@@ -1,9 +1,13 @@
 import React from 'react';
-import {Box, InputLabel, MenuItem, FormControl, Select} from '@mui/material';
-import { SelectChangeEvent } from '@mui/material/Select';
 
-import { setCurrentProject } from '../redux/reducers/userInfoSlice';
+import Box from '@mui/material/Box';
+import FormControl from '@mui/material/FormControl';
+import InputLabel from '@mui/material/InputLabel';
+import MenuItem from '@mui/material/MenuItem';
+import Select, { SelectChangeEvent } from '@mui/material/Select';
+
 import { useAppDispatch, useAppSelector } from '../redux/hooks';
+import { setCurrentProject } from '../redux/reducers/userInfoSlice';
 
 type projectDropdownPropsType = {
   allowNew?: boolean;
@@ -16,7 +20,7 @@ This component creates a dropdown menu with all of the project names that are ti
   2) a user can select which project they want their clipboard data reconciled to
 */
 
-const ProjectDropdown = (props: projectDropdownPropsType) => {
+export const ProjectDropdown = (props: projectDropdownPropsType) => {
   const dispatch = useAppDispatch();
   const projectName = useAppSelector((state) => state.userInfo.currentProject);
   const projectsInfo = useAppSelector((state) => state.userInfo.projectsInfo);
@@ -63,5 +67,3 @@ const ProjectDropdown = (props: projectDropdownPropsType) => {
     </Box>
   );
 };
-
-export { ProjectDropdown };
