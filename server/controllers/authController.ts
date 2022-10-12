@@ -4,8 +4,8 @@ import { Request, Response, NextFunction } from 'express';
 import db from '../models/userModel';
 
 type GitHubSettingsType = {
-  clientID: string;
-  clientSecret: string;
+  clientID: string ;
+  clientSecret: string ;
   callbackURL: string;
   scope: Array<string>;
 };
@@ -18,9 +18,9 @@ type AuthType = {
 type DoneType = (err: Error | null, user: Express.User) => void
 
 const gitHubSettings: GitHubSettingsType = {
-  clientID: 'bc3cf928850a92c03d5b',
-  clientSecret: 'fea420829222c6882750bc0da33ea383c6780956',
-  callbackURL: 'https://jester.software/auth/github/callback',
+  clientID: process.env.clientIDLocal || '',
+  clientSecret: process.env.clientSecretLocal || '',
+  callbackURL: `${process.env.root_url}/auth/github/callback`,
   scope: ['user:email']
 };
 

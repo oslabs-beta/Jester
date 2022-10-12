@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import Button from '@mui/material/Button';
+import { Tooltip } from '@mui/material';
 
 type propsType = {
   start: string | JSX.Element;
@@ -24,15 +25,17 @@ const AppButton = (props: propsType) => {
   };
 
   return (
-    <Button
-      data-testid={ testId }
-      variant="outlined"
-      color="info"
-      onClick={ handleClick }
-      sx={{ marginBottom: 1 }}
-    >
-      {icon}
-    </Button>
+    <Tooltip title={testId === 'bttn-copy' ? 'Copy' : 'Add to Project'} placement='left' arrow>
+      <Button
+        data-testid={ testId }
+        variant="outlined"
+        color="info"
+        onClick={ handleClick }
+        sx={{ marginBottom: 1 }}
+      >
+        {icon}
+      </Button>
+    </Tooltip>
   );
 };
 
