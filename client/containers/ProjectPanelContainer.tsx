@@ -41,22 +41,20 @@ export const ProjectPanelContainer = () => {
   const handleAddProject = () => {
     dispatch(setShowAddProject());
   };
-  if (showProjectPanel)
-    return (
-      <Box
-        className="panel project-panel-container"
-        sx={{
-          width: '100px',
-          display: 'flex',
-          flexDirection: 'column'
-        }}
-      >
-        <Button onClick={handleAddProject} sx={{ display: 'flex', flexDirection: 'column' }}><AddCardIcon />Add New Project</Button>
-        <hr className="divider"/>
-        {projects}
+  return (
+    <Box
+      className="panel project-panel-container"
+      sx={{
+        width: '100px',
+        display: showProjectPanel ? 'flex' : 'none',
+        flexDirection: 'column',
+      }}
+    >
+      <Button onClick={handleAddProject} sx={{ display: 'flex', flexDirection: 'column' }}><AddCardIcon />Add New Project</Button>
+      <hr className="divider"/>
+      {projects}
         
-        <AddProjectDialog />
-      </Box>
-    );
-  else return null;
+      <AddProjectDialog />
+    </Box>
+  );
 };

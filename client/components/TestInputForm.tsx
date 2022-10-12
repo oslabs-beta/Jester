@@ -125,12 +125,7 @@ export const TestInputForm = () => {
   return (
     <form id='test-generator-form' onSubmit={handleSubmit}>
       <Box
-        sx={{
-          display: 'flex',
-          alignItems: 'center',
-          gap: '10px',
-          mb: 2,
-        }}
+        className='test-gen-header'
       >
         <FormControl>
           <InputLabel id='requestSelector'>Request Type</InputLabel>

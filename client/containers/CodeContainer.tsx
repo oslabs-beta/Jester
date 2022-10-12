@@ -9,14 +9,7 @@ import CodeText from '../components/CodeText';
 const CodeContainer = () => {
   return (
     <div className="code-container">
-      <Box
-        sx={{
-          width: 800,
-          marginTop: 5,
-          marginLeft: 5,
-          marginBotton: 1,
-        }}
-      >
+      <Box className='test-code-box'>
         <CodeText />
       </Box>
       <ButtonContainer />
