@@ -7,7 +7,6 @@ import Button from '@mui/material/Button';
 import DeleteForeverIcon from '@mui/icons-material/DeleteForever';
 import DownloadIcon from '@mui/icons-material/Download';
 import TextField from '@mui/material/TextField';
-import Typography from '@mui/material/Typography';
 
 import { useAppDispatch, useAppSelector } from '../redux/hooks';
 import {
@@ -91,7 +90,6 @@ export const Clipboard = () => {
         className='code-container'
         data-testid='code-container'
       >
-        <Typography variant="h3" align="center" gutterBottom sx={{ color: '#6E00BB', mb: 0, mt: 5 }}>{projectName}</Typography>
         <TextField
           className="text-display"
           label="Server URL"

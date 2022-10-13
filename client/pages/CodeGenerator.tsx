@@ -11,7 +11,6 @@ export const CodeGenerator = () => {
 
   return (
     <div className='page-body'>
-      <Typography variant="h3" gutterBottom align='center' sx={{ color: '#6E00BB', mb: 3, mt: 2 }}>Test Generator</Typography>
       <TestInputForm />
       <CodeContainer />
       <SaveDataContainer open={showSave} />

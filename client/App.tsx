@@ -31,12 +31,6 @@ const theme = createTheme({
       contrastText: '#fff'
     }
   },
-  typography: {
-    // fontFamily: [
-    //   'Source Code Pro',
-    //   'monospace',
-    // ].join(','),
-  },
 });
 
 const App = () => {
