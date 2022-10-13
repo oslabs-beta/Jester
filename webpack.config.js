@@ -6,7 +6,7 @@ module.exports = {
   entry: './client/index.tsx',
   devtool: 'inline-source-map',
   output: {
-    filename: 'dist/bundle.js',
+    filename: 'bundle.js',
     path: path.resolve(__dirname, 'dist'),
     publicPath: '/'
   },
