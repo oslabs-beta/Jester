@@ -33,13 +33,14 @@ app.use('/auth', authRoutes);
 app.use('/api/tests', testsRoutes);
 app.use('/api/project', projectRoutes);
 app.use('/api/clipboard', clipboardRoutes);
+// app.use('/dist', express.static(path.join(__dirname, '../dist')));
 app.use('/assets', express.static(path.join(__dirname, '../client/assets')));
 app.use(
   '/stylesheets',
   express.static(path.join(__dirname, '../client/stylesheets'))
 );
 
-// Serve bundle.js file
+// // Serve bundle.js file
 app.get('/bundle.js', (req: Request, res: Response) => {
   return res.status(200).sendFile(path.join(__dirname, '../dist/bundle.js'));
 });
