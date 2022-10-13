@@ -135,7 +135,6 @@ export const Clipboard = () => {
             <DeleteForeverIcon /> 
             {buttonText}
           </Button>
-          
         </div>
       </Box>
     </div>
