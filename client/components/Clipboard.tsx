@@ -81,13 +81,15 @@ export const Clipboard = () => {
   return (
     <div className="page-body">
       <Box
-        sx={{
+        sx={{ 
           display: 'flex',
           flexDirection: 'column',
           alignItems: 'center',
           gap: '30px',
           width: .8,
         }}
+        className='code-container'
+        data-testid='code-container'
       >
         <Typography variant="h3" align="center" gutterBottom sx={{ color: '#6E00BB', mb: 0, mt: 5 }}>{projectName}</Typography>
         <TextField
