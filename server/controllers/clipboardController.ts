@@ -100,7 +100,7 @@ export const clipboardController: Clipboard = {
       return next({
         log: 'project ID not found on request body',
         status: 400,
-        message: 'an error occurred in appendClipboard middleware function',
+        message: 'an error occurred in delete snippet middleware function',
       });
 
     
