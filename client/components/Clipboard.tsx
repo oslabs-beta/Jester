@@ -2,6 +2,7 @@ import hljs from 'highlight.js/lib/common';
 import React, { ChangeEvent, useEffect } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 
+import DownloadIcon from '@mui/icons-material/Download';
 import DeleteForeverIcon from '@mui/icons-material/DeleteForever';
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
@@ -54,6 +55,15 @@ export const Clipboard = () => {
     } else {
       dispatch(clearClipboardState());
     }
+  };
+
+  const handleDownload = () => {
+    const blob = new Blob([codeDisplay], { type: 'text/plain' });
+    const url = URL.createObjectURL(blob);
+    const link = document.createElement('a');
+    link.download = 'supertest.js';
+    link.href = url;
+    link.click();
   };
 
   useEffect(() => {
@@ -110,15 +120,22 @@ export const Clipboard = () => {
           </div>
           <ClipboardButton />
         </Box> 
-        
-        <Button
-          onClick={handleClear}
-          sx={{ flexDirection: 'column' }}
-          className='delete'
-        >
-          <DeleteForeverIcon /> 
-          {buttonText}
-        </Button>
+        <div>
+          <Button
+            onClick={handleDownload}
+            sx={{ flexDirection: 'column' }}
+          >
+            <DownloadIcon /> 
+          Download File
+          </Button>
+          <Button
+            onClick={handleClear}
+            sx={{ flexDirection: 'column' }}
+          >
+            <DeleteForeverIcon /> 
+            {buttonText}
+          </Button>
+        </div>
       </Box>
     </div>
   );
