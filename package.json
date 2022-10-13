@@ -4,7 +4,7 @@
   "description": "",
   "main": "server/server.js",
   "scripts": {
-    "test": "jest --verbose",
+    "test": "NODE_ENV=test npx ts-node server/server.ts & NODE_ENV=test jest --verbose",
     "build": "NODE_ENV=production webpack",
     "start": "NODE_ENV=production npx ts-node server/server.ts",
     "dev": "NODE_ENV=development webpack-dev-server & NODE_ENV=development nodemon server/server.ts",

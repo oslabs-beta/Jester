@@ -2,7 +2,7 @@ import request from 'supertest';
 const server = 'http://localhost:3000';
 import db from '../../server/models/userModel';
 
-describe('Route integration tests', () => {
+describe('Project route integration tests', () => {
   let projectId;
   afterAll(() => {
     db.query('DELETE FROM user_table WHERE usermail=\'test@email.com\'');
@@ -19,7 +19,7 @@ describe('Route integration tests', () => {
   });
   describe('/api/project', () => {
     describe('POST', () => {
-      it('adds a project to a user in the database and returns all projects', async () => {
+      it('adds a project to a user in the database and returns all projects tied to user', async () => {
         const response = await request(server)
           .post('/api/project')
           .send({ project_name: 'Test Project', user: { emails: [{ value: 'test@email.com' }] } });
@@ -36,7 +36,7 @@ describe('Route integration tests', () => {
       });
     });
     describe('DELETE', () => {
-      it('deletes project', async () => {
+      it('deletes project and returns all projects tied to user', async () => {
         const response = await request(server)
           .delete(`/api/project/${projectId}`)
           .send({ user: { emails: [{ value: 'test@email.com' }] } });
@@ -44,5 +44,4 @@ describe('Route integration tests', () => {
       });
     });
   });
-
 });
