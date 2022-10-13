@@ -1,11 +1,9 @@
 import React from 'react';
 import { photosObj } from '../assets/photosObj';
-import Typography from '@mui/material/Typography';
 
 export const Documentation = () => {
   return (
     <div className='page-body'>
-      <Typography variant="h3" gutterBottom align='center' sx={{ color: '#6E00BB', mb: 4, mt: 5 }}>Documentation</Typography>
       <div className='documentation-container'>
         <p className="documentation-headers">Getting started</p>
         <p className="documentation-p">To start generating a test, simply navigate to our home page, where you will first be prompted to specify the endpoint for your request. </p>
@@ -35,14 +33,13 @@ export const Documentation = () => {
         <p className="documentation-headers">Integrating tests into your codebase</p>
         <ol className="documentation-p">
           <li>
-            Create a __tests__ folder in your project with a file called
-            supertest.js
+            Create a __tests__ folder in your project
           </li>
           <li>
             Add jest and supertest as dependencies in your package.json file
           </li>
           <li>
-            Paste generated code into the file supertest.js
+            Click the Download File button and move the supertest.js file into the __tests__ folder
           </li>
         </ol>
       </div>
