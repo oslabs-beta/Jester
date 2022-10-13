@@ -1,13 +1,16 @@
 import React from 'react';
-import CollectionsBookmarkIcon from '@mui/icons-material/CollectionsBookmark';
+import { useNavigate } from 'react-router-dom';
+
 import ArticleIcon from '@mui/icons-material/Article';
-import { Button, Typography, Box } from '@mui/material';
+import CollectionsBookmarkIcon from '@mui/icons-material/CollectionsBookmark';
+import HomeIcon from '@mui/icons-material/Home';
+import Box from '@mui/material/Box';
+import Button from '@mui/material/Button';
+import Typography from '@mui/material/Typography';
+
 import { useAppDispatch } from '../redux/hooks';
 import { setShowProjectPanel } from '../redux/reducers/navPanelSlice';
-import HomeIcon from '@mui/icons-material/Home';
-import { useNavigate } from 'react-router-dom';
 import ThemeToggle from './ThemeToggle';
-
 /*
 This component wraps buttons for user to navigate to home page, to documentation page,
 and to view their projects in the nav panel

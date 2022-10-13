@@ -1,24 +1,26 @@
+import hljs from 'highlight.js/lib/common';
 import React, { ChangeEvent, useEffect } from 'react';
-import { useParams, useNavigate } from 'react-router-dom';
-import { TextField, Box, Button } from '@mui/material';
+import { useNavigate, useParams } from 'react-router-dom';
+
 import DeleteForeverIcon from '@mui/icons-material/DeleteForever';
-import  hljs  from 'highlight.js/lib/common';
+import Box from '@mui/material/Box';
+import Button from '@mui/material/Button';
+import TextField from '@mui/material/TextField';
+import Typography from '@mui/material/Typography';
+
 import { useAppDispatch, useAppSelector } from '../redux/hooks';
 import {
-  setServer,
-  getSnippets,
-  setSnippets,
-  clearClipboardState,
+  clearClipboardState, getSnippets, setServer, setSnippets
 } from '../redux/reducers/clipboardSlice';
-import ClipboardButton from './ClipboardButton';
 import { deleteProject } from '../redux/reducers/userInfoSlice';
+import { ClipboardButton } from './ClipboardButton';
 
 /*
 This component will display code snippets from a given project in the database if a 
 user is logged in, or from state if a user is not logged in
 */
 
-const Clipboard = () => {
+export const Clipboard = () => {
   hljs.configure({
     ignoreUnescapedHTML: true
   });
@@ -27,11 +29,19 @@ const Clipboard = () => {
   const projectId = Number(useParams().projectId);
   const isLoggedIn = sessionStorage.getItem('isLoggedIn');
   const buttonText = isLoggedIn ? 'Delete Project' : 'Clear Clipboard';
-
+  const projects = useAppSelector((state) => state.userInfo.projectsInfo);
   const server: string = useAppSelector((state) => state.clipboard.server);
   const codeDisplay: string = useAppSelector(
     (state) => state.clipboard.codeDisplay
   );
+
+  let projectName = '';
+  for (const project of projects) {
+    if (project.project_id === projectId) {
+      projectName = project.project_name;
+      break;
+    }
+  }
 
   const updateServer = (e: ChangeEvent<HTMLInputElement>) => {
     dispatch(setServer(e.target.value));
@@ -65,11 +75,13 @@ const Clipboard = () => {
           display: 'flex',
           flexDirection: 'column',
           alignItems: 'center',
-          gap: '10px',
+          gap: '30px',
           width: .8,
         }}
-        className="code-container"
+        className='code-container'
+        data-testid='code-container'
       >
+        <Typography variant="h3" align="center" gutterBottom sx={{ color: '#6E00BB', mb: 0, mt: 5 }}>{projectName}</Typography>
         <TextField
           className="text-display"
           label="Server URL"
@@ -79,11 +91,14 @@ const Clipboard = () => {
           onChange={updateServer}
         />
         <Box 
+          className="clipboard-code-container"
           sx={{ 
-            width: 1,
+            width: .85,
             height: 500,
             overflow: 'auto',
             backgroundColor: '#282C34',
+            borderRadius: 2,
+            position: 'relative'
           }}
         >
           <div id="main-clipboard">
@@ -93,11 +108,13 @@ const Clipboard = () => {
               </code> 
             </pre>
           </div>
+          <ClipboardButton />
         </Box> 
-        <ClipboardButton />
+        
         <Button
           onClick={handleClear}
           sx={{ flexDirection: 'column' }}
+          className='delete'
         >
           <DeleteForeverIcon /> 
           {buttonText}
@@ -106,5 +123,3 @@ const Clipboard = () => {
     </div>
   );
 };
-
-export default Clipboard;

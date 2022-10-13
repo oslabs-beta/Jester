@@ -1,8 +1,8 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import Typography from '@mui/material/Typography';
+import { Typography } from '@mui/material';
 
-const NotFound = () => {
+export const NotFound = () => {
   return (
     <div className='page-body'>
       <Typography variant='h4' component='h2'>
@@ -11,5 +11,3 @@ const NotFound = () => {
     </div>
   );
 };
-
-export default NotFound;

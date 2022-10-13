@@ -1,9 +1,10 @@
 // Clipboard routes
 import express, { Request, Response, Router } from 'express';
-const router: Router = express.Router();
+
 import { authController } from '../controllers/authController';
 import { clipboardController } from '../controllers/clipboardController';
 
+const router: Router = express.Router();
 /* 
   This route will return the clipoard (saved test snippets)
   for a specified project_id

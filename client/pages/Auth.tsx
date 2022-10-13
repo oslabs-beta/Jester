@@ -1,14 +1,15 @@
 import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import Typography from '@mui/material/Typography';
+import { Typography } from '@mui/material';
 import Cookies from 'js-cookie';
+import Box  from '@mui/material/Box';
 
 /*
 This component will provide a loading page for the user upon github verification in order to 
 gather user information from cookies and set values in sessionStorage.
 */
 
-const Auth = () => {
+export const Auth = () => {
   const navigate = useNavigate();
   const [username, setUsername] = useState('');
   const [timer, updateTimer] = useState(3);
@@ -47,14 +48,14 @@ const Auth = () => {
   return (
 
     <div className='page-body'>
-      <Typography variant='h4' component='h4'>
+      <Box sx={{ display: 'flex', flexDirection: 'column', textAlign: 'center' }}>
+        <Typography variant='h4' component='h4'>
         Hello, {username}!
-      </Typography>
-      <Typography variant='h6' component='h6'>
+        </Typography>
+        <Typography variant='h6' component='h6'>
         Successfully logged in with Github. Redirecting you in {timer} seconds...
-      </Typography>
+        </Typography>
+      </Box>
     </div>
   );
 };
-
-export default Auth;

@@ -1,5 +1,6 @@
 // Authorization routes
-import express, { Request, Response, NextFunction, Router } from 'express';
+import express, { NextFunction, Request, Response, Router } from 'express';
+
 import passport, { authController } from '../controllers/authController';
 
 const router: Router = express.Router();

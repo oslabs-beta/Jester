@@ -40,9 +40,11 @@ body {
 }
 
 #main-clipboard {
+  position: relative;
   font-family: 'Inconsolata', monospace;
   font-size: medium;
-  border-radius: '2px'
+  border-radius: '2px';
+  z-index: 9;
 }
 
 img[alt~='logo'] {
@@ -80,29 +82,29 @@ img[alt~='logo'] {
 
 .code-container:hover > .button-container {
   transition: all 0.5s ease-in;
-  opacity: 100;
-}
-
-.code-container:hover > .clipboard-button-container {
-  transition: all 0.5s ease-in;
-  opacity: 100;
+  opacity: 1;
 }
 
 .button-container {
   position: absolute;
   display: inline-block;
-  top: 8px;
-  right: 38px;
+  top: 2px;
+  right: 30px;
   opacity: 0;
   overflow: hidden;
   z-index: 10;
 }
 
+.clipboard-code-container:hover > .clipboard-button-container {
+  transition: all 0.5s ease-in;
+  opacity: 1;
+}
+
 .clipboard-button-container {
   position: absolute;
   display: inline-block;
-  top: 86px;
-  right: 32px;
+  top: 18px;
+  right: 18px;
   opacity: 0;
   overflow: hidden;
   z-index: 10;

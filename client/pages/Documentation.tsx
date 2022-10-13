@@ -1,9 +1,11 @@
 import React from 'react';
 import { photosObj } from '../assets/photosObj';
+import Typography from '@mui/material/Typography';
 
-const Documentation = () => {
+export const Documentation = () => {
   return (
     <div className='page-body'>
+      <Typography variant="h3" gutterBottom align='center' sx={{ color: '#6E00BB', mb: 4, mt: 5 }}>Documentation</Typography>
       <div className='documentation-container'>
         <p className="documentation-headers">Getting started</p>
         <p className="documentation-p">To start generating a test, simply navigate to our home page, where you will first be prompted to specify the endpoint for your request. </p>
@@ -23,9 +25,9 @@ const Documentation = () => {
         <p className="documentation-headers">Saving your work</p>
         <p className="documentation-p">The code block where your tests are displayed also has 2 buttons in the top right corner.</p>
         <img className="docs-display" src={photosObj.buttons}></img>
-        <p className="documentation-p">The first is a copy-to-clipboard button which will enable you to copy the entire block of code to paste wherever you wish. The second is the ‘add to project’ button available to logged-in users.</p>
+        <p className="documentation-p">The first is a copy-to-clipboard button which will enable you to copy the entire block of code to paste wherever you wish. The second is the ‘add to project’ button.</p>
         <p className="documentation-p">
-          There is an option to login with Github. If you are logged in, then you will be able to create saved projects 
+          There is an option to login with Github. If you are logged in, you will be able to create multiple saved projects 
           under ‘Projects’ and add your generated test code snippets to whatever project you specify. An ‘Add to Project’ 
           dropdown will appear underneath the ‘Generate Test Code’ button for logged in users. To add a test code snippet to 
           a project, select your desired project from this drop-down menu and then click the second button in the upper right 
@@ -49,4 +51,3 @@ const Documentation = () => {
   );
 };
 
-export default Documentation;

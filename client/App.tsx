@@ -1,17 +1,19 @@
 import React from 'react';
-import { ThemeProvider, createTheme } from '@mui/material/styles';
 import { Route, Routes } from 'react-router-dom';
-import NavBar from './components/NavBar';
-import Footer from './components/Footer';
-import Home from './pages/Home';
-import Documentation from './pages/Documentation';
-import NotFound from './pages/NotFound';
+
+import Box from '@mui/material/Box';
+import { createTheme, ThemeProvider } from '@mui/material/styles';
+
+import { Clipboard } from './components/Clipboard';
+import { Footer } from './components/Footer';
+import { Navbar } from './components/NavBar';
 import { NavPanelContainer } from './containers/NavPanelContainer';
-import { Box } from '@mui/material';
+import { Auth } from './pages/Auth';
 import { CodeGenerator } from './pages/CodeGenerator';
-import Clipboard from './components/Clipboard';
-import Auth from './pages/Auth';
 import { Contributors } from './pages/Contributors';
+import { Documentation } from './pages/Documentation';
+import { Home } from './pages/Home';
+import { NotFound } from './pages/NotFound';
 import { useAppSelector } from './redux/hooks';
 import ThemeToggle from './components/ThemeToggle';
 
@@ -72,7 +74,7 @@ const App = () => {
   const theme = (changedTheme === 'lightMode') ? lightMode : darkMode;
   return (
     <ThemeProvider theme={theme}>
-      <NavBar />
+      <Navbar />
       <Box
         className="contents"
         sx={{

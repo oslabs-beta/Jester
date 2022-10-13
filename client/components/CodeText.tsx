@@ -1,12 +1,12 @@
-import React from 'react';
-import TextField from '@mui/material/TextField';
-import { useAppDispatch, useAppSelector } from '../redux/hooks';
-import { ChangeEvent } from 'react';
+import React, { ChangeEvent } from 'react';
 
+import TextField from '@mui/material/TextField';
+
+import { useAppDispatch, useAppSelector } from '../redux/hooks';
 import { setCodeOutput } from '../redux/reducers/codeSlice';
 
 // This component will render the generated test code received from the fetch request to the server
-const CodeText = () => {
+export const CodeText = () => {
   const codeOutput = useAppSelector((state) => state.code.codeOutput);
   const dispatch = useAppDispatch();
   const editCode = (e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) =>
@@ -32,5 +32,3 @@ const CodeText = () => {
     />
   );
 };
-
-export default CodeText;
