@@ -33,7 +33,6 @@ app.use('/auth', authRoutes);
 app.use('/api/tests', testsRoutes);
 app.use('/api/project', projectRoutes);
 app.use('/api/clipboard', clipboardRoutes);
-// app.use('/dist', express.static(path.join(__dirname, '../dist')));
 app.use('/assets', express.static(path.join(__dirname, '../client/assets')));
 app.use(
   '/stylesheets',
