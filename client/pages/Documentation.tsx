@@ -35,14 +35,13 @@ export const Documentation = () => {
         <p className="documentation-headers">Integrating tests into your codebase</p>
         <ol className="documentation-p">
           <li>
-            Create a __tests__ folder in your project with a file called
-            supertest.js
+            Create a __tests__ folder in your project
           </li>
           <li>
             Add jest and supertest as dependencies in your package.json file
           </li>
           <li>
-            Paste generated code into the file supertest.js
+            Click the Download File button and move the supertest.js file into the __tests__ folder
           </li>
         </ol>
       </div>
