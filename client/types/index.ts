@@ -25,5 +25,6 @@ export type userInfoStateType = {
   currentProject: string;
   currentProjectId: number;
   newProject: string;
+  theme: string;
 };
 

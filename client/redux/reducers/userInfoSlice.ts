@@ -8,6 +8,7 @@ const initialState: userInfoStateType = {
   showLogin: false,
   showSave: showSave,
   userId: 0,
+  theme: 'lightMode',
   projectsInfo: [
     {
       project_id: 0,
@@ -95,7 +96,14 @@ export const userInfoSlice = createSlice({
         }
       }
     },
+    setTheme:(
+      state: userInfoStateType,
+      action: PayloadAction<string>
+    )=>{
+      state.theme = action.payload;
+    }
   },
+
   extraReducers: (builder) => {
     builder.addCase(deleteProject.fulfilled, (state: userInfoStateType, action: any) => {
       state.projectsInfo = action.payload.data;
@@ -128,6 +136,7 @@ export const {
   setShowAccessClipboard,
   setUserId,
   setNewProject,
+  setTheme,
 } = userInfoSlice.actions;
 
 export const { deleteProject } = thunks;

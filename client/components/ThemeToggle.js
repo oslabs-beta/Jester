@@ -1,7 +1,23 @@
 import React from 'react';
 import { BsMoonStarsFill, BsFillSunFill } from 'react-icons/bs';
+import { useAppDispatch } from '../redux/hooks';
+import { setTheme } from '../redux/reducers/userInfoSlice';
 
 function ThemeToggle() {
+  const dispatch = useAppDispatch();
+  const switchDarkMode = () => {
+    if (localStorage.getItem('theme') === ''){localStorage.setItem('theme', 'lightMode');}
+    //set sessionStorage dark mode to true when this function is called.
+    if (localStorage.getItem('theme') !== 'darkMode'){
+      localStorage.setItem('theme','darkMode');
+    }
+    //set it to false if called when it is already true.
+    else localStorage.setItem('theme','lightMode');
+  
+    dispatch(setTheme(localStorage.getItem('theme')));
+    // useAppDispatch((state) => {state.UserInfo.setTheme();});
+  };
+
   return (
     <>
       <div id="darkmode">
@@ -16,14 +32,7 @@ function ThemeToggle() {
   );
 }
 
-const switchDarkMode = () => {
-  //set sessionStorage dark mode to true when this function is called.
-  if (localStorage.getItem('theme') != 'darkMode'){
-    localStorage.setItem('theme','darkMode');
-  }
-  //set it to false if called when it is already true.
-  else localStorage.setItem('theme','lightMode');
-};
+
 
 export default ThemeToggle;
 

@@ -62,14 +62,16 @@ const darkMode = createTheme({
   },
 });
 
-const theme = (localStorage.getItem('theme') === 'lightMode') ? lightMode : darkMode;
+
+//so make a component that we have a reducer target to change its state when the theme button is changed.
+// This will re-render the page.
 
 const App = () => {
   const showProjectPanel = useAppSelector((state) => state.navPanel.showProjectPanel);
+  const changedTheme = useAppSelector((state)=> state.userInfo.theme);
+  const theme = (changedTheme === 'lightMode') ? lightMode : darkMode;
   return (
     <ThemeProvider theme={theme}>
-
-      {/* <ThemeProvider theme={darkTheme}> */}
       <NavBar />
       <Box
         className="contents"
@@ -96,7 +98,6 @@ const App = () => {
           <Footer />
         </div>
       </Box>
-      {/* </ThemeProvider> */}
     </ThemeProvider>
   );
 };
