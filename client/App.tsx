@@ -16,7 +16,7 @@ import { useAppSelector } from './redux/hooks';
 import ThemeToggle from './components/ThemeToggle';
 
 
-const theme = createTheme({
+const lightMode = createTheme({
   palette: {
     primary: {
       main: '#6E00BB',
@@ -38,6 +38,31 @@ const theme = createTheme({
     // ].join(','),
   },
 });
+
+const darkMode = createTheme({
+  palette: {
+    primary: {
+      main: '##292c35',
+      contrastText: '#fff'
+    },
+    secondary: {
+      main: '##292c35',
+      contrastText: '#fff'
+    },
+    info: {
+      main: '##292c35',
+      contrastText: '#fff'
+    }
+  },
+  typography: {
+    // fontFamily: [
+    //   'Source Code Pro',
+    //   'monospace',
+    // ].join(','),
+  },
+});
+
+const theme = (localStorage.getItem('theme') === 'lightMode') ? lightMode : darkMode;
 
 const App = () => {
   const showProjectPanel = useAppSelector((state) => state.navPanel.showProjectPanel);

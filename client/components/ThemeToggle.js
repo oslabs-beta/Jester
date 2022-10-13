@@ -10,7 +10,6 @@ function ThemeToggle() {
           <BsMoonStarsFill color="white" />
           <BsFillSunFill color="yellow" />
           <div className="ball"></div>
-          {/* set  */}
         </label>
       </div>
     </>
