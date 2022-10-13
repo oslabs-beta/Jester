@@ -53,7 +53,6 @@
     "file-loader": "^6.2.0",
     "highlight.js": "^11.6.0",
     "js-cookie": "^3.0.1",
-    "node-fetch": "2.6.7",
     "passport": "^0.5.0",
     "passport-github2": "^0.1.12",
     "pg": "^8.8.0",
