@@ -48,8 +48,7 @@ passport.use(
 export const authController: AuthType = {
   // Middleware to verify that user is logged in (typically used before database calls)
   isLoggedIn: (req: Request, res: Response, next: NextFunction) => {
-    console.log('node_env: ', process.env.NODE_ENV);
-    if (process.env.NODE_ENV === 'development' && req.body.user) req.user = req.body.user;
+    if (process.env.NODE_ENV === 'test') req.user = req.body.user;
     if (!req.user || !req.isAuthenticated()) {
       return res.status(401).json('Error: User not authorized');
     }
