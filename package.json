@@ -8,7 +8,7 @@
     "build": "NODE_ENV=production webpack",
     "start": "NODE_ENV=production npx ts-node server/server.ts",
     "dev": "NODE_ENV=development webpack-dev-server & NODE_ENV=development nodemon server/server.ts",
-    ".": "npm run build && npm run start"
+    ".": "NODE_ENV=development webpack && npm run start"
   },
   "repository": {
     "type": "git",
@@ -16,7 +16,7 @@
   },
   "keywords": [],
   "author": "",
-  "license": "ISC",
+  "license": "MIT",
   "bugs": {
     "url": "https://github.com/oslabs-beta/jester/issues"
   },
