@@ -79,7 +79,7 @@ As an open source project, we are always open to contributors wanting to improve
     </a>
   </li>
   <li>
-    Lilah October
+    Lilah August
     <a href="https://www.linkedin.com/in/lilah-august-28a857243" target="_blank">
       <img src="https://img.shields.io/badge/LinkedIn-0077B5?style=social&logo=linkedin" />
     </a>
