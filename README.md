@@ -1,11 +1,11 @@
-<h1 align="center" style="background-color: #5E17EB;">
+<h1 align="center">
   <a href="https://jester.software" target="_blank">
     <img 
         style="display: block; 
               margin-left: auto;
               margin-right: auto;
               "
-        src="client/assets/logo-jester2.png" 
+        src="client/assets/jester-bg.png" 
         height=200
         alt="Jester">
     </img>

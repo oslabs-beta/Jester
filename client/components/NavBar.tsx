@@ -46,7 +46,7 @@ export const Navbar = () => {
       <AppBar position="static">
         <Toolbar>
           <Link to="/">
-            <img alt="logo" src="../assets/logo-jester.png" />
+            <img alt="logo" src="../assets/jester-logo-4.png" />
           </Link>
           <Typography
             variant="h6"
