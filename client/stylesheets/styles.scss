@@ -1,0 +1,265 @@
+body {
+  margin: 0;
+  background-color: #fff;
+  background: rgb(63,94,251);
+  background: radial-gradient(circle, rgba(63,94,251,0.13911502100840334) 0%, rgba(252,70,107,0.0746892507002801) 100%);
+}
+
+.page-container {
+  min-width: 300px;
+}
+
+.page-body {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 35px;
+}
+
+.test-gen-header {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 10px;
+}
+
+#code-output {
+  font-family: 'Inconsolata', monospace;
+  font-size: 13px;
+  background-color: '#011E3C';
+  color: white;;
+}
+
+#code-output-label {
+  color: #8795A1;
+}
+
+#main-clipboard {
+  position: relative;
+  font-family: 'Inconsolata', monospace;
+  font-size: medium;
+  border-radius: '2px';
+  z-index: 9;
+}
+
+img[alt~='logo'] {
+  height: 60px;
+  margin-bottom: 10px;
+}
+
+#test-generator-form {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.center {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.nav-link {
+  color: white;
+  text-decoration: none;
+}
+
+.code-container {
+  position: relative;
+}
+
+.test-code-box {
+  width: 750;
+  display: flex;
+  justify-content: center;
+}
+
+.code-container:hover > .button-container {
+  transition: all 0.5s ease-in;
+  opacity: 1;
+}
+
+.button-container {
+  position: absolute;
+  display: inline-block;
+  top: 2px;
+  right: 30px;
+  opacity: 0;
+  overflow: hidden;
+  z-index: 10;
+}
+
+.clipboard-code-container:hover > .clipboard-button-container {
+  transition: all 0.5s ease-in;
+  opacity: 1;
+}
+
+.clipboard-button-container {
+  position: absolute;
+  display: inline-block;
+  top: 18px;
+  right: 18px;
+  opacity: 0;
+  overflow: hidden;
+  z-index: 10;
+}
+
+#navbar {
+  position: relative;
+  width: 100%;
+  z-index: 99;
+  box-shadow: rgba(0, 0, 0, 0.12) 0px 1px 3px, rgba(0, 0, 0, 0.24) 0px 1px 2px;
+}
+
+
+.welcome-text {
+  pointer-events: none;
+}
+
+.contributors-page {
+  display: grid;
+  grid-template: auto / repeat(3, 1fr);
+  gap: 80px;
+  padding-left: 20px;
+  padding-right: 20px;
+}
+
+.contributorLink {
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 15px;
+  color: navy;
+}
+
+.contributorLinks {
+  display: flex;
+  flex-direction: row;
+  gap: 15px;
+}
+
+.contributorName {
+  font-family: Arial, Helvetica, sans-serif;
+  font-weight: bolder;
+  font-size: 30px;
+}
+
+contributors-header {
+  color: #6600ff
+}
+.contents {
+  z-index: 10;
+}
+
+.panel {
+  position: relative;
+  height: 100%;
+  z-index: 10;
+  background: rgba(249, 246, 255, 0.5);
+  padding-top: 25px;
+  box-shadow: rgba(60, 64, 67, 0.2) 1px 0px 1px 0px, rgba(60, 64, 67, 0.15) 1px 0px 1px 0px;
+  border-right: 1px solid rgba(74, 74, 74, 0.7);
+  backdrop-filter: blur(8px);
+
+}
+
+.nav-panel-container {
+  z-index: 10;
+}
+
+.project-panel-container {
+  z-index: 9;
+}
+
+.divider {
+  width: 80px;
+  background-color: rgba(110, 0, 187, 0.5);
+  height: 2px;
+  border: none;
+}
+
+.documentation-container {
+  max-width: 800px;
+  padding-left: 20px;
+  padding-right: 20px;
+}
+
+.text-display {
+  background-color: rgba(255,255,255,0.4);
+}
+
+pre {
+  margin: 2;
+  font-family: 'Inconsolata', monospace;
+}
+
+.documentation-headers {
+  font-family: 'Roboto', sans-serif;
+  font-weight: bolder;
+  color: #5c2696;
+  font-size: 25px;
+}
+
+.documentation-p {
+  font-family: 'Roboto', sans-serif;
+  font-size: 15px;
+}
+
+.docs-display {
+  max-width: 100%;
+  height: auto;
+}
+
+@media (max-width: 950px) and (min-width: 851px) {
+  .test-code-box {
+    width: 650;
+  }
+  .contributors-page {
+    grid-template: auto / repeat(2, 1fr);
+    gap: 50px;
+  }
+}
+
+@media (max-width: 850px) and (min-width: 751px) {
+  .test-code-box {
+    width: 550;
+  }
+  .contributors-page {
+    grid-template: auto / repeat(2, 1fr);
+    gap: 50px;
+  }
+}
+
+@media (max-width: 750px) and (min-width: 701px) {
+  .test-code-box {
+    width: 450;
+  }
+  .contributors-page {
+    grid-template: auto / repeat(2, 1fr);
+    gap: 50px;
+  }
+}
+
+@media (max-width: 700px) and (min-width: 651px) {
+  .test-gen-header {
+    flex-direction: column;
+  }
+  .test-code-box {
+    width: 450;
+  }
+  .contributors-page {
+    grid-template: auto / repeat(2, 1fr);
+    gap: 50px;
+  }
+}
+
+@media (max-width: 650px) {
+  .test-gen-header {
+    flex-direction: column;
+  }
+  .test-code-box {
+    width: 300;
+  }
+  .contributors-page {
+    grid-template: auto / repeat(1, 1fr);
+  }
+}
