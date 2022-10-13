@@ -6,7 +6,7 @@ import { setTheme } from '../redux/reducers/userInfoSlice';
 function ThemeToggle() {
   const dispatch = useAppDispatch();
   const switchDarkMode = () => {
-    if (localStorage.getItem('theme') === ''){localStorage.setItem('theme', 'lightMode');}
+    if (!localStorage.getItem('theme')){localStorage.setItem('theme', 'lightMode');}
     //set sessionStorage dark mode to true when this function is called.
     if (localStorage.getItem('theme') !== 'darkMode'){
       localStorage.setItem('theme','darkMode');
