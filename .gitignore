@@ -106,3 +106,5 @@ dist/bundle.js*
 dist/index.html
 
 **/.DS_Store
+
+*.zip
